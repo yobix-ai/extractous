@@ -1,0 +1,138 @@
+plugins {
+    id 'java-library'
+    //id('application')
+    id'org.graalvm.buildtools.native' version '0.10.2' // GraalVM plugin for Gradle
+}
+
+def tikaVersion = "2.9.2"
+//def tikaVersion = "3.0.0-BETA"
+
+group = 'ai.yobix'
+version = "$tikaVersion-SNAPSHOT"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Tika uses slf4j, just use a nop logger to ignore all logging
+    implementation("org.slf4j:slf4j-nop:2.0.11")
+    // Some dependencies use log4j such as poi, route log4j back to slf4j
+    // Had to use 3.0.0-beta2 because it is solves some issues with log4j to make it graalvm native friendly
+    implementation 'org.apache.logging.log4j:log4j-to-slf4j:3.0.0-beta2'
+
+    //implementation("org.apache.logging.log4j:log4j-slf4j2-impl:2.21.1")
+    //implementation("org.apache.logging.log4j:log4j-core:3.0.0-beta2")
+
+    //runtimeOnly('org.slf4j:log4j-over-slf4j:2.0.11')
+    //runtimeOnly("ch.qos.logback:logback-classic:1.5.6")
+
+    implementation("org.apache.tika:tika-core:$tikaVersion")
+    implementation "org.apache.tika:tika-parsers-standard:$tikaVersion" // Apache Tika parsers
+
+    implementation("org.apache.tika:tika-parser-microsoft-module:$tikaVersion")
+    implementation "org.apache.tika:tika-parser-pdf-module:$tikaVersion"
+    implementation "org.apache.tika:tika-parser-html-module:$tikaVersion"
+    implementation "org.apache.tika:tika-parser-apple-module:$tikaVersion"
+    implementation "org.apache.tika:tika-parser-audiovideo-module:$tikaVersion"
+    implementation "org.apache.tika:tika-parser-cad-module:$tikaVersion"
+    implementation "org.apache.tika:tika-parser-crypto-module:$tikaVersion"
+    implementation "org.apache.tika:tika-parser-font-module:$tikaVersion"
+    implementation "org.apache.tika:tika-parser-html-commons:$tikaVersion"
+    implementation "org.apache.tika:tika-parser-image-module:$tikaVersion"
+    implementation "org.apache.tika:tika-parser-mail-module:$tikaVersion"
+    implementation "org.apache.tika:tika-parser-miscoffice-module:$tikaVersion"
+    implementation "org.apache.tika:tika-parser-news-module:$tikaVersion"
+    implementation "org.apache.tika:tika-parser-ocr-module:$tikaVersion"
+    implementation "org.apache.tika:tika-parser-pkg-module:$tikaVersion"
+    implementation "org.apache.tika:tika-parser-text-module:$tikaVersion"
+    implementation "org.apache.tika:tika-parser-xml-module:$tikaVersion"
+    implementation "org.apache.tika:tika-parser-webarchive-module:$tikaVersion"
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.assertj:assertj-core:3.25.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+//application {
+//    mainClass.set('ai.yobix.TikaNativeMain')
+//}
+
+graalvmNative {
+    // This enables using separate GraalVM version thant the one used by gradle
+    // However, this will only work properly if you only have only GraalVM JDKs installed on the machine.
+    // Gradle will not be able to reliably detect GraalVM JDKs, nor detect GraalVM distributions from different vendors.
+    toolchainDetection = true
+
+    // Set to false to disable to run the tests in native mode.
+    testSupport = false
+
+    binaries {
+        main {
+            // We use java 23 dev build because it added dynamic linking of awt on linux reducing problems
+            // with the poi dependency when clearing isolate
+            javaLauncher = javaToolchains.launcherFor {
+                //languageVersion = JavaLanguageVersion.of(23)
+                //vendor = JvmVendorSpec.matching("GraalVM Community")
+                languageVersion = JavaLanguageVersion.of(22)
+                vendor = JvmVendorSpec.matching("Oracle Corporation")
+            }
+
+            imageName = 'libtika_native'
+
+            // To build a shared lib, make sure to not set the mainClass
+            //mainClass = 'ai.yobix.TikaNativeMain'
+            sharedLibrary = true
+
+            // The --no-fallback option to native-image causes the utility to fail if it can not create the image.
+            fallback = false
+
+            buildArgs.addAll(
+                    "-H:+AddAllCharsets", // Very important to get UTF8 working
+                    "-Ob",
+                    "--parallelism=8",
+                    "--native-image-info",
+                    "--diagnostics-mode", // Prints reports about classes initialized at build or runtime
+                    "-march=native", // This enable optimization on the current cpu architecture
+                    "-H:+UnlockExperimentalVMOptions",
+                    //"-H:+BuildReport",
+                    //"-H:+StaticExecutableWithDynamicLibC",
+                    //"--initialize-at-run-time=org.apache.logging.log4j.spi.Provider",
+                    //"--initialize-at-run-time=org.eclipse.angus.activation.nativeimage.AngusActivationFeature",
+            )
+            jvmArgs.add('-Djava.awt.headless=true')
+            requiredVersion = '21' // The minimal GraalVM version, can be `MAJOR`, `MAJOR.MINOR` or `MAJOR.MINOR.PATCH`
+        }
+        test {
+            buildArgs.addAll('--verbose', '-O0')
+        }
+    }
+
+    // This configure when using the agent to instrument the code to ge the reflection config files
+    agent {
+        defaultMode = "standard"
+        modes {
+            direct {
+                // {output_dir} is a special string expanded by the plugin to where the agent files would usually be output.
+                // It may be necessary to run the application more than once (with different execution paths) for
+                // improved coverage of dynamic features. The config-merge-dir option adds to an existing set of
+                // configuration files, as follows:
+                options.add("config-merge-dir={output_dir}")
+            }
+        }
+        // Configures the task to copy metadata collected from tasks into the specified directories.
+        metadataCopy {
+            inputTaskNames.addAll("test") // Tasks previously executed with the agent attached.
+            outputDirectories.add("src/main/resources/META-INF/native-image") // Replace <groupId> and <artifactId> with GAV coordinates of your project
+            mergeWithExisting = false // Instead of copying, merge with existing metadata in the output directories.
+        }
+    }
+
+    metadataRepository {
+        enabled = true
+    }
+}

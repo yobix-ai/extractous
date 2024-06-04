@@ -1,0 +1,800 @@
+[
+{
+  "name":"[B"
+},
+{
+  "name":"[Ljava.lang.Object;"
+},
+{
+  "name":"[Ljava.lang.String;"
+},
+{
+  "name":"[Lsun.security.pkcs.SignerInfo;"
+},
+{
+  "name":"ai.yobix.TestUtils",
+  "allDeclaredClasses":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true
+},
+{
+  "name":"ai.yobix.TikaNativeTest",
+  "allDeclaredFields":true,
+  "allDeclaredClasses":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"testAppleFilingPdf","parameterTypes":[] }, {"name":"testGetPlainTextFromInvoice","parameterTypes":[] }, {"name":"testGetTextFromPdfFormatWithFonts","parameterTypes":[] }, {"name":"testGetTextFromXlsFile","parameterTypes":[] }, {"name":"testHandbook1pDocxFile","parameterTypes":[] }, {"name":"test_quarkusOdtFile","parameterTypes":[] }, {"name":"test_quarkusPdfFile","parameterTypes":[] }, {"name":"test_quarkusTxtFile","parameterTypes":[] }]
+},
+{
+  "name":"com.github.jaiimageio.impl.common.PackageUtil"
+},
+{
+  "name":"com.github.luben.zstd.ZstdInputStream"
+},
+{
+  "name":"com.ibm.icu.charset.CharsetICU"
+},
+{
+  "name":"java.lang.Enum"
+},
+{
+  "name":"java.lang.String"
+},
+{
+  "name":"java.lang.Thread",
+  "fields":[{"name":"threadLocalRandomProbe"}]
+},
+{
+  "name":"java.lang.invoke.MethodHandle"
+},
+{
+  "name":"java.security.AlgorithmParametersSpi"
+},
+{
+  "name":"java.security.MessageDigestSpi"
+},
+{
+  "name":"java.security.SecureRandomParameters"
+},
+{
+  "name":"java.security.interfaces.DSAPrivateKey"
+},
+{
+  "name":"java.security.interfaces.DSAPublicKey"
+},
+{
+  "name":"java.security.interfaces.RSAPrivateKey"
+},
+{
+  "name":"java.security.interfaces.RSAPublicKey"
+},
+{
+  "name":"java.security.spec.DSAParameterSpec"
+},
+{
+  "name":"java.util.Date"
+},
+{
+  "name":"java.util.HashSet"
+},
+{
+  "name":"java.util.LinkedHashSet"
+},
+{
+  "name":"java.util.concurrent.ArrayBlockingQueue"
+},
+{
+  "name":"java.util.concurrent.ForkJoinTask",
+  "fields":[{"name":"aux"}, {"name":"status"}]
+},
+{
+  "name":"java.util.concurrent.atomic.AtomicBoolean",
+  "fields":[{"name":"value"}]
+},
+{
+  "name":"java.util.concurrent.atomic.AtomicReference",
+  "fields":[{"name":"value"}]
+},
+{
+  "name":"java.util.concurrent.atomic.Striped64",
+  "fields":[{"name":"base"}, {"name":"cellsBusy"}]
+},
+{
+  "name":"java.util.concurrent.locks.AbstractOwnableSynchronizer"
+},
+{
+  "name":"java.util.concurrent.locks.AbstractQueuedSynchronizer"
+},
+{
+  "name":"java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject"
+},
+{
+  "name":"java.util.concurrent.locks.ReentrantLock"
+},
+{
+  "name":"java.util.concurrent.locks.ReentrantLock$NonfairSync"
+},
+{
+  "name":"java.util.concurrent.locks.ReentrantLock$Sync"
+},
+{
+  "name":"javax.imageio.spi.ImageReaderSpi"
+},
+{
+  "name":"javax.imageio.spi.ImageReaderWriterSpi",
+  "methods":[{"name":"getFileSuffixes","parameterTypes":[] }, {"name":"getFormatNames","parameterTypes":[] }, {"name":"getMIMETypes","parameterTypes":[] }]
+},
+{
+  "name":"javax.imageio.spi.ImageWriterSpi"
+},
+{
+  "name":"javax.security.auth.x500.X500Principal",
+  "fields":[{"name":"thisX500Name"}],
+  "methods":[{"name":"<init>","parameterTypes":["sun.security.x509.X500Name"] }]
+},
+{
+  "name":"jdk.internal.misc.Unsafe"
+},
+{
+  "name":"org.apache.commons.logging.impl.Slf4jLogFactory",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.apache.commons.logging.impl.WeakHashtable",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.apache.logging.log4j.Logger"
+},
+{
+  "name":"org.apache.logging.log4j.util.LazyUtil$ReleaseAcquireLazy",
+  "fields":[{"name":"value"}]
+},
+{
+  "name":"org.apache.logging.slf4j.SLF4JLoggerContextFactory",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.apache.logging.slf4j.SLF4JProvider"
+},
+{
+  "name":"org.apache.pdfbox.pdmodel.encryption.StandardSecurityHandler",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationLink",
+  "methods":[{"name":"getAction","parameterTypes":[] }]
+},
+{
+  "name":"org.apache.tika.detect.apple.BPListDetector",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.detect.apple.IWorkDetector",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.detect.gzip.GZipSpecializationDetector",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.detect.microsoft.POIFSContainerDetector",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.detect.microsoft.ooxml.OPCPackageDetector",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.detect.ole.MiscOLEDetector",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.detect.zip.DefaultZipContainerDetector",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.detect.zip.FrictionlessPackageDetector",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.detect.zip.IPADetector",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.detect.zip.JarDetector",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.detect.zip.KMZDetector",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.detect.zip.OpenDocumentDetector",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.detect.zip.StarOfficeDetector",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.metadata.Metadata",
+  "allPublicFields":true
+},
+{
+  "name":"org.apache.tika.metadata.TikaCoreProperties",
+  "allPublicFields":true
+},
+{
+  "name":"org.apache.tika.parser.apple.AppleSingleFileParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.apple.PListParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.audio.AudioParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.audio.MidiParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.crypto.Pkcs7Parser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.crypto.TSDParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.csv.TextAndCSVParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.dbf.DBFParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.dgn.DGN8Parser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.dif.DIFParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.dwg.DWGParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.epub.EpubParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.feed.FeedParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.font.AdobeFontMetricParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.font.TrueTypeParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.html.HtmlEncodingDetector",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.html.HtmlParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.http.HttpParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.hwp.HwpV5Parser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.image.BPGParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.image.HeifParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.image.ICNSParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.image.ImageParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.image.JXLParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.image.JpegParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.image.PSDParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.image.TiffParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.image.WebPParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.indesign.IDMLParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.iptc.IptcAnpaParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.iwork.IWorkPackageParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.iwork.iwana.IWork13PackageParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.iwork.iwana.IWork18PackageParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.mail.RFC822Parser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.mbox.MboxParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.microsoft.EMFParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.microsoft.JackcessParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.microsoft.MSOwnerFileParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.microsoft.OfficeParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.microsoft.OldExcelParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.microsoft.TNEFParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.microsoft.WMFParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.microsoft.activemime.ActiveMimeParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.microsoft.chm.ChmParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.microsoft.onenote.OneNoteParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.microsoft.ooxml.OOXMLParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.microsoft.ooxml.xwpf.ml2006.Word2006MLParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.microsoft.pst.OutlookPSTParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.microsoft.rtf.RTFParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.microsoft.xml.SpreadsheetMLParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.microsoft.xml.WordMLParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.mif.MIFParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.mp3.Mp3Parser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.mp4.MP4Parser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.ocr.TesseractOCRParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.odf.FlatOpenDocumentParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.odf.OpenDocumentParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.pdf.PDFParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.pkg.CompressorParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.pkg.PackageParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.pkg.RarParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.prt.PRTParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.tmx.TMXParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.txt.Icu4jEncodingDetector",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.txt.UniversalEncodingDetector",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.video.FLVParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.wacz.WACZParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.warc.WARCParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.wordperfect.QuattroProParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.wordperfect.WordPerfectParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.xliff.XLIFF12Parser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.xliff.XLZParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.xml.DcXMLParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.tika.parser.xml.FictionBookParser",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
+},
+{
+  "name":"org.apache.xerces.impl.dv.dtd.DTDDVFactoryImpl",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.apache.xerces.parsers.XIncludeAwareParserConfiguration",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.apache.xerces.util.SecurityManager",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"setEntityExpansionLimit","parameterTypes":["int"] }]
+},
+{
+  "name":"org.apache.xmlbeans.metadata.system.sXMLCONFIG.TypeSystemHolder",
+  "fields":[{"name":"typeSystem"}]
+},
+{
+  "name":"org.apache.xmlbeans.metadata.system.sXMLLANG.TypeSystemHolder",
+  "fields":[{"name":"typeSystem"}]
+},
+{
+  "name":"org.apache.xmlbeans.metadata.system.sXMLSCHEMA.TypeSystemHolder",
+  "fields":[{"name":"typeSystem"}]
+},
+{
+  "name":"org.apache.xmlbeans.metadata.system.sXMLTOOLS.TypeSystemHolder",
+  "fields":[{"name":"typeSystem"}]
+},
+{
+  "name":"org.brotli.dec.BrotliInputStream"
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.main.impl.CTOfficeStyleSheetImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.main.impl.ThemeDocumentImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.officeDocument.x2006.customProperties.impl.CTPropertiesImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.officeDocument.x2006.customProperties.impl.PropertiesDocumentImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.officeDocument.x2006.extendedProperties.impl.CTPropertiesImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.officeDocument.x2006.extendedProperties.impl.PropertiesDocumentImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.officeDocument.x2006.relationships.impl.STRelationshipIdImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.officeDocument.x2006.sharedTypes.impl.STOnOffImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.CTNumLvl"
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.STHdrFtr$Enum",
+  "fields":[{"name":"table"}]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTBodyImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTBrImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTDocDefaultsImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTDocument1Impl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTEmptyImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTHdrFtrImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTHdrFtrRefImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTNumberingImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTOnOffImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTPImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTPPrDefaultImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTPPrGeneralImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTPPrImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTRImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTRPrDefaultImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTRPrImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTSectPrImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTSettingsImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTStyleImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTStylesImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTTextImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.DocumentDocumentImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.FtrDocumentImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.HdrDocumentImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.NumberingDocumentImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.STHdrFtrImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.SettingsDocumentImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.StylesDocumentImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.slf4j.helpers.Log4jLoggerFactory"
+},
+{
+  "name":"schemaorg_apache_xmlbeans.system.sXMLCONFIG.TypeSystemHolder"
+},
+{
+  "name":"schemaorg_apache_xmlbeans.system.sXMLLANG.TypeSystemHolder"
+},
+{
+  "name":"schemaorg_apache_xmlbeans.system.sXMLSCHEMA.TypeSystemHolder"
+},
+{
+  "name":"schemaorg_apache_xmlbeans.system.sXMLTOOLS.TypeSystemHolder"
+},
+{
+  "name":"sun.security.provider.DSA$SHA256withDSA",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"sun.security.provider.DSAKeyFactory",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"sun.security.provider.DSAParameters",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"sun.security.provider.MD5",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"sun.security.provider.NativePRNG",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["java.security.SecureRandomParameters"] }]
+},
+{
+  "name":"sun.security.provider.SHA",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"sun.security.provider.SHA2$SHA256",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"sun.security.provider.X509Factory",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"sun.security.rsa.RSAKeyFactory$Legacy",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"sun.security.rsa.RSASignature$SHA256withRSA",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"sun.security.util.ObjectIdentifier"
+},
+{
+  "name":"sun.security.x509.AuthorityInfoAccessExtension",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Boolean","java.lang.Object"] }]
+},
+{
+  "name":"sun.security.x509.AuthorityKeyIdentifierExtension",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Boolean","java.lang.Object"] }]
+},
+{
+  "name":"sun.security.x509.BasicConstraintsExtension",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Boolean","java.lang.Object"] }]
+},
+{
+  "name":"sun.security.x509.CRLDistributionPointsExtension",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Boolean","java.lang.Object"] }]
+},
+{
+  "name":"sun.security.x509.CertificateExtensions"
+},
+{
+  "name":"sun.security.x509.CertificatePoliciesExtension",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Boolean","java.lang.Object"] }]
+},
+{
+  "name":"sun.security.x509.ExtendedKeyUsageExtension",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Boolean","java.lang.Object"] }]
+},
+{
+  "name":"sun.security.x509.KeyUsageExtension",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Boolean","java.lang.Object"] }]
+},
+{
+  "name":"sun.security.x509.SubjectKeyIdentifierExtension",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Boolean","java.lang.Object"] }]
+}
+]
