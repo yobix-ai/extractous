@@ -6,11 +6,10 @@ types such as PDF, Word, HTML, and [many other formats](#supported-file-formats)
 
 ## Features
 
-- High-level Rust API for extracting text and metadata content for [many file formats](#supported-file-formats).
-- Internally it calls the [Apache Tika](https://tika.apache.org/) for any file
-  format that is not natively supported in the Rust core.
-- Strives to be efficient and fast.
-- Comprehensive documentation and examples to help you get started quickly.
+* High-level Rust API for extracting text and metadata content for [many file formats](#supported-file-formats).
+* Strives to be efficient and fast.
+* Internally it calls the [Apache Tika](https://tika.apache.org/) for any file format that is not natively supported in the Rust core.
+* Comprehensive documentation and examples to help you get started quickly.
 
 ## Installation
 
