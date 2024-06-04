@@ -1,0 +1,36 @@
+use std::env;
+use std::process;
+use std::time::Instant;
+
+use extract_rs::extract;
+
+fn main() {
+    // Get the command-line arguments
+    let args: Vec<String> = env::args().collect();
+
+    // Ensure a file path is provided
+    if args.len() != 2 {
+        eprintln!("\nUsage: cli <file_path>\n");
+        process::exit(1);
+    }
+
+    // Get the file path from the arguments
+    let file_path = &args[1];
+
+    // Call the parse function and measure the time taken
+    let start_time = Instant::now();
+    let content = extract(&file_path);
+    let call_duration = start_time.elapsed();
+
+    match content {
+        Ok(content) =>  println!("{}", content),
+        Err(e) => eprintln!("{:?}",e)
+    }
+
+    let total_duration = start_time.elapsed();
+
+    println!("Time taken to parse: {:.4?}", call_duration);
+    println!("Time taken to parse + print: {:.4?}", total_duration);
+
+
+}

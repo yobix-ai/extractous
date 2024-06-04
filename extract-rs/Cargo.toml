@@ -1,0 +1,15 @@
+[package]
+name = "extract-rs"
+version = "0.1.0"
+edition = "2021"
+
+[[example]]
+name = "cli"
+
+[dependencies]
+libc = { version = "0.2.155" }
+jni = { version = "0.21.1" }
+thiserror = { version = "1.0.59" }
+
+[profile.release]
+opt-level = 3

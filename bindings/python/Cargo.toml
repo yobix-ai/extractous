@@ -1,0 +1,21 @@
+[package]
+name = "extract-rs-python"
+publish = false
+
+authors = ["Yobix AI <dev@yobix.ai>"]
+edition = "2021"
+homepage = "https://extract-rs.yobix.ai/"
+license = "Apache-2.0"
+repository = "https://github.com/yobix-ai/extract-rs"
+rust-version = "1.75"
+version = "0.1.0"
+
+
+[lib]
+name = "extractrs"
+crate-type = ["cdylib"]
+doc = false
+
+[dependencies]
+# "abi3-py311" tells pyo3 (and maturin) to build using the stable ABI with minimum Python version 3.11
+pyo3 = { version = "0.21.2", features = ["abi3", "abi3-py311"] }
