@@ -1,11 +1,11 @@
-
-use crate::errors::{ExtractResult, Error};
+use crate::errors::ExtractResult;
+use crate::tika::tika_parse_file;
 
 pub fn extract(
     file_name: &str,
 ) -> ExtractResult<String> {
 
-    Err(Error::ParseError(format!("extract {} Not implemented yet", file_name)))?
+    tika_parse_file(file_name)
 }
 
 #[cfg(test)]

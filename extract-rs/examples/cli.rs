@@ -23,8 +23,11 @@ fn main() {
     let call_duration = start_time.elapsed();
 
     match content {
-        Ok(content) =>  println!("{}", content),
-        Err(e) => eprintln!("{:?}",e)
+        Ok(c) =>  println!("content: {}", c),
+        Err(e) => {
+            eprintln!("Error occured: {:?}",e);
+            process::exit(1);
+        }
     }
 
     let total_duration = start_time.elapsed();

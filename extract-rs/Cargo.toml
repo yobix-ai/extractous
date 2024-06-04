@@ -8,8 +8,11 @@ name = "cli"
 
 [dependencies]
 libc = { version = "0.2.155" }
-jni = { version = "0.21.1" }
+jni = { version = "0.21.1",features = ["invocation"] }
 thiserror = { version = "1.0.59" }
+
+[build-dependencies]
+fs_extra = { version = "1.3.0" }
 
 [profile.release]
 opt-level = 3
