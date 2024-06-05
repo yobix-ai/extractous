@@ -18,4 +18,5 @@ doc = false
 
 [dependencies]
 # "abi3-py311" tells pyo3 (and maturin) to build using the stable ABI with minimum Python version 3.11
-pyo3 = { version = "0.21.2", features = ["abi3", "abi3-py311"] }
+pyo3 = { version = "0.21.2", features = ["abi3", "abi3-py310"] }
+extract-rs = { path = "../../extract-rs" }

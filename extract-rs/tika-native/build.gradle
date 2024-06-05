@@ -63,25 +63,12 @@ test {
 //}
 
 graalvmNative {
-    // This enables using separate GraalVM version thant the one used by gradle
-    // However, this will only work properly if you only have only GraalVM JDKs installed on the machine.
-    // Gradle will not be able to reliably detect GraalVM JDKs, nor detect GraalVM distributions from different vendors.
-    toolchainDetection = true
 
     // Set to false to disable to run the tests in native mode.
     testSupport = false
 
     binaries {
         main {
-            // We use java 23 dev build because it added dynamic linking of awt on linux reducing problems
-            // with the poi dependency when clearing isolate
-            javaLauncher = javaToolchains.launcherFor {
-                //languageVersion = JavaLanguageVersion.of(23)
-                //vendor = JvmVendorSpec.matching("GraalVM Community")
-                languageVersion = JavaLanguageVersion.of(22)
-                vendor = JvmVendorSpec.matching("Oracle Corporation")
-            }
-
             imageName = 'libtika_native'
 
             // To build a shared lib, make sure to not set the mainClass
@@ -93,10 +80,9 @@ graalvmNative {
 
             buildArgs.addAll(
                     "-H:+AddAllCharsets", // Very important to get UTF8 working
-                    "-Ob",
+                    "-O3",
                     "--parallelism=8",
                     "--native-image-info",
-                    "--diagnostics-mode", // Prints reports about classes initialized at build or runtime
                     "-march=native", // This enable optimization on the current cpu architecture
                     "-H:+UnlockExperimentalVMOptions",
                     //"-H:+BuildReport",
@@ -107,32 +93,5 @@ graalvmNative {
             jvmArgs.add('-Djava.awt.headless=true')
             requiredVersion = '21' // The minimal GraalVM version, can be `MAJOR`, `MAJOR.MINOR` or `MAJOR.MINOR.PATCH`
         }
-        test {
-            buildArgs.addAll('--verbose', '-O0')
-        }
-    }
-
-    // This configure when using the agent to instrument the code to ge the reflection config files
-    agent {
-        defaultMode = "standard"
-        modes {
-            direct {
-                // {output_dir} is a special string expanded by the plugin to where the agent files would usually be output.
-                // It may be necessary to run the application more than once (with different execution paths) for
-                // improved coverage of dynamic features. The config-merge-dir option adds to an existing set of
-                // configuration files, as follows:
-                options.add("config-merge-dir={output_dir}")
-            }
-        }
-        // Configures the task to copy metadata collected from tasks into the specified directories.
-        metadataCopy {
-            inputTaskNames.addAll("test") // Tasks previously executed with the agent attached.
-            outputDirectories.add("src/main/resources/META-INF/native-image") // Replace <groupId> and <artifactId> with GAV coordinates of your project
-            mergeWithExisting = false // Instead of copying, merge with existing metadata in the output directories.
-        }
-    }
-
-    metadataRepository {
-        enabled = true
     }
 }

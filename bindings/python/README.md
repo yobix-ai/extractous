@@ -7,7 +7,7 @@ This project provides Python bindings for the extract-rs library, allowing you t
 To install the extract-rs Python bindings, you can use pip:
 
 ```bash
-pip install opendal
+pip install extract-rs
 ```
 
 ## Usage

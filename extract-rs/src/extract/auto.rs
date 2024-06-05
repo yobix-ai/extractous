@@ -1,5 +1,5 @@
 use crate::errors::ExtractResult;
-use crate::tika::tika_parse_file;
+use crate::tika::{tika_parse_file};
 
 pub fn extract(
     file_name: &str,

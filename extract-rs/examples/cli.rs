@@ -24,7 +24,7 @@ fn main() {
 
     match content {
         Ok(c) =>  {
-            println!("content: {}", c)
+            println!("{}", c)
         },
         Err(e) => {
             eprintln!("Error occurred: {:?}",e);

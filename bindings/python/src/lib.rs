@@ -1,9 +1,13 @@
+use pyo3::exceptions::PyTypeError;
 use pyo3::prelude::*;
 
-/// Formats the sum of two numbers as string.
+/// extract content of file
 #[pyfunction]
-fn sum_as_string(a: usize, b: usize) -> PyResult<String> {
-    Ok((a + b).to_string())
+fn extract(filename: &str) -> PyResult<String> {
+    match extract_rs::extract(filename) {
+        Ok(content) => Ok(content),
+        Err(e) => Err(PyErr::new::<PyTypeError, _>(format!("{:?}", e)))
+    }
 }
 
 /// A Python module implemented in Rust. The name of this function must match
@@ -11,6 +15,6 @@ fn sum_as_string(a: usize, b: usize) -> PyResult<String> {
 /// import the module.
 #[pymodule]
 fn _extractrs(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(sum_as_string, m)?)?;
+    m.add_function(wrap_pyfunction!(extract, m)?)?;
     Ok(())
 }
