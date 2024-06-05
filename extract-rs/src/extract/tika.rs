@@ -1,6 +1,6 @@
 use std::os::raw::{c_char, c_void};
 
-use jni::{JavaVM, JNIEnv, sys};
+use jni::{JavaVM, sys};
 use jni::errors::jni_error_code_to_result;
 use jni::objects::{JString, JValue};
 
@@ -33,48 +33,64 @@ fn create_vm_isolate() -> ExtractResult<JavaVM> {
             &mut env as *mut *mut sys::JNIEnv as *mut *mut c_void,
             &mut args as *mut sys::JavaVMInitArgs as *mut c_void
         );
-        jni_error_code_to_result(jni_res).map_err(|e| Error::JniError(e))?;
+        jni_error_code_to_result(jni_res)?;
 
-        let jvm = JavaVM::from_raw(ptr).map_err(|e| Error::JniError(e))?;
+        let jvm = JavaVM::from_raw(ptr)?;
 
         Ok(jvm)
     }
 }
 
+fn cleanup_vm_isolate(jvm: JavaVM) -> ExtractResult<()>  {
 
+    println!("cleanup_vm_isolate");
+    // let mut env = jvm.attach_current_thread_as_daemon()?;
+    //
+    // let x = JValue::from(1);
+    // let system_class = env.find_class("java/lang/System")?;
+    // let exit_mid = env.get_static_method_id(&system_class, "exit", "(I)V")?;
+    // let _val = unsafe {
+    //     env.call_static_method_unchecked(
+    //         &system_class,
+    //         exit_mid,
+    //         ReturnType::Primitive(Primitive::Void),
+    //         &[x.as_jni()],
+    //     )
+    // };
 
-fn cleanup_vm_isolate(jvm: &JavaVM, env: &mut JNIEnv) -> ExtractResult<()> {
-
-    let exit_status = JValue::from(0);
-    env.call_static_method("java/lang/System", "exit", "(I)V", &[exit_status])
-        .map_err(|e| Error::JniError(e))?;
-
-    unsafe {
-        jvm.destroy().map_err(|e| Error::JniError(e))?;
-    }
+    // Destroy jvm. jvm must be dropped as well
+    unsafe {  jvm.destroy()?; }
+    drop(jvm);
 
     Ok(())
 }
 
 /// Parse a file to a string using the Apache Tika library.
 pub fn tika_parse_file(file_name: &str) -> ExtractResult<String> {
+
+    let mut output = String::new();
     let jvm = create_vm_isolate()?;
-    let mut env = jvm.get_env().map_err(|e| Error::JniError(e))?;
 
-    let jstr_file = env.new_string(file_name).map_err(|e| Error::JniError(e))?;
+    // Need to create a new scope to be able to drop intermediate objects before destroying the jvm
+    {
+        //let mut env = jvm.get_env().map_err(|e| Error::JniError(e))?;
+        let mut env = jvm.attach_current_thread()?;
 
-    let val = env.call_static_method("ai/yobix/TikaNativeMain", "parseToString",
-                           "(Ljava/lang/String;)Ljava/lang/String;", &[JValue::from(&jstr_file)])
-        .map_err(|e| Error::JniError(e))?;
+        let jstr_file = env.new_string(file_name)?;
 
-    let jobject = val.l().map_err(|e| Error::JniError(e))?;
-    let jstr_output = JString::from(jobject);
-    let javastr_output = env.get_string(&jstr_output).map_err(|e| Error::JniError(e))?;
-    let output_str = javastr_output.to_str().map_err(|e| Error::Utf8Error(e))?;
-    let output = output_str.to_string().clone();
-    // Creates the string before cleaning the vm
+        let val = env.call_static_method("ai/yobix/TikaNativeMain", "parseToString",
+                                         "(Ljava/lang/String;)Ljava/lang/String;", &[JValue::from(&jstr_file)])
+            .map_err(|e| Error::JniError(e))?;
 
-    //cleanup_vm_isolate(&jvm, &mut env)?;
+        let jobject = val.l()?;
+        let jstr_output = JString::from(jobject);
+        let javastr_output = env.get_string(&jstr_output)?;
+        let output_str = javastr_output.to_str().map_err(|e| Error::Utf8Error(e))?;
+        // Creates the string before cleaning the vm
+        output.push_str(output_str);
+    }
+
+    cleanup_vm_isolate(jvm)?;
 
     Ok(output)
 }

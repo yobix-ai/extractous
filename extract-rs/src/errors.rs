@@ -16,6 +16,13 @@ pub enum Error {
     ParseError(String),
 }
 
+
+impl From<jni::errors::Error> for Error {
+    fn from(e: jni::errors::Error) -> Self {
+        Error::JniError(e)
+    }
+}
+
 // #[derive(thiserror::Error, Debug)]
 // pub enum TikaError {
 //     #[error("Unknown error")]
