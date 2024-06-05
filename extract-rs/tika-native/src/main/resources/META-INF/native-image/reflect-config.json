@@ -24,7 +24,7 @@
   "queryAllDeclaredMethods":true,
   "queryAllPublicMethods":true,
   "queryAllDeclaredConstructors":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"testAppleFilingPdf","parameterTypes":[] }, {"name":"testGetPlainTextFromInvoice","parameterTypes":[] }, {"name":"testGetTextFromPdfFormatWithFonts","parameterTypes":[] }, {"name":"testGetTextFromXlsFile","parameterTypes":[] }, {"name":"testHandbook1pDocxFile","parameterTypes":[] }, {"name":"test_quarkusOdtFile","parameterTypes":[] }, {"name":"test_quarkusPdfFile","parameterTypes":[] }, {"name":"test_quarkusTxtFile","parameterTypes":[] }]
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"testAppleFilingPdf","parameterTypes":[] }, {"name":"testGetPlainTextFromInvoice","parameterTypes":[] }, {"name":"testGetTextFromPdfFormatWithFonts","parameterTypes":[] }, {"name":"testGetTextFromXlsFile","parameterTypes":[] }, {"name":"testHandbook1pDocxFile","parameterTypes":[] }, {"name":"testWordDocxFile","parameterTypes":[] }, {"name":"test_quarkusOdtFile","parameterTypes":[] }, {"name":"test_quarkusPdfFile","parameterTypes":[] }, {"name":"test_quarkusTxtFile","parameterTypes":[] }]
 },
 {
   "name":"com.github.jaiimageio.impl.common.PackageUtil"
@@ -586,6 +586,10 @@
   "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
 },
 {
+  "name":"org.openxmlformats.schemas.officeDocument.x2006.sharedTypes.impl.STStringImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
   "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.CTNumLvl"
 },
 {
@@ -593,11 +597,31 @@
   "fields":[{"name":"table"}]
 },
 {
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.STNumberFormat$Enum",
+  "fields":[{"name":"table"}]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.STUnderline$Enum",
+  "fields":[{"name":"table"}]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTAbstractNumImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
   "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTBodyImpl",
   "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
 },
 {
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTBookmarkImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
   "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTBrImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTDecimalNumberImpl",
   "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
 },
 {
@@ -618,6 +642,38 @@
 },
 {
   "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTHdrFtrRefImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTHyperlinkImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTLatentStylesImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTLevelTextImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTLvlImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTMarkupRangeImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTNumFmtImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTNumImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTNumPrImpl",
   "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
 },
 {
@@ -645,6 +701,10 @@
   "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
 },
 {
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTProofErrImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
   "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTRImpl",
   "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
 },
@@ -665,6 +725,10 @@
   "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
 },
 {
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTStringImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
   "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTStyleImpl",
   "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
 },
@@ -674,6 +738,10 @@
 },
 {
   "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTTextImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTUnderlineImpl",
   "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
 },
 {
@@ -693,7 +761,19 @@
   "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
 },
 {
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.STDecimalNumberImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
   "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.STHdrFtrImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.STNumberFormatImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.STUnderlineImpl",
   "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
 },
 {
