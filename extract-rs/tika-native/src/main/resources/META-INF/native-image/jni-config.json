@@ -1,5 +1,9 @@
 [
 {
+  "name":"ai.yobix.TikaNativeMain",
+  "methods":[{"name":"parseToString","parameterTypes":["java.lang.String"] }]
+},
+{
   "name":"java.awt.Color",
   "fields":[{"name":"value"}]
 },
@@ -35,8 +39,12 @@
   "methods":[{"name":"getBoolean","parameterTypes":["java.lang.String"] }]
 },
 {
+  "name":"java.lang.String",
+  "methods":[{"name":"lastIndexOf","parameterTypes":["int"] }, {"name":"substring","parameterTypes":["int"] }]
+},
+{
   "name":"java.lang.System",
-  "methods":[{"name":"exit","parameterTypes":["int"] }, {"name":"load","parameterTypes":["java.lang.String"] }]
+  "methods":[{"name":"exit","parameterTypes":["int"] }, {"name":"getProperty","parameterTypes":["java.lang.String"] }, {"name":"load","parameterTypes":["java.lang.String"] }, {"name":"setProperty","parameterTypes":["java.lang.String","java.lang.String"] }]
 },
 {
   "name":"sun.awt.image.IntegerComponentRaster",
@@ -45,9 +53,5 @@
 {
   "name":"sun.java2d.Disposer",
   "methods":[{"name":"addRecord","parameterTypes":["java.lang.Object","long","long"] }]
-},
-{
-  "name":"ai.yobix.TikaNativeMain",
-  "methods":[{"name":"parseToString","parameterTypes":["java.lang.String"] }]
 }
 ]

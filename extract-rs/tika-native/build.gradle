@@ -1,14 +1,16 @@
 plugins {
     id 'java-library'
-    //id('application')
     id'org.graalvm.buildtools.native' version '0.10.2' // GraalVM plugin for Gradle
 }
 
+
 def tikaVersion = "2.9.2"
-//def tikaVersion = "3.0.0-BETA"
+def numThreads = Runtime.getRuntime().availableProcessors()
+
 
 group = 'ai.yobix'
 version = "$tikaVersion-SNAPSHOT"
+
 
 repositories {
     mavenCentral()
@@ -20,12 +22,6 @@ dependencies {
     // Some dependencies use log4j such as poi, route log4j back to slf4j
     // Had to use 3.0.0-beta2 because it is solves some issues with log4j to make it graalvm native friendly
     implementation 'org.apache.logging.log4j:log4j-to-slf4j:3.0.0-beta2'
-
-    //implementation("org.apache.logging.log4j:log4j-slf4j2-impl:2.21.1")
-    //implementation("org.apache.logging.log4j:log4j-core:3.0.0-beta2")
-
-    //runtimeOnly('org.slf4j:log4j-over-slf4j:2.0.11')
-    //runtimeOnly("ch.qos.logback:logback-classic:1.5.6")
 
     implementation("org.apache.tika:tika-core:$tikaVersion")
     implementation "org.apache.tika:tika-parsers-standard:$tikaVersion" // Apache Tika parsers
@@ -48,31 +44,28 @@ dependencies {
     implementation "org.apache.tika:tika-parser-text-module:$tikaVersion"
     implementation "org.apache.tika:tika-parser-xml-module:$tikaVersion"
     implementation "org.apache.tika:tika-parser-webarchive-module:$tikaVersion"
-
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-    testImplementation 'org.assertj:assertj-core:3.25.1'
 }
-
-test {
-    useJUnitPlatform()
-}
-
-//application {
-//    mainClass.set('ai.yobix.TikaNativeMain')
-//}
 
 graalvmNative {
+    // This enables using separate GraalVM version thant the one used by gradle
+    // However, this will only work properly if you only have only GraalVM JDKs installed on the machine.
+    // Gradle will not be able to reliably detect GraalVM JDKs, nor detect GraalVM distributions from different vendors.
+    toolchainDetection = true
 
     // Set to false to disable to run the tests in native mode.
-    testSupport = false
+    testSupport = true
 
     binaries {
         main {
+            // We use java BellSoft 22 build because it supports awt on mac.
+            javaLauncher = javaToolchains.launcherFor {
+                languageVersion = JavaLanguageVersion.of(22)
+                vendor = JvmVendorSpec.matching("BellSoft")
+            }
+
             imageName = 'libtika_native'
 
             // To build a shared lib, make sure to not set the mainClass
-            //mainClass = 'ai.yobix.TikaNativeMain'
             sharedLibrary = true
 
             // The --no-fallback option to native-image causes the utility to fail if it can not create the image.
@@ -81,14 +74,8 @@ graalvmNative {
             buildArgs.addAll(
                     "-H:+AddAllCharsets", // Very important to get UTF8 working
                     "-O3",
-                    "--parallelism=8",
-                    "--native-image-info",
+                    "--parallelism=$numThreads",
                     "-march=native", // This enable optimization on the current cpu architecture
-                    "-H:+UnlockExperimentalVMOptions",
-                    //"-H:+BuildReport",
-                    //"-H:+StaticExecutableWithDynamicLibC",
-                    //"--initialize-at-run-time=org.apache.logging.log4j.spi.Provider",
-                    //"--initialize-at-run-time=org.eclipse.angus.activation.nativeimage.AngusActivationFeature",
             )
             jvmArgs.add('-Djava.awt.headless=true')
             requiredVersion = '21' // The minimal GraalVM version, can be `MAJOR`, `MAJOR.MINOR` or `MAJOR.MINOR.PATCH`

@@ -26,3 +26,25 @@ extract-rs = "0.1.0"
 |-------------|-------------|--------------| 
 | pdf         | -           | ✅            |
 | csv         | ✅           | -            |
+
+## Building
+
+* GraalVm and Gradle are required to build tika_native. We recommend using [sdkman](https://sdkman.io/install)
+* To be able to use awt on macOS, please use Bellsoft Liberica NIK java 22
+* `sdk install java 24.0.1.r22-nik`
+* `sdk install gradle 8.8`
+* Make sure gradle is using the graalvm jdk and not any other jdk in your environment. Try `gradle --version` you should see something like:
+
+```text
+------------------------------------------------------------
+Gradle 8.8
+------------------------------------------------------------
+Build time:   2024-05-31 21:46:56 UTC
+Revision:     4bd1b3d3fc3f31db5a26eecb416a165b8cc36082
+
+Kotlin:       1.9.22
+Groovy:       3.0.21
+Ant:          Apache Ant(TM) version 1.10.13 compiled on January 4 2023
+JVM:          22.0.1 (BellSoft 22.0.1+10)
+OS:           Mac OS X 13.2 x86_64
+```
