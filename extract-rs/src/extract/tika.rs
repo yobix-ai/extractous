@@ -1,9 +1,10 @@
 use std::os::raw::{c_char, c_void};
 use std::sync::OnceLock;
 
-use jni::{JavaVM, sys};
+use jni::{AttachGuard, JavaVM, JNIEnv, sys};
 use jni::errors::jni_error_code_to_result;
-use jni::objects::{JString, JValue};
+use jni::objects::{JObject, JString, JValue};
+use jni::signature::ReturnType;
 
 use crate::errors::{Error, ExtractResult};
 
@@ -41,10 +42,10 @@ fn create_vm_isolate() -> JavaVM {
         let mut env: *mut sys::JNIEnv = std::ptr::null_mut();
 
         // The current thread becomes the main thread
-        let jni_res =  sys::JNI_CreateJavaVM(
+        let jni_res = sys::JNI_CreateJavaVM(
             &mut ptr as *mut _,
             &mut env as *mut *mut sys::JNIEnv as *mut *mut c_void,
-            &mut args as *mut sys::JavaVMInitArgs as *mut c_void
+            &mut args as *mut sys::JavaVMInitArgs as *mut c_void,
         );
         jni_error_code_to_result(jni_res).unwrap_or_else(|e| {
             panic!("Failed creating the graal native vm: {:?}", e);
@@ -124,19 +125,147 @@ pub fn tika_parse_file(file_name: &str) -> ExtractResult<String> {
     // Attaching a thead that is already attached is a no-op. Good to have this in case this method
     // is called from another thread
     let mut env = vm().attach_current_thread()?;
-    //let mut env = vm().get_env()?;
 
     let jstr_file = env.new_string(file_name)?;
-    let val = env.call_static_method("ai/yobix/TikaNativeMain", "parseToString",
-                                     "(Ljava/lang/String;)Ljava/lang/String;", &[JValue::from(&jstr_file)])?;
-    let jobject = val.l()?;
+
+
+    let main_class = env.find_class("ai/yobix/TikaNativeMain")?;
+    let parse_mid = env.get_static_method_id(
+        &main_class,
+        "parseToString",
+        "(Ljava/lang/String;)Lai/yobix/TikaResult;",
+    )?;
+
+    let parse_result = unsafe {
+        env.call_static_method_unchecked(
+            main_class, parse_mid,
+            ReturnType::Object,
+            &[JValue::from(&jstr_file).as_jni()],
+        )
+    };
+
+    match parse_result {
+        Ok(result) => {
+            let jobject_result = result.l()?;
+
+            let is_error = env.call_method(&jobject_result, "isError", "()Z", &[])?.z()?;
+            if is_error {
+                let jbyte_status = env.call_method(
+                    &jobject_result, "getStatus", "()B", &[],
+                )?.b()?;
+                let jobject_error_msg = env.call_method(
+                    &jobject_result, "getErrorMessage", "()Ljava/lang/String;", &[],
+                )?.l()?;
+
+                let error_msg = jobject_to_str(&mut env, jobject_error_msg)?;
+
+                match jbyte_status {
+                    1 => Err(Error::IoError(error_msg)),
+                    2 => Err(Error::ParseError(error_msg)),
+                    _ => Err(Error::Unknown(error_msg)),
+                }
+            } else {
+                let jobject_output = env.call_method(
+                    &jobject_result, "getContent", "()Ljava/lang/String;", &[],
+                )?.l()?;
+
+                let content = jobject_to_str(&mut env, jobject_output)?;
+                Ok(content)
+            }
+        }
+        Err(error) => {
+            match error {
+                jni::errors::Error::JavaException => {
+                    let exception = jni_check_exception(&mut env)?;
+                    match exception {
+                        Some(message) => {
+                            Err(Error::Unknown(message))
+                        }
+                        None => {
+                            Err(Error::from(error))
+                        }
+                    }
+                }
+                _ => {
+                    Err(Error::from(error))
+                }
+            }
+        }
+    }
+}
+
+
+fn jni_check_exception(env: &mut AttachGuard) -> ExtractResult<Option<String>> {
+
+    if env.exception_check()? {
+        env.exception_describe()?;
+        env.exception_clear()?;
+        return Ok(Some("Runtime exception occurred".to_string()))
+    }
+
+    Ok(None)
+
+    // TODO parse exception into nice message
+    //let exception_result = env.exception_occurred();
+    // if exception_result.is_err() {
+    //     return Ok(None);
+    // }
+    // let exception = exception_result.unwrap();
+    //
+    // if !exception.is_null() {
+    //
+    //     eprint!("exception.is_err() ");
+    //     let jobject_ex = JObject::from(exception);
+    //
+    //     // Get the exception message
+    //     let jobject_message = env.call_method(
+    //         &jobject_ex, "getMessage", "()Ljava/lang/String;", &[],
+    //     )?.l()?;
+    //
+    //     eprint!("exception.after() ");
+    //
+    //     let exc_message = if !jobject_message.is_null() {
+    //         jobject_to_str(env, jobject_message)?
+    //     } else {
+    //         "".to_string()
+    //     };
+    //
+    //
+    //     // Get the exception cause message
+    //     let jobject_cause = env.call_method(
+    //         &jobject_ex, "getCause", "()Ljava/lang/Throwable;", &[],
+    //     )?.l()?;
+    //
+    //     let exc_cause_message = if !jobject_cause.is_null() {
+    //         let jobject_cause_message = env.call_method(
+    //             &jobject_cause, "getMessage", "()Ljava/lang/String;", &[],
+    //         )?.l()?;
+    //
+    //         if !jobject_cause_message.is_null() {
+    //             jobject_to_str(env, jobject_cause_message)?
+    //         } else {
+    //             "".to_string()
+    //         }
+    //     } else {
+    //         "".to_string()
+    //     };
+    //
+    //     let output = format!("Exception: {} \n{}", exc_message, exc_cause_message);
+    //
+    //
+    //     Ok(Some(output))
+    // } else {
+    //     Ok(None)
+    // }
+}
+
+fn jobject_to_str(env: &mut JNIEnv, jobject: JObject) -> ExtractResult<String> {
     let jstring_output = JString::from(jobject);
     let javastr_output = unsafe { env.get_string_unchecked(&jstring_output)? };
     let output_str = javastr_output.to_str().map_err(Error::Utf8Error)?;
 
     Ok(output_str.to_string())
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -147,6 +276,5 @@ mod tests {
         let result = tika_parse_file("README.md");
         assert!(result.is_ok());
         assert_eq!("tika-native", result.unwrap());
-
     }
 }

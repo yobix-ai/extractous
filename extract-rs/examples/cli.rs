@@ -27,7 +27,7 @@ fn main() {
             println!("{}", c)
         },
         Err(e) => {
-            eprintln!("Error occurred: {:?}",e);
+            eprintln!("{}",e);
             process::exit(1);
         }
     }
