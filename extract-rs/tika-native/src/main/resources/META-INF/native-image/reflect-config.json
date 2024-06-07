@@ -9,6 +9,15 @@
   "name":"[Ljava.lang.String;"
 },
 {
+  "name":"[Lorg.openxmlformats.schemas.drawingml.x2006.main.CTNonVisualDrawingProps;"
+},
+{
+  "name":"[Lorg.openxmlformats.schemas.drawingml.x2006.picture.CTPicture;"
+},
+{
+  "name":"[Lorg.openxmlformats.schemas.presentationml.x2006.main.CTGroupShape;"
+},
+{
   "name":"[Lsun.security.pkcs.SignerInfo;"
 },
 {
@@ -24,6 +33,15 @@
   "queryAllPublicMethods":true
 },
 {
+  "name":"ai.yobix.TikaAllDocsTest",
+  "allDeclaredFields":true,
+  "allDeclaredClasses":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"test_parseAllTestDocs","parameterTypes":[] }]
+},
+{
   "name":"ai.yobix.TikaDetectTest",
   "allDeclaredFields":true,
   "allDeclaredClasses":true,
@@ -33,15 +51,6 @@
   "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"test_detectDocxFile","parameterTypes":[] }, {"name":"test_detectOdtFile","parameterTypes":[] }, {"name":"test_detectPdfFile","parameterTypes":[] }, {"name":"test_detectTxtFile","parameterTypes":[] }, {"name":"test_detectXlsFile","parameterTypes":[] }]
 },
 {
-  "name":"ai.yobix.TikaNativeTest",
-  "allDeclaredFields":true,
-  "allDeclaredClasses":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true,
-  "queryAllDeclaredConstructors":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"testAppleFilingPdf","parameterTypes":[] }, {"name":"testGetPlainTextFromInvoice","parameterTypes":[] }, {"name":"testGetTextFromPdfFormatWithFonts","parameterTypes":[] }, {"name":"testGetTextFromXlsFile","parameterTypes":[] }, {"name":"testHandbook1pDocxFile","parameterTypes":[] }, {"name":"testWordDocxFile","parameterTypes":[] }, {"name":"test_quarkusOdtFile","parameterTypes":[] }, {"name":"test_quarkusPdfFile","parameterTypes":[] }, {"name":"test_quarkusTxtFile","parameterTypes":[] }]
-},
-{
   "name":"ai.yobix.TikaParseTest",
   "allDeclaredFields":true,
   "allDeclaredClasses":true,
@@ -49,6 +58,14 @@
   "queryAllPublicMethods":true,
   "queryAllDeclaredConstructors":true,
   "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"testAppleFilingPdf","parameterTypes":[] }, {"name":"testGetPlainTextFromInvoice","parameterTypes":[] }, {"name":"testGetTextFromPdfFormatWithFonts","parameterTypes":[] }, {"name":"testGetTextFromXlsFile","parameterTypes":[] }, {"name":"testHandbook1pDocxFile","parameterTypes":[] }, {"name":"testNoNewRomanPdfFile","parameterTypes":[] }, {"name":"testWordDocxFile","parameterTypes":[] }, {"name":"test_invalidPath","parameterTypes":[] }, {"name":"test_quarkusOdtFile","parameterTypes":[] }, {"name":"test_quarkusPdfFile","parameterTypes":[] }, {"name":"test_quarkusTxtFile","parameterTypes":[] }]
+},
+{
+  "name":"com.drew.metadata.exif.ExifIFD0Directory",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.drew.metadata.exif.ExifSubIFDDirectory",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
   "name":"com.github.jaiimageio.impl.common.PackageUtil"
@@ -103,6 +120,10 @@
 },
 {
   "name":"com.ibm.icu.charset.CharsetICU"
+},
+{
+  "name":"com.sun.crypto.provider.AESCipher$General",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
   "name":"java.lang.Enum"
@@ -214,6 +235,30 @@
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
+  "name":"org.apache.jempbox.xmp.XMPSchemaBasic",
+  "methods":[{"name":"<init>","parameterTypes":["org.w3c.dom.Element","java.lang.String"] }]
+},
+{
+  "name":"org.apache.jempbox.xmp.XMPSchemaDublinCore",
+  "methods":[{"name":"<init>","parameterTypes":["org.w3c.dom.Element","java.lang.String"] }]
+},
+{
+  "name":"org.apache.jempbox.xmp.XMPSchemaMediaManagement",
+  "methods":[{"name":"<init>","parameterTypes":["org.w3c.dom.Element","java.lang.String"] }]
+},
+{
+  "name":"org.apache.jempbox.xmp.XMPSchemaPDF",
+  "methods":[{"name":"<init>","parameterTypes":["org.w3c.dom.Element","java.lang.String"] }]
+},
+{
+  "name":"org.apache.jempbox.xmp.XMPSchemaPhotoshop",
+  "methods":[{"name":"<init>","parameterTypes":["org.w3c.dom.Element","java.lang.String"] }]
+},
+{
+  "name":"org.apache.jempbox.xmp.XMPSchemaRightsManagement",
+  "methods":[{"name":"<init>","parameterTypes":["org.w3c.dom.Element","java.lang.String"] }]
+},
+{
   "name":"org.apache.logging.log4j.Logger"
 },
 {
@@ -251,6 +296,14 @@
 },
 {
   "name":"org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationLink",
+  "methods":[{"name":"getAction","parameterTypes":[] }]
+},
+{
+  "name":"org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationMarkup",
+  "methods":[{"name":"getAction","parameterTypes":[] }]
+},
+{
+  "name":"org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationWidget",
   "methods":[{"name":"getAction","parameterTypes":[] }]
 },
 {
@@ -546,6 +599,10 @@
   "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
 },
 {
+  "name":"org.apache.tika.parser.pdf.xmpschemas.XMPSchemaPDFX",
+  "methods":[{"name":"<init>","parameterTypes":["org.w3c.dom.Element","java.lang.String"] }]
+},
+{
   "name":"org.apache.tika.parser.pkg.CompressorParser",
   "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["org.apache.tika.config.ServiceLoader"] }]
 },
@@ -647,7 +704,106 @@
   "name":"org.brotli.dec.BrotliInputStream"
 },
 {
+  "name":"org.openxmlformats.schemas.drawingml.x2006.main.CTNonVisualDrawingProps"
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.main.impl.CTBlipFillPropertiesImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.main.impl.CTBlipImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.main.impl.CTGraphicalObjectDataImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.main.impl.CTGraphicalObjectImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.main.impl.CTGroupShapePropertiesImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.main.impl.CTHyperlinkImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.main.impl.CTNonVisualDrawingPropsImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.main.impl.CTNonVisualDrawingShapePropsImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
   "name":"org.openxmlformats.schemas.drawingml.x2006.main.impl.CTOfficeStyleSheetImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.main.impl.CTOuterShadowEffectImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.main.impl.CTRegularTextRunImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.main.impl.CTShapePropertiesImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.main.impl.CTTableCellImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.main.impl.CTTableImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.main.impl.CTTableRowImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.main.impl.CTTableStyleImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.main.impl.CTTableStyleListImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.main.impl.CTTextBodyImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.main.impl.CTTextCharacterPropertiesImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.main.impl.CTTextFieldImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.main.impl.CTTextLineBreakImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.main.impl.CTTextParagraphImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.main.impl.CTTextParagraphPropertiesImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.main.impl.STDrawingElementIdImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.main.impl.TblStyleLstDocumentImpl",
   "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
 },
 {
@@ -655,7 +811,54 @@
   "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
 },
 {
+  "name":"org.openxmlformats.schemas.drawingml.x2006.picture.CTPicture"
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.picture.impl.CTPictureImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.picture.impl.CTPictureNonVisualImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.spreadsheetDrawing.impl.CTAnchorClientDataImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.spreadsheetDrawing.impl.CTDrawingImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.spreadsheetDrawing.impl.CTMarkerImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.spreadsheetDrawing.impl.CTPictureImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.spreadsheetDrawing.impl.CTShapeImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.spreadsheetDrawing.impl.CTShapeNonVisualImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.spreadsheetDrawing.impl.CTTwoCellAnchorImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.drawingml.x2006.wordprocessingDrawing.impl.CTInlineImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
   "name":"org.openxmlformats.schemas.officeDocument.x2006.customProperties.impl.CTPropertiesImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.officeDocument.x2006.customProperties.impl.CTPropertyImpl",
   "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
 },
 {
@@ -683,7 +886,238 @@
   "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
 },
 {
+  "name":"org.openxmlformats.schemas.officeDocument.x2006.sharedTypes.impl.STXstringImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.CTGroupShape"
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.STPlaceholderType$Enum",
+  "fields":[{"name":"table"}]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.CTApplicationNonVisualDrawingPropsImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.CTCommentAuthorListImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.CTCommonSlideDataImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.CTConnectorImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.CTConnectorNonVisualImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.CTGraphicalObjectFrameImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.CTGraphicalObjectFrameNonVisualImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.CTGroupShapeImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.CTGroupShapeNonVisualImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.CTNotesMasterImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.CTNotesSlideImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.CTPictureImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.CTPictureNonVisualImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.CTPlaceholderImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.CTPresentationImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.CTShapeImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.CTShapeNonVisualImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.CTSlideIdListEntryImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.CTSlideIdListImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.CTSlideImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.CTSlideLayoutImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.CTSlideMasterIdListEntryImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.CTSlideMasterIdListImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.CTSlideMasterImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.CmAuthorLstDocumentImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.NotesDocumentImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.NotesMasterDocumentImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.PresentationDocumentImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.STPlaceholderTypeImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.SldDocumentImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.SldLayoutDocumentImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.presentationml.x2006.main.impl.SldMasterDocumentImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.spreadsheetml.x2006.main.impl.CTBorderImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.spreadsheetml.x2006.main.impl.CTBordersImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.spreadsheetml.x2006.main.impl.CTCellStyleXfsImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.spreadsheetml.x2006.main.impl.CTCellXfsImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.spreadsheetml.x2006.main.impl.CTColorsImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.spreadsheetml.x2006.main.impl.CTDxfsImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.spreadsheetml.x2006.main.impl.CTFillImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.spreadsheetml.x2006.main.impl.CTFillsImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.spreadsheetml.x2006.main.impl.CTFontImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.spreadsheetml.x2006.main.impl.CTFontsImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.spreadsheetml.x2006.main.impl.CTIndexedColorsImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.spreadsheetml.x2006.main.impl.CTNumFmtImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.spreadsheetml.x2006.main.impl.CTNumFmtsImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.spreadsheetml.x2006.main.impl.CTRgbColorImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.spreadsheetml.x2006.main.impl.CTRstImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.spreadsheetml.x2006.main.impl.CTStylesheetImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.spreadsheetml.x2006.main.impl.CTTableStylesImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.spreadsheetml.x2006.main.impl.CTXfImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.spreadsheetml.x2006.main.impl.STCellStyleXfIdImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.spreadsheetml.x2006.main.impl.STNumFmtIdImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.spreadsheetml.x2006.main.impl.STUnsignedIntHexImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.spreadsheetml.x2006.main.impl.StyleSheetDocumentImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
   "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.CTNumLvl"
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.STFldCharType$Enum",
+  "fields":[{"name":"table"}]
 },
 {
   "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.STHdrFtr$Enum",
@@ -726,7 +1160,31 @@
   "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
 },
 {
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTDrawingImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
   "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTEmptyImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTEndnotesImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTFldCharImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTFootnotesImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTFtnEdnImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTFtnEdnRefImpl",
   "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
 },
 {
@@ -810,6 +1268,10 @@
   "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
 },
 {
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTRowImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
   "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTSectPrImpl",
   "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
 },
@@ -830,7 +1292,23 @@
   "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
 },
 {
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTTblImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTTcImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTTcPrImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
   "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTTextImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTTrPrImpl",
   "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
 },
 {
@@ -839,6 +1317,14 @@
 },
 {
   "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.DocumentDocumentImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.EndnotesDocumentImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.FootnotesDocumentImpl",
   "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
 },
 {
@@ -855,6 +1341,10 @@
 },
 {
   "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.STDecimalNumberImpl",
+  "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
+},
+{
+  "name":"org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.STFldCharTypeImpl",
   "methods":[{"name":"<init>","parameterTypes":["org.apache.xmlbeans.SchemaType"] }]
 },
 {
@@ -894,6 +1384,49 @@
 },
 {
   "name":"schemaorg_apache_xmlbeans.system.sXMLTOOLS.TypeSystemHolder"
+},
+{
+  "name":"sun.java2d.cmm.kcms.KcmsServiceProvider"
+},
+{
+  "name":"sun.java2d.loops.OpaqueCopyAnyToArgb",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"sun.java2d.loops.OpaqueCopyArgbToAny",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"sun.java2d.loops.SetDrawLineANY",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"sun.java2d.loops.SetDrawPathANY",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"sun.java2d.loops.SetDrawPolygonsANY",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"sun.java2d.loops.SetDrawRectANY",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"sun.java2d.loops.SetFillPathANY",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"sun.java2d.loops.SetFillRectANY",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"sun.java2d.loops.SetFillSpansANY",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"sun.java2d.marlin.DMarlinRenderingEngine",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
   "name":"sun.security.provider.DSA$SHA256withDSA",
