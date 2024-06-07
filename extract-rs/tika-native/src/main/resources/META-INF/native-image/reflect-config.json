@@ -12,10 +12,25 @@
   "name":"[Lsun.security.pkcs.SignerInfo;"
 },
 {
+  "name":"ai.yobix.TestFiles",
+  "allDeclaredClasses":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true
+},
+{
   "name":"ai.yobix.TestUtils",
   "allDeclaredClasses":true,
   "queryAllDeclaredMethods":true,
   "queryAllPublicMethods":true
+},
+{
+  "name":"ai.yobix.TikaDetectTest",
+  "allDeclaredFields":true,
+  "allDeclaredClasses":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"test_detectDocxFile","parameterTypes":[] }, {"name":"test_detectOdtFile","parameterTypes":[] }, {"name":"test_detectPdfFile","parameterTypes":[] }, {"name":"test_detectTxtFile","parameterTypes":[] }, {"name":"test_detectXlsFile","parameterTypes":[] }]
 },
 {
   "name":"ai.yobix.TikaNativeTest",
@@ -27,7 +42,61 @@
   "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"testAppleFilingPdf","parameterTypes":[] }, {"name":"testGetPlainTextFromInvoice","parameterTypes":[] }, {"name":"testGetTextFromPdfFormatWithFonts","parameterTypes":[] }, {"name":"testGetTextFromXlsFile","parameterTypes":[] }, {"name":"testHandbook1pDocxFile","parameterTypes":[] }, {"name":"testWordDocxFile","parameterTypes":[] }, {"name":"test_quarkusOdtFile","parameterTypes":[] }, {"name":"test_quarkusPdfFile","parameterTypes":[] }, {"name":"test_quarkusTxtFile","parameterTypes":[] }]
 },
 {
+  "name":"ai.yobix.TikaParseTest",
+  "allDeclaredFields":true,
+  "allDeclaredClasses":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"testAppleFilingPdf","parameterTypes":[] }, {"name":"testGetPlainTextFromInvoice","parameterTypes":[] }, {"name":"testGetTextFromPdfFormatWithFonts","parameterTypes":[] }, {"name":"testGetTextFromXlsFile","parameterTypes":[] }, {"name":"testHandbook1pDocxFile","parameterTypes":[] }, {"name":"testNoNewRomanPdfFile","parameterTypes":[] }, {"name":"testWordDocxFile","parameterTypes":[] }, {"name":"test_invalidPath","parameterTypes":[] }, {"name":"test_quarkusOdtFile","parameterTypes":[] }, {"name":"test_quarkusPdfFile","parameterTypes":[] }, {"name":"test_quarkusTxtFile","parameterTypes":[] }]
+},
+{
   "name":"com.github.jaiimageio.impl.common.PackageUtil"
+},
+{
+  "name":"com.github.jaiimageio.impl.plugins.bmp.BMPImageReaderSpi"
+},
+{
+  "name":"com.github.jaiimageio.impl.plugins.bmp.BMPImageWriterSpi"
+},
+{
+  "name":"com.github.jaiimageio.impl.plugins.gif.GIFImageWriterSpi"
+},
+{
+  "name":"com.github.jaiimageio.impl.plugins.pcx.PCXImageReaderSpi"
+},
+{
+  "name":"com.github.jaiimageio.impl.plugins.pcx.PCXImageWriterSpi"
+},
+{
+  "name":"com.github.jaiimageio.impl.plugins.pnm.PNMImageReaderSpi"
+},
+{
+  "name":"com.github.jaiimageio.impl.plugins.pnm.PNMImageWriterSpi"
+},
+{
+  "name":"com.github.jaiimageio.impl.plugins.raw.RawImageReaderSpi"
+},
+{
+  "name":"com.github.jaiimageio.impl.plugins.raw.RawImageWriterSpi"
+},
+{
+  "name":"com.github.jaiimageio.impl.plugins.tiff.TIFFImageReaderSpi"
+},
+{
+  "name":"com.github.jaiimageio.impl.plugins.tiff.TIFFImageWriterSpi"
+},
+{
+  "name":"com.github.jaiimageio.impl.plugins.wbmp.WBMPImageReaderSpi"
+},
+{
+  "name":"com.github.jaiimageio.impl.plugins.wbmp.WBMPImageWriterSpi"
+},
+{
+  "name":"com.github.jaiimageio.impl.stream.ChannelImageInputStreamSpi"
+},
+{
+  "name":"com.github.jaiimageio.impl.stream.ChannelImageOutputStreamSpi"
 },
 {
   "name":"com.github.luben.zstd.ZstdInputStream"
@@ -148,8 +217,23 @@
   "name":"org.apache.logging.log4j.Logger"
 },
 {
+  "name":"org.apache.logging.log4j.internal.recycler.DummyRecyclerFactoryProvider"
+},
+{
+  "name":"org.apache.logging.log4j.internal.recycler.QueueingRecyclerFactoryProvider"
+},
+{
+  "name":"org.apache.logging.log4j.internal.recycler.ThreadLocalRecyclerFactoryProvider"
+},
+{
+  "name":"org.apache.logging.log4j.util.EnvironmentPropertySource"
+},
+{
   "name":"org.apache.logging.log4j.util.LazyUtil$ReleaseAcquireLazy",
   "fields":[{"name":"value"}]
+},
+{
+  "name":"org.apache.logging.log4j.util.SystemPropertiesPropertySource"
 },
 {
   "name":"org.apache.logging.slf4j.SLF4JLoggerContextFactory",
@@ -157,6 +241,9 @@
 },
 {
   "name":"org.apache.logging.slf4j.SLF4JProvider"
+},
+{
+  "name":"org.apache.pdfbox.jbig2.JBIG2ImageReaderSpi"
 },
 {
   "name":"org.apache.pdfbox.pdmodel.encryption.StandardSecurityHandler",
@@ -527,6 +614,12 @@
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
+  "name":"org.apache.xerces.jaxp.DocumentBuilderFactoryImpl"
+},
+{
+  "name":"org.apache.xerces.jaxp.SAXParserFactoryImpl"
+},
+{
   "name":"org.apache.xerces.parsers.XIncludeAwareParserConfiguration",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
@@ -786,6 +879,9 @@
 },
 {
   "name":"org.slf4j.helpers.Log4jLoggerFactory"
+},
+{
+  "name":"org.slf4j.nop.NOPServiceProvider"
 },
 {
   "name":"schemaorg_apache_xmlbeans.system.sXMLCONFIG.TypeSystemHolder"

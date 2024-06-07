@@ -81,13 +81,37 @@
   }, {
     "pattern":"\\Qlog4j2.system.properties\\E"
   }, {
+    "pattern":"\\Qno-new-roman.pdf\\E"
+  }, {
     "pattern":"\\Qorg/apache/fontbox/cmap/Identity-H\\E"
   }, {
+    "pattern":"\\Qorg/apache/pdfbox/resources/afm/Courier-Bold.afm\\E"
+  }, {
+    "pattern":"\\Qorg/apache/pdfbox/resources/afm/Courier-BoldOblique.afm\\E"
+  }, {
+    "pattern":"\\Qorg/apache/pdfbox/resources/afm/Courier-Oblique.afm\\E"
+  }, {
+    "pattern":"\\Qorg/apache/pdfbox/resources/afm/Courier.afm\\E"
+  }, {
     "pattern":"\\Qorg/apache/pdfbox/resources/afm/Helvetica-Bold.afm\\E"
+  }, {
+    "pattern":"\\Qorg/apache/pdfbox/resources/afm/Helvetica-BoldOblique.afm\\E"
   }, {
     "pattern":"\\Qorg/apache/pdfbox/resources/afm/Helvetica-Oblique.afm\\E"
   }, {
     "pattern":"\\Qorg/apache/pdfbox/resources/afm/Helvetica.afm\\E"
+  }, {
+    "pattern":"\\Qorg/apache/pdfbox/resources/afm/Symbol.afm\\E"
+  }, {
+    "pattern":"\\Qorg/apache/pdfbox/resources/afm/Times-Bold.afm\\E"
+  }, {
+    "pattern":"\\Qorg/apache/pdfbox/resources/afm/Times-BoldItalic.afm\\E"
+  }, {
+    "pattern":"\\Qorg/apache/pdfbox/resources/afm/Times-Italic.afm\\E"
+  }, {
+    "pattern":"\\Qorg/apache/pdfbox/resources/afm/Times-Roman.afm\\E"
+  }, {
+    "pattern":"\\Qorg/apache/pdfbox/resources/afm/ZapfDingbats.afm\\E"
   }, {
     "pattern":"\\Qorg/apache/pdfbox/resources/glyphlist/additional.txt\\E"
   }, {
@@ -96,6 +120,8 @@
     "pattern":"\\Qorg/apache/pdfbox/resources/glyphlist/zapfdingbats.txt\\E"
   }, {
     "pattern":"\\Qorg/apache/pdfbox/resources/text/BidiMirroring.txt\\E"
+  }, {
+    "pattern":"\\Qorg/apache/pdfbox/resources/ttf/LiberationSans-Regular.ttf\\E"
   }, {
     "pattern":"\\Qorg/apache/poi/schemas/ooxml/system/ooxml/ctabstractnum588etype.xsb\\E"
   }, {
@@ -217,6 +243,18 @@
   }, {
     "pattern":"\\Qorg/apache/tika/parser/html/StandardCharsets_unsupported_by_IANA.txt\\E"
   }, {
+    "pattern":"\\Qorg/apache/xerces/impl/msg/SAXMessages.properties\\E"
+  }, {
+    "pattern":"\\Qorg/apache/xerces/impl/msg/SAXMessages_en.properties\\E"
+  }, {
+    "pattern":"\\Qorg/apache/xerces/impl/msg/SAXMessages_en_US.properties\\E"
+  }, {
+    "pattern":"\\Qorg/apache/xmlbeans/impl/regex/message.properties\\E"
+  }, {
+    "pattern":"\\Qorg/apache/xmlbeans/impl/regex/message_en.properties\\E"
+  }, {
+    "pattern":"\\Qorg/apache/xmlbeans/impl/regex/message_en_US.properties\\E"
+  }, {
     "pattern":"\\Qorg/apache/xmlbeans/metadata/system/sXMLCONFIG/index.xsb\\E"
   }, {
     "pattern":"\\Qorg/apache/xmlbeans/metadata/system/sXMLLANG/index.xsb\\E"
@@ -246,15 +284,30 @@
     "pattern":"java.base:\\Qjdk/internal/icu/impl/data/icudt72b/nfkc.nrm\\E"
   }, {
     "pattern":"java.base:\\Qjdk/internal/icu/impl/data/icudt72b/ubidi.icu\\E"
+  }, {
+    "pattern":"java.base:\\Qjdk/internal/icu/impl/data/icudt74b/nfkc.nrm\\E"
+  }, {
+    "pattern":"java.base:\\Qjdk/internal/icu/impl/data/icudt74b/ubidi.icu\\E"
+  }, {
+    "pattern":"java.desktop:\\Qsun/awt/resources/awt_en.properties\\E"
+  }, {
+    "pattern":"java.desktop:\\Qsun/awt/resources/awt_en_US.properties\\E"
   }]},
   "bundles":[{
     "name":"org.apache.xerces.impl.msg.SAXMessages",
-    "locales":["en", "und"]
+    "locales":["en", "en-US", "und"]
   }, {
     "name":"org.apache.xmlbeans.impl.regex.message",
-    "locales":["und"]
+    "locales":["en-US", "und"]
   }, {
     "name":"sun.awt.resources.awt",
+    "locales":["en-US"],
     "classNames":["sun.awt.resources.awt"]
+  }, {
+    "name":"sun.text.resources.cldr.FormatData",
+    "locales":["en", "en-US", "und"]
+  }, {
+    "name":"sun.util.resources.cldr.CalendarData",
+    "locales":["und"]
   }]
 }

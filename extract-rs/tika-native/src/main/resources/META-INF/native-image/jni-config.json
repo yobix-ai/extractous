@@ -1,7 +1,11 @@
 [
 {
   "name":"ai.yobix.TikaNativeMain",
-  "methods":[{"name":"parseToString","parameterTypes":["java.lang.String"] }]
+  "methods":[{"name":"detect","parameterTypes":["java.lang.String"] }, {"name":"parseToString","parameterTypes":["java.lang.String"] }, {"name":"parseToStringWithLength","parameterTypes":["java.lang.String","int"] }]
+},
+{
+  "name":"ai.yobix.TikaResult",
+  "methods":[{"name":"getContent","parameterTypes":[] }, {"name":"getErrorMessage","parameterTypes":[] }, {"name":"getStatus","parameterTypes":[] }, {"name":"isError","parameterTypes":[] }]
 },
 {
   "name":"java.awt.Color",
