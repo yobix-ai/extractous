@@ -33,7 +33,7 @@ fn main() {
     gradle_build(&gradle, &tika_native_dir, &out_dir, &dist_dir);
 
     // Tell cargo to look for shared libraries in the specified directory
-    println!("cargo:rustc-link-search={}", out_dir.display());
+    //println!("cargo:rustc-link-search={}", out_dir.display());
     println!("cargo:rustc-link-search={}", dist_dir.display());
     // Tell cargo to tell rustc to link the `tika_native` shared library.
     println!("cargo:rustc-link-lib=dylib=tika_native");
@@ -54,8 +54,8 @@ fn gradle_build(gradle: &PathBuf, tika_native_dir: &PathBuf,
     let mut options = fs_extra::dir::CopyOptions::new();
     options.overwrite = true;
     options.content_only = true;
-    fs_extra::dir::copy(&build_path, out_dir, &options)
-        .expect("Failed to copy build artifacts to OUTPUT_DIR");
+    // fs_extra::dir::copy(&build_path, out_dir, &options)
+    //     .expect("Failed to copy build artifacts to OUTPUT_DIR");
     fs_extra::dir::copy(&build_path, dist_dir, &options)
         .expect("Failed to copy build artifacts to OUTPUT_DIR");
 }

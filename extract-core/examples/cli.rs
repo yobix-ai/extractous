@@ -35,7 +35,7 @@ fn main() {
     let total_duration = start_time.elapsed();
 
     println!("Time taken to parse: {:.4?}", call_duration);
-    println!("Time taken to parse + print: {:.4?}", total_duration);
+    println!("Total time taken: {:.4?}", total_duration);
 
 
 }
