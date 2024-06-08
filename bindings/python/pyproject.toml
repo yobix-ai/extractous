@@ -13,7 +13,7 @@ description = "extract-rs Python Binding"
 license = { text = "Apache-2.0" }
 readme = "README.md"
 # PyO3 doesn't support python 3.13 yet.
-requires-python = ">=3.8, < 3.13"
+requires-python = ">=3.10, < 3.13"
 
 
 [project.urls]
