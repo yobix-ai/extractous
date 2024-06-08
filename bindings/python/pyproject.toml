@@ -13,7 +13,7 @@ description = "extract-rs Python Binding"
 license = { text = "Apache-2.0" }
 readme = "README.md"
 # PyO3 doesn't support python 3.13 yet.
-requires-python = ">=3.10, < 3.13"
+requires-python = ">=3.8, < 3.13"
 
 
 [project.urls]
@@ -22,7 +22,12 @@ Homepage = "https://extract-rs.yobix.ai/"
 Repository = "https://github.com/yobix-ai/extract-rs"
 
 [tool.maturin]
+# -------------- Cargo options --------------
+# Build artifacts with the specified Cargo profile
+profile = "release"
 # "extension-module" tells pyo3 we want to build an extension module (skips linking against libpython.so)
 features = ["pyo3/extension-module"]
+# -------------- Cargo options --------------
+
 module-name = "extractrs._extractrs"
 python-source = "python"

@@ -15,8 +15,7 @@ pip install extract-rs
 extract pdf example:
 
 ```python
-import extractrs
+from extractrs import extract
 
-elements = extractrs.extract_pdf("/tmp/test.txt")
-print(elements)
+extract("/tmp/test.pdf")
 ```
