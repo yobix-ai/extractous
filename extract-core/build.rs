@@ -75,10 +75,10 @@ pub fn check_graalvm(target_os: &str) {
                 sdk install java {} \n  \
                 sdk use java {}", graalvm_version, graalvm_version);
 
-    let java_home = env::var_os("JAVA_HOME").map(PathBuf::from);
+    let java_home = env::var("JAVA_HOME").map(PathBuf::from);
 
     match java_home {
-        Some(java_home) => {
+        Ok(java_home) => {
             // Check that native-image is in JAVA_HOME/bin
             let native_image = java_home.join("bin").join(native_image_exe);
             if !native_image.exists() {
@@ -86,7 +86,7 @@ pub fn check_graalvm(target_os: &str) {
                 JAVA_HOME is pointing to a valid GraalVM JDK. {}", java_home.display(), help_msg);
             }
         }
-        None => {
+        Err(_) => {
             panic!("Could not find a valid GraalVM JDK. Please make sure your your JAVA_HOME is
             to pointing to a valid GraalVM JDK. {}", help_msg);
         }
