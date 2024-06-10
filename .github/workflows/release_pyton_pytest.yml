@@ -41,16 +41,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - uses: sdkman/sdkman-action@v1
-        id: sdkman
+      - uses: graalvm/setup-graalvm@v1
         with:
-          candidate: java
-          version: 24.0.1.r22-nik
-      - uses: sdkman/sdkman-action@v1
-        id: sdkman-gradle
-        with:
-          candidate: gradle
-          version: '8.8' 
+          java-version: '22'
+          distribution: 'graalvm-community'
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
@@ -103,22 +97,10 @@ jobs:
         with:
           python-version: '3.10'
           architecture: ${{ matrix.platform.target }}
-      - uses: sdkman/sdkman-action@v1
-        id: sdkman
+      - uses: graalvm/setup-graalvm@v1
         with:
-          candidate: java
-          version: 24.0.1.r22-nik
-      - uses: actions/setup-java@v3
-        id: setup-java
-        with:
-          distribution: 'jdkfile'
           java-version: '22'
-          jdkFile: ${{ steps.sdkman.outputs.file }}     
-      - uses: sdkman/sdkman-action@v1
-        id: sdkman-gradle
-        with:
-          candidate: gradle
-          version: '8.8'
+          distribution: 'graalvm-community'
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
@@ -154,16 +136,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - uses: sdkman/sdkman-action@v1
-        id: sdkman
+      - uses: graalvm/setup-graalvm@v1
         with:
-          candidate: java
-          version: 24.0.1.r22-nik
-      - uses: sdkman/sdkman-action@v1
-        id: sdkman-gradle
-        with:
-          candidate: gradle
-          version: '8.8' 
+          java-version: '22'
+          distribution: 'liberica'
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
