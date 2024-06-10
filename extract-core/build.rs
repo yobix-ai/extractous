@@ -65,6 +65,10 @@ pub fn check_graalvm(target_os: &str) {
         "macos" => "24.0.1.r22-nik",
         _ => "22.0.1-graalce"
     };
+    let native_image_exe = match target_os {
+        "windows" => "native-image.cmd",
+        _ => "native-image"
+    };
     let help_msg = format!("\nWe recommend using sdkman to install and \
                 manage different JDKs. See https://sdkman.io/usage for more information.\n\
                 You can install graalvm using:\n  \
@@ -76,7 +80,7 @@ pub fn check_graalvm(target_os: &str) {
     match java_home {
         Some(java_home) => {
             // Check that native-image is in JAVA_HOME/bin
-            let native_image = java_home.join("bin").join("native-image");
+            let native_image = java_home.join("bin").join(native_image_exe);
             if !native_image.exists() {
                 panic!("Your JAVA_HOME env variable is pointing to: {}. Please make sure your \
                 JAVA_HOME is pointing to a valid GraalVM JDK. {}", java_home.display(), help_msg);
