@@ -4,7 +4,7 @@ use std::process::Command;
 
 fn main() {
     let root_dir = env::var("CARGO_MANIFEST_DIR").map(PathBuf::from).unwrap();
-    let tika_native_dir = root_dir.join("tika-native");
+    let tika_native_dir = root_dir.join("tika-native").canonicalize().unwrap();
     let out_dir = env::var("OUT_DIR").map(PathBuf::from).unwrap();
     let target_os = env::var("CARGO_CFG_TARGET_OS").unwrap();
 
@@ -34,11 +34,11 @@ fn main() {
 }
 
 // Run the gradle build command to build tika-native
-fn gradle_build(target_os: &str, tika_native_dir: &PathBuf,
+fn gradle_build(target_os: &str, tika_native_dir: &Path,
                 out_dir: &PathBuf, _dist_dir: &Path
 ) {
     let gradlew = match target_os {
-        "windows" => "./gradlew.bat",
+        "windows" => "gradlew.bat",
         _ => "./gradlew"
     };
 
