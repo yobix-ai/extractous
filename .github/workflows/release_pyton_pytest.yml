@@ -41,7 +41,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - uses: graalvm/setup-graalvm@v1
+      - uses: graalvm/setup-graalvm@v1.2.1
         with:
           java-version: '22'
           distribution: 'graalvm-community'
@@ -98,7 +98,7 @@ jobs:
         with:
           python-version: '3.10'
           architecture: ${{ matrix.platform.target }}
-      - uses: graalvm/setup-graalvm@v1
+      - uses: graalvm/setup-graalvm@v1.2.1
         with:
           java-version: '22'
           distribution: 'graalvm-community'
@@ -138,7 +138,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - uses: graalvm/setup-graalvm@v1
+      - uses: graalvm/setup-graalvm@v1.2.1
         with:
           java-version: '22'
           distribution: 'liberica'
