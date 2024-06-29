@@ -12,6 +12,7 @@ fn main() {
     let dist_dir = root_dir.join("target").join(profile).join("deps");
 
     // Rerun this build script if the tika-native build directory changes
+    println!("cargo:rerun-if-env-changed=JAVA_HOME");
     //let tika_build_path = root_dir.join("tika-native/build/native/nativeCompile");
     //println!("cargo::rerun-if-changed={}", tika_build_path.display());
 
