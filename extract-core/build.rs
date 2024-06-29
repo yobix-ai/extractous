@@ -12,7 +12,6 @@ fn main() {
     let dist_dir = root_dir.join("target").join(profile).join("deps");
 
     // Rerun this build script if the tika-native build directory changes
-    println!("cargo:rerun-if-env-changed=JAVA_HOME");
     //let tika_build_path = root_dir.join("tika-native/build/native/nativeCompile");
     //println!("cargo::rerun-if-changed={}", tika_build_path.display());
 
@@ -20,9 +19,13 @@ fn main() {
     check_graalvm(&target_os);
 
     // Just for debugging
-    //println!("cargo:warning=gradlew: {}", gradlew);
-    //println!("cargo:warning=dist_dir: {}", dist_dir.display());
-    // println!("cargo:warning=out_dir: {}", out_dir.display());
+    let graal_home = env::var_os("GRAALVM_HOME");
+    let java_home = env::var("JAVA_HOME");
+
+    println!("cargo:warning=GRAALVM_HOME: {:?}", graal_home);
+    println!("cargo:warning=JAVA_HOME: {:?}", java_home);
+    println!("cargo:warning=dist_dir: {}", dist_dir.display());
+    println!("cargo:warning=out_dir: {}", out_dir.display());
 
 
     gradle_build(&target_os, &tika_native_dir, &out_dir, &dist_dir);
