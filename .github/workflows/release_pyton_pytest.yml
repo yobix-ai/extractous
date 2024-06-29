@@ -58,7 +58,7 @@ jobs:
         with:
           target: ${{ matrix.platform.target }}
           working-directory: "bindings/python"
-          args: --release --out dist --zig
+          args: --release --out dist --zig --target ${{ matrix.platform.target }}-unknown-linux-gnu
           sccache: 'true'
           manylinux: auto
       - name: Upload wheels
