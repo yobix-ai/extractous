@@ -16,7 +16,7 @@ fn main() {
     //println!("cargo::rerun-if-changed={}", tika_build_path.display());
 
     // Check that graalvm and gradle are installed
-    check_graalvm(&target_os);
+    //check_graalvm(&target_os);
 
     // Just for debugging
     let graal_home = env::var("GRAALVM_HOME");
