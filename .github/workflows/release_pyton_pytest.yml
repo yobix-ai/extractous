@@ -32,8 +32,9 @@ jobs:
             target: aarch64
           - runner: ubuntu-latest
             target: armv7
-          - runner: ubuntu-latest
-            target: s390x
+          # NOT SUPPORTED with zig
+          #- runner: ubuntu-latest
+          #  target: s390x
           - runner: ubuntu-latest
             target: ppc64le
     steps:
