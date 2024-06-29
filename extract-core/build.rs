@@ -42,8 +42,8 @@ fn gradle_build(target_os: &str, tika_native_dir: &Path,
                 out_dir: &PathBuf, _dist_dir: &Path
 ) {
     let gradlew = match target_os {
-        "windows" => "gradlew.bat",
-        _ => "./gradlew"
+        "windows" => tika_native_dir.join("gradlew.bat"),
+        _ => tika_native_dir.join("gradlew")
     };
 
     Command::new(gradlew)
