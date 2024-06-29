@@ -45,7 +45,7 @@ jobs:
       - uses: graalvm/setup-graalvm@v1.2.2
         with:
           java-version: '22'
-          distribution: 'liberica'
+          distribution: 'graalvm-community'
           set-java-home: 'true'
       - name: Example step
         run: |
