@@ -38,6 +38,9 @@ jobs:
             target: ppc64le
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
       - uses: graalvm/setup-graalvm@v1.2.1
         with:
           java-version: '22'
@@ -49,9 +52,6 @@ jobs:
           echo "JAVA_HOME: $JAVA_HOME"
           java --version
           native-image --version
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:

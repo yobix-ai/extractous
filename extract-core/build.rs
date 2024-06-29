@@ -19,7 +19,7 @@ fn main() {
     check_graalvm(&target_os);
 
     // Just for debugging
-    let graal_home = env::var_os("GRAALVM_HOME");
+    let graal_home = env::var("GRAALVM_HOME");
     let java_home = env::var("JAVA_HOME");
 
     println!("cargo:warning=GRAALVM_HOME: {:?}", graal_home);
