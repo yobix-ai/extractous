@@ -50,7 +50,7 @@ graalvmNative {
     // This enables using separate GraalVM version thant the one used by gradle
     // However, this will only work properly if you only have only GraalVM JDKs installed on the machine.
     // Gradle will not be able to reliably detect GraalVM JDKs, nor detect GraalVM distributions from different vendors.
-    toolchainDetection = true
+    toolchainDetection = false
 
     // Set to false to disable to run the tests in native mode.
     testSupport = true
