@@ -28,15 +28,15 @@ jobs:
             target: x86_64
           - runner: ubuntu-latest
             target: x86
-          - runner: ubuntu-latest
-            target: aarch64
-          - runner: ubuntu-latest
-            target: armv7
+          #- runner: ubuntu-latest
+          #  target: aarch64
+          #- runner: ubuntu-latest
+          #  target: armv7
           # NOT SUPPORTED with zig
           #- runner: ubuntu-latest
           #  target: s390x
-          - runner: ubuntu-latest
-            target: ppc64le
+          #- runner: ubuntu-latest
+          #  target: ppc64le
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -58,7 +58,7 @@ jobs:
         with:
           target: ${{ matrix.platform.target }}
           working-directory: "bindings/python"
-          args: --release --out dist --zig --target ${{ matrix.platform.target }}-unknown-linux-gnu
+          args: --release --out dist --zig
           sccache: 'true'
           manylinux: auto
       - name: Upload wheels
