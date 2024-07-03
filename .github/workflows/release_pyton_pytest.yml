@@ -20,7 +20,7 @@ permissions:
 jobs:
   linux-x86_64:
     runs-on: ubuntu-latest
-    container: quay.io/pypa/manylinux2014_x86_64
+    container: quay.io/pypa/manylinux_2_28_x86_64
     steps:
       - uses: actions/checkout@v4
       - uses: graalvm/setup-graalvm@v1.2.2
