@@ -2,8 +2,7 @@
 set -e -x
 
 uname -a
-
-yum install -y zip
+dnf install -y zip
 
 curl -s "https://get.sdkman.io" | sh -s -- -y
 source "$HOME/.sdkman/bin/sdkman-init.sh"
