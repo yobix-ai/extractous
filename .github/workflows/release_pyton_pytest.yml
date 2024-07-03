@@ -49,6 +49,7 @@ jobs:
           set-java-home: 'true'
       - name: Example step
         run: |
+          uname - a
           echo "GRAALVM_HOME: $GRAALVM_HOME"
           echo "JAVA_HOME: $JAVA_HOME"
           java --version
@@ -58,10 +59,10 @@ jobs:
         with:
           target: ${{ matrix.platform.target }}
           working-directory: "bindings/python"
-          args: --release --out dist --zig
+          args: --release --out dist
           sccache: 'true'
           manylinux: auto
-          #before-script-linux: ../../.github/workflows/install-graalvm-linux.sh
+          before-script-linux: ../../.github/workflows/install-graalvm-linux.sh
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:
