@@ -30,18 +30,24 @@ jobs:
     #container: quay.io/pypa/manylinux_2_28_${{ matrix.platform.target }}
     steps:
       - uses: actions/checkout@v4
+
       - uses: graalvm/setup-graalvm@v1.2.2
         with:
           java-version: '22'
           distribution: 'graalvm-community'
           set-java-home: 'true'
+      # - name: Graalvm install step
+      #   run: |
+      #     uname -a
+      #     echo "GRAALVM_HOME: $GRAALVM_HOME"
+      #     echo "JAVA_HOME: $JAVA_HOME"
+
       - name: Graalvm check step
         run: |
           uname -a
           echo "GRAALVM_HOME: $GRAALVM_HOME"
           echo "JAVA_HOME: $JAVA_HOME"
-          java --version
-          native-image --version
+
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
@@ -51,6 +57,8 @@ jobs:
           working-directory: "bindings/python"
           sccache: 'true'
           manylinux: auto
+          docker-options: "--mount type=bind,source=$JAVA_HOME,target=$JAVA_HOME -e JAVA_HOME"
+
 
       - name: Upload wheels
         uses: actions/upload-artifact@v4
