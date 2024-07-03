@@ -46,21 +46,29 @@ dependencies {
     implementation "org.apache.tika:tika-parser-webarchive-module:$tikaVersion"
 }
 
+// We use java BellSoft 22 build because it supports awt on macos.
+def graalVmVersion = "22"
+def graalVmVendor = if (OperatingSystem.current().isMacOsX) {
+    "BellSoft"
+} else {
+    //"Oracle Corporation"
+    "GraalVM Community"
+}
+
 graalvmNative {
     // This enables using separate GraalVM version thant the one used by gradle
     // However, this will only work properly if you only have only GraalVM JDKs installed on the machine.
     // Gradle will not be able to reliably detect GraalVM JDKs, nor detect GraalVM distributions from different vendors.
-    toolchainDetection = false
+    toolchainDetection = true
 
     // Set to false to disable to run the tests in native mode.
     testSupport = true
 
     binaries {
         main {
-            // We use java BellSoft 22 build because it supports awt on mac.
             javaLauncher = javaToolchains.launcherFor {
-                languageVersion = JavaLanguageVersion.of(22)
-                vendor = JvmVendorSpec.matching("BellSoft")
+                languageVersion = JavaLanguageVersion.of(graalVmVersion)
+                vendor = JvmVendorSpec.matching(graalVmVendor)
             }
 
             imageName = 'libtika_native'
