@@ -49,7 +49,7 @@ jobs:
           set-java-home: 'true'
       - name: Example step
         run: |
-          uname - a
+          uname -a
           echo "GRAALVM_HOME: $GRAALVM_HOME"
           echo "JAVA_HOME: $JAVA_HOME"
           java --version

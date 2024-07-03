@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e -x
 
-uname - a
+uname -a
 
 yum install -y zip
 
