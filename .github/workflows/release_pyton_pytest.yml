@@ -61,7 +61,7 @@ jobs:
           args: --release --out dist
           sccache: 'true'
           manylinux: auto
-          container: off
+          before-script-linux: .github/workflows/install-graalvm-linux.sh
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:
