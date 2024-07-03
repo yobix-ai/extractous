@@ -48,11 +48,10 @@ dependencies {
 
 // We use java BellSoft 22 build because it supports awt on macos.
 def graalVmVersion = "22"
-def graalVmVendor = if (OperatingSystem.current().isMacOsX) {
-    "BellSoft"
-} else {
-    //"Oracle Corporation"
-    "GraalVM Community"
+def graalVmVendor = "GraalVM Community"
+//def graalVmVendor = "Oracle Corporation"
+if (org.gradle.internal.os.OperatingSystem.current().isMacOsX()) {
+    graalVmVendor = "BellSoft"
 }
 
 graalvmNative {
