@@ -9,7 +9,6 @@ on:
   push:
     branches:
       - main
-      - master
     tags:
       - '*'
   pull_request:
@@ -19,35 +18,17 @@ permissions:
   contents: read
 
 jobs:
-  linux:
-    runs-on: ${{ matrix.platform.runner }}
-    strategy:
-      matrix:
-        platform:
-          - runner: ubuntu-latest
-            target: x86_64
-          #- runner: ubuntu-latest
-          #  target: x86
-          - runner: ubuntu-latest
-            target: aarch64
-          #- runner: ubuntu-latest
-          #  target: armv7
-          # NOT SUPPORTED with zig
-          #- runner: ubuntu-latest
-          #  target: s390x
-          #- runner: ubuntu-latest
-          #  target: ppc64le
+  linux-x86_64:
+    runs-on: ubuntu-latest
+    container: quay.io/pypa/manylinux2014_x86_64
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
       - uses: graalvm/setup-graalvm@v1.2.2
         with:
           java-version: '22'
           distribution: 'graalvm-community'
           set-java-home: 'true'
-      - name: Example step
+      - name: Graalvm check step
         run: |
           uname -a
           echo "GRAALVM_HOME: $GRAALVM_HOME"
@@ -55,42 +36,20 @@ jobs:
           java --version
           native-image --version
       - name: Build wheels
-        uses: PyO3/maturin-action@v1
-        with:
-          target: ${{ matrix.platform.target }}
-          working-directory: "bindings/python"
-          args: --release --out dist
-          sccache: 'true'
-          manylinux: auto
-          before-script-linux: ../../.github/workflows/install-graalvm-linux.sh
+        run: |
+         bash .github/workflows/build-wheels.sh
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:
-          name: wheels-linux-${{ matrix.platform.target }}
+          name: wheels-linux-x86_64
           path: bindings/python/dist
       - name: pytest
-        if: ${{ startsWith(matrix.platform.target, 'x86_64') }}
         shell: bash
         run: |
           set -e
           pip install extract-rs --find-links dist --force-reinstall
           pip install pytest
           pytest
-      - name: pytest
-        if: ${{ !startsWith(matrix.platform.target, 'x86') && matrix.platform.target != 'ppc64' }}
-        uses: uraimo/run-on-arch-action@v2.5.0
-        with:
-          arch: ${{ matrix.platform.target }}
-          distro: ubuntu22.04
-          githubToken: ${{ github.token }}
-          install: |
-            apt-get update
-            apt-get install -y --no-install-recommends python3 python3-pip
-            pip3 install -U pip pytest
-          run: |
-            set -e
-            pip3 install extract-rs --find-links dist --force-reinstall
-            pytest
 
   windows:
     runs-on: ${{ matrix.platform.runner }}
@@ -99,8 +58,6 @@ jobs:
         platform:
           - runner: windows-latest
             target: x64
-          - runner: windows-latest
-            target: x86
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
