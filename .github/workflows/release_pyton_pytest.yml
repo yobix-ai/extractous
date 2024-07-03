@@ -58,9 +58,10 @@ jobs:
         with:
           target: ${{ matrix.platform.target }}
           working-directory: "bindings/python"
-          args: --release --out dist --zig
+          args: --release --out dist
           sccache: 'true'
           manylinux: auto
+          container: off
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:
