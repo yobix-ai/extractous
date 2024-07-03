@@ -57,7 +57,7 @@ jobs:
           working-directory: "bindings/python"
           sccache: 'true'
           manylinux: auto
-          docker-options: "--mount type=bind,source=$JAVA_HOME,target=$JAVA_HOME -e JAVA_HOME"
+          docker-options: "--mount type=bind,source=/opt/hostedtoolcache,target=/opt/hostedtoolcache -e JAVA_HOME"
 
 
       - name: Upload wheels
