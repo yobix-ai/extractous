@@ -1,8 +1,10 @@
 #!/bin/bash
 set -e -x
 
+
+
 uname -a
-dnf install -y zip
+apt install -y zip
 
 curl -s "https://get.sdkman.io" | sh -s -- -y
 source "$HOME/.sdkman/bin/sdkman-init.sh"

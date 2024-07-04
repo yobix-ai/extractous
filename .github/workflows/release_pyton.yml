@@ -205,7 +205,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: wheels
+          name: python-package-distributions
           path: bindings/python/dist
       - name: Publish to TestPyPI
         uses: pypa/gh-action-pypi-publish@release/v1
