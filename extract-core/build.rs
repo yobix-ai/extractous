@@ -19,13 +19,12 @@ fn main() {
     check_graalvm(&target_os);
 
     // Just for debugging
-    let graal_home = env::var("GRAALVM_HOME");
-    let java_home = env::var("JAVA_HOME");
-
-    println!("cargo:warning=GRAALVM_HOME: {:?}", graal_home);
-    println!("cargo:warning=JAVA_HOME: {:?}", java_home);
-    println!("cargo:warning=dist_dir: {}", dist_dir.display());
-    println!("cargo:warning=out_dir: {}", out_dir.display());
+    // let graal_home = env::var("GRAALVM_HOME");
+    // let java_home = env::var("JAVA_HOME");
+    // println!("cargo:warning=GRAALVM_HOME: {:?}", graal_home);
+    // println!("cargo:warning=JAVA_HOME: {:?}", java_home);
+    // println!("cargo:warning=dist_dir: {}", dist_dir.display());
+    // println!("cargo:warning=out_dir: {}", out_dir.display());
 
 
     gradle_build(&target_os, &tika_native_dir, &out_dir, &dist_dir);

@@ -15,6 +15,9 @@ readme = "README.md"
 # PyO3 doesn't support python 3.13 yet.
 requires-python = ">=3.10, < 3.13"
 
+[project.optional-dependencies]
+docs = ["pdoc"]
+test = ["pytest"]
 
 [project.urls]
 Documentation = "https://extract-rs.yobix.ai/docs/python/index.html"
