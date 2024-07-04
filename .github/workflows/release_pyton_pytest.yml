@@ -44,6 +44,7 @@ jobs:
           uname -a
           echo "GRAALVM_HOME: $GRAALVM_HOME"
           echo "JAVA_HOME: $JAVA_HOME"
+          echo "PATH: $PATH"
 
       - name: Build wheels
         uses: PyO3/maturin-action@v1
@@ -54,7 +55,7 @@ jobs:
           working-directory: "bindings/python"
           sccache: 'true'
           manylinux: auto
-          docker-options: "--mount type=bind,source=/opt/hostedtoolcache,target=/opt/hostedtoolcache -e JAVA_HOME"
+          docker-options: "--mount type=bind,source=/opt/hostedtoolcache,target=/opt/hostedtoolcache -e JAVA_HOME -e GRAALVM_HOME"
 
 
       - name: Upload wheels
