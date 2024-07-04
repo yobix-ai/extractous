@@ -37,7 +37,7 @@ jobs:
       #     set-java-home: 'true'
       - name: Graalvm install step
         run: |
-          bash .github/workflows/install-graalvm.sh
+          bash .github/workflows/install-graalvm.sh ${{ matrix.platform.target }} graalvm-ce
 
       - name: Graalvm check step
         run: |
