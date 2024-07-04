@@ -25,22 +25,19 @@ jobs:
         platform:
           - runner: ubuntu-latest
             target: x86_64
-          # - runner: ubuntu-latest
-          #   target: aarch64
-    #container: quay.io/pypa/manylinux_2_28_${{ matrix.platform.target }}
+          - runner: ubuntu-latest
+            target: aarch64
     steps:
       - uses: actions/checkout@v4
 
-      - uses: graalvm/setup-graalvm@v1.2.2
-        with:
-          java-version: '22'
-          distribution: 'graalvm-community'
-          set-java-home: 'true'
-      # - name: Graalvm install step
-      #   run: |
-      #     uname -a
-      #     echo "GRAALVM_HOME: $GRAALVM_HOME"
-      #     echo "JAVA_HOME: $JAVA_HOME"
+      # - uses: graalvm/setup-graalvm@v1.2.2
+      #   with:
+      #     java-version: '22'
+      #     distribution: 'graalvm-community'
+      #     set-java-home: 'true'
+      - name: Graalvm install step
+        run: |
+          bash .github/workflows/install-graalvm.sh
 
       - name: Graalvm check step
         run: |
@@ -69,7 +66,7 @@ jobs:
         shell: bash
         run: |
           set -e
-          pip install extract-rs --find-links dist --force-reinstall
+          pip install extract-rs --find-links bindings/python/dist --force-reinstall
           pip install pytest
           pytest
 
