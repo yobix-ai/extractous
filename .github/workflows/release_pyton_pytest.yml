@@ -57,8 +57,7 @@ jobs:
           target: ${{ matrix.platform.target }}
           working-directory: "bindings/python"
           sccache: 'true'
-          container: quay.io/pypa/manylinux_2_28_${{ matrix.platform.target }}:latest
-          docker-options: "--mount type=bind,source=/opt/hostedtoolcache,target=/opt/hostedtoolcache -e JAVA_HOME -e GRAALVM_HOME"
+          container: 'off' # runs on host machine
 
       - name: Upload wheels
         uses: actions/upload-artifact@v4
