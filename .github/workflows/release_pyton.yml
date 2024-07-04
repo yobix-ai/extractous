@@ -190,20 +190,48 @@ jobs:
           name: wheels-sdist
           path: bindings/python/dist
 
-  # release:
-  #   name: Release
-  #   runs-on: ubuntu-latest
-  #   if: "startsWith(github.ref, 'refs/tags/')"
-  #   needs: [linux, windows, macos, sdist]
-  #   steps:
-  #     - uses: actions/download-artifact@v4
-  #       with:
-  #         name: wheels
-  #         path: bindings/python/dist
-  #     - name: Publish to PyPI
-  #       uses: PyO3/maturin-action@v1
-  #       env:
-  #         MATURIN_PYPI_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
-  #       with:
-  #         command: upload
-  #         args: --non-interactive --skip-existing wheels-*/*
+  # Follows the guide on https://packaging.python.org/en/latest/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/        
+  # We use 2 actions one to publish on PyPi on tag pushes to main brnach and the other to publish on TestPyPi on any push
+  publish-to-testpypi:
+    name: Publish to TestPyPI
+    # publish to TestPyPI on any push
+    needs: [linux, macos, sdist]
+    runs-on: ubuntu-latest
+    environment:
+      name: testpypi
+      url: https://pypi.org/p/extract-rs
+    permissions:
+      id-token: write  # IMPORTANT: mandatory for trusted publishing
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: wheels
+          path: bindings/python/dist
+      - name: Publish to TestPyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
+          skip-existing: true
+          packages-dir: bindings/python/dist
+
+  publish-to-pypi:
+    name: Publish to PyPI
+    # only publish to PyPI on tag pushes
+    if: "startsWith(github.ref, 'refs/tags/')"
+    needs: [linux, macos, sdist]
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/extract-rs
+    permissions:
+      id-token: write  # IMPORTANT: mandatory for trusted publishing
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: wheels
+          path: bindings/python/dist
+      - name: Publish to TestPyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          skip-existing: true
+          packages-dir: bindings/python/dist
