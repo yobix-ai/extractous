@@ -33,7 +33,7 @@ fn main() {
 
     // Tell cargo to look for shared libraries in the specified directory
     println!("cargo:rustc-link-search={}", out_dir.display());
-    println!("cargo:rustc-link-search={}", dist_dir.display());
+    //println!("cargo:rustc-link-search={}", dist_dir.display());
 
     // Tell cargo to tell rustc to link the `tika_native` shared library.
     println!("cargo:rustc-link-lib=dylib=tika_native");
@@ -52,7 +52,7 @@ fn main() {
 
 // Run the gradle build command to build tika-native
 fn gradle_build(target_os: &str, tika_native_dir: &Path,
-                out_dir: &PathBuf, dist_dir: &Path
+                out_dir: &PathBuf, _dist_dir: &Path
 ) {
     let gradlew = match target_os {
         "windows" => tika_native_dir.join("gradlew.bat"),
@@ -72,8 +72,8 @@ fn gradle_build(target_os: &str, tika_native_dir: &Path,
     options.content_only = true;
     fs_extra::dir::copy(&build_path, out_dir, &options)
          .expect("Failed to copy build artifacts to OUTPUT_DIR");
-    fs_extra::dir::copy(&build_path, dist_dir, &options)
-        .expect("Failed to copy build artifacts to DIST_DIR");
+    //fs_extra::dir::copy(&build_path, dist_dir, &options)
+    //    .expect("Failed to copy build artifacts to DIST_DIR");
 }
 
 // checks if GraalVM JDK is installed and pointed to by JAVA_HOME or panics if it can't be found
