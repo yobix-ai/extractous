@@ -3,8 +3,9 @@ use std::path::{Path, PathBuf};
 use std::process::Command;
 
 fn main() {
+    // Don't use canonicalize because on Windows it will resolve to UNC paths and fails
     let root_dir = env::var("CARGO_MANIFEST_DIR").map(PathBuf::from).unwrap();
-    let tika_native_dir = root_dir.join("tika-native").canonicalize().unwrap();
+    let tika_native_dir = root_dir.join("tika-native");
     let out_dir = env::var("OUT_DIR").map(PathBuf::from).unwrap();
     let target_os = env::var("CARGO_CFG_TARGET_OS").unwrap();
 
@@ -23,22 +24,35 @@ fn main() {
     // let java_home = env::var("JAVA_HOME");
     // println!("cargo:warning=GRAALVM_HOME: {:?}", graal_home);
     // println!("cargo:warning=JAVA_HOME: {:?}", java_home);
-    // println!("cargo:warning=dist_dir: {}", dist_dir.display());
+    //println!("cargo:warning=dist_dir: {}", dist_dir.display());
     // println!("cargo:warning=out_dir: {}", out_dir.display());
+    //println!("cargo:warning=tika_native_dir: {:?}", tika_native_dir);
 
 
     gradle_build(&target_os, &tika_native_dir, &out_dir, &dist_dir);
 
     // Tell cargo to look for shared libraries in the specified directory
     println!("cargo:rustc-link-search={}", out_dir.display());
-    //println!("cargo:rustc-link-search={}", dist_dir.display());
+    println!("cargo:rustc-link-search={}", dist_dir.display());
+
     // Tell cargo to tell rustc to link the `tika_native` shared library.
     println!("cargo:rustc-link-lib=dylib=tika_native");
+    println!("cargo:rustc-link-lib=dylib=awt");
+    println!("cargo:rustc-link-lib=dylib=awt_headless");
+    println!("cargo:rustc-link-lib=dylib=awt_xawt");
+    println!("cargo:rustc-link-lib=dylib=fontmanager");
+    println!("cargo:rustc-link-lib=dylib=freetype");
+    println!("cargo:rustc-link-lib=dylib=java");
+    println!("cargo:rustc-link-lib=dylib=javajpeg");
+    println!("cargo:rustc-link-lib=dylib=jsound");
+    println!("cargo:rustc-link-lib=dylib=jvm");
+    println!("cargo:rustc-link-lib=dylib=lcms");
+    println!("cargo:rustc-link-lib=dylib=mlib_image");
 }
 
 // Run the gradle build command to build tika-native
 fn gradle_build(target_os: &str, tika_native_dir: &Path,
-                out_dir: &PathBuf, _dist_dir: &Path
+                out_dir: &PathBuf, dist_dir: &Path
 ) {
     let gradlew = match target_os {
         "windows" => tika_native_dir.join("gradlew.bat"),
@@ -56,10 +70,10 @@ fn gradle_build(target_os: &str, tika_native_dir: &Path,
     let mut options = fs_extra::dir::CopyOptions::new();
     options.overwrite = true;
     options.content_only = true;
-    fs_extra::dir::copy(build_path, out_dir, &options)
+    fs_extra::dir::copy(&build_path, out_dir, &options)
          .expect("Failed to copy build artifacts to OUTPUT_DIR");
-    //fs_extra::dir::copy(&build_path, dist_dir, &options)
-    //    .expect("Failed to copy build artifacts to DIST_DIR");
+    fs_extra::dir::copy(&build_path, dist_dir, &options)
+        .expect("Failed to copy build artifacts to DIST_DIR");
 }
 
 // checks if GraalVM JDK is installed and pointed to by JAVA_HOME or panics if it can't be found
