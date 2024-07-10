@@ -61,7 +61,12 @@ jobs:
       
       - name: Patch wheel lib
         run: |
-          bash .github/workflows/patch-wheel-lib-extractrs.sh wheels-linux-${{ matrix.platform.target }}
+          set -e
+          python3 -m venv .venv
+          source .venv/bin/activate
+          pip install wheel
+          pip install patchelf
+          bash .github/workflows/patch-wheel-lib-extractrs.sh bindings/python/dist
 
       - name: Upload wheels
         uses: actions/upload-artifact@v4
