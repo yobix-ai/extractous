@@ -66,6 +66,7 @@ jobs:
           source .venv/bin/activate
           pip install wheel
           pip install patchelf
+          pip install auditwheel
           bash .github/workflows/patch-wheel-lib-linux.sh bindings/python/dist
 
       - name: Upload wheels
