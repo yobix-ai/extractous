@@ -57,7 +57,8 @@ jobs:
           target: ${{ matrix.platform.target }}
           working-directory: "bindings/python"
           sccache: 'false'
-          container: quay.io/pypa/manylinux_2_28_${{ matrix.platform.target }}:latest
+          manylinux: '2_28'
+          #container: quay.io/pypa/manylinux_2_28_${{ matrix.platform.target }}:latest
           docker-options: "--mount type=bind,source=/opt/hostedtoolcache,target=/opt/hostedtoolcache -e JAVA_HOME -e GRAALVM_HOME"
 
       - name: Patch wheel lib
