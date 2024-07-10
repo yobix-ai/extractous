@@ -53,10 +53,10 @@ jobs:
         uses: PyO3/maturin-action@v1
         with:
           command: build
-          args: --release --out dist --find-interpreter
+          args: --release --out dist -i python3.10
           target: ${{ matrix.platform.target }}
           working-directory: "bindings/python"
-          sccache: 'true'
+          sccache: 'false'
           container: quay.io/pypa/manylinux_2_28_${{ matrix.platform.target }}:latest
           docker-options: "--mount type=bind,source=/opt/hostedtoolcache,target=/opt/hostedtoolcache -e JAVA_HOME -e GRAALVM_HOME"
 
