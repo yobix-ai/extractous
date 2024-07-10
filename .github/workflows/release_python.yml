@@ -58,7 +58,7 @@ jobs:
           #working-directory: "bindings/python" # dont use 
           sccache: 'false'
           target: ${{ matrix.platform.target }}
-          manylinux: '2_34'
+          #manylinux: '2_34'
           container: 'off'
           #docker-options: "--mount type=bind,source=/opt/hostedtoolcache,target=/opt/hostedtoolcache -e JAVA_HOME -e GRAALVM_HOME"
 
