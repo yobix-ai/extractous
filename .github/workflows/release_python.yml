@@ -66,7 +66,7 @@ jobs:
           source .venv/bin/activate
           pip install wheel
           pip install patchelf
-          bash .github/workflows/patch-wheel-lib-extractrs.sh bindings/python/dist
+          bash .github/workflows/patch-wheel-lib-linux.sh bindings/python/dist
 
       - name: Upload wheels
         uses: actions/upload-artifact@v4
@@ -169,6 +169,15 @@ jobs:
           working-directory: "bindings/python"
           args: --release --out dist
           sccache: 'true'
+
+      - name: Patch wheel lib
+        run: |
+          set -e
+          python3 -m venv .venv
+          source .venv/bin/activate
+          pip install wheel
+          bash .github/workflows/patch-wheel-lib-macos.sh bindings/python/dist
+
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:

@@ -15,15 +15,15 @@ if [ ! -d "$WHEEL_DIR" ]; then
 fi
 
 # Ensure wheel and patchelf are installed
-if ! command -v wheel &> /dev/null
+if ! command -v install_name_tool &> /dev/null
 then
-    echo "wheel could not be found, please install it with pip install wheel"
+    echo "install_name_tool could not be found"
     exit 1
 fi
 
-if ! command -v patchelf &> /dev/null
+if ! command -v otool &> /dev/null
 then
-    echo "patchelf could not be found, please install it"
+    echo "otool could not be found"
     exit 1
 fi
 
@@ -55,8 +55,18 @@ for WHEEL_FILE in $WHEEL_FILES; do
         continue
     fi
 
-    # Patch the .so file to set its rpath to $ORIGIN/libs
-    patchelf --set-rpath '$ORIGIN/libs' "$SO_FILE"
+    # Extract the library names using otool
+    LIB_TIKA_NATIVE=$(otool -l "$SO_FILE" | grep libtika_native | awk '{print $2}')
+
+    # Check if libtika is found
+    if [ ! -f "$LIB_TIKA_NATIVE" ]; then
+        echo "$LIB_TIKA_NATIVE not found in $SO_FILE"
+        exit 1
+    fi
+    echo "patching library  $LIB_TIKA_NATIVE"
+
+    # Change the library path using install_name_tool
+    install_name_tool -change "$LIB_TIKA_NATIVE" "@loader_path/libs/$(basename $LIB_TIKA_NATIVE)" "$SO_FILE"
 
     # Pack the wheel again
     python -m wheel pack "$UNPACKED_WHEEL_DIR" -d "$WHEEL_DIR"

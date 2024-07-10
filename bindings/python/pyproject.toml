@@ -36,6 +36,9 @@ strip=false
 skip-auditwheel=true # This is very important to not 
 module-name = "extractrs._extractrs"
 python-source = "python"
-include = [ {path = "**/libs/*.so", format = ["wheel"]} ]
+include = [ 
+  {path = "**/libs/*.so", format = ["wheel"]},
+  {path = "**/libs/*.dylib", format = ["wheel"]},
+]
 #exclude = [ {path = "**/libs/libtika_native.so", format = ["wheel"]} ]
 
