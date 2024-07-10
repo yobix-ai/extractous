@@ -66,8 +66,8 @@ for WHEEL_FILE in $WHEEL_FILES; do
     # Clean up the unpacked directory
     rm -rf "$UNPACKED_WHEEL_DIR"
 
-    auditwheel repair "$WHEEL_FILE" -w "$WHEEL_DIR" --plat manylinux_2_28_x86_64
-    rm $WHEEL_FILE
+    #auditwheel repair "$WHEEL_FILE" -w "$WHEEL_DIR" --plat manylinux_2_28_x86_64
+    #rm $WHEEL_FILE
 
     echo "Wheel file $WHEEL_FILE has been patched and repacked successfully."
 done
