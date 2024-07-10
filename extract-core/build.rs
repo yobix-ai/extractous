@@ -1,6 +1,7 @@
 use std::env;
 use std::path::{Path, PathBuf};
 use std::process::Command;
+use std::fs;
 
 fn main() {
     // Don't use canonicalize because on Windows it will resolve to UNC paths and fails
@@ -9,8 +10,11 @@ fn main() {
     let out_dir = env::var("OUT_DIR").map(PathBuf::from).unwrap();
     let target_os = env::var("CARGO_CFG_TARGET_OS").unwrap();
 
-    let profile = env::var("PROFILE").unwrap();
-    let dist_dir = root_dir.join("target").join(profile).join("deps");
+    // canonicalize does not work on Windows because it returns UNC paths
+    //let python_bind_dir = fs::canonicalize("../bindings/python/python/extractrs").unwrap();
+    let python_bind_dir = root_dir.join("../bindings/python/python/extractrs");
+    if !python_bind_dir.is_dir() { panic!("{} does not exist", python_bind_dir.display()) };
+    let python_bind_libs_dir = python_bind_dir.join("libs");
 
     // Rerun this build script if the tika-native build directory changes
     //let tika_build_path = root_dir.join("tika-native/build/native/nativeCompile");
@@ -29,7 +33,7 @@ fn main() {
     //println!("cargo:warning=tika_native_dir: {:?}", tika_native_dir);
 
 
-    gradle_build(&target_os, &tika_native_dir, &out_dir, &dist_dir);
+    gradle_build(&target_os, &tika_native_dir, &out_dir, &python_bind_libs_dir);
 
     // Tell cargo to look for shared libraries in the specified directory
     println!("cargo:rustc-link-search={}", out_dir.display());
@@ -41,7 +45,7 @@ fn main() {
 
 // Run the gradle build command to build tika-native
 fn gradle_build(target_os: &str, tika_native_dir: &Path,
-                out_dir: &PathBuf, _dist_dir: &Path
+                out_dir: &PathBuf, dist_dir: &Path
 ) {
     let gradlew = match target_os {
         "windows" => tika_native_dir.join("gradlew.bat"),
@@ -61,8 +65,13 @@ fn gradle_build(target_os: &str, tika_native_dir: &Path,
     options.content_only = true;
     fs_extra::dir::copy(&build_path, out_dir, &options)
          .expect("Failed to copy build artifacts to OUTPUT_DIR");
-    //fs_extra::dir::copy(&build_path, dist_dir, &options)
-    //    .expect("Failed to copy build artifacts to DIST_DIR");
+
+    fs_extra::dir::copy(&build_path, dist_dir, &options)
+        .expect("Failed to copy build artifacts to DIST_DIR");
+    fs::remove_file(dist_dir.join("graal_isolate_dynamic.h")).unwrap();
+    fs::remove_file(dist_dir.join("graal_isolate.h")).unwrap();
+    fs::remove_file(dist_dir.join("libtika_native_dynamic.h")).unwrap();
+    fs::remove_file(dist_dir.join("libtika_native.h")).unwrap();
 }
 
 // checks if GraalVM JDK is installed and pointed to by JAVA_HOME or panics if it can't be found
