@@ -53,13 +53,14 @@ jobs:
         uses: PyO3/maturin-action@v1
         with:
           command: build
-          args: --manifest-path bindings/python/Cargo.toml --release --out bindings/python/dist -i python3.10
-          target: ${{ matrix.platform.target }}
-          #working-directory: "bindings/python"
+          args: --manifest-path bindings/python/Cargo.toml --release --out bindings/python/dist -i python3.10 --compatibility manylinux_2_34
+          #args: --manifest-path bindings/python/Cargo.toml --release --out bindings/python/dist -i python3.10
+          #working-directory: "bindings/python" # dont use 
           sccache: 'false'
-          manylinux: '2_28'
-          #container: quay.io/pypa/manylinux_2_28_${{ matrix.platform.target }}:latest
-          docker-options: "--mount type=bind,source=/opt/hostedtoolcache,target=/opt/hostedtoolcache -e JAVA_HOME -e GRAALVM_HOME"
+          target: ${{ matrix.platform.target }}
+          manylinux: '2_34'
+          container: 'off'
+          #docker-options: "--mount type=bind,source=/opt/hostedtoolcache,target=/opt/hostedtoolcache -e JAVA_HOME -e GRAALVM_HOME"
 
       - name: Patch wheel lib
         run: |
@@ -69,7 +70,7 @@ jobs:
           pip install wheel
           pip install patchelf
           pip install auditwheel
-          bash .github/workflows/patch-wheel-lib-linux.sh bindings/python/dist
+          bash .github/workflows/patch-wheel-lib-linux.sh bindings/python/dist manylinux_2_34_${{ matrix.platform.target }}
 
       - name: Upload wheels
         uses: actions/upload-artifact@v4

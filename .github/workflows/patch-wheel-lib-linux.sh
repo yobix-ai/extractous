@@ -1,12 +1,13 @@
 #!/bin/bash
 
 # Check if the correct number of arguments are provided
-if [ "$#" -ne 1 ]; then
-    echo "Usage: $0 <wheel_dir>"
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <wheel_dir> <manylinux_2_34_x86_64>"
     exit 1
 fi
 
 WHEEL_DIR=$1
+MANYLINUX_TAG=$2
 
 # Check if the provided wheel directory exists
 if [ ! -d "$WHEEL_DIR" ]; then
@@ -66,7 +67,7 @@ for WHEEL_FILE in $WHEEL_FILES; do
     # Clean up the unpacked directory
     rm -rf "$UNPACKED_WHEEL_DIR"
 
-    auditwheel repair "$WHEEL_FILE" -w "$WHEEL_DIR" --plat manylinux_2_28_x86_64
+    auditwheel repair "$WHEEL_FILE" -w "$WHEEL_DIR" --plat "$MANYLINUX_TAG"
     #rm $WHEEL_FILE
 
     echo "Wheel file $WHEEL_FILE has been patched and repacked successfully."
