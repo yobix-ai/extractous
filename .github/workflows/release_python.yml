@@ -53,7 +53,7 @@ jobs:
         uses: PyO3/maturin-action@v1
         with:
           command: build
-          args: --manifest-path bindings/python/Cargo.toml --release --out dist -i python3.10
+          args: --target-dir bindings/python/target --release --out dist -i python3.10
           target: ${{ matrix.platform.target }}
           working-directory: "bindings/python"
           sccache: 'false'
