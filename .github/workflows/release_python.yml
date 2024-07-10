@@ -53,9 +53,9 @@ jobs:
         uses: PyO3/maturin-action@v1
         with:
           command: build
-          args: --target-dir bindings/python/target --release --out dist -i python3.10
+          args: --manifest-path bindings/python/Cargo.toml --release --out bindings/python/dist -i python3.10
           target: ${{ matrix.platform.target }}
-          working-directory: "bindings/python"
+          #working-directory: "bindings/python"
           sccache: 'false'
           manylinux: '2_28'
           #container: quay.io/pypa/manylinux_2_28_${{ matrix.platform.target }}:latest
