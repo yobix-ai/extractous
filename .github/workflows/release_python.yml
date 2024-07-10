@@ -58,6 +58,10 @@ jobs:
           working-directory: "bindings/python"
           sccache: 'true'
           container: 'off' # runs on host machine
+      
+      - name: Patch wheel lib
+        run: |
+          bash .github/workflows/patch-wheel-lib-extractrs.sh wheels-linux-${{ matrix.platform.target }}
 
       - name: Upload wheels
         uses: actions/upload-artifact@v4

@@ -37,17 +37,6 @@ fn main() {
 
     // Tell cargo to tell rustc to link the `tika_native` shared library.
     println!("cargo:rustc-link-lib=dylib=tika_native");
-    println!("cargo:rustc-link-lib=dylib=awt");
-    println!("cargo:rustc-link-lib=dylib=awt_headless");
-    println!("cargo:rustc-link-lib=dylib=awt_xawt");
-    println!("cargo:rustc-link-lib=dylib=fontmanager");
-    println!("cargo:rustc-link-lib=dylib=freetype");
-    println!("cargo:rustc-link-lib=dylib=java");
-    println!("cargo:rustc-link-lib=dylib=javajpeg");
-    println!("cargo:rustc-link-lib=dylib=jsound");
-    println!("cargo:rustc-link-lib=dylib=jvm");
-    println!("cargo:rustc-link-lib=dylib=lcms");
-    println!("cargo:rustc-link-lib=dylib=mlib_image");
 }
 
 // Run the gradle build command to build tika-native

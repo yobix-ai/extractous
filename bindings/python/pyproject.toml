@@ -32,5 +32,10 @@ profile = "release"
 features = ["pyo3/extension-module"]
 # -------------- Cargo options --------------
 
+strip=false
+skip-auditwheel=true # This is very important to not 
 module-name = "extractrs._extractrs"
 python-source = "python"
+include = [ {path = "**/libs/*.so", format = ["wheel"]} ]
+#exclude = [ {path = "**/libs/libtika_native.so", format = ["wheel"]} ]
+
