@@ -87,6 +87,7 @@ jobs:
           source .venv/bin/activate
           pip install extract-rs --find-links bindings/python/dist --force-reinstall
           pip install pytest
+          cd bindings/python
           pytest
 
       - name: pytest
@@ -103,6 +104,7 @@ jobs:
           run: |
             set -e
             pip3 install extract-rs --find-links bindings/python/dist --force-reinstall
+            cd bindings/python
             pytest
 
           
@@ -145,6 +147,7 @@ jobs:
           source .venv/Scripts/activate
           pip install extract-rs --find-links bindings/python/dist --force-reinstall
           pip install pytest
+          cd bindings/python
           pytest
 
   macos:
@@ -194,6 +197,7 @@ jobs:
           source .venv/bin/activate
           pip install extract-rs --find-links bindings/python/dist --force-reinstall
           pip install pytest
+          cd bindings/python
           pytest
 
   sdist:
