@@ -15,7 +15,7 @@ uname -a
 yum install -y zip 
 
 curl -s "https://get.sdkman.io" | sh -s -- -y
-source "root/.sdkman/bin/sdkman-init.sh"
+source "/root/.sdkman/bin/sdkman-init.sh"
 
 sdk install java $jdk_version
 sdk default java $jdk_version
