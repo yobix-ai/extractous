@@ -52,11 +52,11 @@ jobs:
         with:
           command: build
           #working-directory: "bindings/python" # dont use working dir with docker fails to reapply permission on target dir
-          #args: --manifest-path bindings/python/Cargo.toml --release --out bindings/python/dist -i python3.10 --compatibility manylinux_2_34
-          args: --manifest-path bindings/python/Cargo.toml --release --out bindings/python/dist -i python3.10
+          args: --manifest-path bindings/python/Cargo.toml --release --out bindings/python/dist -i python3.10 --compatibility manylinux_2_34
+          #args: --manifest-path bindings/python/Cargo.toml --release --out bindings/python/dist -i python3.10
           sccache: 'false'
           target: ${{ matrix.platform.target }}
-          manylinux: '2_34'
+          container: quay.io/pypa/manylinux_2_28_${{ matrix.platform.target }}:latest
           #before-script-linux: .github/workflows/install-graalvm.sh ${{ matrix.platform.target }} graalvmce
           before-script-linux: .github/workflows/install-graalvm-sdkman.sh 22.0.1-graalce
           docker-options: "-e JAVA_HOME=/root/.sdkman/candidates/java/22.0.1-graalce -e GRAALVM_HOME=/root/.sdkman/candidates/java/22.0.1-graalce"
