@@ -22,7 +22,7 @@ install_graalvm() {
 
   if [ "$dist" == "graalvm" ]; then
     download_url="https://download.oracle.com/graalvm/${jdk_version}/latest/graalvm-jdk-${jdk_version}_linux-${jdk_arch}_bin.tar.gz"
-  elif [ "$dist" == "graalvm-ce" ]; then
+  elif [ "$dist" == "graalvmce" ]; then
     download_url="https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-${jdk_version}.0.1/graalvm-community-jdk-${jdk_version}.0.1_linux-${jdk_arch}_bin.tar.gz"
   else
     echo "Unsupported distribution: $dist"
@@ -53,7 +53,7 @@ install_graalvm() {
 
 # Check for correct number of arguments
 if [ "$#" -ne 2 ]; then
-  echo "Usage: $0 <x86_64|aarch64> <graalvm|graalvm-ce>"
+  echo "Usage: $0 <x86_64|aarch64> <graalvm|graalvmce>"
   exit 1
 fi
 

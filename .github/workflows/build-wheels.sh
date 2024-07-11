@@ -1,20 +1,33 @@
 #!/bin/bash
 set -e -x
 
-cd bindings/python
+# # install graalvm
+# yum install -y zip
+# curl -s "https://get.sdkman.io" | sh -s -- -y
+# source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-curl https://sh.rustup.rs -sSf | sh -s -- -y
-source $HOME/.cargo/env
-rustup default 1.78.0
+# sdk install java 22.0.1-graalce
+# sdk use java 22.0.1-graalce
+# echo "JAVA_HOME: $JAVA_HOME"
+
+# # install rust
+# curl https://sh.rustup.rs -sSf | sh -s -- -y
+# source $HOME/.cargo/env
+# rustup default 1.78.0
+
+cd /workspace/bindings/python
 
 free -h
-cargo build --jobs 1 --config net.git-fetch-with-cli=true
+#cargo build --jobs 1 --config net.git-fetch-with-cli=true
 
-for PYBIN in /opt/python/cp3[891]*/bin; do
+for PYBIN in /opt/python/cp310*/bin; do
     "${PYBIN}/pip" install maturin
-    "${PYBIN}/maturin" build -F python -i "${PYBIN}/python" --release
+    "${PYBIN}/pip" install wheel
+    "${PYBIN}/maturin" build -i "${PYBIN}/python" --release --out /workspace/bindings/python/dist --compatibility manylinux_2_34
 done
 
-for wheel in target/wheels/*.whl; do
-    auditwheel repair "${wheel}"
-done
+#/workspace/.github/workflows/patch-wheel-lib-linux.sh /workspace/bindings/python/dist manylinux_2_28
+
+# for wheel in /workspace/bindings/python/dist/*.whl; do
+#     auditwheel repair "${wheel}"
+# done
