@@ -3,4 +3,5 @@ from extractrs import extract
 
 
 def test_pdf():
-    assert 5 == 5
+    result = extract("tests/quarkus.pdf")
+    assert result == "\nHello Quarkus\n\n\n"

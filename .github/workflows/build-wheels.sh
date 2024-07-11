@@ -25,9 +25,3 @@ for PYBIN in /opt/python/cp310*/bin; do
     "${PYBIN}/pip" install wheel
     "${PYBIN}/maturin" build -i "${PYBIN}/python" --release --out /workspace/bindings/python/dist --compatibility manylinux_2_34
 done
-
-#/workspace/.github/workflows/patch-wheel-lib-linux.sh /workspace/bindings/python/dist manylinux_2_28
-
-# for wheel in /workspace/bindings/python/dist/*.whl; do
-#     auditwheel repair "${wheel}"
-# done
