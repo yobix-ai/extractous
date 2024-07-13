@@ -69,7 +69,7 @@ for WHEEL_FILE in $WHEEL_FILES; do
     echo "patching library  $LIB_TIKA_NATIVE"
 
     # Change the library path using install_name_tool
-    install_name_tool -change "$LIB_TIKA_NATIVE" "@loader_path/libs/$(basename $LIB_TIKA_NATIVE)" "$SO_FILE"
+    install_name_tool -change "$LIB_TIKA_NATIVE" "@loader_path/$(basename $LIB_TIKA_NATIVE)" "$SO_FILE"
 
     # Pack the wheel again
     python -m wheel pack "$UNPACKED_WHEEL_DIR" -d "$WHEEL_DIR"

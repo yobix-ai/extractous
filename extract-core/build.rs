@@ -14,7 +14,7 @@ fn main() {
     //let python_bind_dir = fs::canonicalize("../bindings/python/python/extractrs").unwrap();
     let python_bind_dir = root_dir.join("../bindings/python/python/extractrs");
     if !python_bind_dir.is_dir() { panic!("{} does not exist", python_bind_dir.display()) };
-    let python_bind_libs_dir = python_bind_dir.join("libs");
+    //let python_bind_libs_dir = python_bind_dir.join("libs");
 
     // Rerun this build script if the tika-native build directory changes
     //let tika_build_path = root_dir.join("tika-native/build/native/nativeCompile");
@@ -33,7 +33,7 @@ fn main() {
     //println!("cargo:warning=tika_native_dir: {:?}", tika_native_dir);
 
 
-    gradle_build(&target_os, &tika_native_dir, &out_dir, &python_bind_libs_dir);
+    gradle_build(&target_os, &tika_native_dir, &out_dir, &python_bind_dir);
 
     // Tell cargo to look for shared libraries in the specified directory
     println!("cargo:rustc-link-search={}", out_dir.display());

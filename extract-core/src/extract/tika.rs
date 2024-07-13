@@ -28,8 +28,14 @@ fn vm() -> &'static JavaVM {
 /// linked in by the build script.
 fn create_vm_isolate() -> JavaVM {
     unsafe {
+        // let mut option0 = sys::JavaVMOption {
+        //     optionString: "-Djava.awt.headless=true".as_ptr() as *mut c_char,
+        //     extraInfo: std::ptr::null_mut(),
+        // };
+
+        // Set java.library.path to be able to load libawt.so, which must be in the same dir as libtika_native.so
         let mut options = sys::JavaVMOption {
-            optionString: "-Djava.awt.headless=true".as_ptr() as *mut c_char,
+            optionString: "-Djava.library.path=.".as_ptr() as *mut c_char,
             extraInfo: std::ptr::null_mut(),
         };
         let mut args = sys::JavaVMInitArgs {
@@ -47,6 +53,7 @@ fn create_vm_isolate() -> JavaVM {
             &mut env as *mut *mut sys::JNIEnv as *mut *mut c_void,
             &mut args as *mut sys::JavaVMInitArgs as *mut c_void,
         );
+        println!("JNI_CreateJavaVM result: {:?}", jni_res);
         jni_error_code_to_result(jni_res).unwrap_or_else(|e| {
             panic!("Failed creating the graal native vm: {:?}", e);
         });

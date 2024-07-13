@@ -58,9 +58,7 @@ for WHEEL_FILE in $WHEEL_FILES; do
     fi
 
     # Patch the .so file to set its rpath to $ORIGIN/libs
-    patchelf --set-rpath '$ORIGIN/libs' "$SO_FILE"
-
-    # install_name_tool -add_rpath "@loader_path/libs" "$SO_FILE"
+    patchelf --set-rpath '$ORIGIN' "$SO_FILE"
 
     # Pack the wheel again
     python -m wheel pack "$UNPACKED_WHEEL_DIR" -d "$WHEEL_DIR"

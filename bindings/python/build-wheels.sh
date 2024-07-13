@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e -x
 
 # check if we running in our dev Docker or directory on the build machine
 # by checking if the current directory ends with extract-rs/bindings/python
@@ -22,20 +21,26 @@ current_dir=$(pwd)
 
 
 if [[ $current_dir =~ extract-rs/bindings/python$ ]]; then
-    echo "Build launched not on Docker but on developer machine ..."
+    echo "maturin build launched not on Docker but on developer machine ..."
+    echo ""
+
     pip install -q maturin
-    maturin build
+    maturin build --release
+    # This tags the wheel with manylinux_2_34 check your version of glibc by running: ldd --version
+    #maturin build --release --compatibility manylinux_2_34
 
 
-elif [[ $current_dir =~ ^/workdir ]]; then
-    echo "Build launched from inside docker ..."
+elif [[ $current_dir =~ ^/workspace ]]; then
+    echo "maturin build launched from inside docker ..."
+    echo ""
+
     cd /workspace/bindings/python
 
     for PYBIN in /opt/python/cp38*/bin; do
         "${PYBIN}/pip" install maturin
         "${PYBIN}/pip" install wheel
         #"${PYBIN}/maturin" build -i "${PYBIN}/python" --release --out /workspace/bindings/python/dist --compatibility manylinux_2_34
-        "${PYBIN}/maturin" build -i "${PYBIN}/python" --out /workspace/bindings/python/dist --compatibility manylinux_2_28
+        "${PYBIN}/maturin" build --release -i "${PYBIN}/python" --out /workspace/bindings/python/target/wheels --compatibility manylinux_2_28
     done
 
 else

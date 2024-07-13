@@ -14,7 +14,7 @@ description = "extract-rs Python Binding"
 license = { text = "Apache-2.0" }
 readme = "README.md"
 # PyO3 doesn't support python 3.13 yet.
-requires-python = ">=3.10, < 3.13"
+requires-python = ">=3.8, < 3.13"
 
 [project.optional-dependencies]
 docs = ["pdoc"]
@@ -33,13 +33,33 @@ profile = "release"
 features = ["pyo3/extension-module"]
 # -------------- Cargo options --------------
 
-strip=false
-skip-auditwheel=true # This is very important to not 
+strip=true
+
+# It is a comman practice to keep the pyo3 module private and import it within a global python module
+# extractrs: is the pure python module that is exported
+# _extractrs: is the private pyo3 module, the name must match the pyo3 module function name 
 module-name = "extractrs._extractrs"
+
+# The source folder where the python code is
+# this folder should contain a directory named extractrs matching our pure python exported modules
 python-source = "python"
+
+# Setting skip-auditwheel=true is very important to instruct maturin to not run its auditwheel flow
+# maturin auditwheel flow changes any top level shared lib names which causes problems with our graalvm libs 
+# By skipping the wheel, we just get a plain _extracts_rs* lib and we have to:
+#   * bundle our graalvm libs using the below include [] directive
+#   * change the RPATH of _extracts_rs* lib to be able to properly find the bundled graalvm libs
+skip-auditwheel=true 
+
+# This tells cargo to set the RPATH for the private module built lib _extractrs.abi3.so
+# Set the RPATH to $ORIGIN because the graalvm libs will be bundled in the same dir as the _extractrs.abi3.so
+rustc-args = ["-C", "link-arg=-Wl,-rpath,$ORIGIN"]
+
+# Maturin include command will start looking from the python/extractrs folder
+# so to include the graalvm libs the rust build script must copy them to python/extractrs folder
 include = [ 
-  {path = "**/libs/*.so", format = ["wheel"]},
-  {path = "**/libs/*.dylib", format = ["wheel"]},
+  {path = "**/*.so", format = ["wheel"]},
+  {path = "**/*.dylib", format = ["wheel"]},
 ]
 #exclude = [ {path = "**/libs/libtika_native.so", format = ["wheel"]} ]
 
