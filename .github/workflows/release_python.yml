@@ -33,45 +33,24 @@ jobs:
         with:
           python-version: '3.10'
 
-      # - uses: graalvm/setup-graalvm@v1.2.2
-      #   with:
-      #     java-version: '22'
-      #     distribution: 'graalvm-community'
-      #     set-java-home: 'true'
-
-      # - name: Graalvm check step
-      #   run: |
-      #     uname -a
-      #     echo "GRAALVM_HOME: $GRAALVM_HOME"
-      #     echo "JAVA_HOME: $JAVA_HOME"
-      #     java --version
-      #     native-image --version
-
+      # On linux we dont use graalvm/setup-graalvm@v1.2.2 action to install graalvm because it will install it 
+      # on the runner machine and on linux the build will happen inside a manylinux docker. 
+      # Instead, we use a script to install graalvm inside the docker container
+      # the script is launched by setting the before-script-linux config option of the maturin action
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
           command: build
           #working-directory: "bindings/python" # dont use working dir with docker fails to reapply permission on target dir
-          args: --manifest-path bindings/python/Cargo.toml --release --out bindings/python/dist -i python3.10 --compatibility manylinux_2_34
-          #args: --manifest-path bindings/python/Cargo.toml --release --out bindings/python/dist -i python3.10
+          args: --manifest-path bindings/python/Cargo.toml --release --out bindings/python/dist -i python3.10 --compatibility manylinux_2_28
           sccache: 'false'
           target: ${{ matrix.platform.target }}
           container: quay.io/pypa/manylinux_2_28_${{ matrix.platform.target }}:latest
-          #before-script-linux: .github/workflows/install-graalvm.sh ${{ matrix.platform.target }} graalvmce
           before-script-linux: .github/workflows/install-graalvm-sdkman.sh 22.0.1-graalce
           docker-options: "-e JAVA_HOME=/root/.sdkman/candidates/java/22.0.1-graalce -e GRAALVM_HOME=/root/.sdkman/candidates/java/22.0.1-graalce"
           #docker-options: "--mount type=bind,source=/opt/hostedtoolcache,target=/opt/hostedtoolcache -e JAVA_HOME -e GRAALVM_HOME"
 
-      - name: Patch wheel lib
-        run: |
-          set -e
-          python3 -m venv .venv
-          source .venv/bin/activate
-          pip install wheel
-          pip install patchelf
-          pip install auditwheel
-          bash .github/workflows/patch-wheel-lib-linux.sh bindings/python/dist manylinux_2_34_${{ matrix.platform.target }}
-
+      # On linux we don't need to patch the wheel as the RPATH is set by the rustc compiler
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:
