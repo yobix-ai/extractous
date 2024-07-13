@@ -3,6 +3,9 @@
 # Check if the correct number of arguments are provided
 if [ "$#" -ne 1 ]; then
     echo "Usage: $0 <wheel_dir>"
+    echo "The script takes a wheel directory and for each wheel found named *.whl "
+    echo "it patches it by searching for a lib that starts with '_extractrs*.so' "
+    echo "then it changes the name of libtika_native.dylib to be @loader_path/libs/libtika_native.dylib'"
     exit 1
 fi
 

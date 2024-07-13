@@ -88,7 +88,7 @@ jobs:
           pip install extract-rs --find-links bindings/python/dist --force-reinstall
           pip install pytest
           cd bindings/python
-          pytest
+          pytest -s
 
       - name: pytest
         if: ${{ !startsWith(matrix.platform.target, 'x86') && matrix.platform.target != 'ppc64' }}
@@ -105,7 +105,7 @@ jobs:
             set -e
             pip3 install extract-rs --find-links bindings/python/dist --force-reinstall
             cd bindings/python
-            pytest
+            pytest -s
 
           
   windows:
@@ -148,7 +148,7 @@ jobs:
           pip install extract-rs --find-links bindings/python/dist --force-reinstall
           pip install pytest
           cd bindings/python
-          pytest
+          pytest -s
 
   macos:
     runs-on: ${{ matrix.platform.runner }}
@@ -198,7 +198,7 @@ jobs:
           pip install extract-rs --find-links bindings/python/dist --force-reinstall
           pip install pytest
           cd bindings/python
-          pytest
+          pytest -s
 
   sdist:
     runs-on: ubuntu-latest
