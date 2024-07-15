@@ -46,30 +46,16 @@ dependencies {
     implementation "org.apache.tika:tika-parser-webarchive-module:$tikaVersion"
 }
 
-// We use java BellSoft 22 build because it supports awt on macos.
-def graalVmVersion = "22"
-def graalVmVendor = "GraalVM Community"
-//def graalVmVendor = "Oracle Corporation"
-if (org.gradle.internal.os.OperatingSystem.current().isMacOsX()) {
-    graalVmVendor = "BellSoft"
-}
-
 graalvmNative {
-    // This enables using separate GraalVM version thant the one used by gradle
-    // However, this will only work properly if you only have only GraalVM JDKs installed on the machine.
-    // Gradle will not be able to reliably detect GraalVM JDKs, nor detect GraalVM distributions from different vendors.
-    toolchainDetection = true
+    // Make sure this is off to use the same GraalVM version thant the one used by gradle
+    // Setting the version is left outside of this script in github workflow or developer build environment
+    toolchainDetection = false
 
     // Set to false to disable to run the tests in native mode.
     testSupport = true
 
     binaries {
         main {
-            javaLauncher = javaToolchains.launcherFor {
-                languageVersion = JavaLanguageVersion.of(graalVmVersion)
-                vendor = JvmVendorSpec.matching(graalVmVendor)
-            }
-
             imageName = 'libtika_native'
 
             // To build a shared lib, make sure to not set the mainClass
@@ -85,7 +71,7 @@ graalvmNative {
                     "-march=compatibility" // VERY IMPORTANT to use compatibility flag. If not the libs will use the cpu arch of the build machine and will notwork on other CPUs if distributed
             )
             jvmArgs.add('-Djava.awt.headless=true')
-            requiredVersion = '21' // The minimal GraalVM version, can be `MAJOR`, `MAJOR.MINOR` or `MAJOR.MINOR.PATCH`
+            requiredVersion = '22' // The minimal GraalVM version, can be `MAJOR`, `MAJOR.MINOR` or `MAJOR.MINOR.PATCH`
         }
     }
 }
