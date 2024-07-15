@@ -32,10 +32,11 @@ fn main() {
 
 
     gradle_build(&graalvm_home, &tika_native_dir, &libs_out_dir, &python_bind_dir);
+    println!("Successfully built libs 🚀");
+
 
     // Tell cargo to look for shared libraries in the specified directory
     println!("cargo:rustc-link-search={}", libs_out_dir.display());
-    //println!("cargo:rustc-link-search={}", dist_dir.display());
 
     // Tell cargo to tell rustc to link the `tika_native` shared library.
     println!("cargo:rustc-link-lib=dylib=tika_native");
@@ -206,20 +207,18 @@ pub fn install_graalvm_ce(install_dir: &PathBuf) -> PathBuf {
 
             if cfg!(target_os = "windows") {
                 let archive_file = fs::File::open(&archive_path).unwrap();
-                let mut archive = zip::ZipArchive::new(archive_file).unwrap();
+                let mut archive = zip::ZipArchive::new(std::io::BufReader::new(archive_file)).unwrap();
+
                 for i in 0..archive.len() {
                     let mut file = archive.by_index(i).unwrap();
-                    let outpath = match file.enclosed_name() {
-                        Some(path) => path.to_owned(),
-                        None => continue,
-                    };
+                    let outpath = install_dir.join(file.name());
 
-                    if (*file.name()).ends_with('/') {
+                    if file.is_dir() {
                         fs::create_dir_all(&outpath).unwrap();
                     } else {
-                        if let Some(p) = outpath.parent() {
-                            if !p.exists() {
-                                fs::create_dir_all(&p).unwrap();
+                        if let Some(parent) = outpath.parent() {
+                            if !parent.exists() {
+                                fs::create_dir_all(parent).unwrap();
                             }
                         }
                         let mut outfile = fs::File::create(&outpath).unwrap();

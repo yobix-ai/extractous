@@ -4,7 +4,13 @@
 
 /target
 
+/python/extractrs/*.args
 /python/extractrs/libs
+/python/extractrs/*.so
+/python/extractrs/*.dylib
+/python/extractrs/*.dll
+/python/extractrs/*.lib
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -17,6 +23,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 .venv/
+.testenv/
 env/
 bin/
 build/

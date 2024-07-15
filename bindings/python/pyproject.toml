@@ -60,6 +60,6 @@ rustc-args = ["-C", "link-arg=-Wl,-rpath,$ORIGIN"]
 include = [ 
   {path = "**/*.so", format = ["wheel"]},
   {path = "**/*.dylib", format = ["wheel"]},
+  {path = "**/*.dll", format = ["wheel"]},
+  {path = "**/*.lib", format = ["wheel"]}
 ]
-#exclude = [ {path = "**/libs/libtika_native.so", format = ["wheel"]} ]
-
