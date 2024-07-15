@@ -13,7 +13,7 @@ jdk_version=$1
 
 # expects to run on Redhat distribution
 uname -a
-yum install -y zip 
+yum install -y zip openssl-devel
 
 curl -s "https://get.sdkman.io" | sh -s -- -y
 source "/root/.sdkman/bin/sdkman-init.sh"
