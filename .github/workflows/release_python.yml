@@ -35,7 +35,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.8'
 
       # On linux we dont use graalvm/setup-graalvm@v1.2.2 action to install graalvm because it will install it 
       # on the runner machine and on linux the build will happen inside a manylinux docker. 
@@ -46,13 +46,13 @@ jobs:
         with:
           command: build
           #working-directory: "bindings/python" # dont use working dir with docker fails to reapply permission on target dir
-          args: --manifest-path bindings/python/Cargo.toml --release --out bindings/python/dist -i python3.10 --compatibility manylinux_2_28
+          args: --manifest-path bindings/python/Cargo.toml --release --out bindings/python/dist -i --find-interpreter --compatibility manylinux_2_28
           sccache: 'false'
           target: ${{ matrix.platform.target }}
           container: quay.io/pypa/manylinux_2_28_${{ matrix.platform.target }}:latest
-          before-script-linux: .github/workflows/install-openssl.sh
-          #before-script-linux: .github/workflows/install-graalvm-sdkman.sh 22.0.1-graalce
-          #docker-options: "-e JAVA_HOME=/root/.sdkman/candidates/java/22.0.1-graalce -e GRAALVM_HOME=/root/.sdkman/candidates/java/22.0.1-graalce"
+          #before-script-linux: .github/workflows/install-openssl.sh
+          before-script-linux: .github/workflows/install-graalvm-sdkman.sh 22.0.1-graalce
+          docker-options: "-e JAVA_HOME=/root/.sdkman/candidates/java/22.0.1-graalce -e GRAALVM_HOME=/root/.sdkman/candidates/java/22.0.1-graalce"
           #docker-options: "--mount type=bind,source=/opt/hostedtoolcache,target=/opt/hostedtoolcache -e JAVA_HOME -e GRAALVM_HOME"
 
       # On linux we don't need to patch the wheel as the RPATH is set by the rustc compiler
@@ -103,19 +103,19 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.8'
           architecture: ${{ matrix.platform.target }}
-      # - uses: graalvm/setup-graalvm@v1.2.2
-      #   with:
-      #     java-version: '22'
-      #     distribution: 'graalvm-community'
-      #     set-java-home: 'true'
+      - uses: graalvm/setup-graalvm@v1.2.2
+        with:
+          java-version: '22'
+          distribution: 'graalvm-community'
+          set-java-home: 'true'
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
           target: ${{ matrix.platform.target }}
           working-directory: "bindings/python"
-          args: --release --out dist
+          args: --release --out dist --find-interpreter
           sccache: 'true'
       - name: Upload wheels
         uses: actions/upload-artifact@v4
@@ -147,18 +147,18 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
-      # - uses: graalvm/setup-graalvm@v1.2.2
-      #   with:
-      #     java-version: '22'
-      #     distribution: 'liberica'
-      #     set-java-home: 'true'
+          python-version: '3.8'
+      - uses: graalvm/setup-graalvm@v1.2.2
+        with:
+          java-version: '22'
+          distribution: 'liberica'
+          set-java-home: 'true'
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
           target: ${{ matrix.platform.target }}
           working-directory: "bindings/python"
-          args: --release --out dist
+          args: --release --out dist --find-interpreter
           sccache: 'true'
 
       - name: Patch wheel lib
