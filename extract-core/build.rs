@@ -81,11 +81,11 @@ fn gradle_build(graalvm_home: &Path, tika_native_dir: &Path,
 
 // Firsts check JAVA_HOME
 pub fn get_graalvm_home(install_dir: &PathBuf) -> PathBuf {
-    let java_home_env = env::var("JAVA_HOME");
-    match java_home_env {
-        Ok(java_home) => {
-            // Check that native-image is in JAVA_HOME/bin
-            let graalvm_home = PathBuf::from(java_home);
+    let graalvm_home_env = env::var("GRAALVM_HOME");
+    match graalvm_home_env {
+        Ok(graalvm_home_val) => {
+            // Check that native-image is in GRAALVM_HOME/bin
+            let graalvm_home = PathBuf::from(graalvm_home_val);
             check_graalvm(&graalvm_home);
             graalvm_home
         }
