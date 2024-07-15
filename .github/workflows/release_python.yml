@@ -46,7 +46,7 @@ jobs:
         with:
           command: build
           #working-directory: "bindings/python" # dont use working dir with docker fails to reapply permission on target dir
-          args: --manifest-path bindings/python/Cargo.toml --release --out bindings/python/dist -i --find-interpreter --compatibility manylinux_2_28
+          args: --manifest-path bindings/python/Cargo.toml --release --out bindings/python/dist -i python3.8 --compatibility manylinux_2_28
           sccache: 'false'
           target: ${{ matrix.platform.target }}
           container: quay.io/pypa/manylinux_2_28_${{ matrix.platform.target }}:latest
