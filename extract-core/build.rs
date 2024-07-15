@@ -4,16 +4,6 @@ use std::process::Command;
 use std::fs;
 use std::io;
 
-use zip::ZipArchive;
-
-#[cfg(target_os = "windows")]
-use std::io::Cursor;
-#[cfg(not(target_os = "windows"))]
-use flate2::read::GzDecoder;
-#[cfg(not(target_os = "windows"))]
-use tar::Archive;
-
-
 fn main() {
     // Main build output directory
     let out_dir = env::var("OUT_DIR").map(PathBuf::from).unwrap();
@@ -29,10 +19,7 @@ fn main() {
     if !python_bind_dir.is_dir() { panic!("{} does not exist", python_bind_dir.display()) };
 
     // Use JAVA_HOME to find or install GraalVM JDK
-    //let graalvm_home = get_graalvm_home(&jdk_install_dir);
-
-    let graalvm_home = install_graalvm_ce(&jdk_install_dir);
-    check_graalvm(&graalvm_home);
+    let graalvm_home = get_graalvm_home(&jdk_install_dir);
 
     // Just for debugging
     // let graal_home = env::var("GRAALVM_HOME");
@@ -202,7 +189,7 @@ pub fn install_graalvm_ce(install_dir: &PathBuf) -> PathBuf {
 
             if cfg!(target_os = "windows") {
                 let archive_file = fs::File::open(&archive_path).unwrap();
-                let mut archive = ZipArchive::new(archive_file).unwrap();
+                let mut archive = zip::ZipArchive::new(archive_file).unwrap();
                 for i in 0..archive.len() {
                     let mut file = archive.by_index(i).unwrap();
                     let outpath = match file.enclosed_name() {
@@ -224,8 +211,8 @@ pub fn install_graalvm_ce(install_dir: &PathBuf) -> PathBuf {
                 }
             } else {
                 let tar_gz_file = fs::File::open(&archive_path).unwrap();
-                let tar = GzDecoder::new(tar_gz_file);
-                let mut archive = Archive::new(tar);
+                let tar = flate2::read::GzDecoder::new(tar_gz_file);
+                let mut archive = tar::Archive::new(tar);
                 archive.unpack(&install_dir).unwrap();
             }
         } else {
