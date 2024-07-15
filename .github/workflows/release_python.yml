@@ -50,6 +50,7 @@ jobs:
           sccache: 'false'
           target: ${{ matrix.platform.target }}
           container: quay.io/pypa/manylinux_2_28_${{ matrix.platform.target }}:latest
+          before-script-linux: .github/workflows/install-openssl.sh
           #before-script-linux: .github/workflows/install-graalvm-sdkman.sh 22.0.1-graalce
           #docker-options: "-e JAVA_HOME=/root/.sdkman/candidates/java/22.0.1-graalce -e GRAALVM_HOME=/root/.sdkman/candidates/java/22.0.1-graalce"
           #docker-options: "--mount type=bind,source=/opt/hostedtoolcache,target=/opt/hostedtoolcache -e JAVA_HOME -e GRAALVM_HOME"
