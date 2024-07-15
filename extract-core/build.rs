@@ -86,20 +86,35 @@ pub fn get_graalvm_home(install_dir: &PathBuf) -> PathBuf {
         Ok(graalvm_home_val) => {
             // Check that native-image is in GRAALVM_HOME/bin
             let graalvm_home = PathBuf::from(graalvm_home_val);
-            check_graalvm(&graalvm_home);
+            check_graalvm(&graalvm_home, true);
             graalvm_home
         }
         Err(_) => {
-            // If no JAVA_HOME is set, try to download and install GraalVM CE
-            let graalvm_home = install_graalvm_ce(&install_dir);
-            check_graalvm(&graalvm_home);
-            graalvm_home
+
+            let java_home_env = env::var("JAVA_HOME");
+            match java_home_env {
+                Ok(java_home_val) => {
+                    // Check that native-image is in JAVA_HOME/bin if not install GraalVM CE
+                    let mut graalvm_home = PathBuf::from(java_home_val);
+                    if !check_graalvm(&graalvm_home, false) {
+                        graalvm_home = install_graalvm_ce(&install_dir);
+                        check_graalvm(&graalvm_home, true);
+                    }
+                    graalvm_home
+                }
+                Err(_) => {
+                    // If no JAVA_HOME is set, try to download and install GraalVM CE
+                    let graalvm_home = install_graalvm_ce(&install_dir);
+                    check_graalvm(&graalvm_home, true);
+                    graalvm_home
+                }
+            }
         }
     }
 }
 
 // checks if GraalVM JDK is installed and pointed to by JAVA_HOME or panics if it can't be found
-pub fn check_graalvm(graalvm_home: &Path) {
+pub fn check_graalvm(graalvm_home: &Path, panic: bool) -> bool {
     let native_image_exe = if cfg!(target_os = "windows") {
         "native-image.cmd"
     } else {
@@ -108,12 +123,14 @@ pub fn check_graalvm(graalvm_home: &Path) {
 
     // Check that native-image is in JAVA_HOME/bin
     let native_image = graalvm_home.join("bin").join(native_image_exe);
-    if !native_image.exists() {
+    let exists = native_image.exists();
+    if panic && !exists {
         panic!("Your GraalVM JDK installation is pointing to: {}. Please make sure your \
                 it is a valid GraalVM JDK. {}",
                graalvm_home.display(),
                graalvm_install_help_msg());
     }
+    exists
 }
 
 fn graalvm_install_help_msg() -> String {
