@@ -136,9 +136,9 @@ pub fn check_graalvm(graalvm_home: &Path, panic: bool) -> bool {
 
 fn graalvm_install_help_msg() -> String {
     let sdkman_graalvm_version = if cfg!(target_os = "macos") {
-        "24.0.1.r22-nik" // Bellsoft Liberika NIK 24.0.1.r22 -> jdk 22
+        "24.0.2.r22-nik" // Bellsoft Liberika NIK 24.0.1.r22 -> jdk 22
     } else {
-        "22.0.1-graalce"
+        "22.0.2-graalce"
     };
 
     format!("\nWe recommend using sdkman to install and \
@@ -151,34 +151,34 @@ fn graalvm_install_help_msg() -> String {
 pub fn install_graalvm_ce(install_dir: &PathBuf) -> PathBuf {
     let (base_url, archive_ext, main_dir) = if cfg!(target_os = "windows") {
         let url = if cfg!(target_arch = "x86_64") {
-            "https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-22.0.1/graalvm-community-jdk-22.0.1_windows-x64_bin.zip"
+            "https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-22.0.2/graalvm-community-jdk-22.0.2_windows-x64_bin.zip"
         } else {
             panic!("Unsupported architecture: {}", cfg!(target_arch));
         };
-        (url, "zip", "graalvm-community-openjdk-22.0.1+8.1")
+        (url, "zip", "graalvm-community-openjdk-22.0.2+9.1")
 
     } else if cfg!(target_os = "macos") {
         let url = if cfg!(target_arch = "x86_64") {
-            //"https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-22.0.1/graalvm-community-jdk-22.0.1_macos-x64_bin.tar.gz"
-            "https://github.com/bell-sw/LibericaNIK/releases/download/24.0.1+1-22.0.1+10/bellsoft-liberica-vm-openjdk22.0.1+10-24.0.1+1-macos-amd64.tar.gz"
+            //"https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-22.0.2/graalvm-community-jdk-22.0.2_macos-x64_bin.tar.gz"
+            "https://github.com/bell-sw/LibericaNIK/releases/download/24.0.2+1-22.0.2+11/bellsoft-liberica-vm-openjdk22.0.2+11-24.0.2+1-macos-amd64.tar.gz"
         } else if cfg!(target_arch = "aarch64") {
-            //"https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-22.0.1/graalvm-community-jdk-22.0.1_macos-aarch64_bin.tar.gz"
-            "https://github.com/bell-sw/LibericaNIK/releases/download/24.0.1+1-22.0.1+10/bellsoft-liberica-vm-openjdk22.0.1+10-24.0.1+1-macos-aarch64.tar.gz"
+            //"https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-22.0.2/graalvm-community-jdk-22.0.2_macos-aarch64_bin.tar.gz"
+            "https://github.com/bell-sw/LibericaNIK/releases/download/24.0.2+1-22.0.2+11/bellsoft-liberica-vm-openjdk22.0.1+11-24.0.2+1-macos-aarch64.tar.gz"
         } else {
             panic!("Unsupported architecture: {}", cfg!(target_arch));
         };
-        //(url, "tar.gz", "graalvm-community-openjdk-22.0.1+8.1/Contents/Home/")
-        (url, "tar.gz", "bellsoft-liberica-vm-openjdk22-24.0.1/Contents/Home")
+        //(url, "tar.gz", "graalvm-community-openjdk-22.0.2+9.1/Contents/Home/")
+        (url, "tar.gz", "bellsoft-liberica-vm-openjdk22-24.0.2/Contents/Home")
 
     } else {
         let url = if cfg!(target_arch = "x86_64") {
-            "https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-22.0.1/graalvm-community-jdk-22.0.1_linux-x64_bin.tar.gz"
+            "https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-22.0.2/graalvm-community-jdk-22.0.2_linux-x64_bin.tar.gz"
         } else if cfg!(target_arch = "aarch64") {
-            "https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-22.0.1/graalvm-community-jdk-22.0.1_linux-aarch64_bin.tar.gz"
+            "https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-22.0.2/graalvm-community-jdk-22.0.2_linux-aarch64_bin.tar.gz"
         } else {
             panic!("Unsupported architecture: {}", cfg!(target_arch));
         };
-        (url, "tar.gz", "graalvm-community-openjdk-22.0.1+8.1")
+        (url, "tar.gz", "graalvm-community-openjdk-22.0.2+9.1")
     };
 
     let graalvm_home = install_dir.join(main_dir);
