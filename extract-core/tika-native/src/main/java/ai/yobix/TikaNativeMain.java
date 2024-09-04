@@ -1,11 +1,12 @@
 package ai.yobix;
 
+import org.apache.commons.io.input.ReaderInputStream;
 import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -21,39 +22,44 @@ public class TikaNativeMain {
 
     private static final Tika tika = new Tika();
 
-    public static TikaResult detect(String filePath) {
+    /**
+     * Parses the given file and returns its type as a mime type
+     * @param filePath:  the path of the file to be parsed
+     * @return StringResult
+     */
+    public static StringResult detect(String filePath) {
         final Path path = Paths.get(filePath);
         final Metadata metadata = new Metadata();
 
         try (final InputStream stream = TikaInputStream.get(path, metadata)) {
-            return new TikaResult(tika.detect(stream, metadata));
+            return new StringResult(tika.detect(stream, metadata));
 
         } catch (java.io.IOException e) {
-            return new TikaResult((byte) 1, e.getMessage());
+            return new StringResult((byte) 1, e.getMessage());
         }
     }
 
     /**
      * Parses the given file and returns its content as String.
-     * To avoid unpredictable excess memory use, the returned string contains only up to maxLength (parameter)
+     * To avoid unpredictable excess memory use, the returned string contains only up to maxLength
      * first characters extracted from the input document.
      *
      * @param filePath:  the path of the file to be parsed
      * @param maxLength: maximum length of the returned string
-     * @return String representing the content
+     * @return StringResult
      */
-    public static TikaResult parseToStringWithLength(String filePath, int maxLength) {
+    public static StringResult parseToStringWithLength(String filePath, int maxLength) {
         try {
             final Path path = Paths.get(filePath);
             final Metadata metadata = new Metadata();
             final InputStream stream = TikaInputStream.get(path, metadata);
 
             // No need to close the stream because parseToString does so
-            return new TikaResult(tika.parseToString(stream, metadata, maxLength));
+            return new StringResult(tika.parseToString(stream, metadata, maxLength));
         } catch (java.io.IOException e) {
-            return new TikaResult((byte) 1, "Could not open file: "+ e.getMessage());
+            return new StringResult((byte) 1, "Could not open file: "+ e.getMessage());
         } catch (TikaException e) {
-            return new TikaResult((byte) 2, "Parse error occurred : "+ e.getMessage());
+            return new StringResult((byte) 2, "Parse error occurred : "+ e.getMessage());
         }
     }
 
@@ -61,10 +67,34 @@ public class TikaNativeMain {
      * Parses the given file and returns its content as String. By default, the max string length is 100_000 chars
      *
      * @param filePath the path of the file
-     * @return TikaResult
+     * @return StringResult
      */
-    public static TikaResult parseToString(String filePath) {
+    public static StringResult parseToString(String filePath) {
         return parseToStringWithLength(filePath, tika.getMaxStringLength());
+    }
+
+    /**
+     * Parses the given file and returns its content as Reader. The reader can be used
+     * to read chunks and must be closed when reading is finished
+     *
+     * @param filePath the path of the file
+     * @return ReaderResult
+     */
+    public static ReaderResult parse(String filePath) {
+        try {
+            final Path path = Paths.get(filePath);
+            final Reader reader = tika.parse(path);
+
+            // Convert Reader which works with chars to ReaderInputStream which works with bytes
+            ReaderInputStream readerInputStream = ReaderInputStream.builder()
+                    .setReader(reader)
+                    .setCharset(StandardCharsets.UTF_8)
+                    .get();
+
+            return new ReaderResult(readerInputStream);
+        } catch (java.io.IOException e) {
+            return new ReaderResult((byte) 1, "Could not open file: "+ e.getMessage());
+        }
     }
 
     /**

@@ -513,6 +513,10 @@
   }, {
     "pattern":"\\Qword.docx\\E"
   }, {
+    "pattern":"java.base:\\Qjdk/internal/icu/impl/data/icudt72b/nfkc.nrm\\E"
+  }, {
+    "pattern":"java.base:\\Qjdk/internal/icu/impl/data/icudt72b/ubidi.icu\\E"
+  }, {
     "pattern":"java.base:\\Qjdk/internal/icu/impl/data/icudt74b/nfkc.nrm\\E"
   }, {
     "pattern":"java.base:\\Qjdk/internal/icu/impl/data/icudt74b/ubidi.icu\\E"
@@ -527,13 +531,14 @@
   }]},
   "bundles":[{
     "name":"org.apache.xerces.impl.msg.SAXMessages",
-    "locales":["en-US"]
+    "locales":["en", "en-US", "und"]
   }, {
     "name":"org.apache.xmlbeans.impl.regex.message",
-    "locales":["en-US"]
+    "locales":["en-US", "und"]
   }, {
     "name":"sun.awt.resources.awt",
-    "locales":["en-US"]
+    "locales":["en-US"],
+    "classNames":["sun.awt.resources.awt"]
   }, {
     "name":"sun.text.resources.cldr.FormatData",
     "locales":["en", "en-US", "und"]

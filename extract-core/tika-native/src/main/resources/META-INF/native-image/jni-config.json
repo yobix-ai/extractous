@@ -1,14 +1,22 @@
 [
 {
-  "name":"ai.yobix.TikaNativeMain",
-  "methods":[{"name":"detect","parameterTypes":["java.lang.String"] }, {"name":"parseToString","parameterTypes":["java.lang.String"] }, {"name":"parseToStringWithLength","parameterTypes":["java.lang.String","int"] }]
+  "name":"[Lsun.java2d.loops.GraphicsPrimitive;"
 },
 {
-  "name":"ai.yobix.TikaResult",
+  "name":"org.apache.commons.io.input.ReaderInputStream",
+  "methods":[{"name":"close","parameterTypes":[] }, {"name":"read","parameterTypes":["byte[]"] }, {"name":"read","parameterTypes":["byte[]","int","int"] }]
+},
+{
+  "name":"ai.yobix.ReaderResult",
+  "methods":[{"name":"getErrorMessage","parameterTypes":[] }, {"name":"getReader","parameterTypes":[] }, {"name":"getStatus","parameterTypes":[] }, {"name":"isError","parameterTypes":[] }]
+},
+{
+  "name":"ai.yobix.StringResult",
   "methods":[{"name":"getContent","parameterTypes":[] }, {"name":"getErrorMessage","parameterTypes":[] }, {"name":"getStatus","parameterTypes":[] }, {"name":"isError","parameterTypes":[] }]
 },
 {
-  "name":"[Lsun.java2d.loops.GraphicsPrimitive;"
+  "name":"ai.yobix.TikaNativeMain",
+  "methods":[{"name":"detect","parameterTypes":["java.lang.String"] }, {"name":"parse","parameterTypes":["java.lang.String"] }, {"name":"parseToString","parameterTypes":["java.lang.String"] }, {"name":"parseToStringWithLength","parameterTypes":["java.lang.String","int"] }]
 },
 {
   "name":"com.sun.imageio.plugins.jpeg.JPEGImageReader",
@@ -20,6 +28,7 @@
 },
 {
   "name":"java.awt.Color",
+  "fields":[{"name":"value"}],
   "methods":[{"name":"getRGB","parameterTypes":[] }]
 },
 {

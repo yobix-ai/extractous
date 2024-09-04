@@ -51,6 +51,24 @@
   "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"test_detectDocxFile","parameterTypes":[] }, {"name":"test_detectOdtFile","parameterTypes":[] }, {"name":"test_detectPdfFile","parameterTypes":[] }, {"name":"test_detectTxtFile","parameterTypes":[] }, {"name":"test_detectXlsFile","parameterTypes":[] }]
 },
 {
+  "name":"ai.yobix.TikaParseReaderTest",
+  "allDeclaredFields":true,
+  "allDeclaredClasses":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"testAppleFilingPdf","parameterTypes":[] }, {"name":"testGetPlainTextFromInvoice","parameterTypes":[] }, {"name":"testGetTextFromPdfFormatWithFonts","parameterTypes":[] }, {"name":"testGetTextFromXlsFile","parameterTypes":[] }, {"name":"testHandbook1pDocxFile","parameterTypes":[] }, {"name":"testInvalidPath","parameterTypes":[] }, {"name":"testNoNewRomanPdfFile","parameterTypes":[] }, {"name":"testQuarkusOdtFile","parameterTypes":[] }, {"name":"testQuarkusPdfFile","parameterTypes":[] }, {"name":"testQuarkusTxtFile","parameterTypes":[] }, {"name":"testWordDocxFile","parameterTypes":[] }]
+},
+{
+  "name":"ai.yobix.TikaParseStringTest",
+  "allDeclaredFields":true,
+  "allDeclaredClasses":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"testAppleFilingPdf","parameterTypes":[] }, {"name":"testGetPlainTextFromInvoice","parameterTypes":[] }, {"name":"testGetTextFromPdfFormatWithFonts","parameterTypes":[] }, {"name":"testGetTextFromXlsFile","parameterTypes":[] }, {"name":"testHandbook1pDocxFile","parameterTypes":[] }, {"name":"testNoNewRomanPdfFile","parameterTypes":[] }, {"name":"testWordDocxFile","parameterTypes":[] }, {"name":"test_invalidPath","parameterTypes":[] }, {"name":"test_quarkusOdtFile","parameterTypes":[] }, {"name":"test_quarkusPdfFile","parameterTypes":[] }, {"name":"test_quarkusTxtFile","parameterTypes":[] }]
+},
+{
   "name":"ai.yobix.TikaParseTest",
   "allDeclaredFields":true,
   "allDeclaredClasses":true,
