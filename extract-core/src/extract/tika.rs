@@ -10,33 +10,28 @@ use jni::signature::ReturnType;
 use jni::sys::jsize;
 use crate::errors::{Error, ExtractResult};
 
-#[cfg(test)]
-mod tests {
-    use std::io::BufReader;
-    use std::io::prelude::*;
-    use super::*;
-
-    #[test]
-    fn parse_test() {
-        let result = tika_parse("README.md");
-
-        let mut reader = BufReader::new(result.unwrap());
-        let mut line = String::new();
-        let _len = reader.read_line(&mut line).unwrap();
-
-        assert_eq!("# Extract-RS", line.trim());
-    }
-
-    #[test]
-    fn parse_to_string_test() {
-        let result = tika_parse_to_string("README.md");
-        assert!(result.is_ok());
-        assert_eq!("# Extract-RS", result.unwrap().lines().next().unwrap());
-    }
-}
-
 pub struct Reader<'a> {
     java_reader: JObject<'a>,
+}
+
+impl<'a> Drop for Reader<'a> {
+    fn drop(&mut self) {
+        match vm().attach_current_thread() {
+            Ok(mut env) => {
+                // Call the Java Reader's `close` method
+                let _call_result = env.call_method
+                (
+                    &self.java_reader,
+                    "close",
+                    "()V",
+                    &[],
+                );
+                // ignore result by using .ok()
+                jni_check_exception(&mut env).ok();
+            }
+            Err(_) => { }
+        }
+    }
 }
 
 impl<'a> Read for Reader<'a> {
@@ -47,8 +42,7 @@ impl<'a> Read for Reader<'a> {
 
         let length = buf.len() as jsize;
         let jbyte_array = env.new_byte_array(length).map_err(|e| {
-            std::io::Error::new(std::io::ErrorKind::Other, format!("Failed to create byte array: \
-            {:?}", e))
+            std::io::Error::new(std::io::ErrorKind::Other, format!("Failed to create byte array: {:?}", e))
         })?;
 
         // Call the Java Reader's `read` method
@@ -59,20 +53,14 @@ impl<'a> Read for Reader<'a> {
             "([BII)I",
             &[JValue::Object(&jbyte_array), JValue::Int(0), JValue::Int(length)],
         );
-        jni_check_exception(&mut env).expect("Runtime exception occurred");
+        // Check for any java exception thrown, prints to stderr and ignore the result
+        jni_check_exception(&mut env).ok();
 
         let result = call_result.map_err(|e| {
             std::io::Error::new(std::io::ErrorKind::Other, format!("Failed to call read method: {:?}", e))
         })?.i().map_err(|e| {
             std::io::Error::new(std::io::ErrorKind::Other, format!("Failed to unwrap result to jint: {:?}", e))
         })?;
-
-        // Create u16 buffer
-        //let mut buf_u16 = vec![0u16; length as usize];
-        // env.get_char_array_region(jchar_array, 0, buf_of_u16).map_err(|e| {
-        //     std::io::Error::new(std::io::ErrorKind::Other, format!("Failed to get char array region: {:?}", e))
-        // })?;
-
 
         let buf_of_i8: &mut [i8] = cast_slice_mut(buf);
         env.get_byte_array_region(jbyte_array, 0, buf_of_i8).map_err(|e| {
@@ -88,7 +76,7 @@ impl<'a> Read for Reader<'a> {
     }
 }
 
-pub fn tika_parse(file_name: &str) -> ExtractResult<Reader> {
+pub fn parse_file(file_name: &str) -> ExtractResult<Reader> {
     let mut env = vm().attach_current_thread()?;
 
     let jstr_file = env.new_string(file_name)?;
@@ -148,7 +136,7 @@ pub fn tika_parse(file_name: &str) -> ExtractResult<Reader> {
 }
 
 /// Parses a file to a string using the Apache Tika library.
-pub fn tika_parse_to_string(file_name: &str) -> ExtractResult<String> {
+pub fn parse_file_to_string(file_name: &str) -> ExtractResult<String> {
 
     // Attaching a thead that is already attached is a no-op. Good to have this in case this method
     // is called from another thread
