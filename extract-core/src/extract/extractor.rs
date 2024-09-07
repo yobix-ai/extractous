@@ -1,10 +1,35 @@
 use strum_macros::{Display, EnumString};
 use crate::errors::ExtractResult;
+use crate::{Reader};
 use crate::extract::tika;
 
-#[derive(Debug, Default)]
+#[derive(Debug)]
 pub struct PdfParserConfig {
-    extract_inline_images: bool,
+    pub extract_inline_images: bool,
+    pub extract_marked_content: bool,
+}
+
+impl Default for PdfParserConfig {
+    fn default() -> Self {
+        Self {
+            extract_inline_images: true,
+            extract_marked_content: false,
+        }
+    }
+}
+
+impl PdfParserConfig {
+    pub fn new() -> Self {
+        Self::default()
+    }
+    pub fn set_extract_inline_images(&mut self, val: bool) -> &mut Self {
+        self.extract_inline_images = val;
+        self
+    }
+    pub fn set_extract_marked_content(&mut self, val: bool) -> &mut Self {
+        self.extract_marked_content = val;
+        self
+    }
 }
 
 #[derive(Debug, Default)]
@@ -36,7 +61,6 @@ pub enum CharSet {
 }
 
 pub struct Extractor {
-    xml_output: bool,
     encoding: CharSet,
     pdf_config: PdfParserConfig,
     office_config: OfficeParserConfig,
@@ -45,9 +69,8 @@ pub struct Extractor {
 
 impl Extractor {
 
-    pub fn new() -> Extractor {
-        Extractor {
-            xml_output: false,
+    pub fn new() -> Self {
+        Self {
             encoding: CharSet::default(),
             pdf_config: PdfParserConfig::default(),
             office_config: OfficeParserConfig::default(),
@@ -55,21 +78,29 @@ impl Extractor {
         }
     }
 
-    pub fn encoding(&mut self, encoding: CharSet) -> &mut Extractor {
+    pub fn set_encoding(&mut self, encoding: CharSet) -> &mut Self {
         self.encoding = encoding;
         self
     }
-
-    pub fn xml_output(&mut self, xml_output: bool) -> &mut Extractor {
-        self.xml_output = xml_output;
+    pub fn set_pdf_config(&mut self, config: PdfParserConfig) -> &mut Self {
+        self.pdf_config = config;
+        self
+    }
+    pub fn set_office_config(&mut self, config: OfficeParserConfig) -> &mut Self {
+        self.office_config = config;
+        self
+    }
+    pub fn set_ocr_config(&mut self, config: TesseractOcrConfig) -> &mut Self {
+        self.ocr_config = config;
         self
     }
 
-    pub fn extract_file<'a>(&'a self, file_path: &'a str) -> ExtractResult<tika::Reader> {
-        tika::parse_file(file_path)
+
+    pub fn extract_file<'a>(&'a self, file_path: &'a str) -> ExtractResult<Reader> {
+        tika::parse_file(file_path, &self.pdf_config)
     }
-    pub fn extract_file_to_string<'a>(&'a self, file_path: &'a str) -> ExtractResult<String> {
-        tika::parse_file_to_string(file_path)
+    pub fn extract_file_to_string<'a>(&'a self, file_path: &'a str, max_length: i32) -> ExtractResult<String> {
+        tika::parse_file_to_string(file_path, max_length)
     }
 
 }
@@ -118,7 +149,7 @@ mod tests {
 
         // Parse the files using extract_rs
         let extractor = Extractor::new();
-        let result = extractor.extract_file_to_string(TEST_FILE);
+        let result = extractor.extract_file_to_string(TEST_FILE, 10000);
         let content = result.unwrap();
         assert_eq!(content.trim(), expected_content.trim());
     }

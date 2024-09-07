@@ -3,8 +3,8 @@
   "name":"[Lsun.java2d.loops.GraphicsPrimitive;"
 },
 {
-  "name":"org.apache.commons.io.input.ReaderInputStream",
-  "methods":[{"name":"close","parameterTypes":[] }, {"name":"read","parameterTypes":["byte[]"] }, {"name":"read","parameterTypes":["byte[]","int","int"] }]
+  "name":"org.apache.tika.parser.pdf.PDFParserConfig",
+  "methods":[{"name":"<init>","parameterTypes":[]}, {"name":"setExtractInlineImages","parameterTypes":["boolean"] }, {"name":"setExtractMarkedContent","parameterTypes":["boolean"] }]
 },
 {
   "name":"ai.yobix.ReaderResult",
@@ -16,7 +16,7 @@
 },
 {
   "name":"ai.yobix.TikaNativeMain",
-  "methods":[{"name":"detect","parameterTypes":["java.lang.String"] }, {"name":"parse","parameterTypes":["java.lang.String"] }, {"name":"parseToString","parameterTypes":["java.lang.String"] }, {"name":"parseToStringWithLength","parameterTypes":["java.lang.String","int"] }]
+  "methods":[{"name":"detect","parameterTypes":["java.lang.String"] }, {"name":"parseBytes","parameterTypes":["byte[]","java.lang.String","org.apache.tika.parser.pdf.PDFParserConfig","org.apache.tika.parser.microsoft.OfficeParserConfig","org.apache.tika.parser.ocr.TesseractOCRConfig"] }, {"name":"parseFile","parameterTypes":["java.lang.String","java.lang.String","org.apache.tika.parser.pdf.PDFParserConfig","org.apache.tika.parser.microsoft.OfficeParserConfig","org.apache.tika.parser.ocr.TesseractOCRConfig"] }, {"name":"parsePdf","parameterTypes":["java.lang.String","org.apache.tika.parser.pdf.PDFParserConfig"] }, {"name":"parseToString","parameterTypes":["java.lang.String","int"] }, {"name":"parseUrl","parameterTypes":["java.lang.String","java.lang.String","org.apache.tika.parser.pdf.PDFParserConfig","org.apache.tika.parser.microsoft.OfficeParserConfig","org.apache.tika.parser.ocr.TesseractOCRConfig"] }]
 },
 {
   "name":"com.sun.imageio.plugins.jpeg.JPEGImageReader",
@@ -97,6 +97,10 @@
 {
   "name":"javax.imageio.plugins.jpeg.JPEGQTable",
   "fields":[{"name":"qTable"}]
+},
+{
+  "name":"org.apache.commons.io.input.ReaderInputStream",
+  "methods":[{"name":"close","parameterTypes":[] }, {"name":"read","parameterTypes":["byte[]"] }, {"name":"read","parameterTypes":["byte[]","int","int"] }]
 },
 {
   "name":"sun.awt.SunHints",

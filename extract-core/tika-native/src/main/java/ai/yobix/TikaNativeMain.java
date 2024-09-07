@@ -1,17 +1,31 @@
 package ai.yobix;
 
 import org.apache.commons.io.input.ReaderInputStream;
+import org.apache.tika.parser.ParsingReader;
+import org.xml.sax.ContentHandler;
 import org.apache.tika.Tika;
+import org.apache.tika.config.TikaConfig;
 import org.apache.tika.exception.TikaException;
 
 import java.io.InputStream;
 import java.io.Reader;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.apache.tika.io.TikaInputStream;
 import org.apache.tika.metadata.Metadata;
+import org.apache.tika.parser.AutoDetectParser;
+import org.apache.tika.parser.ParseContext;
+import org.apache.tika.parser.Parser;
+import org.apache.tika.parser.microsoft.OfficeParserConfig;
+import org.apache.tika.parser.ocr.TesseractOCRConfig;
+import org.apache.tika.parser.pdf.PDFParserConfig;
 import org.graalvm.nativeimage.IsolateThread;
 import org.graalvm.nativeimage.c.function.CEntryPoint;
 import org.graalvm.nativeimage.c.type.CCharPointer;
@@ -24,7 +38,8 @@ public class TikaNativeMain {
 
     /**
      * Parses the given file and returns its type as a mime type
-     * @param filePath:  the path of the file to be parsed
+     *
+     * @param filePath: the path of the file to be parsed
      * @return StringResult
      */
     public static StringResult detect(String filePath) {
@@ -48,7 +63,7 @@ public class TikaNativeMain {
      * @param maxLength: maximum length of the returned string
      * @return StringResult
      */
-    public static StringResult parseToStringWithLength(String filePath, int maxLength) {
+    public static StringResult parseToString(String filePath, int maxLength) {
         try {
             final Path path = Paths.get(filePath);
             final Metadata metadata = new Metadata();
@@ -57,20 +72,30 @@ public class TikaNativeMain {
             // No need to close the stream because parseToString does so
             return new StringResult(tika.parseToString(stream, metadata, maxLength));
         } catch (java.io.IOException e) {
-            return new StringResult((byte) 1, "Could not open file: "+ e.getMessage());
+            return new StringResult((byte) 1, "Could not open file: " + e.getMessage());
         } catch (TikaException e) {
-            return new StringResult((byte) 2, "Parse error occurred : "+ e.getMessage());
+            return new StringResult((byte) 2, "Parse error occurred : " + e.getMessage());
         }
     }
 
-    /**
-     * Parses the given file and returns its content as String. By default, the max string length is 100_000 chars
-     *
-     * @param filePath the path of the file
-     * @return StringResult
-     */
-    public static StringResult parseToString(String filePath) {
-        return parseToStringWithLength(filePath, tika.getMaxStringLength());
+    // TODO remove for testing only
+    public static ReaderResult parsePdf(
+            String filePath,
+            PDFParserConfig pdfConfig
+    ) {
+        try {
+            System.out.println("pdfConfig.isExtractInlineImages = " + pdfConfig.isExtractInlineImages());
+            System.out.println("pdfConfig.isExtractMarkedContent = " + pdfConfig.isExtractMarkedContent());
+
+            final Path path = Paths.get(filePath);
+            final Metadata metadata = new Metadata();
+            final TikaInputStream stream = TikaInputStream.get(path, metadata);
+
+            return parse(stream, metadata, "UTF-8", pdfConfig, new OfficeParserConfig(), new TesseractOCRConfig());
+
+        } catch (java.io.IOException e) {
+            return new ReaderResult((byte) 1, "Could not open file: " + e.getMessage());
+        }
     }
 
     /**
@@ -80,21 +105,112 @@ public class TikaNativeMain {
      * @param filePath the path of the file
      * @return ReaderResult
      */
-    public static ReaderResult parse(String filePath) {
+    public static ReaderResult parseFile(
+            String filePath,
+            String charsetName,
+            PDFParserConfig pdfConfig,
+            OfficeParserConfig officeConfig,
+            TesseractOCRConfig tesseractConfig
+    ) {
         try {
+            System.out.println("pdfConfig.isExtractInlineImages = " + pdfConfig.isExtractInlineImages());
+            System.out.println("pdfConfig.isExtractMarkedContent = " + pdfConfig.isExtractMarkedContent());
+
             final Path path = Paths.get(filePath);
-            final Reader reader = tika.parse(path);
+            final Metadata metadata = new Metadata();
+            final TikaInputStream stream = TikaInputStream.get(path, metadata);
+
+            return parse(stream, metadata, charsetName, pdfConfig, officeConfig, tesseractConfig);
+
+        } catch (java.io.IOException e) {
+            return new ReaderResult((byte) 1, "Could not open file: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Parses the given Url and returns its content as Reader. The reader can be used
+     * to read chunks and must be closed when reading is finished
+     *
+     * @param urlString the url to be parsed
+     * @return ReaderResult
+     */
+    public static ReaderResult parseUrl(
+            String urlString,
+            String charsetName,
+            PDFParserConfig pdfConfig,
+            OfficeParserConfig officeConfig,
+            TesseractOCRConfig tesseractConfig
+    ) {
+        try {
+            final URL url = new URI(urlString).toURL();
+            final Metadata metadata = new Metadata();
+            final TikaInputStream stream = TikaInputStream.get(url, metadata);
+
+            return parse(stream, metadata, charsetName, pdfConfig, officeConfig, tesseractConfig);
+
+        } catch (MalformedURLException e) {
+            return new ReaderResult((byte) 2, "Malformed URL error occurred " + e.getMessage());
+        } catch (URISyntaxException e) {
+            return new ReaderResult((byte) 3, "Malformed URI error occurred: " + e.getMessage());
+        } catch (java.io.IOException e) {
+            return new ReaderResult((byte) 1, "IO error occurred: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Parses the given array of bytes and return its content as Reader. The reader can be used
+     * to read chunks and must be closed when reading is finished
+     *
+     * @param data an array of bytes
+     * @return ReaderResult
+     */
+    public static ReaderResult parseBytes(
+            byte[] data,
+            String charsetName,
+            PDFParserConfig pdfConfig,
+            OfficeParserConfig officeConfig,
+            TesseractOCRConfig tesseractConfig
+    ) {
+
+        final Metadata metadata = new Metadata();
+        final TikaInputStream stream = TikaInputStream.get(data, metadata);
+
+        return parse(stream, metadata, charsetName, pdfConfig, officeConfig, tesseractConfig);
+    }
+
+    private static ReaderResult parse(
+            TikaInputStream inputStream,
+            Metadata metadata,
+            String charsetName,
+            PDFParserConfig pdfConfig,
+            OfficeParserConfig officeConfig,
+            TesseractOCRConfig tesseractConfig
+    ) {
+        try {
+
+            final TikaConfig config = TikaConfig.getDefaultConfig();
+            final ParseContext parsecontext = new ParseContext();
+            final Parser parser = new AutoDetectParser(config);
+
+            parsecontext.set(Parser.class, parser);
+            parsecontext.set(PDFParserConfig.class, pdfConfig);
+            parsecontext.set(OfficeParserConfig.class, officeConfig);
+            parsecontext.set(TesseractOCRConfig.class, tesseractConfig);
+
+            final Reader reader = new ParsingReader(parser, inputStream, metadata, parsecontext);
 
             // Convert Reader which works with chars to ReaderInputStream which works with bytes
             ReaderInputStream readerInputStream = ReaderInputStream.builder()
                     .setReader(reader)
-                    .setCharset(StandardCharsets.UTF_8)
+                    .setCharset(Charset.forName(charsetName, StandardCharsets.UTF_8))
                     .get();
 
             return new ReaderResult(readerInputStream);
+
         } catch (java.io.IOException e) {
-            return new ReaderResult((byte) 1, "Could not open file: "+ e.getMessage());
+            return new ReaderResult((byte) 1, "IO error occurred: " + e.getMessage());
         }
+
     }
 
     /**

@@ -13,10 +13,13 @@ pub enum Error {
     ParseError(String),
 
     #[error("{0}")]
-    JniError(#[source] jni::errors::Error),
+    Utf8Error(#[source] Utf8Error),
 
     #[error("{0}")]
-    Utf8Error(#[source] Utf8Error),
+    JniEnvCall(&'static str),
+
+    #[error("{0}")]
+    JniError(#[source] jni::errors::Error),
 }
 
 
