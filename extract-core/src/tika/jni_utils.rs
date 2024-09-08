@@ -4,6 +4,7 @@ use jni::errors::jni_error_code_to_result;
 use jni::objects::{JObject, JString, JValueOwned};
 use crate::errors::{Error, ExtractResult};
 
+/// creates a new java string from a rust str
 pub fn jni_new_string<'local>(env: &mut JNIEnv<'local>, s: &str) -> ExtractResult<JString<'local>> {
     match env.new_string(s) {
         Ok(s) => Ok(s),
@@ -11,6 +12,7 @@ pub fn jni_new_string<'local>(env: &mut JNIEnv<'local>, s: &str) -> ExtractResul
     }
 }
 
+/// creates a new java string from a rust str and returns it as a JValueOwned
 pub fn jni_new_string_as_jvalue<'local>(env: &mut JNIEnv<'local>, s: &str) -> ExtractResult<JValueOwned<'local>> {
     let jstring = jni_new_string(env, s)?;
     //let jstring = env.new_string(s)?;
@@ -18,6 +20,7 @@ pub fn jni_new_string_as_jvalue<'local>(env: &mut JNIEnv<'local>, s: &str) -> Ex
     Ok(JValueOwned::from(jstring))
 }
 
+/// Converts a java object to a rust string
 pub fn jni_jobject_to_string<'local>(env: &mut JNIEnv<'local>, jobject: JObject) -> ExtractResult<String> {
     let jstring_output = JString::from(jobject);
     let javastr_output = unsafe { env.get_string_unchecked(&jstring_output)? };

@@ -1,11 +1,89 @@
+use std::io::Read;
+use bytemuck::cast_slice_mut;
 use jni::JNIEnv;
 use jni::objects::{JObject, JValue};
 use jni::signature::{Primitive, ReturnType};
-
+use jni::sys::jsize;
 use crate::errors::{Error, ExtractResult};
-use crate::extract::jni_utils::jni_jobject_to_string;
+use crate::tika::jni_utils::{jni_check_exception, jni_jobject_to_string};
 use crate::PdfParserConfig;
+use crate::tika::vm;
 
+/// Wrapper for [`JObject`]s that contain `org.apache.commons.io.input.ReaderInputStream`
+/// Implements [`Read`] and [`Drop] traits.
+/// On drop, it calls the java close() method to properly clean the input stream
+pub struct JReaderInputStream<'a> {
+    internal: JObject<'a>,
+}
+
+impl<'a> JReaderInputStream<'a> {
+    pub(crate) fn new(obj: JObject<'a>) -> Self {
+        Self {
+            internal: obj,
+        }
+    }
+}
+
+impl<'a> Read for JReaderInputStream<'a> {
+    fn read(&mut self, buf: &mut [u8]) -> std::io::Result<usize> {
+        let mut env = vm().attach_current_thread().map_err(|e| Error::JniError(e))?;
+
+        // Create the java byte array
+        let length = buf.len() as jsize;
+        let jbyte_array = env.new_byte_array(length).map_err(|_e|
+        Error::JniEnvCall("Failed to create byte array")
+        )?;
+
+        // Call the Java Reader's `read` method
+        let call_result = env.call_method(
+            &self.internal,
+            "read",
+            "([BII)I",
+            &[JValue::Object(&jbyte_array), JValue::Int(0), JValue::Int(length)],
+        );
+        jni_check_exception(&mut env)?; // prints any exceptions thrown to stderr
+        let num_read_bytes = call_result
+            .map_err(|e| Error::JniError(e))?
+            .i()
+            .map_err(|e| Error::JniError(e))?;
+
+        // Get the bytes from the Java byte array to the Rust byte array
+        // don't know if this is a copy or just memory reference
+        let buf_of_i8: &mut [i8] = cast_slice_mut(buf); // cast because java byte array is i8[]
+        env.get_byte_array_region(jbyte_array, 0, buf_of_i8).map_err(|_e|
+        Error::JniEnvCall("Failed to get byte array region")
+        )?;
+
+        if num_read_bytes == -1 {
+            // End of stream reached
+            Ok(0)
+        } else {
+            Ok(num_read_bytes as usize)
+        }
+    }
+}
+
+impl<'a> Drop for JReaderInputStream<'a> {
+    fn drop(&mut self) {
+        match vm().attach_current_thread() {
+            Ok(mut env) => {
+                // Call the Java Reader's `close` method
+                let _call_result = env.call_method(
+                    &self.internal,
+                    "close",
+                    "()V",
+                    &[],
+                );
+                jni_check_exception(&mut env).ok(); // ignore close result error by using .ok()
+            }
+            Err(_) => {} // ignore attach error when dropping
+        }
+    }
+}
+
+
+/// Wrapper for the Java class  `ai.yobix.StringResult`
+/// Upon creation it parses the java StringResult object and saves the converted Rust string
 pub(crate) struct JStringResult {
     pub(crate) content: String,
 }
@@ -45,6 +123,9 @@ impl<'local> JStringResult {
 }
 
 
+/// Wrapper for the Java class  `ai.yobix.ReaderResult`
+/// Upon creation it parses the java ReaderResult object and saves the java
+/// `org.apache.commons.io.input.ReaderInputStream` object, which later can be used for reading
 pub(crate) struct JReaderResult<'local> {
     pub(crate) java_reader: JObject<'local>,
 }
