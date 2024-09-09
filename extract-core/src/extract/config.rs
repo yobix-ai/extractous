@@ -1,4 +1,4 @@
-/// Pdf parser configuration settings
+/// PDF parsing configuration settings
 ///
 /// These settings are used to configure the behavior of the PDF parsing.
 pub struct PdfParserConfig {

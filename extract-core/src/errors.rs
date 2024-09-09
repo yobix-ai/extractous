@@ -1,7 +1,7 @@
 use std::io;
 use std::str::Utf8Error;
 
-/// These represent recoverable errors that should be logged
+/// Represent errors returned by extract-rs
 #[derive(thiserror::Error, Debug)]
 pub enum Error {
     #[error("{0}")]
@@ -46,4 +46,5 @@ impl From<Error> for io::Error {
     }
 }
 
+/// Result that is a wrapper of Result<T, extractrs::Error>
 pub type ExtractResult<T> = Result<T, Error>;
