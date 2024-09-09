@@ -78,26 +78,6 @@ public class TikaNativeMain {
         }
     }
 
-    // TODO remove for testing only
-    public static ReaderResult parsePdf(
-            String filePath,
-            PDFParserConfig pdfConfig
-    ) {
-        try {
-            System.out.println("pdfConfig.isExtractInlineImages = " + pdfConfig.isExtractInlineImages());
-            System.out.println("pdfConfig.isExtractMarkedContent = " + pdfConfig.isExtractMarkedContent());
-
-            final Path path = Paths.get(filePath);
-            final Metadata metadata = new Metadata();
-            final TikaInputStream stream = TikaInputStream.get(path, metadata);
-
-            return parse(stream, metadata, "UTF-8", pdfConfig, new OfficeParserConfig(), new TesseractOCRConfig());
-
-        } catch (java.io.IOException e) {
-            return new ReaderResult((byte) 1, "Could not open file: " + e.getMessage());
-        }
-    }
-
     /**
      * Parses the given file and returns its content as Reader. The reader can be used
      * to read chunks and must be closed when reading is finished
@@ -113,8 +93,13 @@ public class TikaNativeMain {
             TesseractOCRConfig tesseractConfig
     ) {
         try {
-            System.out.println("pdfConfig.isExtractInlineImages = " + pdfConfig.isExtractInlineImages());
-            System.out.println("pdfConfig.isExtractMarkedContent = " + pdfConfig.isExtractMarkedContent());
+//            System.out.println("pdfConfig.isExtractInlineImages = " + pdfConfig.isExtractInlineImages());
+//            System.out.println("pdfConfig.isExtractMarkedContent = " + pdfConfig.isExtractMarkedContent());
+//            System.out.println("pdfConfig.getOcrStrategy = " + pdfConfig.getOcrStrategy());
+//            System.out.println("officeConfig.isIncludeHeadersAndFooters = " + officeConfig.isIncludeHeadersAndFooters());
+//            System.out.println("officeConfig.isIncludeShapeBasedContent = " + officeConfig.isIncludeShapeBasedContent());
+//            System.out.println("ocrConfig.getTimeoutSeconds = " + tesseractConfig.getTimeoutSeconds());
+//            System.out.println("ocrConfig.language = " + tesseractConfig.getLanguage());
 
             final Path path = Paths.get(filePath);
             final Metadata metadata = new Metadata();

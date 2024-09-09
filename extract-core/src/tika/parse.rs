@@ -7,7 +7,7 @@ use jni::JavaVM;
 use crate::errors::ExtractResult;
 use crate::tika::jni_utils::*;
 use crate::tika::wrappers::*;
-use crate::PdfParserConfig;
+use crate::{CharSet, OfficeParserConfig, PdfParserConfig, TesseractOcrConfig};
 
 /// Returns a reference to the shared VM isolate
 /// Instead of creating a new VM for every tika call, we create a single VM that is shared
@@ -20,22 +20,33 @@ pub(crate) fn vm() -> &'static JavaVM {
 
 pub fn parse_file<'local>(
     file_path: &str,
+    char_set: &CharSet,
     pdf_conf: &'local PdfParserConfig,
+    office_conf: &'local OfficeParserConfig,
+    ocr_conf: &'local TesseractOcrConfig
 ) -> ExtractResult<JReaderInputStream<'local>> {
     // Attaching a thead that is already attached is a no-op. Good to have this in case this method
     // is called from another thread
     let mut env = vm().attach_current_thread()?;
 
     let file_path_val = jni_new_string_as_jvalue(&mut env, file_path)?;
-
-    let jpdf_conf = JPDFParserConfig::new(&mut env, pdf_conf)?;
+    let charset_name_val = jni_new_string_as_jvalue(&mut env, &char_set.to_string())?;
+    let j_pdf_conf = JPDFParserConfig::new(&mut env, pdf_conf)?;
+    let j_office_conf = JOfficeParserConfig::new(&mut env, office_conf)?;
+    let j_ocr_conf = JTesseractOcrConfig::new(&mut env, ocr_conf)?;
 
     // Make the java parse call
     let call_result = env.call_static_method(
         "ai/yobix/TikaNativeMain",
-        "parsePdf",
-        "(Ljava/lang/String;Lorg/apache/tika/parser/pdf/PDFParserConfig;)Lai/yobix/ReaderResult;",
-        &[(&file_path_val).into(), (&jpdf_conf.internal).into()],
+        "parseFile",
+        "(Ljava/lang/String;\
+        Ljava/lang/String;\
+        Lorg/apache/tika/parser/pdf/PDFParserConfig;\
+        Lorg/apache/tika/parser/microsoft/OfficeParserConfig;\
+        Lorg/apache/tika/parser/ocr/TesseractOCRConfig;\
+        )Lai/yobix/ReaderResult;",
+        &[(&file_path_val).into(), (&charset_name_val).into(), (&j_pdf_conf.internal).into(),
+            (&j_office_conf.internal).into(), (&j_ocr_conf.internal).into()],
     );
     jni_check_exception(&mut env)?; // prints any exceptions thrown to stderr
     let call_result_obj = call_result?.l()?;

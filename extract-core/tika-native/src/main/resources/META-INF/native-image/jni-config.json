@@ -4,7 +4,42 @@
 },
 {
   "name":"org.apache.tika.parser.pdf.PDFParserConfig",
-  "methods":[{"name":"<init>","parameterTypes":[]}, {"name":"setExtractInlineImages","parameterTypes":["boolean"] }, {"name":"setExtractMarkedContent","parameterTypes":["boolean"] }]
+  "methods":[
+    {"name":"<init>","parameterTypes":[]},
+    {"name":"setExtractInlineImages","parameterTypes":["boolean"] },
+    {"name":"setExtractUniqueInlineImagesOnly","parameterTypes":["boolean"] },
+    {"name":"setExtractMarkedContent","parameterTypes":["boolean"] },
+    {"name":"setExtractAnnotationText","parameterTypes":["boolean"] },
+    {"name":"setOcrStrategy","parameterTypes":["java.lang.String"] }
+  ]
+},
+{
+  "name":"org.apache.tika.parser.microsoft.OfficeParserConfig",
+  "methods":[
+    {"name":"<init>","parameterTypes":[]},
+    {"name":"setExtractMacros","parameterTypes":["boolean"] },
+    {"name":"setIncludeDeletedContent","parameterTypes":["boolean"] },
+    {"name":"setIncludeMoveFromContent","parameterTypes":["boolean"] },
+    {"name":"setIncludeShapeBasedContent","parameterTypes":["boolean"] },
+    {"name":"setIncludeHeadersAndFooters","parameterTypes":["boolean"] },
+    {"name":"setIncludeMissingRows","parameterTypes":["boolean"] },
+    {"name":"setIncludeSlideNotes","parameterTypes":["boolean"] },
+    {"name":"setIncludeSlideMasterContent","parameterTypes":["boolean"] },
+    {"name":"setConcatenatePhoneticRuns","parameterTypes":["boolean"] },
+    {"name":"setExtractAllAlternativesFromMSG","parameterTypes":["boolean"] }
+  ]
+},
+{
+  "name":"org.apache.tika.parser.ocr.TesseractOCRConfig",
+  "methods":[
+    {"name":"<init>","parameterTypes":[]},
+    {"name":"setDensity","parameterTypes":["int"] },
+    {"name":"setDepth","parameterTypes":["int"] },
+    {"name":"setTimeoutSeconds","parameterTypes":["int"] },
+    {"name":"setEnableImagePreprocessing","parameterTypes":["boolean"] },
+    {"name":"setApplyRotation","parameterTypes":["boolean"] },
+    {"name":"setLanguage","parameterTypes":["java.lang.String"] }
+  ]
 },
 {
   "name":"ai.yobix.ReaderResult",
@@ -16,7 +51,12 @@
 },
 {
   "name":"ai.yobix.TikaNativeMain",
-  "methods":[{"name":"detect","parameterTypes":["java.lang.String"] }, {"name":"parseBytes","parameterTypes":["byte[]","java.lang.String","org.apache.tika.parser.pdf.PDFParserConfig","org.apache.tika.parser.microsoft.OfficeParserConfig","org.apache.tika.parser.ocr.TesseractOCRConfig"] }, {"name":"parseFile","parameterTypes":["java.lang.String","java.lang.String","org.apache.tika.parser.pdf.PDFParserConfig","org.apache.tika.parser.microsoft.OfficeParserConfig","org.apache.tika.parser.ocr.TesseractOCRConfig"] }, {"name":"parsePdf","parameterTypes":["java.lang.String","org.apache.tika.parser.pdf.PDFParserConfig"] }, {"name":"parseToString","parameterTypes":["java.lang.String","int"] }, {"name":"parseUrl","parameterTypes":["java.lang.String","java.lang.String","org.apache.tika.parser.pdf.PDFParserConfig","org.apache.tika.parser.microsoft.OfficeParserConfig","org.apache.tika.parser.ocr.TesseractOCRConfig"] }]
+  "methods":[
+    {"name":"detect","parameterTypes":["java.lang.String"] },
+    {"name":"parseBytes","parameterTypes":["byte[]","java.lang.String","org.apache.tika.parser.pdf.PDFParserConfig","org.apache.tika.parser.microsoft.OfficeParserConfig","org.apache.tika.parser.ocr.TesseractOCRConfig"] },
+    {"name":"parseFile","parameterTypes":["java.lang.String","java.lang.String","org.apache.tika.parser.pdf.PDFParserConfig","org.apache.tika.parser.microsoft.OfficeParserConfig","org.apache.tika.parser.ocr.TesseractOCRConfig"] },
+    {"name":"parseUrl","parameterTypes":["java.lang.String","java.lang.String","org.apache.tika.parser.pdf.PDFParserConfig","org.apache.tika.parser.microsoft.OfficeParserConfig","org.apache.tika.parser.ocr.TesseractOCRConfig"] }
+  ]
 },
 {
   "name":"com.sun.imageio.plugins.jpeg.JPEGImageReader",

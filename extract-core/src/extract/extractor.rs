@@ -50,9 +50,19 @@ impl Extractor {
         Self::default()
     }
 
+    // pub fn new_from(extractor: &Extractor) -> Self {
+    //     Self {
+    //         extract_string_max_length: extractor.extract_string_max_length,
+    //         encoding: extractor.encoding,
+    //         pdf_config: extractor.pdf_config.clone(),
+    //         office_config: extractor.office_config.clone(),
+    //         ocr_config: extractor.ocr_config.clone(),
+    //     }
+    // }
+
     /// Set the maximum length of the extracted text. Used only for extract_to_string functions
     /// Default: 10000
-    pub fn set_extract_string_max_length(&mut self, max_length: i32) -> &mut Self {
+    pub fn set_extract_string_max_length(mut self, max_length: i32) -> Self {
         self.extract_string_max_length = max_length;
         self
     }
@@ -60,24 +70,24 @@ impl Extractor {
     /// Set the encoding to use for when extracting text to a stream.
     /// Not used for extract_to_string functions.
     /// Default: CharSet::UTF_8
-    pub fn set_encoding(&mut self, encoding: CharSet) -> &mut Self {
+    pub fn set_encoding(mut self, encoding: CharSet) -> Self {
         self.encoding = encoding;
         self
     }
 
     /// Set the configuration for the PDF parser
-    pub fn set_pdf_config(&mut self, config: PdfParserConfig) -> &mut Self {
+    pub fn set_pdf_config(mut self, config: PdfParserConfig) -> Self {
         self.pdf_config = config;
         self
     }
 
     /// Set the configuration for the Office parser
-    pub fn set_office_config(&mut self, config: OfficeParserConfig) -> &mut Self {
+    pub fn set_office_config(mut self, config: OfficeParserConfig) -> Self {
         self.office_config = config;
         self
     }
     /// Set the configuration for the Tesseract OCR
-    pub fn set_ocr_config(&mut self, config: TesseractOcrConfig) -> &mut Self {
+    pub fn set_ocr_config(mut self, config: TesseractOcrConfig) -> Self {
         self.ocr_config = config;
         self
     }
@@ -88,15 +98,14 @@ impl Extractor {
         &'a self,
         file_path: &'a str,
     ) -> ExtractResult<impl std::io::Read + 'a> {
-        tika::parse_file(file_path, &self.pdf_config)
+        tika::parse_file(file_path, &self.encoding,
+                         &self.pdf_config, &self.office_config, &self.ocr_config,
+        )
     }
 
     /// Extracts text from a file path. Returns a string that is of maximum length
     /// of the extractor's `extract_string_max_length`
-    pub fn extract_file_to_string<'a>(
-        &'a self,
-        file_path: &'a str,
-    ) -> ExtractResult<String> {
+    pub fn extract_file_to_string<'a>(&'a self, file_path: &'a str) -> ExtractResult<String> {
         tika::parse_file_to_string(file_path, self.extract_string_max_length)
     }
 }

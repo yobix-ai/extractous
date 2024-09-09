@@ -1,4 +1,3 @@
-
 //! Extract-RS is a library that extracts text from various file formats.
 //! * Supports many file formats such as Word, Excel, PowerPoint, PDF, and many more.
 //! * Strives to be simple fast and efficient
@@ -15,18 +14,18 @@
 //!
 //! ```no_run
 //! use extract_rs::Extractor;
-//! use extract_rs::PdfParserConfig;
+//! use extract_rs::PdfParserConfig; //!
 //!
-//! fn main() {
-//!     // Create a new extractor. Note it uses the builder pattern
-//!     let extractor = Extractor::new()
-//!                     .extract_string_max_length(1000);
+//! // Create a new extractor. Note it uses a consuming builder pattern
+//! let mut extractor = Extractor::new()
+//!                       .set_extract_string_max_length(1000);
 //!
-//!     // can also conditional config
-//!     let custom_pdf_config = true;
-//!     if custom_pdf_config {
-//!       extractor.set_pdf_config(PdfParserConfig::new().extract_annotation_text(false));
-//!     }
+//! // can also perform conditional configuration
+//! let custom_pdf_config = true;
+//! if custom_pdf_config {
+//!     extractor = extractor.set_pdf_config(
+//!         PdfParserConfig::new().set_extract_annotation_text(false)
+//!     );
 //! }
 //!
 //! ```
@@ -35,17 +34,15 @@
 //!
 //! ```no_run
 //! use extract_rs::Extractor;
+//! use extract_rs::PdfParserConfig;
 //!
-//! fn main() {
-//!     // Create a new extractor. Note it uses the builder pattern
-//!     use extract_rs::PdfParserConfig;
-//!     let extractor = Extractor::new()
-//!                     .extract_string_max_length(1000);
+//! // Create a new extractor. Note it uses a consuming builder pattern
+//! let extractor = Extractor::new()
+//!                     .set_extract_string_max_length(1000);
 //!
-//!     // Extract text from a file
-//!     let text = extractor.extract_file_to_string("README.md");
-//!     println!("{}", text.unwrap());
-//! }
+//! // Extract text from a file
+//! let text = extractor.extract_file_to_string("README.md").unwrap();
+//! println!("{}", text);
 //!
 //! ```
 
