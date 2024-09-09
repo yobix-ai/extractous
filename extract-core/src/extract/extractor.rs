@@ -1,8 +1,7 @@
-use strum_macros::{Display, EnumString};
 use crate::errors::ExtractResult;
 use crate::extract::{OfficeParserConfig, PdfParserConfig, TesseractOcrConfig};
 use crate::tika;
-
+use strum_macros::{Display, EnumString};
 
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Hash, Display, EnumString)]
 #[allow(non_camel_case_types)]
@@ -10,24 +9,23 @@ pub enum CharSet {
     #[default]
     UTF_8,
     US_ASCII,
-    UTF_16BE
+    UTF_16BE,
 }
 
 pub struct Extractor {
     encoding: CharSet,
     pdf_config: PdfParserConfig,
     office_config: OfficeParserConfig,
-    ocr_config: TesseractOcrConfig
+    ocr_config: TesseractOcrConfig,
 }
 
 impl Extractor {
-
     pub fn new() -> Self {
         Self {
             encoding: CharSet::default(),
             pdf_config: PdfParserConfig::default(),
             office_config: OfficeParserConfig::default(),
-            ocr_config: TesseractOcrConfig::default()
+            ocr_config: TesseractOcrConfig::default(),
         }
     }
 
@@ -48,23 +46,27 @@ impl Extractor {
         self
     }
 
-
-    pub fn extract_file<'a>(&'a self, file_path: &'a str) -> ExtractResult<impl std::io::Read + 'a> {
+    pub fn extract_file<'a>(
+        &'a self,
+        file_path: &'a str,
+    ) -> ExtractResult<impl std::io::Read + 'a> {
         tika::parse_file(file_path, &self.pdf_config)
     }
-    pub fn extract_file_to_string<'a>(&'a self, file_path: &'a str, max_length: i32) -> ExtractResult<String> {
+    pub fn extract_file_to_string<'a>(
+        &'a self,
+        file_path: &'a str,
+        max_length: i32,
+    ) -> ExtractResult<String> {
         tika::parse_file_to_string(file_path, max_length)
     }
-
 }
-
 
 #[cfg(test)]
 mod tests {
-    use std::fs::File;
-    use std::io::BufReader;
-    use std::io::prelude::*;
     use crate::Extractor;
+    use std::fs::File;
+    use std::io::prelude::*;
+    use std::io::BufReader;
 
     const TEST_FILE: &str = "README.md";
 

@@ -23,11 +23,11 @@ fn main() {
     let call_duration = start_time.elapsed();
 
     match content {
-        Ok(c) =>  {
+        Ok(c) => {
             println!("{}", c)
-        },
+        }
         Err(e) => {
-            eprintln!("{}",e);
+            eprintln!("{}", e);
             process::exit(1);
         }
     }
@@ -36,6 +36,4 @@ fn main() {
 
     println!("Time taken to parse: {:.4?}", call_duration);
     println!("Total time taken: {:.4?}", total_duration);
-
-
 }

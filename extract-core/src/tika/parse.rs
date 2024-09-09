@@ -1,13 +1,13 @@
 use std::sync::OnceLock;
 
-use jni::JavaVM;
 use jni::objects::JValue;
 use jni::signature::ReturnType;
+use jni::JavaVM;
 
 use crate::errors::ExtractResult;
-use crate::PdfParserConfig;
 use crate::tika::jni_utils::*;
 use crate::tika::wrappers::*;
+use crate::PdfParserConfig;
 
 /// Returns a reference to the shared VM isolate
 /// Instead of creating a new VM for every tika call, we create a single VM that is shared
@@ -15,12 +15,8 @@ use crate::tika::wrappers::*;
 pub(crate) fn vm() -> &'static JavaVM {
     // static items do not call `Drop` on program termination
     static GRAAL_VM: OnceLock<JavaVM> = OnceLock::new();
-    GRAAL_VM.get_or_init(|| {
-        create_vm_isolate()
-    })
+    GRAAL_VM.get_or_init(|| create_vm_isolate())
 }
-
-
 
 pub fn parse_file<'local>(
     file_path: &str,
@@ -68,7 +64,8 @@ pub fn parse_file_to_string(file_path: &str, max_length: i32) -> ExtractResult<S
     )?;
     let call_result = unsafe {
         env.call_static_method_unchecked(
-            main_class, parse_mid,
+            main_class,
+            parse_mid,
             ReturnType::Object,
             &[file_path_val.as_jni(), JValue::Int(max_length).as_jni()],
         )

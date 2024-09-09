@@ -1,4 +1,3 @@
-
 // errors module
 mod errors;
 pub use errors::*;
@@ -15,14 +14,13 @@ pub use extract::*;
 // tika module, not outside this crate
 mod tika {
     mod jni_utils;
-    mod wrappers;
     mod parse;
+    mod wrappers;
     pub use parse::*;
 }
 
-
 pub mod documents {
     pub mod base;
-    pub mod elements;
     pub mod coordinates;
+    pub mod elements;
 }

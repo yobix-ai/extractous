@@ -1,19 +1,22 @@
-use std::os::raw::{c_char, c_void};
-use jni::{AttachGuard, JavaVM, JNIEnv, sys};
+use crate::errors::{Error, ExtractResult};
 use jni::errors::jni_error_code_to_result;
 use jni::objects::{JObject, JString, JValueOwned};
-use crate::errors::{Error, ExtractResult};
+use jni::{sys, AttachGuard, JNIEnv, JavaVM};
+use std::os::raw::{c_char, c_void};
 
 /// creates a new java string from a rust str
 pub fn jni_new_string<'local>(env: &mut JNIEnv<'local>, s: &str) -> ExtractResult<JString<'local>> {
     match env.new_string(s) {
         Ok(s) => Ok(s),
-        Err(_) => Err(Error::JniEnvCall("Couldn't create Java String"))
+        Err(_) => Err(Error::JniEnvCall("Couldn't create Java String")),
     }
 }
 
 /// creates a new java string from a rust str and returns it as a JValueOwned
-pub fn jni_new_string_as_jvalue<'local>(env: &mut JNIEnv<'local>, s: &str) -> ExtractResult<JValueOwned<'local>> {
+pub fn jni_new_string_as_jvalue<'local>(
+    env: &mut JNIEnv<'local>,
+    s: &str,
+) -> ExtractResult<JValueOwned<'local>> {
     let jstring = jni_new_string(env, s)?;
     //let jstring = env.new_string(s)?;
 
@@ -21,7 +24,10 @@ pub fn jni_new_string_as_jvalue<'local>(env: &mut JNIEnv<'local>, s: &str) -> Ex
 }
 
 /// Converts a java object to a rust string
-pub fn jni_jobject_to_string<'local>(env: &mut JNIEnv<'local>, jobject: JObject) -> ExtractResult<String> {
+pub fn jni_jobject_to_string<'local>(
+    env: &mut JNIEnv<'local>,
+    jobject: JObject,
+) -> ExtractResult<String> {
     let jstring_output = JString::from(jobject);
     let javastr_output = unsafe { env.get_string_unchecked(&jstring_output)? };
     let output_str = javastr_output.to_str().map_err(Error::Utf8Error)?;
@@ -35,11 +41,10 @@ pub fn jni_check_exception(env: &mut AttachGuard) -> ExtractResult<bool> {
     if env.exception_check()? {
         env.exception_describe()?;
         env.exception_clear()?;
-        return Ok(true)
+        return Ok(true);
     }
     Ok(false)
 }
-
 
 /// Creates a new graalvm isolate using the invocation api. A [GraalVM isolate](https://medium.com/graalvm/isolates-and-compressed-references-more-flexible-and-efficient-memory-management-for-graalvm-a044cc50b67e) is a disjoint heap
 /// that allows multiple tasks in the same VM instance to run independently.

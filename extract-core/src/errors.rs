@@ -1,5 +1,5 @@
-use std::str::Utf8Error;
 use std::io;
+use std::str::Utf8Error;
 
 /// These represent recoverable errors that should be logged
 #[derive(thiserror::Error, Debug)]
@@ -28,26 +28,22 @@ pub enum Error {
 impl From<Error> for io::Error {
     fn from(err: Error) -> Self {
         match err {
-            Error::IoError(msg) => io::Error::new(
-                io::ErrorKind::Other, format!("Io error: {}", msg)
-            ),
-            Error::ParseError(msg) => io::Error::new(
-                io::ErrorKind::Other, format!("Parse error: {}", msg)
-            ),
-            Error::Utf8Error(e) => io::Error::new(
-                io::ErrorKind::Other, format!("UTF8 error: {}", e)
-            ),
-            Error::JniError(e) => io::Error::new(
-                io::ErrorKind::Other, format!("JNI error: {}", e)
-            ),
-            Error::JniEnvCall(msg) => io::Error::new(
-                io::ErrorKind::Other, format!("JNI env call error: {}", msg)
-            ),
+            Error::IoError(msg) => {
+                io::Error::new(io::ErrorKind::Other, format!("Io error: {}", msg))
+            }
+            Error::ParseError(msg) => {
+                io::Error::new(io::ErrorKind::Other, format!("Parse error: {}", msg))
+            }
+            Error::Utf8Error(e) => {
+                io::Error::new(io::ErrorKind::Other, format!("UTF8 error: {}", e))
+            }
+            Error::JniError(e) => io::Error::new(io::ErrorKind::Other, format!("JNI error: {}", e)),
+            Error::JniEnvCall(msg) => {
+                io::Error::new(io::ErrorKind::Other, format!("JNI env call error: {}", msg))
+            }
             _ => io::Error::new(io::ErrorKind::Other, "Unknown error"),
         }
     }
 }
-
-
 
 pub type ExtractResult<T> = Result<T, Error>;

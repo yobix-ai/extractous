@@ -1,5 +1,5 @@
-use std::fmt;
 use std::cmp::PartialEq;
+use std::fmt;
 
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum Orientation {
@@ -31,8 +31,8 @@ fn convert_coordinate(old_t: f64, old_t_max: f64, new_t_max: f64, t_orientation:
     // In summary when t_orientation = 1, This simplifies to old_t / old_t_max,
     //  and when t_orientation = -1, this simplifies to 1.0 - old_t / old_t_max
     ((1.0 - (old_t / old_t_max)) * ((1 - t_orientation) / 2) as f64
-        + (old_t / old_t_max) * ((1 + t_orientation) / 2) as f64
-    ) * new_t_max
+        + (old_t / old_t_max) * ((1 + t_orientation) / 2) as f64)
+        * new_t_max
 }
 
 /// A finite coordinate plane with given width and height.
@@ -93,10 +93,13 @@ impl CoordinateSystem {
     }
 }
 
-
 impl fmt::Display for CoordinateSystem {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "CoordinateSystem(width: {}, height: {}, orientation: {:?})", self.width, self.height, self.orientation)
+        write!(
+            f,
+            "CoordinateSystem(width: {}, height: {}, orientation: {:?})",
+            self.width, self.height, self.orientation
+        )
     }
 }
 
@@ -126,7 +129,9 @@ impl PointSpace {
 
 #[cfg(test)]
 mod tests {
-    use crate::documents::coordinates::{convert_coordinate, CoordinateSystem, Orientation, RelativeCoordinateSystem};
+    use crate::documents::coordinates::{
+        convert_coordinate, CoordinateSystem, Orientation, RelativeCoordinateSystem,
+    };
     #[test]
     fn test_convert_to_coordinate() {
         assert_eq!(0.0, convert_coordinate(0.0, 7.0, 5.0, 1));
@@ -160,14 +165,45 @@ mod tests {
     #[test]
     fn test_convert_to_new_system() {
         for vals in [
-            (Orientation::CARTESIAN, Orientation::CARTESIAN, 80.0, 120.0, 800.0, 1200.0),
-            (Orientation::CARTESIAN, Orientation::SCREEN, 80.0, 120.0, 800.0, 800.0),
-            (Orientation::SCREEN, Orientation::CARTESIAN, 80.0, 120.0, 800.0, 800.0),
-            (Orientation::SCREEN, Orientation::SCREEN, 80.0, 120.0, 800.0, 1200.0)
+            (
+                Orientation::CARTESIAN,
+                Orientation::CARTESIAN,
+                80.0,
+                120.0,
+                800.0,
+                1200.0,
+            ),
+            (
+                Orientation::CARTESIAN,
+                Orientation::SCREEN,
+                80.0,
+                120.0,
+                800.0,
+                800.0,
+            ),
+            (
+                Orientation::SCREEN,
+                Orientation::CARTESIAN,
+                80.0,
+                120.0,
+                800.0,
+                800.0,
+            ),
+            (
+                Orientation::SCREEN,
+                Orientation::SCREEN,
+                80.0,
+                120.0,
+                800.0,
+                1200.0,
+            ),
         ] {
             let coord1 = CoordinateSystem::new(100.0, 200.0, vals.0);
             let coord2 = CoordinateSystem::new(1000.0, 2000.0, vals.1);
-            assert_eq!((vals.4, vals.5), coord1.convert_coordinates_to_new_system(&coord2, vals.2, vals.3));
+            assert_eq!(
+                (vals.4, vals.5),
+                coord1.convert_coordinates_to_new_system(&coord2, vals.2, vals.3)
+            );
         }
     }
 
@@ -179,7 +215,10 @@ mod tests {
         ] {
             let coord1 = CoordinateSystem::new(vals.0, vals.1, vals.2);
             let coord2 = RelativeCoordinateSystem::new();
-            assert_eq!((vals.5, vals.6), coord1.convert_coordinates_to_new_system(&coord2, vals.3, vals.4));
+            assert_eq!(
+                (vals.5, vals.6),
+                coord1.convert_coordinates_to_new_system(&coord2, vals.3, vals.4)
+            );
         }
     }
 }

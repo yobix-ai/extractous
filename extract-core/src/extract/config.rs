@@ -1,4 +1,3 @@
-
 #[derive(Debug)]
 pub struct PdfParserConfig {
     pub extract_inline_images: bool,

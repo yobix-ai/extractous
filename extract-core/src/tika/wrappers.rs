@@ -1,13 +1,13 @@
-use std::io::Read;
+use crate::errors::{Error, ExtractResult};
+use crate::tika::jni_utils::{jni_check_exception, jni_jobject_to_string};
+use crate::tika::vm;
+use crate::PdfParserConfig;
 use bytemuck::cast_slice_mut;
-use jni::JNIEnv;
 use jni::objects::{JObject, JValue};
 use jni::signature::{Primitive, ReturnType};
 use jni::sys::jsize;
-use crate::errors::{Error, ExtractResult};
-use crate::tika::jni_utils::{jni_check_exception, jni_jobject_to_string};
-use crate::PdfParserConfig;
-use crate::tika::vm;
+use jni::JNIEnv;
+use std::io::Read;
 
 /// Wrapper for [`JObject`]s that contain `org.apache.commons.io.input.ReaderInputStream`
 /// Implements [`Read`] and [`Drop] traits.
@@ -18,28 +18,32 @@ pub struct JReaderInputStream<'a> {
 
 impl<'a> JReaderInputStream<'a> {
     pub(crate) fn new(obj: JObject<'a>) -> Self {
-        Self {
-            internal: obj,
-        }
+        Self { internal: obj }
     }
 }
 
 impl<'a> Read for JReaderInputStream<'a> {
     fn read(&mut self, buf: &mut [u8]) -> std::io::Result<usize> {
-        let mut env = vm().attach_current_thread().map_err(|e| Error::JniError(e))?;
+        let mut env = vm()
+            .attach_current_thread()
+            .map_err(|e| Error::JniError(e))?;
 
         // Create the java byte array
         let length = buf.len() as jsize;
-        let jbyte_array = env.new_byte_array(length).map_err(|_e|
-        Error::JniEnvCall("Failed to create byte array")
-        )?;
+        let jbyte_array = env
+            .new_byte_array(length)
+            .map_err(|_e| Error::JniEnvCall("Failed to create byte array"))?;
 
         // Call the Java Reader's `read` method
         let call_result = env.call_method(
             &self.internal,
             "read",
             "([BII)I",
-            &[JValue::Object(&jbyte_array), JValue::Int(0), JValue::Int(length)],
+            &[
+                JValue::Object(&jbyte_array),
+                JValue::Int(0),
+                JValue::Int(length),
+            ],
         );
         jni_check_exception(&mut env)?; // prints any exceptions thrown to stderr
         let num_read_bytes = call_result
@@ -50,9 +54,8 @@ impl<'a> Read for JReaderInputStream<'a> {
         // Get the bytes from the Java byte array to the Rust byte array
         // don't know if this is a copy or just memory reference
         let buf_of_i8: &mut [i8] = cast_slice_mut(buf); // cast because java byte array is i8[]
-        env.get_byte_array_region(jbyte_array, 0, buf_of_i8).map_err(|_e|
-        Error::JniEnvCall("Failed to get byte array region")
-        )?;
+        env.get_byte_array_region(jbyte_array, 0, buf_of_i8)
+            .map_err(|_e| Error::JniEnvCall("Failed to get byte array region"))?;
 
         if num_read_bytes == -1 {
             // End of stream reached
@@ -68,19 +71,13 @@ impl<'a> Drop for JReaderInputStream<'a> {
         match vm().attach_current_thread() {
             Ok(mut env) => {
                 // Call the Java Reader's `close` method
-                let _call_result = env.call_method(
-                    &self.internal,
-                    "close",
-                    "()V",
-                    &[],
-                );
+                let _call_result = env.call_method(&self.internal, "close", "()V", &[]);
                 jni_check_exception(&mut env).ok(); // ignore close result error by using .ok()
             }
             Err(_) => {} // ignore attach error when dropping
         }
     }
 }
-
 
 /// Wrapper for the Java class  `ai.yobix.StringResult`
 /// Upon creation it parses the java StringResult object and saves the converted Rust string
@@ -89,18 +86,14 @@ pub(crate) struct JStringResult {
 }
 
 impl<'local> JStringResult {
-
     pub(crate) fn new(env: &mut JNIEnv<'local>, obj: JObject<'local>) -> ExtractResult<Self> {
-
         let is_error = env.call_method(&obj, "isError", "()Z", &[])?.z()?;
 
         if is_error {
-            let status = env.call_method(
-                &obj, "getStatus", "()B", &[]
-            )?.b()?;
-            let msg_obj = env.call_method(
-                &obj, "getErrorMessage", "()Ljava/lang/String;", &[],
-            )?.l()?;
+            let status = env.call_method(&obj, "getStatus", "()B", &[])?.b()?;
+            let msg_obj = env
+                .call_method(&obj, "getErrorMessage", "()Ljava/lang/String;", &[])?
+                .l()?;
             let msg = jni_jobject_to_string(env, msg_obj)?;
             match status {
                 1 => Err(Error::IoError(msg)),
@@ -108,20 +101,16 @@ impl<'local> JStringResult {
                 _ => Err(Error::Unknown(msg)),
             }
         } else {
-
-            let call_result_obj = env.call_method(
-                &obj, "getContent", "()Ljava/lang/String;", &[],
-            )?.l()?;
+            let call_result_obj = env
+                .call_method(&obj, "getContent", "()Ljava/lang/String;", &[])?
+                .l()?;
 
             let content = jni_jobject_to_string(env, call_result_obj)?;
 
-            Ok(Self {
-                content
-            })
+            Ok(Self { content })
         }
     }
 }
-
 
 /// Wrapper for the Java class  `ai.yobix.ReaderResult`
 /// Upon creation it parses the java ReaderResult object and saves the java
@@ -132,16 +121,13 @@ pub(crate) struct JReaderResult<'local> {
 
 impl<'local> JReaderResult<'local> {
     pub(crate) fn new(env: &mut JNIEnv<'local>, obj: JObject<'local>) -> ExtractResult<Self> {
-
         let is_error = env.call_method(&obj, "isError", "()Z", &[])?.z()?;
 
         if is_error {
-            let status = env.call_method(
-                &obj, "getStatus", "()B", &[]
-            )?.b()?;
-            let msg_obj = env.call_method(
-                &obj, "getErrorMessage", "()Ljava/lang/String;", &[],
-            )?.l()?;
+            let status = env.call_method(&obj, "getStatus", "()B", &[])?.b()?;
+            let msg_obj = env
+                .call_method(&obj, "getErrorMessage", "()Ljava/lang/String;", &[])?
+                .l()?;
             let msg = jni_jobject_to_string(env, msg_obj)?;
             match status {
                 1 => Err(Error::IoError(msg)),
@@ -149,10 +135,14 @@ impl<'local> JReaderResult<'local> {
                 _ => Err(Error::Unknown(msg)),
             }
         } else {
-
-            let reader_obj = env.call_method(
-                &obj, "getReader", "()Lorg/apache/commons/io/input/ReaderInputStream;", &[],
-            )?.l()?;
+            let reader_obj = env
+                .call_method(
+                    &obj,
+                    "getReader",
+                    "()Lorg/apache/commons/io/input/ReaderInputStream;",
+                    &[],
+                )?
+                .l()?;
 
             Ok(Self {
                 java_reader: reader_obj,
@@ -160,7 +150,6 @@ impl<'local> JReaderResult<'local> {
         }
     }
 }
-
 
 /// Wrapper for [`JObject`]s that contain `org.apache.tika.parser.pdf.PDFParserConfig`.
 /// Looks up the class and method IDs on creation rather than for every method call.
@@ -199,8 +188,6 @@ impl<'local> JPDFParserConfig<'local> {
             )?;
         };
 
-        Ok(Self {
-            internal: obj,
-        })
+        Ok(Self { internal: obj })
     }
 }
