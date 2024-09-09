@@ -18,9 +18,3 @@ mod tika {
     mod wrappers;
     pub use parse::*;
 }
-
-pub mod documents {
-    pub mod base;
-    pub mod coordinates;
-    pub mod elements;
-}

@@ -15,7 +15,7 @@ use crate::PdfParserConfig;
 pub(crate) fn vm() -> &'static JavaVM {
     // static items do not call `Drop` on program termination
     static GRAAL_VM: OnceLock<JavaVM> = OnceLock::new();
-    GRAAL_VM.get_or_init(|| create_vm_isolate())
+    GRAAL_VM.get_or_init(create_vm_isolate)
 }
 
 pub fn parse_file<'local>(

@@ -104,14 +104,14 @@ pub fn get_graalvm_home(install_dir: &PathBuf) -> PathBuf {
                     // Check that native-image is in JAVA_HOME/bin if not install GraalVM CE
                     let mut graalvm_home = PathBuf::from(java_home_val);
                     if !check_graalvm(&graalvm_home, false) {
-                        graalvm_home = install_graalvm_ce(&install_dir);
+                        graalvm_home = install_graalvm_ce(install_dir);
                         check_graalvm(&graalvm_home, true);
                     }
                     graalvm_home
                 }
                 Err(_) => {
                     // If no JAVA_HOME is set, try to download and install GraalVM CE
-                    let graalvm_home = install_graalvm_ce(&install_dir);
+                    let graalvm_home = install_graalvm_ce(install_dir);
                     check_graalvm(&graalvm_home, true);
                     graalvm_home
                 }
@@ -164,7 +164,7 @@ pub fn install_graalvm_ce(install_dir: &PathBuf) -> PathBuf {
         let url = if cfg!(target_arch = "x86_64") {
             "https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-22.0.2/graalvm-community-jdk-22.0.2_windows-x64_bin.zip"
         } else {
-            panic!("Unsupported architecture: {}", cfg!(target_arch));
+            panic!("Unsupported windows architecture");
         };
         (url, "zip", "graalvm-community-openjdk-22.0.2+9.1")
     } else if cfg!(target_os = "macos") {
@@ -175,7 +175,7 @@ pub fn install_graalvm_ce(install_dir: &PathBuf) -> PathBuf {
             //"https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-22.0.2/graalvm-community-jdk-22.0.2_macos-aarch64_bin.tar.gz"
             "https://github.com/bell-sw/LibericaNIK/releases/download/24.0.2+1-22.0.2+11/bellsoft-liberica-vm-openjdk22.0.1+11-24.0.2+1-macos-aarch64.tar.gz"
         } else {
-            panic!("Unsupported architecture: {}", cfg!(target_arch));
+            panic!("Unsupported macos architecture ");
         };
         //(url, "tar.gz", "graalvm-community-openjdk-22.0.2+9.1/Contents/Home/")
         (
@@ -189,7 +189,7 @@ pub fn install_graalvm_ce(install_dir: &PathBuf) -> PathBuf {
         } else if cfg!(target_arch = "aarch64") {
             "https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-22.0.2/graalvm-community-jdk-22.0.2_linux-aarch64_bin.tar.gz"
         } else {
-            panic!("Unsupported architecture: {}", cfg!(target_arch));
+            panic!("Unsupported linux architecture");
         };
         (url, "tar.gz", "graalvm-community-openjdk-22.0.2+9.1")
     };
@@ -198,7 +198,7 @@ pub fn install_graalvm_ce(install_dir: &PathBuf) -> PathBuf {
 
     // Download and GraalVM CE
     if !graalvm_home.exists() {
-        fs::create_dir_all(&install_dir).unwrap();
+        fs::create_dir_all(install_dir).unwrap();
         let archive_path = install_dir
             .join("graalvm-ce-archive")
             .with_extension(archive_ext);
@@ -245,13 +245,12 @@ pub fn install_graalvm_ce(install_dir: &PathBuf) -> PathBuf {
                 let tar_gz_file = fs::File::open(&archive_path).unwrap();
                 let tar = flate2::read::GzDecoder::new(tar_gz_file);
                 let mut archive = tar::Archive::new(tar);
-                archive.unpack(&install_dir).unwrap();
+                archive.unpack(install_dir).unwrap();
             }
         } else {
             panic!("Failed to download GraalVM JDK from {}", base_url);
         }
     }
 
-    let graalvm_home = install_dir.join(main_dir);
-    graalvm_home
+    install_dir.join(main_dir)
 }

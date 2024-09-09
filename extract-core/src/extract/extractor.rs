@@ -12,6 +12,7 @@ pub enum CharSet {
     UTF_16BE,
 }
 
+#[derive(Default)]
 pub struct Extractor {
     encoding: CharSet,
     pdf_config: PdfParserConfig,
@@ -21,12 +22,7 @@ pub struct Extractor {
 
 impl Extractor {
     pub fn new() -> Self {
-        Self {
-            encoding: CharSet::default(),
-            pdf_config: PdfParserConfig::default(),
-            office_config: OfficeParserConfig::default(),
-            ocr_config: TesseractOcrConfig::default(),
-        }
+        Self::default()
     }
 
     pub fn set_encoding(&mut self, encoding: CharSet) -> &mut Self {

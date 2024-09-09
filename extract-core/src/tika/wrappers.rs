@@ -26,7 +26,7 @@ impl<'a> Read for JReaderInputStream<'a> {
     fn read(&mut self, buf: &mut [u8]) -> std::io::Result<usize> {
         let mut env = vm()
             .attach_current_thread()
-            .map_err(|e| Error::JniError(e))?;
+            .map_err(Error::JniError)?;
 
         // Create the java byte array
         let length = buf.len() as jsize;
@@ -47,9 +47,9 @@ impl<'a> Read for JReaderInputStream<'a> {
         );
         jni_check_exception(&mut env)?; // prints any exceptions thrown to stderr
         let num_read_bytes = call_result
-            .map_err(|e| Error::JniError(e))?
+            .map_err(Error::JniError)?
             .i()
-            .map_err(|e| Error::JniError(e))?;
+            .map_err(Error::JniError)?;
 
         // Get the bytes from the Java byte array to the Rust byte array
         // don't know if this is a copy or just memory reference
@@ -68,13 +68,10 @@ impl<'a> Read for JReaderInputStream<'a> {
 
 impl<'a> Drop for JReaderInputStream<'a> {
     fn drop(&mut self) {
-        match vm().attach_current_thread() {
-            Ok(mut env) => {
-                // Call the Java Reader's `close` method
-                let _call_result = env.call_method(&self.internal, "close", "()V", &[]);
-                jni_check_exception(&mut env).ok(); // ignore close result error by using .ok()
-            }
-            Err(_) => {} // ignore attach error when dropping
+        if let Ok(mut env) = vm().attach_current_thread() {
+            // Call the Java Reader's `close` method
+            let _call_result = env.call_method(&self.internal, "close", "()V", &[]);
+            jni_check_exception(&mut env).ok(); // ignore close result error by using .ok()
         }
     }
 }

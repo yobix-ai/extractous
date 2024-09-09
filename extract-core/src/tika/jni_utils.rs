@@ -26,7 +26,7 @@ pub fn jni_new_string_as_jvalue<'local>(
 /// Converts a java object to a rust string
 pub fn jni_jobject_to_string<'local>(
     env: &mut JNIEnv<'local>,
-    jobject: JObject,
+    jobject: JObject<'local>,
 ) -> ExtractResult<String> {
     let jstring_output = JString::from(jobject);
     let javastr_output = unsafe { env.get_string_unchecked(&jstring_output)? };
