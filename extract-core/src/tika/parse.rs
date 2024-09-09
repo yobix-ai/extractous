@@ -23,7 +23,7 @@ pub fn parse_file<'local>(
     char_set: &CharSet,
     pdf_conf: &'local PdfParserConfig,
     office_conf: &'local OfficeParserConfig,
-    ocr_conf: &'local TesseractOcrConfig
+    ocr_conf: &'local TesseractOcrConfig,
 ) -> ExtractResult<JReaderInputStream<'local>> {
     // Attaching a thead that is already attached is a no-op. Good to have this in case this method
     // is called from another thread
@@ -45,8 +45,13 @@ pub fn parse_file<'local>(
         Lorg/apache/tika/parser/microsoft/OfficeParserConfig;\
         Lorg/apache/tika/parser/ocr/TesseractOCRConfig;\
         )Lai/yobix/ReaderResult;",
-        &[(&file_path_val).into(), (&charset_name_val).into(), (&j_pdf_conf.internal).into(),
-            (&j_office_conf.internal).into(), (&j_ocr_conf.internal).into()],
+        &[
+            (&file_path_val).into(),
+            (&charset_name_val).into(),
+            (&j_pdf_conf.internal).into(),
+            (&j_office_conf.internal).into(),
+            (&j_ocr_conf.internal).into(),
+        ],
     );
     jni_check_exception(&mut env)?; // prints any exceptions thrown to stderr
     let call_result_obj = call_result?.l()?;

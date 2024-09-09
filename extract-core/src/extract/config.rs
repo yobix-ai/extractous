@@ -8,18 +8,18 @@ pub enum PdfOcrStrategy {
     OCR_ONLY,
     OCR_AND_TEXT_EXTRACTION,
     #[default]
-    AUTO
+    AUTO,
 }
 
 /// PDF parsing configuration settings
 ///
 /// These settings are used to configure the behavior of the PDF parsing.
 pub struct PdfParserConfig {
-    pub ocr_strategy: PdfOcrStrategy,
-    pub extract_inline_images: bool,
-    pub extract_unique_inline_images_only: bool,
-    pub extract_marked_content: bool,
-    pub extract_annotation_text: bool,
+    pub(crate) ocr_strategy: PdfOcrStrategy,
+    pub(crate) extract_inline_images: bool,
+    pub(crate) extract_unique_inline_images_only: bool,
+    pub(crate) extract_marked_content: bool,
+    pub(crate) extract_annotation_text: bool,
 }
 
 impl Default for PdfParserConfig {
@@ -94,16 +94,16 @@ impl PdfParserConfig {
 ///
 /// These settings are used to configure the behavior of the MSOffice parsing.
 pub struct OfficeParserConfig {
-    pub extract_macros: bool,
-    pub include_deleted_content: bool,
-    pub include_move_from_content: bool,
-    pub include_shape_based_content: bool,
-    pub include_headers_and_footers: bool,
-    pub include_missing_rows: bool,
-    pub include_slide_notes: bool,
-    pub include_slide_master_content: bool,
-    pub concatenate_phonetic_runs: bool,
-    pub extract_all_alternatives_from_msg: bool,
+    pub(crate) extract_macros: bool,
+    pub(crate) include_deleted_content: bool,
+    pub(crate) include_move_from_content: bool,
+    pub(crate) include_shape_based_content: bool,
+    pub(crate) include_headers_and_footers: bool,
+    pub(crate) include_missing_rows: bool,
+    pub(crate) include_slide_notes: bool,
+    pub(crate) include_slide_master_content: bool,
+    pub(crate) concatenate_phonetic_runs: bool,
+    pub(crate) extract_all_alternatives_from_msg: bool,
 }
 
 impl Default for OfficeParserConfig {
@@ -218,12 +218,12 @@ impl OfficeParserConfig {
 ///
 /// These settings are used to configure the behavior of the optical image recognition.
 pub struct TesseractOcrConfig {
-    pub density: i32,
-    pub depth: i32,
-    pub timeout_seconds: i32,
-    pub enable_image_preprocessing: bool,
-    pub apply_rotation: bool,
-    pub language: String,
+    pub(crate) density: i32,
+    pub(crate) depth: i32,
+    pub(crate) timeout_seconds: i32,
+    pub(crate) enable_image_preprocessing: bool,
+    pub(crate) apply_rotation: bool,
+    pub(crate) language: String,
 }
 
 impl Default for TesseractOcrConfig {

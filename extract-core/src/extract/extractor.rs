@@ -98,8 +98,12 @@ impl Extractor {
         &'a self,
         file_path: &'a str,
     ) -> ExtractResult<impl std::io::Read + 'a> {
-        tika::parse_file(file_path, &self.encoding,
-                         &self.pdf_config, &self.office_config, &self.ocr_config,
+        tika::parse_file(
+            file_path,
+            &self.encoding,
+            &self.pdf_config,
+            &self.office_config,
+            &self.ocr_config,
         )
     }
 
