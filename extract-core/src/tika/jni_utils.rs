@@ -1,8 +1,52 @@
-use crate::errors::{Error, ExtractResult};
-use jni::errors::jni_error_code_to_result;
-use jni::objects::{JObject, JString, JValueOwned};
-use jni::{sys, AttachGuard, JNIEnv, JavaVM};
 use std::os::raw::{c_char, c_void};
+
+use jni::errors::jni_error_code_to_result;
+use jni::objects::{JObject, JString, JValue, JValueOwned};
+use jni::{sys, JNIEnv, JavaVM};
+
+use crate::errors::{Error, ExtractResult};
+
+/// Calls a static method and prints any thrown exceptions to stderr
+pub fn jni_call_static_method<'local>(
+    env: &mut JNIEnv<'local>,
+    class: &str,
+    method: &str,
+    signature: &str,
+    args: &[JValue],
+) -> ExtractResult<JValueOwned<'local>> {
+    let call_result = env.call_static_method(class, method, signature, args);
+    match call_result {
+        Ok(result) => Ok(result),
+        Err(error) => match error {
+            jni::errors::Error::JavaException => {
+                jni_check_exception(env)?;
+                Err(Error::JniError(error))
+            }
+            _ => Err(Error::JniError(error)),
+        },
+    }
+}
+
+/// Calls an object method and prints any thrown exceptions to stderr
+pub fn jni_call_method<'local>(
+    env: &mut JNIEnv<'local>,
+    obj: &JObject<'local>,
+    method: &str,
+    signature: &str,
+    args: &[JValue],
+) -> ExtractResult<JValueOwned<'local>> {
+    let call_result = env.call_method(obj, method, signature, args);
+    match call_result {
+        Ok(result) => Ok(result),
+        Err(error) => match error {
+            jni::errors::Error::JavaException => {
+                jni_check_exception(env)?;
+                Err(Error::JniError(error))
+            }
+            _ => Err(Error::JniError(error)),
+        },
+    }
+}
 
 /// creates a new java string from a rust str
 pub fn jni_new_string<'local>(env: &mut JNIEnv<'local>, s: &str) -> ExtractResult<JString<'local>> {
@@ -37,7 +81,7 @@ pub fn jni_jobject_to_string<'local>(
 
 /// Checks if there is an exception in the jni environment, describes it to
 /// the stderr and finally clears it
-pub fn jni_check_exception(env: &mut AttachGuard) -> ExtractResult<bool> {
+pub fn jni_check_exception(env: &mut JNIEnv) -> ExtractResult<bool> {
     if env.exception_check()? {
         env.exception_describe()?;
         env.exception_clear()?;

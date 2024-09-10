@@ -1,7 +1,6 @@
 use std::sync::OnceLock;
 
 use jni::objects::JValue;
-use jni::signature::ReturnType;
 use jni::JavaVM;
 
 use crate::errors::ExtractResult;
@@ -36,7 +35,8 @@ pub fn parse_file<'local>(
     let j_ocr_conf = JTesseractOcrConfig::new(&mut env, ocr_conf)?;
 
     // Make the java parse call
-    let call_result = env.call_static_method(
+    let call_result = jni_call_static_method(
+        &mut env,
         "ai/yobix/TikaNativeMain",
         "parseFile",
         "(Ljava/lang/String;\
@@ -53,7 +53,6 @@ pub fn parse_file<'local>(
             (&j_ocr_conf.internal).into(),
         ],
     );
-    jni_check_exception(&mut env)?; // prints any exceptions thrown to stderr
     let call_result_obj = call_result?.l()?;
 
     // Create and process the JReaderResult
@@ -72,21 +71,32 @@ pub fn parse_file_to_string(file_path: &str, max_length: i32) -> ExtractResult<S
     let file_path_val = jni_new_string_as_jvalue(&mut env, file_path)?;
 
     // Make the parse call
-    let main_class = env.find_class("ai/yobix/TikaNativeMain")?;
-    let parse_mid = env.get_static_method_id(
-        &main_class,
+    // let main_class = env.find_class("ai/yobix/TikaNativeMain")?;
+    // let parse_mid = env.get_static_method_id(
+    //     &main_class,
+    //     "parseToString",
+    //     "(Ljava/lang/String;I)Lai/yobix/StringResult;",
+    // )?;
+    // println!("here1");
+    //
+    // let call_result = unsafe {
+    //     env.call_static_method_unchecked(
+    //         main_class,
+    //         parse_mid,
+    //         ReturnType::Object,
+    //         &[file_path_val.as_jni(), JValue::Int(max_length).as_jni()],
+    //     )
+    // };
+    // jni_check_exception(&mut env)?; // prints any exceptions thrown to stderr
+    // let call_result_obj = call_result?.l()?;
+
+    let call_result = jni_call_static_method(
+        &mut env,
+        "ai/yobix/TikaNativeMain",
         "parseToString",
         "(Ljava/lang/String;I)Lai/yobix/StringResult;",
-    )?;
-    let call_result = unsafe {
-        env.call_static_method_unchecked(
-            main_class,
-            parse_mid,
-            ReturnType::Object,
-            &[file_path_val.as_jni(), JValue::Int(max_length).as_jni()],
-        )
-    };
-    jni_check_exception(&mut env)?; // prints any exceptions thrown to stderr
+        &[(&file_path_val).into(), JValue::Int(max_length)],
+    );
     let call_result_obj = call_result?.l()?;
 
     // Create and process the JStringResult

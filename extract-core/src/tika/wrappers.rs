@@ -1,7 +1,5 @@
 use crate::errors::{Error, ExtractResult};
-use crate::tika::jni_utils::{
-    jni_check_exception, jni_jobject_to_string, jni_new_string_as_jvalue,
-};
+use crate::tika::jni_utils::{jni_call_method, jni_jobject_to_string, jni_new_string_as_jvalue};
 use crate::tika::vm;
 use crate::{OfficeParserConfig, PdfParserConfig, TesseractOcrConfig};
 use bytemuck::cast_slice_mut;
@@ -34,7 +32,8 @@ impl<'a> Read for JReaderInputStream<'a> {
             .map_err(|_e| Error::JniEnvCall("Failed to create byte array"))?;
 
         // Call the Java Reader's `read` method
-        let call_result = env.call_method(
+        let call_result = jni_call_method(
+            &mut env,
             &self.internal,
             "read",
             "([BII)I",
@@ -44,11 +43,7 @@ impl<'a> Read for JReaderInputStream<'a> {
                 JValue::Int(length),
             ],
         );
-        jni_check_exception(&mut env)?; // prints any exceptions thrown to stderr
-        let num_read_bytes = call_result
-            .map_err(Error::JniError)?
-            .i()
-            .map_err(Error::JniError)?;
+        let num_read_bytes = call_result?.i().map_err(Error::JniError)?;
 
         // Get the bytes from the Java byte array to the Rust byte array
         // don't know if this is a copy or just memory reference
@@ -69,8 +64,7 @@ impl<'a> Drop for JReaderInputStream<'a> {
     fn drop(&mut self) {
         if let Ok(mut env) = vm().attach_current_thread() {
             // Call the Java Reader's `close` method
-            let _call_result = env.call_method(&self.internal, "close", "()V", &[]);
-            jni_check_exception(&mut env).ok(); // ignore close result error by using .ok()
+            let _call_result = jni_call_method(&mut env, &self.internal, "close", "()V", &[]);
         }
     }
 }
@@ -83,10 +77,10 @@ pub(crate) struct JStringResult {
 
 impl<'local> JStringResult {
     pub(crate) fn new(env: &mut JNIEnv<'local>, obj: JObject<'local>) -> ExtractResult<Self> {
-        let is_error = env.call_method(&obj, "isError", "()Z", &[])?.z()?;
+        let is_error = jni_call_method(env, &obj, "isError", "()Z", &[])?.z()?;
 
         if is_error {
-            let status = env.call_method(&obj, "getStatus", "()B", &[])?.b()?;
+            let status = jni_call_method(env, &obj, "getStatus", "()B", &[])?.b()?;
             let msg_obj = env
                 .call_method(&obj, "getErrorMessage", "()Ljava/lang/String;", &[])?
                 .l()?;
@@ -117,10 +111,10 @@ pub(crate) struct JReaderResult<'local> {
 
 impl<'local> JReaderResult<'local> {
     pub(crate) fn new(env: &mut JNIEnv<'local>, obj: JObject<'local>) -> ExtractResult<Self> {
-        let is_error = env.call_method(&obj, "isError", "()Z", &[])?.z()?;
+        let is_error = jni_call_method(env, &obj, "isError", "()Z", &[])?.z()?;
 
         if is_error {
-            let status = env.call_method(&obj, "getStatus", "()B", &[])?.b()?;
+            let status = jni_call_method(env, &obj, "getStatus", "()B", &[])?.b()?;
             let msg_obj = env
                 .call_method(&obj, "getErrorMessage", "()Ljava/lang/String;", &[])?
                 .l()?;
@@ -131,14 +125,14 @@ impl<'local> JReaderResult<'local> {
                 _ => Err(Error::Unknown(msg)),
             }
         } else {
-            let reader_obj = env
-                .call_method(
-                    &obj,
-                    "getReader",
-                    "()Lorg/apache/commons/io/input/ReaderInputStream;",
-                    &[],
-                )?
-                .l()?;
+            let reader_obj = jni_call_method(
+                env,
+                &obj,
+                "getReader",
+                "()Lorg/apache/commons/io/input/ReaderInputStream;",
+                &[],
+            )?
+            .l()?;
 
             Ok(Self {
                 java_reader: reader_obj,
@@ -164,25 +158,29 @@ impl<'local> JPDFParserConfig<'local> {
         // Call the setters
         // Make sure all of these methods are declared in jni-config.json file, otherwise
         // java method not found exception will be thrown
-        env.call_method(
+        jni_call_method(
+            env,
             &obj,
             "setExtractInlineImages",
             "(Z)V",
             &[JValue::from(config.extract_inline_images)],
         )?;
-        env.call_method(
+        jni_call_method(
+            env,
             &obj,
             "setExtractUniqueInlineImagesOnly",
             "(Z)V",
             &[JValue::from(config.extract_unique_inline_images_only)],
         )?;
-        env.call_method(
+        jni_call_method(
+            env,
             &obj,
             "setExtractMarkedContent",
             "(Z)V",
             &[JValue::from(config.extract_marked_content)],
         )?;
-        env.call_method(
+        jni_call_method(
+            env,
             &obj,
             "setExtractAnnotationText",
             "(Z)V",
@@ -191,7 +189,8 @@ impl<'local> JPDFParserConfig<'local> {
         // The PdfOcrStrategy enum names must match the Java org.apache.tika.parser.pdf
         // .PDFParserConfig$OCR_STRATEGY enum names
         let ocr_str_val = jni_new_string_as_jvalue(env, &config.ocr_strategy.to_string())?;
-        env.call_method(
+        jni_call_method(
+            env,
             &obj,
             "setOcrStrategy",
             "(Ljava/lang/String;)V",
@@ -221,61 +220,71 @@ impl<'local> JOfficeParserConfig<'local> {
         // Call the setters
         // Make sure all of these methods are declared in jni-config.json file, otherwise
         // java method not found exception will be thrown
-        env.call_method(
+        jni_call_method(
+            env,
             &obj,
             "setExtractMacros",
             "(Z)V",
             &[JValue::from(config.extract_macros)],
         )?;
-        env.call_method(
+        jni_call_method(
+            env,
             &obj,
             "setIncludeDeletedContent",
             "(Z)V",
             &[JValue::from(config.include_deleted_content)],
         )?;
-        env.call_method(
+        jni_call_method(
+            env,
             &obj,
             "setIncludeMoveFromContent",
             "(Z)V",
             &[JValue::from(config.include_move_from_content)],
         )?;
-        env.call_method(
+        jni_call_method(
+            env,
             &obj,
             "setIncludeShapeBasedContent",
             "(Z)V",
             &[JValue::from(config.include_shape_based_content)],
         )?;
-        env.call_method(
+        jni_call_method(
+            env,
             &obj,
             "setIncludeHeadersAndFooters",
             "(Z)V",
             &[JValue::from(config.include_headers_and_footers)],
         )?;
-        env.call_method(
+        jni_call_method(
+            env,
             &obj,
             "setIncludeMissingRows",
             "(Z)V",
             &[JValue::from(config.include_missing_rows)],
         )?;
-        env.call_method(
+        jni_call_method(
+            env,
             &obj,
             "setIncludeSlideNotes",
             "(Z)V",
             &[JValue::from(config.include_slide_notes)],
         )?;
-        env.call_method(
+        jni_call_method(
+            env,
             &obj,
             "setIncludeSlideMasterContent",
             "(Z)V",
             &[JValue::from(config.include_slide_master_content)],
         )?;
-        env.call_method(
+        jni_call_method(
+            env,
             &obj,
             "setConcatenatePhoneticRuns",
             "(Z)V",
             &[JValue::from(config.concatenate_phonetic_runs)],
         )?;
-        env.call_method(
+        jni_call_method(
+            env,
             &obj,
             "setExtractAllAlternativesFromMSG",
             "(Z)V",
@@ -304,21 +313,30 @@ impl<'local> JTesseractOcrConfig<'local> {
         // Call the setters
         // Make sure all of these methods are declared in jni-config.json file, otherwise
         // java method not found exception will be thrown
-        env.call_method(&obj, "setDensity", "(I)V", &[JValue::from(config.density)])?;
-        env.call_method(&obj, "setDepth", "(I)V", &[JValue::from(config.depth)])?;
-        env.call_method(
+        jni_call_method(
+            env,
+            &obj,
+            "setDensity",
+            "(I)V",
+            &[JValue::from(config.density)],
+        )?;
+        jni_call_method(env, &obj, "setDepth", "(I)V", &[JValue::from(config.depth)])?;
+        jni_call_method(
+            env,
             &obj,
             "setTimeoutSeconds",
             "(I)V",
             &[JValue::from(config.timeout_seconds)],
         )?;
-        env.call_method(
+        jni_call_method(
+            env,
             &obj,
             "setEnableImagePreprocessing",
             "(Z)V",
             &[JValue::from(config.enable_image_preprocessing)],
         )?;
-        env.call_method(
+        jni_call_method(
+            env,
             &obj,
             "setApplyRotation",
             "(Z)V",
@@ -326,7 +344,8 @@ impl<'local> JTesseractOcrConfig<'local> {
         )?;
 
         let lang_string_val = jni_new_string_as_jvalue(env, &config.language)?;
-        env.call_method(
+        jni_call_method(
+            env,
             &obj,
             "setLanguage",
             "(Ljava/lang/String;)V",
