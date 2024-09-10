@@ -14,7 +14,7 @@
 //!
 //! ```no_run
 //! use extract_rs::Extractor;
-//! use extract_rs::PdfParserConfig; //!
+//! use extract_rs::PdfParserConfig;
 //!
 //! // Create a new extractor. Note it uses a consuming builder pattern
 //! let mut extractor = Extractor::new()
@@ -37,8 +37,7 @@
 //! use extract_rs::PdfParserConfig;
 //!
 //! // Create a new extractor. Note it uses a consuming builder pattern
-//! let extractor = Extractor::new()
-//!                     .set_extract_string_max_length(1000);
+//! let mut extractor = Extractor::new().set_extract_string_max_length(1000);
 //!
 //! // Extract text from a file
 //! let text = extractor.extract_file_to_string("README.md").unwrap();
@@ -64,5 +63,6 @@ mod tika {
     mod jni_utils;
     mod parse;
     mod wrappers;
+    pub use wrappers::JReaderInputStream;
     pub use parse::*;
 }

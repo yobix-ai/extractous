@@ -14,6 +14,7 @@ pub enum PdfOcrStrategy {
 /// PDF parsing configuration settings
 ///
 /// These settings are used to configure the behavior of the PDF parsing.
+#[derive(Debug, Clone)]
 pub struct PdfParserConfig {
     pub(crate) ocr_strategy: PdfOcrStrategy,
     pub(crate) extract_inline_images: bool,
@@ -93,6 +94,7 @@ impl PdfParserConfig {
 /// Microsoft Office parser configuration settings
 ///
 /// These settings are used to configure the behavior of the MSOffice parsing.
+#[derive(Debug, Clone)]
 pub struct OfficeParserConfig {
     pub(crate) extract_macros: bool,
     pub(crate) include_deleted_content: bool,
@@ -217,6 +219,7 @@ impl OfficeParserConfig {
 /// Tesseract OCR configuration settings
 ///
 /// These settings are used to configure the behavior of the optical image recognition.
+#[derive(Debug, Clone)]
 pub struct TesseractOcrConfig {
     pub(crate) density: i32,
     pub(crate) depth: i32,

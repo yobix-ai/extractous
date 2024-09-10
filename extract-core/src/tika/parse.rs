@@ -6,7 +6,7 @@ use jni::JavaVM;
 use crate::errors::ExtractResult;
 use crate::tika::jni_utils::*;
 use crate::tika::wrappers::*;
-use crate::{CharSet, OfficeParserConfig, PdfParserConfig, TesseractOcrConfig};
+use crate::{CharSet, OfficeParserConfig, PdfParserConfig, StreamReader, TesseractOcrConfig};
 
 /// Returns a reference to the shared VM isolate
 /// Instead of creating a new VM for every tika call, we create a single VM that is shared
@@ -23,7 +23,7 @@ pub fn parse_file<'local>(
     pdf_conf: &'local PdfParserConfig,
     office_conf: &'local OfficeParserConfig,
     ocr_conf: &'local TesseractOcrConfig,
-) -> ExtractResult<JReaderInputStream<'local>> {
+) -> ExtractResult<StreamReader> {
     // Attaching a thead that is already attached is a no-op. Good to have this in case this method
     // is called from another thread
     let mut env = vm().attach_current_thread()?;
@@ -57,8 +57,9 @@ pub fn parse_file<'local>(
 
     // Create and process the JReaderResult
     let result = JReaderResult::new(&mut env, call_result_obj)?;
+    let j_reader = JReaderInputStream::new(&mut env, result.java_reader)?;
 
-    Ok(JReaderInputStream::new(result.java_reader))
+    Ok(StreamReader{inner: j_reader})
 }
 
 /// Parses a file to a string using the Apache Tika library.

@@ -3,26 +3,24 @@ use crate::tika::jni_utils::{jni_call_method, jni_jobject_to_string, jni_new_str
 use crate::tika::vm;
 use crate::{OfficeParserConfig, PdfParserConfig, TesseractOcrConfig};
 use bytemuck::cast_slice_mut;
-use jni::objects::{JObject, JValue};
+use jni::objects::{GlobalRef, JObject, JValue};
 use jni::sys::jsize;
 use jni::JNIEnv;
-use std::io::Read;
 
 /// Wrapper for [`JObject`]s that contain `org.apache.commons.io.input.ReaderInputStream`
-/// Implements [`Read`] and [`Drop] traits.
-/// On drop, it calls the java close() method to properly clean the input stream
-pub struct JReaderInputStream<'a> {
-    internal: JObject<'a>,
+/// It saves a GlobalRef to the java object, which is cleared when the last GlobalRef is dropped
+/// Implements [`Drop] trait to properly close the `org.apache.commons.io.input.ReaderInputStream`
+#[derive(Clone)]
+pub struct JReaderInputStream {
+    internal: GlobalRef,
 }
 
-impl<'a> JReaderInputStream<'a> {
-    pub(crate) fn new(obj: JObject<'a>) -> Self {
-        Self { internal: obj }
+impl JReaderInputStream {
+    pub(crate) fn new<'local>(env: &mut JNIEnv<'local>, obj: JObject<'local>) -> ExtractResult<Self> {
+        Ok(Self { internal: env.new_global_ref(obj)? })
     }
-}
 
-impl<'a> Read for JReaderInputStream<'a> {
-    fn read(&mut self, buf: &mut [u8]) -> std::io::Result<usize> {
+    pub(crate) fn read(&mut self, buf: &mut [u8]) -> std::io::Result<usize> {
         let mut env = vm().attach_current_thread().map_err(Error::JniError)?;
 
         // Create the java byte array
@@ -60,11 +58,11 @@ impl<'a> Read for JReaderInputStream<'a> {
     }
 }
 
-impl<'a> Drop for JReaderInputStream<'a> {
+impl Drop for JReaderInputStream {
     fn drop(&mut self) {
         if let Ok(mut env) = vm().attach_current_thread() {
             // Call the Java Reader's `close` method
-            let _call_result = jni_call_method(&mut env, &self.internal, "close", "()V", &[]);
+            jni_call_method(&mut env, &self.internal, "close", "()V", &[]).ok();
         }
     }
 }

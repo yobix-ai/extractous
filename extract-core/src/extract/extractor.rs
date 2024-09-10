@@ -2,15 +2,49 @@ use crate::errors::ExtractResult;
 use crate::extract::{OfficeParserConfig, PdfParserConfig, TesseractOcrConfig};
 use crate::tika;
 use strum_macros::{Display, EnumString};
+use crate::tika::JReaderInputStream;
 
 /// Supported encodings
-#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Hash, Display, EnumString)]
+#[derive(Debug, Clone, Default, Copy, PartialEq, Eq, Hash, Display, EnumString)]
 #[allow(non_camel_case_types)]
 pub enum CharSet {
     #[default]
     UTF_8,
     US_ASCII,
     UTF_16BE,
+}
+
+/// StreamReader implements std::io::Read
+///
+/// Can be used to perform buffered reading. For example:
+/// ```rust
+/// use extract_rs::{CharSet, Extractor};
+/// use std::io::BufReader;
+/// use std::io::prelude::*;
+///
+/// let extractor = Extractor::new();
+/// let reader = extractor.extract_file("README.md").unwrap();
+///
+/// let mut buf_reader = BufReader::new(reader);
+/// let mut content = String::new();
+/// buf_reader.read_to_string(&mut content).unwrap();
+/// println!("{}", content);
+/// ```
+///
+pub struct StreamReader{
+    pub(crate) inner: JReaderInputStream
+}
+
+impl StreamReader {
+    pub fn new(reader: JReaderInputStream) -> Self {
+        Self { inner: reader }
+    }
+}
+
+impl std::io::Read for StreamReader {
+    fn read(&mut self, buf: &mut [u8]) -> std::io::Result<usize> {
+        self.inner.read(buf)
+    }
 }
 
 /// Extractor for extracting text from different file formats
@@ -25,6 +59,7 @@ pub enum CharSet {
 /// println!("{}", text.unwrap());
 /// ```
 ///
+#[derive(Debug, Clone)]
 pub struct Extractor {
     extract_string_max_length: i32,
     encoding: CharSet,
