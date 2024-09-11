@@ -27,9 +27,9 @@ languages.
 
 ## Bindings
 
-| Name                                        | Release                                                                                |
-|---------------------------------------------|----------------------------------------------------------------------------------------|
-| [Rust Core](extractous/README.md)           | [![](https://img.shields.io/crates/v/extractous)](https://crates.io/crates/extractous) |
+| Name                                                   | Release                                                                                |
+|--------------------------------------------------------|----------------------------------------------------------------------------------------|
+| [Rust Core](extractous-core/README.md)                 | [![](https://img.shields.io/crates/v/extractous)](https://crates.io/crates/extractous) |
 | [Python Binding](bindings/extractous-python/README.md) | [![](https://img.shields.io/pypi/v/extractous)](https://pypi.org/project/extractous/)  |
 
 ## Supported file formats
