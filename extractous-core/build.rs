@@ -23,8 +23,14 @@ fn main() {
 
     // Because build script are not allowed to change files outside of OUT_DIR
     // we need to copy the tika-native source directory to OUT_DIR and call gradle build there
-    fs_extra::dir::copy(&tika_native_source_dir, &out_dir, &fs_extra::dir::CopyOptions::new())
+    if !tika_native_dir.is_dir() {
+        fs_extra::dir::copy(
+            &tika_native_source_dir,
+            &out_dir,
+            &fs_extra::dir::CopyOptions::new(),
+        )
         .expect("Failed to copy tika-native source to OUT_DIR");
+    }
 
     // Just for debugging
     // let graal_home = env::var("GRAALVM_HOME");
