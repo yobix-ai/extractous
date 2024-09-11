@@ -1,8 +1,8 @@
 use crate::errors::ExtractResult;
 use crate::extract::{OfficeParserConfig, PdfParserConfig, TesseractOcrConfig};
 use crate::tika;
-use strum_macros::{Display, EnumString};
 use crate::tika::JReaderInputStream;
+use strum_macros::{Display, EnumString};
 
 /// Supported encodings
 #[derive(Debug, Clone, Default, Copy, PartialEq, Eq, Hash, Display, EnumString)]
@@ -31,14 +31,8 @@ pub enum CharSet {
 /// println!("{}", content);
 /// ```
 ///
-pub struct StreamReader{
-    pub(crate) inner: JReaderInputStream
-}
-
-impl StreamReader {
-    pub fn new(reader: JReaderInputStream) -> Self {
-        Self { inner: reader }
-    }
+pub struct StreamReader {
+    pub(crate) inner: JReaderInputStream,
 }
 
 impl std::io::Read for StreamReader {
@@ -129,10 +123,7 @@ impl Extractor {
 
     /// Extracts text from a file path. Returns a stream of the extracted text
     /// the stream is decoded using the extractor's `encoding`
-    pub fn extract_file<'a>(
-        &'a self,
-        file_path: &'a str,
-    ) -> ExtractResult<impl std::io::Read + 'a> {
+    pub fn extract_file<'a>(&'a self, file_path: &'a str) -> ExtractResult<StreamReader> {
         tika::parse_file(
             file_path,
             &self.encoding,

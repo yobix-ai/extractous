@@ -63,6 +63,6 @@ mod tika {
     mod jni_utils;
     mod parse;
     mod wrappers;
-    pub use wrappers::JReaderInputStream;
     pub use parse::*;
+    pub use wrappers::JReaderInputStream;
 }

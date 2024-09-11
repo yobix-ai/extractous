@@ -59,7 +59,7 @@ pub fn parse_file<'local>(
     let result = JReaderResult::new(&mut env, call_result_obj)?;
     let j_reader = JReaderInputStream::new(&mut env, result.java_reader)?;
 
-    Ok(StreamReader{inner: j_reader})
+    Ok(StreamReader { inner: j_reader })
 }
 
 /// Parses a file to a string using the Apache Tika library.

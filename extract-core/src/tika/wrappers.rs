@@ -16,8 +16,13 @@ pub struct JReaderInputStream {
 }
 
 impl JReaderInputStream {
-    pub(crate) fn new<'local>(env: &mut JNIEnv<'local>, obj: JObject<'local>) -> ExtractResult<Self> {
-        Ok(Self { internal: env.new_global_ref(obj)? })
+    pub(crate) fn new<'local>(
+        env: &mut JNIEnv<'local>,
+        obj: JObject<'local>,
+    ) -> ExtractResult<Self> {
+        Ok(Self {
+            internal: env.new_global_ref(obj)?,
+        })
     }
 
     pub(crate) fn read(&mut self, buf: &mut [u8]) -> std::io::Result<usize> {
