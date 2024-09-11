@@ -4,12 +4,12 @@
 
 /target
 
-/python/extractrs/*.args
-/python/extractrs/libs
-/python/extractrs/*.so
-/python/extractrs/*.dylib
-/python/extractrs/*.dll
-/python/extractrs/*.lib
+/python/extractous/*.args
+/python/extractous/libs
+/python/extractous/*.so
+/python/extractous/*.dylib
+/python/extractous/*.dll
+/python/extractous/*.lib
 
 
 # Byte-compiled / optimized / DLL files

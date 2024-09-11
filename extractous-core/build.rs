@@ -14,8 +14,8 @@ fn main() {
     let root_dir = env::var("CARGO_MANIFEST_DIR").map(PathBuf::from).unwrap();
     let tika_native_dir = root_dir.join("tika-native");
     // canonicalize does not work on Windows because it returns UNC paths
-    //let python_bind_dir = fs::canonicalize("../bindings/python/python/extractrs").unwrap();
-    let python_bind_dir = root_dir.join("../bindings/python/python/extractrs");
+    //let python_bind_dir = fs::canonicalize("../bindings/extractous-python/python/extractous").unwrap();
+    let python_bind_dir = root_dir.join("../bindings/extractous-python/python/extractous");
     if !python_bind_dir.is_dir() {
         panic!("{} does not exist", python_bind_dir.display())
     };

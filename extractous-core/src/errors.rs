@@ -46,5 +46,5 @@ impl From<Error> for io::Error {
     }
 }
 
-/// Result that is a wrapper of Result<T, extractrs::Error>
+/// Result that is a wrapper of Result<T, extractous::Error>
 pub type ExtractResult<T> = Result<T, Error>;

@@ -17,7 +17,7 @@ mod config;
 /// the `lib.name` setting in the `Cargo.toml`, else Python will not be able to
 /// import the module.
 #[pymodule]
-fn _extractrs(m: &Bound<'_, PyModule>) -> PyResult<()> {
+fn _extractous(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_class::<CharSet>()?;
     m.add_class::<StreamReader>()?;
     m.add_class::<Extractor>()?;

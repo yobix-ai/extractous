@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # check if we running in our dev Docker or directory on the build machine
-# by checking if the current directory ends with extractous/bindings/python
+# by checking if the current directory ends with extractous/bindings/extractous-python
 current_dir=$(pwd)
 
 
@@ -20,7 +20,7 @@ current_dir=$(pwd)
 # rustup default 1.78.0
 
 
-if [[ $current_dir =~ extractous/bindings/python$ ]]; then
+if [[ $current_dir =~ extractous/bindings/extractous-python$ ]]; then
     echo "maturin build launched not on Docker but on developer machine ..."
     echo ""
 
@@ -34,18 +34,16 @@ elif [[ $current_dir =~ ^/workspace ]]; then
     echo "maturin build launched from inside docker ..."
     echo ""
 
-    cd /workspace/bindings/python
+    cd /workspace/bindings/extractous-python
 
     for PYBIN in /opt/python/cp38*/bin; do
         "${PYBIN}/pip" install maturin
         "${PYBIN}/pip" install wheel
-        #"${PYBIN}/maturin" build -i "${PYBIN}/python" --release --out /workspace/bindings/python/dist --compatibility manylinux_2_34
-        "${PYBIN}/maturin" build --release -i "${PYBIN}/python" --out /workspace/bindings/python/target/wheels --compatibility manylinux_2_28
+        #"${PYBIN}/maturin" build -i "${PYBIN}/python" --release --out /workspace/bindings/extractous-python/dist --compatibility manylinux_2_34
+        "${PYBIN}/maturin" build --release -i "${PYBIN}/python" --out /workspace/bindings/extractous-python/target/wheels --compatibility manylinux_2_28
     done
 
 else
-    echo "Please make sure to run the script from extractous/bindings/python or inside docker"
+    echo "Please make sure to run the script from extractous/bindings/extractous-python or inside docker"
     exit 1
 fi
-
-

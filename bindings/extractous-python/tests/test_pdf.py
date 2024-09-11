@@ -1,4 +1,4 @@
-from extractrs import Extractor
+from extractous import Extractor
 
 
 def expected_result():

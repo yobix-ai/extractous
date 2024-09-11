@@ -4,7 +4,7 @@
 if [ "$#" -ne 1 ]; then
     echo "Usage: $0 <wheel_dir>"
     echo "The script takes a wheel directory and for each wheel found named *.whl "
-    echo "it patches it by searching for a lib that starts with '_extractrs*.so' and sets the lib RPATH to '\$ORIGIN/libs'"
+    echo "it patches it by searching for a lib that starts with '_extractous*.so' and sets the lib RPATH to '\$ORIGIN/libs'"
     exit 1
 fi
 
@@ -48,12 +48,12 @@ for WHEEL_FILE in $WHEEL_FILES; do
     # Find the directory containing the unpacked wheel contents
     UNPACKED_WHEEL_DIR=$(find "$WHEEL_DIR" -mindepth 1 -maxdepth 1 -type d -name "extractous*")
 
-    # Find the .so file in the extractrs directory
-    SO_FILE=$(find "$UNPACKED_WHEEL_DIR" -name "_extractrs*.so" | head -n 1)
+    # Find the .so file in the extractous directory
+    SO_FILE=$(find "$UNPACKED_WHEEL_DIR" -name "_extractous*.so" | head -n 1)
 
     # Check if the .so file exists
     if [ -z "$SO_FILE" ]; then
-        echo "No file starting with _extractrs found in the extractrs directory of $WHEEL_FILE"
+        echo "No file starting with _extractous found in the extractous directory of $WHEEL_FILE"
         continue
     fi
 

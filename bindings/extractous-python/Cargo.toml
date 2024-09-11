@@ -12,7 +12,7 @@ version = "0.1.0"
 
 
 [lib]
-name = "extractrs" # This has to match the folder name under python foler i.e. python/extractrs/
+name = "extractous" # This has to match the folder name under python foler i.e. python/extractous/
 crate-type = ["cdylib"]
 doc = false
 

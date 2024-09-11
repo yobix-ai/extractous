@@ -15,7 +15,7 @@ pip install extractous
 extract pdf example:
 
 ```python
-from extractrs import extract
+from extractous import extract
 
 extract("/tmp/test.pdf")
 ```
