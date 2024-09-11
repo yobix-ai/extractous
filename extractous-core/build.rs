@@ -6,7 +6,7 @@ use std::process::Command;
 
 fn main() {
     // Don't run the build script when building docs
-    //if env::var("DOCS_RS").is_ok() {
+    if env::var("DOCS_RS").is_ok() {
         // Set tika_native source directory and python bindings directory
         let root_dir = env::var("CARGO_MANIFEST_DIR").map(PathBuf::from).unwrap();
         let tika_native_source_dir = root_dir.join("tika-native");
@@ -57,7 +57,7 @@ fn main() {
 
         // Tell cargo to tell rustc to link the `tika_native` shared library.
         println!("cargo:rustc-link-lib=dylib=tika_native");
-    //}
+    }
 }
 
 // Run the gradle build command to build tika-native
