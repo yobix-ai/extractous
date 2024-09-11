@@ -49,10 +49,10 @@ fn main() {
 
 // Run the gradle build command to build tika-native
 fn gradle_build(
-    graalvm_home: &Path,
-    tika_native_dir: &Path,
+    graalvm_home: &PathBuf,
+    tika_native_dir: &PathBuf,
     libs_out_dir: &PathBuf,
-    dist_dir: &Path,
+    python_bind_dir: &PathBuf,
 ) {
     println!("Using GraalVM JDK found at {}", graalvm_home.display());
     println!("Building tika_native libs this might take a while ... Please be patient!!");
@@ -72,11 +72,21 @@ fn gradle_build(
 
     let build_path = tika_native_dir.join("build/native/nativeCompile");
 
+    // Decide where to copy the graalvm build artifacts
+    let mut copy_to_dirs = vec![libs_out_dir];
+    if python_bind_dir.is_dir() {
+        // If python binding directory exists, copy the build artifacts to it
+        // When running cargo publish the CARGO_MANIFEST_DIR points to a different directory
+        // than the root dir.
+        copy_to_dirs.push(python_bind_dir);
+    };
+
+    // Copy the build artifacts to the specified directories
     let mut options = fs_extra::dir::CopyOptions::new();
     options.overwrite = true;
     options.content_only = true;
 
-    for dir in [libs_out_dir, dist_dir].iter() {
+    for dir in copy_to_dirs.iter() {
         fs_extra::dir::copy(&build_path, dir, &options)
             .expect("Failed to copy build artifacts to OUTPUT_DIR");
 
