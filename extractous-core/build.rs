@@ -5,8 +5,6 @@ use std::path::{Path, PathBuf};
 use std::process::Command;
 
 fn main() {
-    let docs_rs = env::var("DOCS_RS");
-    println!("cargo:warning=DOCS_RS: {:?}", docs_rs);
     // Exit early when building docs or when running clippy
     if env::var("DOCS_RS").is_ok() {
         return;
