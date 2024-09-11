@@ -5,56 +5,60 @@ use std::path::{Path, PathBuf};
 use std::process::Command;
 
 fn main() {
-    // Set tika_native source directory and python bindings directory
-    let root_dir = env::var("CARGO_MANIFEST_DIR").map(PathBuf::from).unwrap();
-    let tika_native_source_dir = root_dir.join("tika-native");
-    // canonicalize does not work on Windows because it returns UNC paths
-    //let python_bind_dir = fs::canonicalize("../bindings/extractous-python/python/extractous").unwrap();
-    let python_bind_dir = root_dir.join("../bindings/extractous-python/python/extractous");
+    // Don't run the build script when building docs
+    if env::var("DOCS_RS").is_ok() {
 
-    // Main build output directory
-    let out_dir = env::var("OUT_DIR").map(PathBuf::from).unwrap();
-    let jdk_install_dir = out_dir.join("graalvm-jdk"); // out_dir subdir where jdk is downloaded
-    let libs_out_dir = out_dir.join("libs"); // out_dir subdir to copy the built libs to
-    let tika_native_dir = out_dir.join("tika-native"); // out_dir subdir where the gradle build is run
+        // Set tika_native source directory and python bindings directory
+        let root_dir = env::var("CARGO_MANIFEST_DIR").map(PathBuf::from).unwrap();
+        let tika_native_source_dir = root_dir.join("tika-native");
+        // canonicalize does not work on Windows because it returns UNC paths
+        //let python_bind_dir = fs::canonicalize("../bindings/extractous-python/python/extractous").unwrap();
+        let python_bind_dir = root_dir.join("../bindings/extractous-python/python/extractous");
 
-    // Try to find a GraalVM JDK or install one if not found
-    let graalvm_home = get_graalvm_home(&jdk_install_dir);
+        // Main build output directory
+        let out_dir = env::var("OUT_DIR").map(PathBuf::from).unwrap();
+        let jdk_install_dir = out_dir.join("graalvm-jdk"); // out_dir subdir where jdk is downloaded
+        let libs_out_dir = out_dir.join("libs"); // out_dir subdir to copy the built libs to
+        let tika_native_dir = out_dir.join("tika-native"); // out_dir subdir where the gradle build is run
 
-    // Because build script are not allowed to change files outside of OUT_DIR
-    // we need to copy the tika-native source directory to OUT_DIR and call gradle build there
-    if !tika_native_dir.is_dir() {
-        fs_extra::dir::copy(
-            &tika_native_source_dir,
-            &out_dir,
-            &fs_extra::dir::CopyOptions::new(),
-        )
-        .expect("Failed to copy tika-native source to OUT_DIR");
+        // Try to find a GraalVM JDK or install one if not found
+        let graalvm_home = get_graalvm_home(&jdk_install_dir);
+
+        // Because build script are not allowed to change files outside of OUT_DIR
+        // we need to copy the tika-native source directory to OUT_DIR and call gradle build there
+        if !tika_native_dir.is_dir() {
+            fs_extra::dir::copy(
+                &tika_native_source_dir,
+                &out_dir,
+                &fs_extra::dir::CopyOptions::new(),
+            )
+                .expect("Failed to copy tika-native source to OUT_DIR");
+        }
+
+        // Just for debugging
+        // let graal_home = env::var("GRAALVM_HOME");
+        // let java_home = env::var("JAVA_HOME");
+        // println!("cargo:warning=GRAALVM_HOME: {:?}", graal_home);
+        // println!("cargo:warning=JAVA_HOME: {:?}", java_home);
+        //println!("cargo:warning=dist_dir: {}", dist_dir.display());
+        // println!("cargo:warning=out_dir: {}", out_dir.display());
+        //println!("cargo:warning=tika_native_dir: {:?}", tika_native_dir);
+
+        // Launch the gradle build
+        gradle_build(
+            &graalvm_home,
+            &tika_native_dir,
+            &libs_out_dir,
+            &python_bind_dir,
+        );
+        println!("Successfully built libs 🚀");
+
+        // Tell cargo to look for shared libraries in the specified directory
+        println!("cargo:rustc-link-search={}", libs_out_dir.display());
+
+        // Tell cargo to tell rustc to link the `tika_native` shared library.
+        println!("cargo:rustc-link-lib=dylib=tika_native");
     }
-
-    // Just for debugging
-    // let graal_home = env::var("GRAALVM_HOME");
-    // let java_home = env::var("JAVA_HOME");
-    // println!("cargo:warning=GRAALVM_HOME: {:?}", graal_home);
-    // println!("cargo:warning=JAVA_HOME: {:?}", java_home);
-    //println!("cargo:warning=dist_dir: {}", dist_dir.display());
-    // println!("cargo:warning=out_dir: {}", out_dir.display());
-    //println!("cargo:warning=tika_native_dir: {:?}", tika_native_dir);
-
-    // Launch the gradle build
-    gradle_build(
-        &graalvm_home,
-        &tika_native_dir,
-        &libs_out_dir,
-        &python_bind_dir,
-    );
-    println!("Successfully built libs 🚀");
-
-    // Tell cargo to look for shared libraries in the specified directory
-    println!("cargo:rustc-link-search={}", libs_out_dir.display());
-
-    // Tell cargo to tell rustc to link the `tika_native` shared library.
-    println!("cargo:rustc-link-lib=dylib=tika_native");
 }
 
 // Run the gradle build command to build tika-native
