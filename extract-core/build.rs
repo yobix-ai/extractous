@@ -87,7 +87,9 @@ fn gradle_build(
     }
 }
 
-// Firsts check JAVA_HOME
+// * Firsts checks if we have a valid GRAALVM JDK installed by checking GRAALVM_HOME
+// * If not, checks if JAVA_HOME is set and points to a valid GraalVM JDK
+// * If not, downloads and installs GraalVM CE
 pub fn get_graalvm_home(install_dir: &PathBuf) -> PathBuf {
     let graalvm_home_env = env::var("GRAALVM_HOME");
     match graalvm_home_env {
@@ -120,7 +122,7 @@ pub fn get_graalvm_home(install_dir: &PathBuf) -> PathBuf {
     }
 }
 
-// checks if GraalVM JDK is installed and pointed to by JAVA_HOME or panics if it can't be found
+// checks if GraalVM JDK is valid by checking if native-image is found in [graalvm_home]/bin
 pub fn check_graalvm(graalvm_home: &Path, panic: bool) -> bool {
     let native_image_exe = if cfg!(target_os = "windows") {
         "native-image.cmd"
@@ -128,7 +130,7 @@ pub fn check_graalvm(graalvm_home: &Path, panic: bool) -> bool {
         "native-image"
     };
 
-    // Check that native-image is in JAVA_HOME/bin
+    // Check that native-image is in [graalvm_home]/bin
     let native_image = graalvm_home.join("bin").join(native_image_exe);
     let exists = native_image.exists();
     if panic && !exists {
@@ -144,7 +146,7 @@ pub fn check_graalvm(graalvm_home: &Path, panic: bool) -> bool {
 
 fn graalvm_install_help_msg() -> String {
     let sdkman_graalvm_version = if cfg!(target_os = "macos") {
-        "24.0.2.r22-nik" // Bellsoft Liberika NIK 24.0.1.r22 -> jdk 22
+        "24.0.2.r22-nik" // Bellsoft Liberika r22 means jdk 22
     } else {
         "22.0.2-graalce"
     };
