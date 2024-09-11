@@ -91,48 +91,48 @@ jobs:
             cd bindings/extractous-python
             pytest -s
 
-          
-  windows:
-    runs-on: ${{ matrix.platform.runner }}
-    strategy:
-      matrix:
-        platform:
-          - runner: windows-latest
-            target: x64
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.8'
-          architecture: ${{ matrix.platform.target }}
-      - uses: graalvm/setup-graalvm@v1.2.2
-        with:
-          java-version: '22'
-          distribution: 'graalvm-community'
-          set-java-home: 'true'
-      - name: Build wheels
-        uses: PyO3/maturin-action@v1
-        with:
-          target: ${{ matrix.platform.target }}
-          working-directory: "bindings/extractous-python"
-          args: --release --out dist --find-interpreter
-          sccache: 'true'
-      - name: Upload wheels
-        uses: actions/upload-artifact@v4
-        with:
-          name: wheels-windows-${{ matrix.platform.target }}
-          path: bindings/extractous-python/dist
-      - name: pytest
-        if: ${{ !startsWith(matrix.platform.target, 'aarch64') }}
-        shell: bash
-        run: |
-          set -e
-          python3 -m venv .venv
-          source .venv/Scripts/activate
-          pip install extractous --find-links bindings/extractous-python/dist --force-reinstall
-          pip install pytest
-          cd bindings/extractous-python
-          pytest -s
+#
+#  windows:
+#    runs-on: ${{ matrix.platform.runner }}
+#    strategy:
+#      matrix:
+#        platform:
+#          - runner: windows-latest
+#            target: x64
+#    steps:
+#      - uses: actions/checkout@v4
+#      - uses: actions/setup-python@v5
+#        with:
+#          python-version: '3.8'
+#          architecture: ${{ matrix.platform.target }}
+#      - uses: graalvm/setup-graalvm@v1.2.2
+#        with:
+#          java-version: '22'
+#          distribution: 'graalvm-community'
+#          set-java-home: 'true'
+#      - name: Build wheels
+#        uses: PyO3/maturin-action@v1
+#        with:
+#          target: ${{ matrix.platform.target }}
+#          working-directory: "bindings/extractous-python"
+#          args: --release --out dist --find-interpreter
+#          sccache: 'true'
+#      - name: Upload wheels
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: wheels-windows-${{ matrix.platform.target }}
+#          path: bindings/extractous-python/dist
+#      - name: pytest
+#        if: ${{ !startsWith(matrix.platform.target, 'aarch64') }}
+#        shell: bash
+#        run: |
+#          set -e
+#          python3 -m venv .venv
+#          source .venv/Scripts/activate
+#          pip install extractous --find-links bindings/extractous-python/dist --force-reinstall
+#          pip install pytest
+#          cd bindings/extractous-python
+#          pytest -s
 
   macos:
     runs-on: ${{ matrix.platform.runner }}
