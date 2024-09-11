@@ -1,6 +1,6 @@
 [package]
-name = "extract-rs"
-version = "0.1.5"
+name = "extractous"
+version = "0.1.1"
 edition = "2021"
 
 [[example]]

@@ -69,7 +69,7 @@ jobs:
           set -e
           python3 -m venv .venv
           source .venv/bin/activate
-          pip install extract-rs --find-links bindings/python/dist --force-reinstall
+          pip install extractous --find-links bindings/python/dist --force-reinstall
           pip install pytest
           cd bindings/python
           pytest -s
@@ -87,7 +87,7 @@ jobs:
             pip3 install -U pip pytest
           run: |
             set -e
-            pip3 install extract-rs --find-links bindings/python/dist --force-reinstall
+            pip3 install extractous --find-links bindings/python/dist --force-reinstall
             cd bindings/python
             pytest -s
 
@@ -129,7 +129,7 @@ jobs:
           set -e
           python3 -m venv .venv
           source .venv/Scripts/activate
-          pip install extract-rs --find-links bindings/python/dist --force-reinstall
+          pip install extractous --find-links bindings/python/dist --force-reinstall
           pip install pytest
           cd bindings/python
           pytest -s
@@ -179,7 +179,7 @@ jobs:
           set -e
           python3 -m venv .venv
           source .venv/bin/activate
-          pip install extract-rs --find-links bindings/python/dist --force-reinstall
+          pip install extractous --find-links bindings/python/dist --force-reinstall
           pip install pytest
           cd bindings/python
           pytest -s
@@ -209,7 +209,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: testpypi
-      url: https://pypi.org/p/extract-rs
+      url: https://pypi.org/p/extractous
     permissions:
       contents: read
       id-token: write  # IMPORTANT: mandatory for trusted publishing
@@ -234,7 +234,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/extract-rs
+      url: https://pypi.org/p/extractous
     permissions:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
     steps:

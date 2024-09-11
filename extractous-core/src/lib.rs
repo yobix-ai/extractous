@@ -1,9 +1,9 @@
-//! Extract-RS is a library that extracts text from various file formats.
+//! Extractous is a library that extracts text from various file formats.
 //! * Supports many file formats such as Word, Excel, PowerPoint, PDF, and many more.
 //! * Strives to be simple fast and efficient
 //!
 //! # Quick Start
-//! Extract-RS API entry point is the [`Extractor`] struct.
+//! Extractous API entry point is the [`Extractor`] struct.
 //! All public apis are accessible through an extractor.
 //! The extractor provides functions to extract text from files, Urls, and byte arrays.
 //! To use an extractor, you need to:
@@ -13,8 +13,8 @@
 //! ## Create and config an extractor
 //!
 //! ```no_run
-//! use extract_rs::Extractor;
-//! use extract_rs::PdfParserConfig;
+//! use extractous::Extractor;
+//! use extractous::PdfParserConfig;
 //!
 //! // Create a new extractor. Note it uses a consuming builder pattern
 //! let mut extractor = Extractor::new()
@@ -33,8 +33,8 @@
 //! ## Extract text
 //!
 //! ```no_run
-//! use extract_rs::Extractor;
-//! use extract_rs::PdfParserConfig;
+//! use extractous::Extractor;
+//! use extractous::PdfParserConfig;
 //!
 //! // Create a new extractor. Note it uses a consuming builder pattern
 //! let mut extractor = Extractor::new().set_extract_string_max_length(1000);
@@ -49,16 +49,14 @@
 mod errors;
 pub use errors::*;
 
-// extract module main outside interface
-mod extract {
-    mod config;
-    pub use config::*;
-    mod extractor;
-    pub use extractor::*;
-}
-pub use extract::*;
+// extractor module is the config interface
+mod config;
+pub use config::*;
+// extractor module is the main public api interface
+mod extractor;
+pub use extractor::*;
 
-// tika module, not outside this crate
+// tika module, not exposed outside this crate
 mod tika {
     mod jni_utils;
     mod parse;

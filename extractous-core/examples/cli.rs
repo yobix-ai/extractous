@@ -2,7 +2,7 @@ use std::env;
 use std::process;
 use std::time::Instant;
 
-use extract_rs::Extractor;
+use extractous::Extractor;
 
 fn main() {
     // Get the command-line arguments
@@ -19,7 +19,9 @@ fn main() {
 
     // Call the parse function and measure the time taken
     let start_time = Instant::now();
-    let content = Extractor::new().extract_file_to_string(&file_path);
+    let content = Extractor::new()
+        .set_extract_string_max_length(1000000)
+        .extract_file_to_string(&file_path);
     let call_duration = start_time.elapsed();
 
     match content {

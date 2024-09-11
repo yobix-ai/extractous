@@ -1,6 +1,6 @@
-// Expose the extract-rs rust core as `ecore`.
-// We will use `ecore::Xxx` to represents all types from extract-rs rust core.
-pub use ::extract_rs as ecore;
+// Expose the extractous rust core as `ecore`.
+// We will use `ecore::Xxx` to represents all types from extractous rust core.
+pub use ::extractous as ecore;
 use pyo3::prelude::*;
 
 //use pyo3::exceptions::PyTypeError;

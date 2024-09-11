@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # check if we running in our dev Docker or directory on the build machine
-# by checking if the current directory ends with extract-rs/bindings/python
+# by checking if the current directory ends with extractous/bindings/python
 current_dir=$(pwd)
 
 
@@ -20,7 +20,7 @@ current_dir=$(pwd)
 # rustup default 1.78.0
 
 
-if [[ $current_dir =~ extract-rs/bindings/python$ ]]; then
+if [[ $current_dir =~ extractous/bindings/python$ ]]; then
     echo "maturin build launched not on Docker but on developer machine ..."
     echo ""
 
@@ -44,7 +44,7 @@ elif [[ $current_dir =~ ^/workspace ]]; then
     done
 
 else
-    echo "Please make sure to run the script from extract-rs/bindings/python or inside docker"
+    echo "Please make sure to run the script from extractous/bindings/python or inside docker"
     exit 1
 fi
 

@@ -1,7 +1,7 @@
 use crate::errors::ExtractResult;
-use crate::extract::{OfficeParserConfig, PdfParserConfig, TesseractOcrConfig};
 use crate::tika;
 use crate::tika::JReaderInputStream;
+use crate::{OfficeParserConfig, PdfParserConfig, TesseractOcrConfig};
 use strum_macros::{Display, EnumString};
 
 /// Supported encodings
@@ -18,7 +18,7 @@ pub enum CharSet {
 ///
 /// Can be used to perform buffered reading. For example:
 /// ```rust
-/// use extract_rs::{CharSet, Extractor};
+/// use extractous::{CharSet, Extractor};
 /// use std::io::BufReader;
 /// use std::io::prelude::*;
 ///
@@ -46,7 +46,7 @@ impl std::io::Read for StreamReader {
 /// The Extractor uses the builder pattern to set configurations. This allows configuring and
 /// extracting text in one line. For example
 /// ```rust
-/// use extract_rs::{CharSet, Extractor};
+/// use extractous::{CharSet, Extractor};
 /// let text = Extractor::new()
 ///             .set_extract_string_max_length(1000)
 ///             .extract_file_to_string("README.md");
@@ -161,7 +161,7 @@ mod tests {
         // Prepare expected_content
         let expected_content = expected_content();
 
-        // Parse the files using extract_rs
+        // Parse the files using extractous
         let extractor = Extractor::new();
         let result = extractor.extract_file(TEST_FILE);
         let mut reader = BufReader::new(result.unwrap());
@@ -173,7 +173,7 @@ mod tests {
         // let mut reader = BufReader::new(result.unwrap());
         // let mut line = String::new();
         // let _len = reader.read_line(&mut line).unwrap();
-        //assert_eq!("# Extract-RS", line.trim());
+        //assert_eq!("# Extractous", line.trim());
     }
 
     #[test]
@@ -181,7 +181,7 @@ mod tests {
         // Prepare expected_content
         let expected_content = expected_content();
 
-        // Parse the files using extract_rs
+        // Parse the files using extractous
         let extractor = Extractor::new();
         let result = extractor.extract_file_to_string(TEST_FILE);
         let content = result.unwrap();

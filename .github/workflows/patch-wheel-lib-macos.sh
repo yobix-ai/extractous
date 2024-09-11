@@ -47,7 +47,7 @@ for WHEEL_FILE in $WHEEL_FILES; do
     python -m wheel unpack "$WHEEL_FILE" -d "$WHEEL_DIR"
 
     # Find the directory containing the unpacked wheel contents
-    UNPACKED_WHEEL_DIR=$(find "$WHEEL_DIR" -mindepth 1 -maxdepth 1 -type d -name "extract_rs*")
+    UNPACKED_WHEEL_DIR=$(find "$WHEEL_DIR" -mindepth 1 -maxdepth 1 -type d -name "extractous*")
 
     # Find the .so file in the extractrs directory
     SO_FILE=$(find "$UNPACKED_WHEEL_DIR" -name "_extractrs*.so" | head -n 1)

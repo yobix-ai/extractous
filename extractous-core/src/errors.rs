@@ -1,7 +1,7 @@
 use std::io;
 use std::str::Utf8Error;
 
-/// Represent errors returned by extract-rs
+/// Represent errors returned by extractous
 #[derive(thiserror::Error, Debug)]
 pub enum Error {
     #[error("{0}")]

@@ -1,6 +1,6 @@
-# Extract-RS
+# Extractous
 
-Extract-RS is a Rust crate that provides a unified approach for detecting and extracting metadata and text content from
+Extractous is a Rust crate that provides a unified approach for detecting and extracting metadata and text content from
 various documents
 types such as PDF, Word, HTML, and [many other formats](#supported-file-formats).
 
@@ -13,11 +13,11 @@ types such as PDF, Word, HTML, and [many other formats](#supported-file-formats)
 
 ## Installation
 
-To use extract-rs in your Rust project, add the following line to your `Cargo.toml` file:
+To use extractous in your Rust project, add the following line to your `Cargo.toml` file:
 
 ```toml
 [dependencies]
-extract-rs = "0.1.0"
+extractous = "0.1.1"
 ```
 
 ## Supported file formats
