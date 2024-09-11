@@ -16,9 +16,6 @@ fn main() {
     // canonicalize does not work on Windows because it returns UNC paths
     //let python_bind_dir = fs::canonicalize("../bindings/extractous-python/python/extractous").unwrap();
     let python_bind_dir = root_dir.join("../bindings/extractous-python/python/extractous");
-    if !python_bind_dir.is_dir() {
-        panic!("{} does not exist", python_bind_dir.display())
-    };
 
     // Use JAVA_HOME to find or install GraalVM JDK
     let graalvm_home = get_graalvm_home(&jdk_install_dir);
