@@ -7,7 +7,6 @@ use std::process::Command;
 fn main() {
     // Don't run the build script when building docs
     if env::var("DOCS_RS").is_ok() {
-
         // Set tika_native source directory and python bindings directory
         let root_dir = env::var("CARGO_MANIFEST_DIR").map(PathBuf::from).unwrap();
         let tika_native_source_dir = root_dir.join("tika-native");
@@ -32,7 +31,7 @@ fn main() {
                 &out_dir,
                 &fs_extra::dir::CopyOptions::new(),
             )
-                .expect("Failed to copy tika-native source to OUT_DIR");
+            .expect("Failed to copy tika-native source to OUT_DIR");
         }
 
         // Just for debugging
