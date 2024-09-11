@@ -1,6 +1,7 @@
-# extractous Python Bindings
+# Extractous Python Bindings
 
-This project provides Python bindings for the extractous library, allowing you to use extractous functionality in your Python applications.
+This project provides Python bindings for the Extractous library, allowing you to use extractous functionality in 
+your Python applications.
 
 ## Installation
 
@@ -12,10 +13,31 @@ pip install extractous
 
 ## Usage
 
-extract pdf example:
+Extracting a file to string:
 
 ```python
-from extractous import extract
+from extractous import Extractor
 
-extract("/tmp/test.pdf")
+extractor = Extractor()
+extractor.set_extract_string_max_length(1000)
+result = extractor.extract_file_to_string("README.md")
+
+print(result)
+```
+
+Extracting a file to a buffered stream:
+
+```python
+from extractous import Extractor
+
+extractor = Extractor()
+reader = extractor.extract_file("tests/quarkus.pdf")
+
+result = ""
+buffer = reader.read(4096)
+while len(buffer) > 0:
+    result += buffer.decode("utf-8")
+    buffer = reader.read(4096)
+
+print(result)
 ```
