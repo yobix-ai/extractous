@@ -65,7 +65,7 @@ pub struct Extractor {
 impl Default for Extractor {
     fn default() -> Self {
         Self {
-            extract_string_max_length: 10000,
+            extract_string_max_length: 500_000, // 500KB
             encoding: CharSet::UTF_8,
             pdf_config: PdfParserConfig::default(),
             office_config: OfficeParserConfig::default(),
@@ -79,18 +79,8 @@ impl Extractor {
         Self::default()
     }
 
-    // pub fn new_from(extractor: &Extractor) -> Self {
-    //     Self {
-    //         extract_string_max_length: extractor.extract_string_max_length,
-    //         encoding: extractor.encoding,
-    //         pdf_config: extractor.pdf_config.clone(),
-    //         office_config: extractor.office_config.clone(),
-    //         ocr_config: extractor.ocr_config.clone(),
-    //     }
-    // }
-
     /// Set the maximum length of the extracted text. Used only for extract_to_string functions
-    /// Default: 10000
+    /// Default: 500_000
     pub fn set_extract_string_max_length(mut self, max_length: i32) -> Self {
         self.extract_string_max_length = max_length;
         self
@@ -123,7 +113,7 @@ impl Extractor {
 
     /// Extracts text from a file path. Returns a stream of the extracted text
     /// the stream is decoded using the extractor's `encoding`
-    pub fn extract_file<'a>(&'a self, file_path: &'a str) -> ExtractResult<StreamReader> {
+    pub fn extract_file(&self, file_path: &str) -> ExtractResult<StreamReader> {
         tika::parse_file(
             file_path,
             &self.encoding,
@@ -135,7 +125,7 @@ impl Extractor {
 
     /// Extracts text from a file path. Returns a string that is of maximum length
     /// of the extractor's `extract_string_max_length`
-    pub fn extract_file_to_string<'a>(&'a self, file_path: &'a str) -> ExtractResult<String> {
+    pub fn extract_file_to_string(&self, file_path: &str) -> ExtractResult<String> {
         tika::parse_file_to_string(file_path, self.extract_string_max_length)
     }
 }
@@ -165,9 +155,10 @@ mod tests {
         let extractor = Extractor::new();
         let result = extractor.extract_file(TEST_FILE);
         let mut reader = BufReader::new(result.unwrap());
-        let mut content = String::new();
-        reader.read_to_string(&mut content).unwrap();
+        let mut buffer = Vec::new();
+        reader.read_to_end(&mut buffer).unwrap();
 
+        let content = String::from_utf8(buffer).unwrap();
         assert_eq!(content.trim(), expected_content.trim());
 
         // let mut reader = BufReader::new(result.unwrap());

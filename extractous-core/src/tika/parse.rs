@@ -17,12 +17,12 @@ pub(crate) fn vm() -> &'static JavaVM {
     GRAAL_VM.get_or_init(create_vm_isolate)
 }
 
-pub fn parse_file<'local>(
+pub fn parse_file(
     file_path: &str,
     char_set: &CharSet,
-    pdf_conf: &'local PdfParserConfig,
-    office_conf: &'local OfficeParserConfig,
-    ocr_conf: &'local TesseractOcrConfig,
+    pdf_conf: &PdfParserConfig,
+    office_conf: &OfficeParserConfig,
+    ocr_conf: &TesseractOcrConfig,
 ) -> ExtractResult<StreamReader> {
     // Attaching a thead that is already attached is a no-op. Good to have this in case this method
     // is called from another thread
