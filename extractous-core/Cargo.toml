@@ -16,9 +16,6 @@ keywords = ["unstructured", "tika", "text", "pdf", "parser"]
 categories = ["parsing", "text-processing"]
 
 
-[[example]]
-name = "cli"
-
 [dependencies]
 libc = { version = "0.2.158" }
 jni = { version = "0.21.1",features = ["invocation"] }
