@@ -45,6 +45,10 @@
 //!
 //! ```
 
+
+/// Default buffer size
+pub const DEFAULT_BUF_SIZE: usize = 32768;
+
 // errors module
 mod errors;
 pub use errors::*;

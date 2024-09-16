@@ -1,9 +1,9 @@
 use crate::errors::{Error, ExtractResult};
 use crate::tika::jni_utils::{jni_call_method, jni_jobject_to_string, jni_new_string_as_jvalue};
 use crate::tika::vm;
-use crate::{OfficeParserConfig, PdfParserConfig, TesseractOcrConfig};
+use crate::{DEFAULT_BUF_SIZE, OfficeParserConfig, PdfParserConfig, TesseractOcrConfig};
 use bytemuck::cast_slice_mut;
-use jni::objects::{GlobalRef, JObject, JValue};
+use jni::objects::{GlobalRef, JByteArray, JObject, JValue};
 use jni::sys::jsize;
 use jni::JNIEnv;
 
@@ -13,6 +13,8 @@ use jni::JNIEnv;
 #[derive(Clone)]
 pub struct JReaderInputStream {
     internal: GlobalRef,
+    buffer: GlobalRef,
+    capacity: jsize,
 }
 
 impl JReaderInputStream {
@@ -20,19 +22,40 @@ impl JReaderInputStream {
         env: &mut JNIEnv<'local>,
         obj: JObject<'local>,
     ) -> ExtractResult<Self> {
+        // Creates new jbyte array
+        let capacity = DEFAULT_BUF_SIZE as jsize;
+        let jbyte_array = env.new_byte_array(capacity)?;
+
         Ok(Self {
             internal: env.new_global_ref(obj)?,
+            buffer: env.new_global_ref(jbyte_array)?,
+            capacity,
         })
     }
 
     pub(crate) fn read(&mut self, buf: &mut [u8]) -> std::io::Result<usize> {
         let mut env = vm().attach_current_thread().map_err(Error::JniError)?;
 
-        // Create the java byte array
         let length = buf.len() as jsize;
-        let jbyte_array = env
-            .new_byte_array(length)
-            .map_err(|_e| Error::JniEnvCall("Failed to create byte array"))?;
+
+        if length > self.capacity {
+            // Create the new byte array with the new capacity
+            let jbyte_array = env
+                .new_byte_array(length as jsize)
+                .map_err(|_e| Error::JniEnvCall("Failed to create byte array"))?;
+
+            self.buffer = env
+                .new_global_ref(jbyte_array)
+                .map_err(|_e| Error::JniEnvCall("Failed to create global reference"))?;
+
+            self.capacity = length;
+        }
+
+        // // Create the java byte array
+        // let length = buf.len() as jsize;
+        // let jbyte_array = env
+        //     .new_byte_array(length)
+        //     .map_err(|_e| Error::JniEnvCall("Failed to create byte array"))?;
 
         // Call the Java Reader's `read` method
         let call_result = jni_call_method(
@@ -41,17 +64,24 @@ impl JReaderInputStream {
             "read",
             "([BII)I",
             &[
-                JValue::Object(&jbyte_array),
+                JValue::Object(&self.buffer),
                 JValue::Int(0),
                 JValue::Int(length),
             ],
         );
         let num_read_bytes = call_result?.i().map_err(Error::JniError)?;
 
+        // Get self.buffer object as a local reference
+        let obj_local = env
+            .new_local_ref(&self.buffer)
+            .map_err(|_e| Error::JniEnvCall("Failed to create local ref"))?;
+
+        // cast because java byte array is i8[]
+        let buf_of_i8: &mut [i8] = cast_slice_mut(buf);
+
         // Get the bytes from the Java byte array to the Rust byte array
-        // don't know if this is a copy or just memory reference
-        let buf_of_i8: &mut [i8] = cast_slice_mut(buf); // cast because java byte array is i8[]
-        env.get_byte_array_region(jbyte_array, 0, buf_of_i8)
+        // This is a copy or just memory reference. POTENTIAL performance improvement
+        env.get_byte_array_region(JByteArray::from(obj_local), 0, buf_of_i8)
             .map_err(|_e| Error::JniEnvCall("Failed to get byte array region"))?;
 
         if num_read_bytes == -1 {
