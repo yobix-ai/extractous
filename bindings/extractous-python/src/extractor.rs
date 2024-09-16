@@ -1,7 +1,7 @@
 use crate::ecore;
 use pyo3::exceptions::PyTypeError;
 use pyo3::prelude::*;
-use pyo3::types::PyBytes;
+use pyo3::types::PyByteArray;
 use std::io::Read;
 
 // PyO3 supports unit-only enums (which contain only unit variants)
@@ -29,25 +29,42 @@ impl From<CharSet> for ecore::CharSet {
 pub struct StreamReader {
     pub(crate) reader: ecore::StreamReader,
     pub(crate) buffer: Vec<u8>,
+    pub(crate) py_bytes: Option<Py<PyByteArray>>,
 }
 
 #[pymethods]
 impl StreamReader {
-
     /// Reads the requested number of bytes
     /// Returns the bytes read as a `bytes` object
-    pub fn read<'py>(&mut self, py: Python<'py>, size: usize) -> PyResult<Bound<'py, PyBytes>> {
+    pub fn read<'py>(&mut self, py: Python<'py>, size: usize) -> PyResult<Bound<'py, PyByteArray>> {
         // Resize the buffer to the requested size
         self.buffer.resize(size, 0);
 
+        // Perform the read operation into the internal buffer
         match self.reader.read(&mut self.buffer) {
-            Ok(bytes_read) => {
+            Ok(bytes_read) => unsafe {
                 // Truncate buffer to actual read size.
                 self.buffer.truncate(bytes_read);
 
-                let py_bytes = PyBytes::new_bound(py, &self.buffer);
-                Ok(py_bytes)
-            }
+                // Check if we already have a PyByteArray stored
+                if let Some(py_bytearray) = &self.py_bytes {
+                    // Clone the Py reference and bind it to the current Python context
+                    let byte_array = py_bytearray.clone_ref(py).into_bound(py);
+
+                    // Resize the bytearray to fit the actual number of bytes read
+                    byte_array.resize(bytes_read)?;
+                    // Update the PyByteArray with the new buffer
+                    byte_array.as_bytes_mut().copy_from_slice(&self.buffer);
+
+                    Ok(byte_array)
+                } else {
+                    // Create a new PyByteArray from the buffer
+                    let new_byte_array = PyByteArray::new_bound(py, self.buffer.as_slice());
+                    self.py_bytes = Some(new_byte_array.clone().unbind());
+
+                    Ok(new_byte_array)
+                }
+            },
             Err(e) => Err(PyErr::new::<pyo3::exceptions::PyIOError, _>(format!(
                 "{}",
                 e
@@ -96,10 +113,11 @@ impl Extractor {
             .extract_file(filename)
             .map_err(|e| PyErr::new::<PyTypeError, _>(format!("{:?}", e)))?;
 
-        // Create a new `StreamReader` with initial buffer capacity of 4096 bytes
+        // Create a new `StreamReader` with initial buffer capacity of ecore::DEFAULT_BUF_SIZE bytes
         Ok(StreamReader {
             reader,
-            buffer: Vec::with_capacity(4096),
+            buffer: Vec::with_capacity(ecore::DEFAULT_BUF_SIZE),
+            py_bytes: None,
         })
     }
 
