@@ -26,17 +26,26 @@ impl From<CharSet> for ecore::CharSet {
 }
 
 #[pyclass]
-pub struct StreamReader(ecore::StreamReader);
+pub struct StreamReader {
+    pub(crate) reader: ecore::StreamReader,
+    pub(crate) buffer: Vec<u8>,
+}
 
 #[pymethods]
 impl StreamReader {
-    // Expose the `read` method as `read` in Python
+
+    /// Reads the requested number of bytes
+    /// Returns the bytes read as a `bytes` object
     pub fn read<'py>(&mut self, py: Python<'py>, size: usize) -> PyResult<Bound<'py, PyBytes>> {
-        let mut buf = vec![0u8; size];
-        match self.0.read(&mut buf) {
+        // Resize the buffer to the requested size
+        self.buffer.resize(size, 0);
+
+        match self.reader.read(&mut self.buffer) {
             Ok(bytes_read) => {
-                buf.truncate(bytes_read); // Truncate buffer to actual read size
-                let py_bytes = PyBytes::new_bound(py, &buf);
+                // Truncate buffer to actual read size.
+                self.buffer.truncate(bytes_read);
+
+                let py_bytes = PyBytes::new_bound(py, &self.buffer);
                 Ok(py_bytes)
             }
             Err(e) => Err(PyErr::new::<pyo3::exceptions::PyIOError, _>(format!(
@@ -87,7 +96,11 @@ impl Extractor {
             .extract_file(filename)
             .map_err(|e| PyErr::new::<PyTypeError, _>(format!("{:?}", e)))?;
 
-        Ok(StreamReader(reader))
+        // Create a new `StreamReader` with initial buffer capacity of 4096 bytes
+        Ok(StreamReader {
+            reader,
+            buffer: Vec::with_capacity(4096),
+        })
     }
 
     fn __repr__(&self) -> String {
