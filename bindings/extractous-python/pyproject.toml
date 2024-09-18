@@ -4,7 +4,7 @@ build-backend = "maturin"
 
 [project]
 name = "extractous"
-version = '0.1.3'
+version = '0.1.4'
 classifiers = [
   "Programming Language :: Rust",
   "Programming Language :: Python :: Implementation :: CPython",
@@ -14,10 +14,15 @@ description = "Extractous Python Binding"
 license = { text = "Apache-2.0" }
 readme = "README.md"
 # PyO3 doesn't support python 3.13 yet.
-requires-python = ">=3.8, < 3.13"
+requires-python = ">=3.8,<3.13"
 
 [project.optional-dependencies]
+# To generate python docs using pdoc we need to run:
+# maturin develop -E docs
+# pdoc extractous -o docs --no-search --no-show-source --logo-link "https://yobix.ai"  --logo "https://avatars.githubusercontent.com/u/137815199?s=48&v=4"
 docs = ["pdoc"]
+# To run tests using pytest we need to run:
+# pytest -s
 test = ["pytest"]
 
 [project.urls]
