@@ -4,6 +4,11 @@ Extractous offers a unified approach for detecting and extracting metadata and t
 types such as PDF, Word, HTML, and [many other formats](#supported-file-formats).
 Our goal is to deliver an efficient comprehensive solution with bindings for many programming languages.
 
+**Demo**: Benchmarking [`extractous`](https://github.com/yobix-ai/extractous) and
+[`unstructured-io`](https://github.com/Unstructured-IO/unstructured):
+
+![unstructured_vs_extractous](https://github.com/yobix-ai/extractous-benchmarks/raw/main/docs/extractous_vs_unstructured.gif)
+
 ## Why Extractous?
 
 Extractous was mainly inspired by the [Unstructured Python library](https://github.com/Unstructured-IO/unstructured).
