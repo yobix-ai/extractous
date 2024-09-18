@@ -4,7 +4,7 @@ use crate::tika::JReaderInputStream;
 use crate::{OfficeParserConfig, PdfParserConfig, TesseractOcrConfig};
 use strum_macros::{Display, EnumString};
 
-/// Supported encodings
+/// CharSet enum of all supported encodings
 #[derive(Debug, Clone, Default, Copy, PartialEq, Eq, Hash, Display, EnumString)]
 #[allow(non_camel_case_types)]
 pub enum CharSet {
@@ -105,6 +105,7 @@ impl Extractor {
         self.office_config = config;
         self
     }
+
     /// Set the configuration for the Tesseract OCR
     pub fn set_ocr_config(mut self, config: TesseractOcrConfig) -> Self {
         self.ocr_config = config;

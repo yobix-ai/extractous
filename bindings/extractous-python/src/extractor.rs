@@ -1,4 +1,4 @@
-use crate::ecore;
+use crate::{ecore, OfficeParserConfig, PdfParserConfig, TesseractOcrConfig};
 use pyo3::exceptions::PyTypeError;
 use pyo3::prelude::*;
 use pyo3::types::PyByteArray;
@@ -6,6 +6,7 @@ use std::io::Read;
 
 // PyO3 supports unit-only enums (which contain only unit variants)
 // These simple enums behave similarly to Python's enumerations (enum.Enum)
+/// CharSet enum of all supported encodings
 #[pyclass(eq, eq_int)]
 #[derive(Clone, PartialEq)]
 #[allow(non_camel_case_types)]
@@ -25,6 +26,9 @@ impl From<CharSet> for ecore::CharSet {
     }
 }
 
+/// StreamReader represents a stream of bytes
+///
+/// Can be used to perform buffered reading.
 #[pyclass]
 pub struct StreamReader {
     pub(crate) reader: ecore::StreamReader,
@@ -83,30 +87,44 @@ pub struct Extractor(ecore::Extractor);
 impl Extractor {
     #[new]
     pub fn new() -> Self {
-        Extractor(ecore::Extractor::new())
+        Self(ecore::Extractor::new())
     }
 
+    /// Set the maximum length of the extracted text. Used only for extract_to_string functions
+    /// Default: 500_000
     pub fn set_extract_string_max_length(&self, max_length: i32) -> Self {
         let inner = self.0.clone().set_extract_string_max_length(max_length);
         Self(inner)
     }
 
+    /// Set the encoding to use for when extracting text to a stream.
+    /// Not used for extract_to_string functions.
+    /// Default: CharSet::UTF_8
     pub fn set_encoding(&self, encoding: CharSet) -> PyResult<Self> {
         let inner = self.0.clone().set_encoding(encoding.into());
         Ok(Self(inner))
     }
 
-    // pub fn set_pdf_config(&self, config: ecore::PdfParserConfig) -> PyResult<Self> {
-    //     let inner = self.0.clone().set_pdf_config(config);
-    //     Ok(Self(inner))
-    // }
-
-    pub fn extract_file_to_string(&self, filename: &str) -> PyResult<String> {
-        self.0
-            .extract_file_to_string(filename)
-            .map_err(|e| PyErr::new::<PyTypeError, _>(format!("{:?}", e)))
+    /// Set the configuration for the PDF parser
+    pub fn set_pdf_config(&self, config: PdfParserConfig) -> PyResult<Self> {
+        let inner = self.0.clone().set_pdf_config(config.into());
+        Ok(Self(inner))
     }
 
+    /// Set the configuration for the Office parser
+    pub fn set_office_config(&self, config: OfficeParserConfig) -> PyResult<Self> {
+        let inner = self.0.clone().set_office_config(config.into());
+        Ok(Self(inner))
+    }
+
+    /// Set the configuration for the Tesseract OCR
+    pub fn set_ocr_config(&self, config: TesseractOcrConfig) -> PyResult<Self> {
+        let inner = self.0.clone().set_ocr_config(config.into());
+        Ok(Self(inner))
+    }
+
+    /// Extracts text from a file path. Returns a stream of the extracted text
+    /// the stream is decoded using the extractor's `encoding`
     pub fn extract_file(&self, filename: &str) -> PyResult<StreamReader> {
         let reader = self
             .0
@@ -119,6 +137,14 @@ impl Extractor {
             buffer: Vec::with_capacity(ecore::DEFAULT_BUF_SIZE),
             py_bytes: None,
         })
+    }
+
+    /// Extracts text from a file path. Returns a string that is of maximum length
+    /// of the extractor's `extract_string_max_length`
+    pub fn extract_file_to_string(&self, filename: &str) -> PyResult<String> {
+        self.0
+            .extract_file_to_string(filename)
+            .map_err(|e| PyErr::new::<PyTypeError, _>(format!("{:?}", e)))
     }
 
     fn __repr__(&self) -> String {

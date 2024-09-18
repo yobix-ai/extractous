@@ -14,7 +14,7 @@ pub enum PdfOcrStrategy {
 /// PDF parsing configuration settings
 ///
 /// These settings are used to configure the behavior of the PDF parsing.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub struct PdfParserConfig {
     pub(crate) ocr_strategy: PdfOcrStrategy,
     pub(crate) extract_inline_images: bool,
@@ -36,6 +36,7 @@ impl Default for PdfParserConfig {
 }
 
 impl PdfParserConfig {
+    /// Creates a new instance of PdfParserConfig with default settings.
     pub fn new() -> Self {
         Self::default()
     }
@@ -49,7 +50,7 @@ impl PdfParserConfig {
 
     /// If true, extract the literal inline embedded OBXImages. Beware: some PDF documents of
     /// modest  size (~4MB) can contain thousands of embedded images totaling > 2.5 GB.
-    /// Also, at least as of PDFBox 1.8.5, there can be surprisingly large memory consumption
+    /// Also, there can be surprisingly large memory consumption
     /// and/ or out of memory errors. Along the same lines, note that this does not extract
     /// "logical" images. Some PDF writers break up a single logical image into hundreds of
     /// little images. With this option set to true, you might get those hundreds of little images.
@@ -94,7 +95,7 @@ impl PdfParserConfig {
 /// Microsoft Office parser configuration settings
 ///
 /// These settings are used to configure the behavior of the MSOffice parsing.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub struct OfficeParserConfig {
     pub(crate) extract_macros: bool,
     pub(crate) include_deleted_content: bool,
@@ -219,7 +220,7 @@ impl OfficeParserConfig {
 /// Tesseract OCR configuration settings
 ///
 /// These settings are used to configure the behavior of the optical image recognition.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub struct TesseractOcrConfig {
     pub(crate) density: i32,
     pub(crate) depth: i32,
