@@ -1,7 +1,7 @@
 
-<div style="margin: 20px; align-items: center; justify-content: center; display: flex; height: 36px">
-  <img height="45px" alt="yobix ai logo" src="https://framerusercontent.com/images/zaqayjWBWNoQmV9MIwSEKf0HBo.png?scale-down-to=512">
-  <p style="font-family: sans-serif; font-size: xxx-large; font-weight: bold; padding-left: 8px; text-underline:none">Extractous</p>
+<div align="center" style="font-size: xx-large; font-weight: bold">
+    <img height="28px" alt="yobix ai logo" src="https://framerusercontent.com/images/zaqayjWBWNoQmV9MIwSEKf0HBo.png?
+scale-down-to=512"> Extractous
 </div>
 
 <div align="center">
@@ -11,6 +11,7 @@
 [![](https://img.shields.io/pypi/v/extractous)](https://pypi.org/project/extractous/)
 <img src="https://img.shields.io/github/commit-activity/m/yobix-ai/extractous" alt="Commits per month">
 [![Downloads](https://static.pepy.tech/badge/extractous/month)](https://pepy.tech/project/extractous)
+
 </div>
 
 <div align="center">
