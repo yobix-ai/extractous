@@ -1,7 +1,8 @@
 
 <div align="center" style="margin-top: 20px">
+    <a href="https://yobix.ai">
     <img height="28px" alt="yobix ai logo" src="https://framerusercontent.com/images/zaqayjWBWNoQmV9MIwSEKf0HBo.png?scale-down-to=512">
-
+    </a>
 <h1 style="margin-top: 0; padding-top: 0">Extractous</h1>
 </div>
 
