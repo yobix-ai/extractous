@@ -1,7 +1,6 @@
 
 <div align="center" style="font-size: xx-large; font-weight: bold">
-    <img height="28px" alt="yobix ai logo" src="https://framerusercontent.com/images/zaqayjWBWNoQmV9MIwSEKf0HBo.png?
-scale-down-to=512"> Extractous
+    <img height="28px" alt="yobix ai logo" src="https://framerusercontent.com/images/zaqayjWBWNoQmV9MIwSEKf0HBo.png?scale-down-to=512"> Extractous
 </div>
 
 <div align="center">
