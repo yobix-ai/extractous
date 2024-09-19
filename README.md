@@ -1,13 +1,7 @@
 
-<div>
-    <div style="margin: 20px; align-items: center; justify-content: center; display: flex; 
-height: 36px">
-      <img height="45px" alt="yobix ai logo" src="https://framerusercontent.com/images/zaqayjWBWNoQmV9MIwSEKf0HBo.png?
-scale-down-to=512" >
-<p style="font-family: sans-serif; font-size: xxx-large; font-weight: bold; padding-left: 8px; 
-text-underline: none"> 
-Extractous </p>
-    </div>
+<div style="margin: 20px; align-items: center; justify-content: center; display: flex; height: 36px">
+  <img height="45px" alt="yobix ai logo" src="https://framerusercontent.com/images/zaqayjWBWNoQmV9MIwSEKf0HBo.png?scale-down-to=512">
+  <p style="font-family: sans-serif; font-size: xxx-large; font-weight: bold; padding-left: 8px; text-underline:none">Extractous</p>
 </div>
 
 <div align="center">
