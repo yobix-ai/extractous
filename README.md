@@ -1,13 +1,39 @@
-# Extractous
 
-Extractous offers a unified approach for detecting and extracting metadata and text content from various documents
-types such as PDF, Word, HTML, and [many other formats](#supported-file-formats).
-Our goal is to deliver an efficient comprehensive solution with bindings for many programming languages.
+<div>
+    <div style="margin: 20px; align-items: center; justify-content: center; display: flex; 
+height: 36px">
+      <img height="45px" alt="yobix ai logo" src="https://framerusercontent.com/images/zaqayjWBWNoQmV9MIwSEKf0HBo.png?
+scale-down-to=512" >
+<p style="font-family: sans-serif; font-size: xxx-large; font-weight: bold; padding-left: 8px; 
+text-underline: none"> 
+Extractous </p>
+    </div>
+</div>
 
-**Demo**: Benchmarking [`extractous`](https://github.com/yobix-ai/extractous) and
-[`unstructured-io`](https://github.com/Unstructured-IO/unstructured):
+<div align="center">
+
+<a href="https://github.com/yobix-ai/extractous/blob/main/LICENSE">![https://pypi.python.org/pypi/unstructured/](https://img.shields.io/pypi/l/unstructured.svg)</a>
+[![](https://img.shields.io/crates/v/extractous)](https://crates.io/crates/extractous)
+[![](https://img.shields.io/pypi/v/extractous)](https://pypi.org/project/extractous/)
+<img src="https://img.shields.io/github/commit-activity/m/yobix-ai/extractous" alt="Commits per month">
+[![Downloads](https://static.pepy.tech/badge/extractous/month)](https://pepy.tech/project/extractous)
+</div>
+
+<div align="center">
+
+_Extractous offers a fast and efficient solution for extracting content and metadata from various documents types such as PDF, Word, HTML, and [many other formats](#supported-file-formats).
+Our goal is to deliver an efficient comprehensive solution with bindings for many programming languages._
+
+</div>
+
+---
+
+**Demo**: showing that [Extractous 🚀](https://github.com/yobix-ai/extractous) is **25x faster** than the popular
+[unstructured-io](https://github.com/Unstructured-IO/unstructured) library ($65m in funding and 8.5k GitHub stars). 
+For complete benchmarking details please consult our [benchmarking repository](https://github.com/yobix-ai/extractous-benchmarks)
 
 ![unstructured_vs_extractous](https://github.com/yobix-ai/extractous-benchmarks/raw/main/docs/extractous_vs_unstructured.gif)
+<sup>* demo running at 5x recoding speed </sup>
 
 ## Why Extractous?
 
@@ -29,13 +55,6 @@ languages.
 * Support for [many file formats](#supported-file-formats).
 * Strives to be efficient and fast.
 * Comprehensive documentation and examples to help you get started quickly.
-
-## Bindings
-
-| Name                                                   | Release                                                                                |
-|--------------------------------------------------------|----------------------------------------------------------------------------------------|
-| [Rust Core](extractous-core/README.md)                 | [![](https://img.shields.io/crates/v/extractous)](https://crates.io/crates/extractous) |
-| [Python Binding](bindings/extractous-python/README.md) | [![](https://img.shields.io/pypi/v/extractous)](https://pypi.org/project/extractous/)  |
 
 ## Supported file formats
 
