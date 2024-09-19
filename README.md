@@ -42,15 +42,12 @@ we perform the extraction locally and efficiently?
 While researching this space, **unstructured-io** offers a good solution for parsing unstructured content, and can be 
 performed in-process. However, it's performance is very poor and has many limitations:
 * **unstructured-io** wraps around so many heavy Python libraries making it both slow and memory hungry [See benchmarks foo more details](https://github.com/yobix-ai/extractous-benchmarks).
-* Data processing is mainly a cpu-bound problem and Python is not the best choice for such tasks
+* data processing is mainly a cpu-bound problem and Python is not the best choice for such tasks
   because of its Global Interpreter Lock (GIL) which makes it hard to utilize multiple cores.
 * **unstructured-io** is becoming increasingly complex as it focuses on becoming more of a framework rather than 
   just a text and metadata extraction library.
 
-In contrast, **Extractous** is built in Rust, a language renowned for its memory safety and high performance. By 
-leveraging Rust's multithreading capabilities and zero-cost abstractions, Extractous achieves significantly faster  
-processing speeds. **Extractous** maintains a dedicated focus on text and metadata extraction, ensuring optimized  
-performance and reliability in its core functionality.
+In contrast, **Extractous** is built in Rust, a language renowned for its memory safety and high performance. By leveraging Rust's multithreading capabilities and zero-cost abstractions, Extractous achieves significantly faster processing speeds. **Extractous** maintains a dedicated focus on text and metadata extraction, ensuring optimized performance and reliability in its core functionality.
 
 ## 🌳 Key Features
 * Fast and efficient unstructured data extraction.
@@ -64,9 +61,9 @@ performance and reliability in its core functionality.
 * Free for Commercial Use: Apache 2.0 License.
 
 ## 🚀 Quickstart
-Extractous provides a simple and easy-to-use API for extracting content from various file formats. Below are examples:
+Extractous provides a simple and easy-to-use API for extracting content from various file formats. Below are quick examples:
 
-### Python
+#### Python
 * Extract a file content to a string:
 ```python
 from extractous import Extractor
@@ -80,7 +77,7 @@ result = extractor.extract_file_to_string("README.md")
 print(result)
 ```
 
-### Rust
+#### Rust
 * Extract a file content to a string:
 ```rust
 use extractous::Extractor;
@@ -95,12 +92,11 @@ println!("{}", text);
 ```
 
 ## 🔥 Performance
-* **Extractous** is built in fast, don't take our word for it, you can run the [benchmarks](https://github.com/yobix-ai/extractous-benchmarks) yourself. For example extracting content out of sec10 filings 
-  pdf forms, **Extractous** is 22x faster than **unstructured-io**:
+* **Extractous** is fast, please don't take our word for it, you can run the [benchmarks](https://github.com/yobix-ai/extractous-benchmarks) yourself. For example extracting content out of [sec10 filings pdf forms](https://github.com/yobix-ai/extractous-benchmarks/raw/main/dataset/sec10-filings), Extractous is **22x faster** than unstructured-io:
 
 ![extractous_speedup_relative_to_unstructured](https://github.com/yobix-ai/extractous-benchmarks/raw/main/docs/extractous_speedup_relative_to_unstructured.png)
 
-* Not just speed it is also memory efficient, **Extractous** allocates 12x less memory than **unstructured-io**:
+* Not just speed it is also memory efficient, Extractous allocates **12x less memory** than unstructured-io:
 
 ![extractous_memory_efficiency_relative_to_unstructured](https://github.com/yobix-ai/extractous-benchmarks/raw/main/docs/extractous_memory_efficiency_relative_to_unstructured.png)
 
