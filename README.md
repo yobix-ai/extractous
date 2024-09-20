@@ -41,7 +41,7 @@ we perform the extraction locally and efficiently?
 
 While researching this space, **unstructured-io** offers a good solution for parsing unstructured content, and can be 
 performed in-process. However, it's performance is very poor and has many limitations:
-* **unstructured-io** wraps around so many heavy Python libraries making it both slow and memory hungry [See benchmarks foo more details](https://github.com/yobix-ai/extractous-benchmarks).
+* **unstructured-io** wraps around so many heavy Python libraries making it both slow and memory hungry [See benchmarks](https://github.com/yobix-ai/extractous-benchmarks) for more details.
 * data processing is mainly a cpu-bound problem and Python is not the best choice for such tasks
   because of its Global Interpreter Lock (GIL) which makes it hard to utilize multiple cores.
 * **unstructured-io** is becoming increasingly complex as it focuses on becoming more of a framework rather than 
