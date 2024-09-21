@@ -43,13 +43,13 @@ In our search for solutions, **unstructured-io** stood out as the popular and wi
 - Inefficient in utilizing multiple CPU cores for data processing tasks, which are predominantly CPU-bound. This inefficiency is due to limitations in its dependencies and constraints like the Global Interpreter Lock (GIL), which prevents multiple threads from executing Python bytecode simultaneously.
 - As unstructured-io evolves, it is becoming increasingly complicated, transitioning into more of a complex framework and focusing more offering an external API service for text and metadata extraction.
 
-
 In contrast, **Extractous** maintains a dedicated focus on text and metadata extraction. It achieves significantly faster processing speeds and lower memory utilization through native code execution.
 
 * **Built with Rust:** The core is developed in Rust, leveraging its high performance, memory safety, multi-threading capabilities, and zero-cost abstractions.
-* **Extended format support with Apache Tika:** For file formats not natively supported by the Rust core, we compile the well-known [Apache Tika](https://tika.apache.org/) into native shared libraries using [GraalVM](https://www.graalvm.org/) ahead-of-time compilation. These shared libraries are then linked to our Rust core. No local servers, virtual machines, or garbage collection, just pure native execution.
+* **Extended format support with Apache Tika:** For file formats not natively supported by the Rust core, we compile the well-known [Apache Tika](https://tika.apache.org/) into native shared libraries using [GraalVM](https://www.graalvm.org/) ahead-of-time compilation technology. These shared libraries are then linked to and called from our Rust core. No local servers, no virtual machines, or any garbage collection, just pure native execution.
 * **Bindings for many languages:**  we plan to introduce bindings for many languages. At the moment we offer only Python binding, which is essentially is a wrapper around the Rust core with the potential to circumventing the Python GIL limitation and make efficient use of multi-cores.
 
+With Extractous, the need for external services or APIs is eliminated, making data processing pipelines faster and more efficient.
 
 ## 🌳 Key Features
 * High-performance unstructured data extraction optimized for speed and low memory usage.
@@ -93,11 +93,11 @@ println!("{}", text);
 ```
 
 ## 🔥 Performance
-* **Extractous** is fast, please don't take our word for it, you can run the [benchmarks](https://github.com/yobix-ai/extractous-benchmarks) yourself. For example extracting content out of [sec10 filings pdf forms](https://github.com/yobix-ai/extractous-benchmarks/raw/main/dataset/sec10-filings), Extractous is **22x faster** than unstructured-io:
+* **Extractous** is fast, please don't take our word for it, you can run the [benchmarks](https://github.com/yobix-ai/extractous-benchmarks) yourself. For example extracting content out of [sec10 filings pdf forms](https://github.com/yobix-ai/extractous-benchmarks/raw/main/dataset/sec10-filings), Extractous is on average **~18x faster** than unstructured-io:
 
 ![extractous_speedup_relative_to_unstructured](https://github.com/yobix-ai/extractous-benchmarks/raw/main/docs/extractous_speedup_relative_to_unstructured.png)
 
-* Not just speed it is also memory efficient, Extractous allocates **12x less memory** than unstructured-io:
+* Not just speed it is also memory efficient, Extractous allocates **~11x less memory** than unstructured-io:
 
 ![extractous_memory_efficiency_relative_to_unstructured](https://github.com/yobix-ai/extractous-benchmarks/raw/main/docs/extractous_memory_efficiency_relative_to_unstructured.png)
 
