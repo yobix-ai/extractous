@@ -35,29 +35,30 @@ For complete benchmarking details please consult our [benchmarking repository](h
 
 ## Why Extractous?
 
-**Extractous** was born out of frustration with requiring yet another service to handle content extraction out of 
-unstructured data. Do we really need to call external APIs or run special servers just for content extraction? Can't 
-we perform the extraction locally and efficiently?
+**Extractous** was born out of frustration with the need to rely on external services or APIs for content extraction from unstructured data. Do we really need to call external APIs or run special servers just for content extraction? Couldn't extraction be performed locally and efficiently?
 
-While researching this space, **unstructured-io** offers a good solution for parsing unstructured content, and can be 
-performed in-process. However, it's performance is very poor and has many limitations:
-* **unstructured-io** wraps around so many heavy Python libraries making it both slow and memory hungry [See benchmarks](https://github.com/yobix-ai/extractous-benchmarks) for more details.
-* data processing is mainly a cpu-bound problem and Python is not the best choice for such tasks
-  because of its Global Interpreter Lock (GIL) which makes it hard to utilize multiple cores.
-* **unstructured-io** is becoming increasingly complex as it focuses on becoming more of a framework rather than 
-  just a text and metadata extraction library.
+In our search for solutions, **unstructured-io** stood out as the popular and widely-used library for parsing unstructured content with in-process parsing. However, we identified several significant limitations:
 
-In contrast, **Extractous** is built in Rust, a language renowned for its memory safety and high performance. By leveraging Rust's multithreading capabilities and zero-cost abstractions, Extractous achieves significantly faster processing speeds. **Extractous** maintains a dedicated focus on text and metadata extraction, ensuring optimized performance and reliability in its core functionality.
+- Architecturally, unstructured-io wraps around numerous heavyweight Python libraries, resulting in slow performance and high memory consumption (see our [benchmarks](https://github.com/yobix-ai/extractous-benchmarks) for more details).
+- Inefficient in utilizing multiple CPU cores for data processing tasks, which are predominantly CPU-bound. This inefficiency is due to limitations in its dependencies and constraints like the Global Interpreter Lock (GIL), which prevents multiple threads from executing Python bytecode simultaneously.
+- As unstructured-io evolves, it is becoming increasingly complicated, transitioning into more of a complex framework and focusing more offering an external API service for text and metadata extraction.
+
+
+In contrast, **Extractous** maintains a dedicated focus on text and metadata extraction. It achieves significantly faster processing speeds and lower memory utilization through native code execution.
+
+* **Built with Rust:** The core is developed in Rust, leveraging its high performance, memory safety, multi-threading capabilities, and zero-cost abstractions.
+* **Extended format support with Apache Tika:** For file formats not natively supported by the Rust core, we compile the well-known [Apache Tika](https://tika.apache.org/) into native shared libraries using [GraalVM](https://www.graalvm.org/) ahead-of-time compilation. These shared libraries are then linked to our Rust core. No local servers, virtual machines, or garbage collection, just pure native execution.
+* **Bindings for many languages:**  we plan to introduce bindings for many languages. At the moment we offer only Python binding, which is essentially is a wrapper around the Rust core with the potential to circumventing the Python GIL limitation and make efficient use of multi-cores.
+
 
 ## 🌳 Key Features
-* Fast and efficient unstructured data extraction.
+* High-performance unstructured data extraction optimized for speed and low memory usage.
 * Clear and simple API for extracting text and metadata content.
-* Autodetect document type and extracts content accordingly.
-* Supports [many file formats](#supported-file-formats).
+* Automatically identifies document types and extracts content accordingly
+* Supports [many file formats](#supported-file-formats) (most formats supported by Apache Tika). 
 * Extracts text from images and scanned documents with OCR through [tesseract-ocr](https://github.com/tesseract-ocr/tesseract).
-* Leverages Rust performance and memory safety and provides bindings for [Python](https://pypi.org/project/extractous/) 
-  and Javascript/Typescript(coming soon)
-* Comprehensive documentation and examples to help you get started quickly.
+* Core engine written in Rust with bindings for [Python](https://pypi.org/project/extractous/) and upcoming support for JavaScript/TypeScript.
+* Detailed documentation and examples to help you get started quickly and efficiently.
 * Free for Commercial Use: Apache 2.0 License.
 
 ## 🚀 Quickstart
@@ -100,7 +101,9 @@ println!("{}", text);
 
 ![extractous_memory_efficiency_relative_to_unstructured](https://github.com/yobix-ai/extractous-benchmarks/raw/main/docs/extractous_memory_efficiency_relative_to_unstructured.png)
 
+* You might be questioning the quality of the extracted content, gues what we even do better in that regard:
 
+![extractous_memory_efficiency_relative_to_unstructured](https://github.com/yobix-ai/extractous-benchmarks/raw/main/docs/extractous_unstructured_quality_scores.png)
 
 ## 📄 Supported file formats
 
