@@ -1,0 +1,1152 @@
+UNITED STATES
+SECURITIES AND EXCHANGE COMMISSION
+Washington, D.C. 20549
+FORM 10-Q
+(Mark One)
+☒ QUARTERLY REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934
+For the quarterly period ended June 25, 2022
+or
+☐ TRANSITION REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934
+For the transition period from to .
+Commission File Number: 001-36743
+Apple Inc.
+(Exact name of Registrant as specified in its charter)
+California 94-2404110
+(State or other jurisdiction
+of incorporation or organization)
+(I.R.S. Employer Identification No.)
+One Apple Park Way
+Cupertino, California 95014
+(Address of principal executive offices) (Zip Code)
+(408) 996-1010
+(Registrant’s telephone number, including area code)
+Securities registered pursuant to Section 12(b) of the Act:
+Title of each class Trading symbol(s) Name of each exchange on which registered
+Common Stock, $0.00001 par value per share AAPL The Nasdaq Stock Market LLC
+1.000% Notes due 2022 — The Nasdaq Stock Market LLC
+1.375% Notes due 2024 — The Nasdaq Stock Market LLC
+0.000% Notes due 2025 — The Nasdaq Stock Market LLC
+0.875% Notes due 2025 — The Nasdaq Stock Market LLC
+1.625% Notes due 2026 — The Nasdaq Stock Market LLC
+2.000% Notes due 2027 — The Nasdaq Stock Market LLC
+1.375% Notes due 2029 — The Nasdaq Stock Market LLC
+3.050% Notes due 2029 — The Nasdaq Stock Market LLC
+0.500% Notes due 2031 — The Nasdaq Stock Market LLC
+3.600% Notes due 2042 — The Nasdaq Stock Market LLC
+Indicate by check mark whether the Registrant (1) has filed all reports required to be filed by Section 13 or 15(d) of the Securities Exchange Act of 1934 during the preceding 12
+months (or for such shorter period that the Registrant was required to file such reports), and (2) has been subject to such filing requirements for the past 90 days.
+Yes ☒ No ☐
+Indicate by check mark whether the Registrant has submitted electronically every Interactive Data File required to be submitted pursuant to Rule 405 of Regulation S-T (§232.405 of
+this chapter) during the preceding 12 months (or for such shorter period that the Registrant was required to submit such files).
+Yes ☒ No ☐
+Indicate by check mark whether the Registrant is a large accelerated filer, an accelerated filer, a non-accelerated filer, a smaller reporting company, or an emerging growth company.
+See the definitions of “large accelerated filer,” “accelerated filer,” “smaller reporting company,” and “emerging growth company” in Rule 12b-2 of the Exchange Act.
+Large accelerated filer ☒ Accelerated filer ☐
+Non-accelerated filer ☐ Smaller reporting company ☐
+Emerging growth company ☐
+
+If an emerging growth company, indicate by check mark if the Registrant has elected not to use the extended transition period for complying with any new or revised financial
+accounting standards provided pursuant to Section 13(a) of the Exchange Act. ☐
+Indicate by check mark whether the Registrant is a shell company (as defined in Rule 12b-2 of the Exchange Act).
+Yes ☐ No ☒
+16,070,752,000 shares of common stock were issued and outstanding as of July 15, 2022.
+
+Apple Inc.
+Form 10-Q
+For the Fiscal Quarter Ended June 25, 2022
+TABLE OF CONTENTS
+Page
+Part I
+Item 1. Financial Statements 1
+Item 2. Management’s Discussion and Analysis of Financial Condition and Results of Operations 14
+Item 3. Quantitative and Qualitative Disclosures About Market Risk 19
+Item 4. Controls and Procedures 19
+Part II
+Item 1. Legal Proceedings 20
+Item 1A. Risk Factors 20
+Item 2. Unregistered Sales of Equity Securities and Use of Proceeds 20
+Item 3. Defaults Upon Senior Securities 21
+Item 4. Mine Safety Disclosures 21
+Item 5. Other Information 21
+Item 6. Exhibits 21
+
+PART I — FINANCIAL INFORMATION
+Item 1. Financial Statements
+Apple Inc.
+CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited)
+(In millions, except number of shares which are reflected in thousands and per share amounts)
+Three Months Ended Nine Months Ended
+June 25,
+2022
+June 26,
+2021
+June 25,
+2022
+June 26,
+2021
+Net sales:
+Products $ 63,355 $ 63,948 $ 245,241 $ 232,309
+Services 19,604 17,486 58,941 50,148
+Total net sales 82,959 81,434 304,182 282,457
+Cost of sales:
+Products 41,485 40,899 155,084 149,476
+Services 5,589 5,280 16,411 15,319
+Total cost of sales 47,074 46,179 171,495 164,795
+Gross margin 35,885 35,255 132,687 117,662
+Operating expenses:
+Research and development 6,797 5,717 19,490 16,142
+Selling, general and administrative 6,012 5,412 18,654 16,357
+Total operating expenses 12,809 11,129 38,144 32,499
+Operating income 23,076 24,126 94,543 85,163
+Other income/(expense), net (10) 243 (97) 796
+Income before provision for income taxes 23,066 24,369 94,446 85,959
+Provision for income taxes 3,624 2,625 15,364 11,830
+Net income $ 19,442 $ 21,744 $ 79,082 $ 74,129
+Earnings per share:
+Basic $ 1.20 $ 1.31 $ 4.86 $ 4.42
+Diluted $ 1.20 $ 1.30 $ 4.82 $ 4.38
+Shares used in computing earnings per share:
+Basic 16,162,945 16,629,371 16,277,824 16,772,656
+Diluted 16,262,203 16,781,735 16,394,937 16,941,527
+See accompanying Notes to Condensed Consolidated Financial Statements.
+Apple Inc. | Q3 2022 Form 10-Q | 1
+
+Apple Inc.
+CONDENSED CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME (Unaudited)
+(In millions)
+Three Months Ended Nine Months Ended
+June 25,
+2022
+June 26,
+2021
+June 25,
+2022
+June 26,
+2021
+Net income $ 19,442 $ 21,744 $ 79,082 $ 74,129
+Other comprehensive income/(loss):
+Change in foreign currency translation, net of tax (721) 188 (1,102) 659
+Change in unrealized gains/losses on derivative instruments, net of tax:
+Change in fair value of derivative instruments 852 (24) 1,548 4
+Adjustment for net (gains)/losses realized and included in net income 121 17 (87) 593
+Total change in unrealized gains/losses on derivative instruments 973 (7) 1,461 597
+Change in unrealized gains/losses on marketable debt securities, net of tax:
+Change in fair value of marketable debt securities (3,150) 217 (9,959) (558)
+Adjustment for net (gains)/losses realized and included in net income 95 (54) 140 (234)
+Total change in unrealized gains/losses on marketable debt
+securities (3,055) 163 (9,819) (792)
+Total other comprehensive income/(loss) (2,803) 344 (9,460) 464
+Total comprehensive income $ 16,639 $ 22,088 $ 69,622 $ 74,593
+See accompanying Notes to Condensed Consolidated Financial Statements.
+Apple Inc. | Q3 2022 Form 10-Q | 2
+
+Apple Inc.
+CONDENSED CONSOLIDATED BALANCE SHEETS (Unaudited)
+(In millions, except number of shares which are reflected in thousands and par value)
+June 25,
+2022
+September 25,
+2021
+ASSETS:
+Current assets:
+Cash and cash equivalents $ 27,502 $ 34,940
+Marketable securities 20,729 27,699
+Accounts receivable, net 21,803 26,278
+Inventories 5,433 6,580
+Vendor non-trade receivables 20,439 25,228
+Other current assets 16,386 14,111
+Total current assets 112,292 134,836
+Non-current assets:
+Marketable securities 131,077 127,877
+Property, plant and equipment, net 40,335 39,440
+Other non-current assets 52,605 48,849
+Total non-current assets 224,017 216,166
+Total assets $ 336,309 $ 351,002
+LIABILITIES AND SHAREHOLDERS’ EQUITY:
+Current liabilities:
+Accounts payable $ 48,343 $ 54,763
+Other current liabilities 48,811 47,493
+Deferred revenue 7,728 7,612
+Commercial paper 10,982 6,000
+Term debt 14,009 9,613
+Total current liabilities 129,873 125,481
+Non-current liabilities:
+Term debt 94,700 109,106
+Other non-current liabilities 53,629 53,325
+Total non-current liabilities 148,329 162,431
+Total liabilities 278,202 287,912
+Commitments and contingencies
+Shareholders’ equity:
+Common stock and additional paid-in capital, $0.00001 par value: 50,400,000 shares authorized; 16,095,378
+and 16,426,786 shares issued and outstanding, respectively 62,115 57,365
+Retained earnings 5,289 5,562
+Accumulated other comprehensive income/(loss) (9,297) 163
+Total shareholders’ equity 58,107 63,090
+Total liabilities and shareholders’ equity $ 336,309 $ 351,002
+See accompanying Notes to Condensed Consolidated Financial Statements.
+Apple Inc. | Q3 2022 Form 10-Q | 3
+
+Apple Inc.
+CONDENSED CONSOLIDATED STATEMENTS OF SHAREHOLDERS’ EQUITY (Unaudited)
+(In millions, except per share amounts)
+Three Months Ended Nine Months Ended
+June 25,
+2022
+June 26,
+2021
+June 25,
+2022
+June 26,
+2021
+Total shareholders’ equity, beginning balances $ 67,399 $ 69,178 $ 63,090 $ 65,339
+Common stock and additional paid-in capital:
+Beginning balances 61,181 54,203 57,365 50,779
+Common stock issued — — 593 561
+Common stock withheld related to net share settlement of equity
+awards (1,371) (1,224) (2,783) (2,460)
+Share-based compensation 2,305 2,010 6,940 6,109
+Ending balances 62,115 54,989 62,115 54,989
+Retained earnings:
+Beginning balances 12,712 15,261 5,562 14,966
+Net income 19,442 21,744 79,082 74,129
+Dividends and dividend equivalents declared (3,760) (3,713) (11,058) (10,755)
+Common stock withheld related to net share settlement of equity
+awards (1,403) (1,559) (3,323) (3,606)
+Common stock repurchased (21,702) (22,500) (64,974) (65,501)
+Ending balances 5,289 9,233 5,289 9,233
+Accumulated other comprehensive income/(loss):
+Beginning balances (6,494) (286) 163 (406)
+Other comprehensive income/(loss) (2,803) 344 (9,460) 464
+Ending balances (9,297) 58 (9,297) 58
+Total shareholders’ equity, ending balances $ 58,107 $ 64,280 $ 58,107 $ 64,280
+Dividends and dividend equivalents declared per share or RSU $ 0.23 $ 0.22 $ 0.67 $ 0.63
+See accompanying Notes to Condensed Consolidated Financial Statements.
+Apple Inc. | Q3 2022 Form 10-Q | 4
+
+Apple Inc.
+CONDENSED CONSOLIDATED STATEMENTS OF CASH FLOWS (Unaudited)
+(In millions)
+Nine Months Ended
+June 25,
+2022
+June 26,
+2021
+Cash, cash equivalents and restricted cash, beginning balances $ 35,929 $ 39,789
+Operating activities:
+Net income 79,082 74,129
+Adjustments to reconcile net income to cash generated by operating activities:
+Depreciation and amortization 8,239 8,295
+Share-based compensation expense 6,760 5,961
+Deferred income tax expense/(benefit) 2,756 (737)
+Other (61) (689)
+Changes in operating assets and liabilities:
+Accounts receivable, net 4,561 (1,316)
+Inventories 1,049 (1,213)
+Vendor non-trade receivables 4,789 4,892
+Other current and non-current assets (3,289) (5,899)
+Accounts payable (6,108) (1,786)
+Deferred revenue 260 1,738
+Other current and non-current liabilities (14) 463
+Cash generated by operating activities 98,024 83,838
+Investing activities:
+Purchases of marketable securities (70,178) (94,052)
+Proceeds from maturities of marketable securities 24,203 49,880
+Proceeds from sales of marketable securities 33,609 36,745
+Payments for acquisition of property, plant and equipment (7,419) (7,862)
+Payments made in connection with business acquisitions, net (169) (13)
+Other (1,183) (78)
+Cash used in investing activities (21,137) (15,380)
+Financing activities:
+Payments for taxes related to net share settlement of equity awards (5,915) (5,855)
+Payments for dividends and dividend equivalents (11,138) (10,827)
+Repurchases of common stock (64,974) (66,223)
+Proceeds from issuance of term debt, net — 13,923
+Repayments of term debt (6,750) (7,500)
+Proceeds from commercial paper, net 4,970 3,022
+Other (148) 489
+Cash used in financing activities (83,955) (72,971)
+Decrease in cash, cash equivalents and restricted cash (7,068) (4,513)
+Cash, cash equivalents and restricted cash, ending balances $ 28,861 $ 35,276
+Supplemental cash flow disclosure:
+Cash paid for income taxes, net $ 12,251 $ 18,536
+Cash paid for interest $ 1,910 $ 1,870
+See accompanying Notes to Condensed Consolidated Financial Statements.
+Apple Inc. | Q3 2022 Form 10-Q | 5
+
+Apple Inc.
+Notes to Condensed Consolidated Financial Statements (Unaudited)
+Note 1 – Summary of Significant Accounting Policies
+Basis of Presentation and Preparation
+The condensed consolidated financial statements include the accounts of Apple Inc. and its wholly owned subsidiaries (collectively “Apple” or the “Company”).
+Intercompany accounts and transactions have been eliminated. In the opinion of the Company’s management, the condensed consolidated financial statements
+reflect all adjustments, which are normal and recurring in nature, necessary for fair financial statement presentation. The preparation of these condensed
+consolidated financial statements and accompanying notes in conformity with U.S. generally accepted accounting principles requires management to make
+estimates and assumptions that affect the amounts reported. Actual results could differ materially from those estimates. Certain prior period amounts in the
+condensed consolidated financial statements and accompanying notes have been reclassified to conform to the current period’s presentation. These condensed
+consolidated financial statements and accompanying notes should be read in conjunction with the Company’s annual consolidated financial statements and
+accompanying notes included in its Annual Report on Form 10-K for the fiscal year ended September 25, 2021.
+The Company’s fiscal year is the 52- or 53-week period that ends on the last Saturday of September. An additional week is included in the first fiscal quarter
+every five or six years to realign the Company’s fiscal quarters with calendar quarters. The Company’s fiscal years 2022 and 2021 span 52 weeks each. Unless
+otherwise stated, references to particular years, quarters, months and periods refer to the Company’s fiscal years ended in September and the associated
+quarters, months and periods of those fiscal years.
+Earnings Per Share
+The following table shows the computation of basic and diluted earnings per share for the three- and nine-month periods ended June 25, 2022 and June 26,
+2021 (net income in millions and shares in thousands):
+Three Months Ended Nine Months Ended
+June 25,
+2022
+June 26,
+2021
+June 25,
+2022
+June 26,
+2021
+Numerator:
+Net income $ 19,442 $ 21,744 $ 79,082 $ 74,129
+Denominator:
+Weighted-average basic shares outstanding 16,162,945 16,629,371 16,277,824 16,772,656
+Effect of dilutive securities 99,258 152,364 117,113 168,871
+Weighted-average diluted shares 16,262,203 16,781,735 16,394,937 16,941,527
+Basic earnings per share $ 1.20 $ 1.31 $ 4.86 $ 4.42
+Diluted earnings per share $ 1.20 $ 1.30 $ 4.82 $ 4.38
+Apple Inc. | Q3 2022 Form 10-Q | 6
+
+Note 2 – Revenue
+Net sales disaggregated by significant products and services for the three- and nine-month periods ended June 25, 2022 and June 26, 2021 were as follows (in
+millions):
+Three Months Ended Nine Months Ended
+June 25,
+2022
+June 26,
+2021
+June 25,
+2022
+June 26,
+2021
+iPhone $ 40,665 $ 39,570 $ 162,863 $ 153,105
+Mac 7,382 8,235 28,669 26,012
+iPad 7,224 7,368 22,118 23,610
+Wearables, Home and Accessories 8,084 8,775 31,591 29,582
+Services 19,604 17,486 58,941 50,148
+Total net sales $ 82,959 $ 81,434 $ 304,182 $ 282,457
+(1) Products net sales include amortization of the deferred value of unspecified software upgrade rights, which are bundled in the sales price of the respective
+product.
+(2) Wearables, Home and Accessories net sales include sales of AirPods , Apple TV , Apple Watch , Beats products, HomePod mini and accessories.
+(3) Services net sales include sales from the Company’s advertising, AppleCare , cloud, digital content, payment and other services. Services net sales also include
+amortization of the deferred value of services bundled in the sales price of certain products.
+(4) Includes $3.1 billion of revenue recognized in the three months ended June 25, 2022 that was included in deferred revenue as of March 26, 2022, $3.0 billion of
+revenue recognized in the three months ended June 26, 2021 that was included in deferred revenue as of March 27, 2021, $6.3 billion of revenue recognized in
+the nine months ended June 25, 2022 that was included in deferred revenue as of September 25, 2021, and $5.5 billion of revenue recognized in the nine
+months ended June 26, 2021 that was included in deferred revenue as of September 26, 2020.
+The Company’s proportion of net sales by disaggregated revenue source was generally consistent for each reportable segment in Note 9, “Segment Information
+and Geographic Data” for the three- and nine-month periods ended June 25, 2022 and June 26, 2021, except in Greater China, where iPhone revenue
+represented a moderately higher proportion of net sales.
+As of June 25, 2022 and September 25, 2021, the Company had total deferred revenue of $12.2 billion and $11.9 billion, respectively. As of June 25, 2022, the
+Company expects 63% of total deferred revenue to be realized in less than a year, 27% within one-to-two years, 8% within two-to-three years and 2% in greater
+than three years.
+® (1)
+® (1)
+® (1)
+(1)(2)
+(3)
+(4)
+® ® ® ® ®
+®
+Apple Inc. | Q3 2022 Form 10-Q | 7
+
+Note 3 – Financial Instruments
+Cash, Cash Equivalents and Marketable Securities
+The following tables show the Company’s cash, cash equivalents and marketable securities by significant investment category as of June 25, 2022 and
+September 25, 2021 (in millions):
+June 25, 2022
+Adjusted
+Cost
+Unrealized
+Gains
+Unrealized
+Losses
+Fair
+Value
+Cash and
+Cash
+Equivalents
+Current
+Marketable
+Securities
+Non-Current
+Marketable
+Securities
+Cash $ 12,852 $ — $ — $ 12,852 $ 12,852 $ — $ —
+Level 1 :
+Money market funds 10,970 — — 10,970 10,970 — —
+Mutual funds 252 — (32) 220 — 220 —
+Subtotal 11,222 — (32) 11,190 10,970 220 —
+Level 2 :
+U.S. Treasury securities 25,296 — (1,328) 23,968 91 3,511 20,366
+U.S. agency securities 5,805 — (511) 5,294 4 240 5,050
+Non-U.S. government securities 17,597 6 (1,023) 16,580 — 6,336 10,244
+Certificates of deposit and time deposits 3,928 — — 3,928 3,374 504 50
+Commercial paper 966 — — 966 209 757 —
+Corporate debt securities 88,912 15 (6,455) 82,472 2 8,738 73,732
+Municipal securities 978 — (26) 952 — 203 749
+Mortgage- and asset-backed securities 23,058 — (1,952) 21,106 — 220 20,886
+Subtotal 166,540 21 (11,295) 155,266 3,680 20,509 131,077
+Total $ 190,614 $ 21 $ (11,327) $ 179,308 $ 27,502 $ 20,729 $ 131,077
+September 25, 2021
+Adjusted
+Cost
+Unrealized
+Gains
+Unrealized
+Losses
+Fair
+Value
+Cash and
+Cash
+Equivalents
+Current
+Marketable
+Securities
+Non-Current
+Marketable
+Securities
+Cash $ 17,305 $ — $ — $ 17,305 $ 17,305 $ — $ —
+Level 1 :
+Money market funds 9,608 — — 9,608 9,608 — —
+Mutual funds 175 11 (1) 185 — 185 —
+Subtotal 9,783 11 (1) 9,793 9,608 185 —
+Level 2 :
+Equity securities 1,527 — (564) 963 — 963 —
+U.S. Treasury securities 22,878 102 (77) 22,903 3,596 6,625 12,682
+U.S. agency securities 8,949 2 (64) 8,887 1,775 1,930 5,182
+Non-U.S. government securities 20,201 211 (101) 20,311 390 3,091 16,830
+Certificates of deposit and time deposits 1,300 — — 1,300 490 810 —
+Commercial paper 2,639 — — 2,639 1,776 863 —
+Corporate debt securities 83,883 1,242 (267) 84,858 — 12,327 72,531
+Municipal securities 967 14 — 981 — 130 851
+Mortgage- and asset-backed securities 20,529 171 (124) 20,576 — 775 19,801
+Subtotal 162,873 1,742 (1,197) 163,418 8,027 27,514 127,877
+Total $ 189,961 $ 1,753 $ (1,198) $ 190,516 $ 34,940 $ 27,699 $ 127,877
+(1) Level 1 fair value estimates are based on quoted prices in active markets for identical assets or liabilities.
+(2) Level 2 fair value estimates are based on observable inputs other than quoted prices in active markets for identical assets and liabilities, quoted prices for
+identical or similar assets or liabilities in inactive markets, or other inputs that are observable or can be corroborated by observable market data for substantially
+the full term of the assets or liabilities.
+(3) As of June 25, 2022 and September 25, 2021, total marketable securities included $14.1 billion and $17.9 billion, respectively, that were restricted from general
+use, related to the European Commission decision finding that Ireland granted state aid to the Company, and other agreements.
+(1)
+(2)
+(3)
+(1)
+(2)
+(3)
+Apple Inc. | Q3 2022 Form 10-Q | 8
+
+The following table shows the fair value of the Company’s non-current marketable debt securities, by contractual maturity, as of June 25, 2022 (in millions):
+Due after 1 year through 5 years $ 92,970
+Due after 5 years through 10 years 19,317
+Due after 10 years 18,790
+Total fair value $ 131,077
+Derivative Instruments and Hedging
+The Company may use derivative instruments to partially offset its business exposure to foreign exchange and interest rate risk. However, the Company may
+choose not to hedge certain exposures for a variety of reasons, including accounting considerations or the prohibitive economic cost of hedging particular
+exposures. There can be no assurance the hedges will offset more than a portion of the financial impact resulting from movements in foreign exchange or
+interest rates.
+Foreign Exchange Risk
+To protect gross margins from fluctuations in foreign currency exchange rates, the Company may enter into forward contracts, option contracts or other
+instruments, and may designate these instruments as cash flow hedges. The Company generally hedges portions of its forecasted foreign currency exposure
+associated with revenue and inventory purchases, typically for up to 12 months.
+To protect the Company’s foreign currency–denominated term debt or marketable securities from fluctuations in foreign currency exchange rates, the Company
+may enter into forward contracts, cross-currency swaps or other instruments. The Company designates these instruments as either cash flow or fair value
+hedges. As of June 25, 2022, the Company’s hedged term debt– and marketable securities–related foreign currency transactions are expected to be recognized
+within 20 years.
+The Company may also enter into derivative instruments that are not designated as accounting hedges to protect gross margins from certain fluctuations in
+foreign currency exchange rates, as well as to offset a portion of the foreign currency exchange gains and losses generated by the remeasurement of certain
+assets and liabilities denominated in non-functional currencies.
+Interest Rate Risk
+To protect the Company’s term debt or marketable securities from fluctuations in interest rates, the Company may enter into interest rate swaps, options or other
+instruments. The Company designates these instruments as either cash flow or fair value hedges.
+The notional amounts of the Company’s outstanding derivative instruments as of June 25, 2022 and September 25, 2021 were as follows (in millions):
+June 25,
+2022
+September 25,
+2021
+Derivative instruments designated as accounting hedges:
+Foreign exchange contracts $ 76,234 $ 76,475
+Interest rate contracts $ 20,775 $ 16,875
+Derivative instruments not designated as accounting hedges:
+Foreign exchange contracts $ 84,506 $ 126,918
+The gross fair values of the Company’s derivative assets and liabilities were not material as of June 25, 2022 and September 25, 2021.
+The gains and losses recognized in other comprehensive income/(loss) and amounts reclassified from accumulated other comprehensive income/(loss) to net
+income for the Company’s derivative instruments designated as cash flow hedges were not material in the three- and nine-month periods ended June 25, 2022
+and June 26, 2021.
+Apple Inc. | Q3 2022 Form 10-Q | 9
+
+The carrying amounts of the Company’s hedged items in fair value hedges as of June 25, 2022 and September 25, 2021 were as follows (in millions):
+June 25,
+2022
+September 25,
+2021
+Hedged assets/(liabilities):
+Current and non-current marketable securities $ 14,250 $ 15,954
+Current and non-current term debt $ (19,281) $ (17,857)
+The gains and losses on the Company’s derivative instruments designated as fair value hedges and the related hedged item adjustments were not material in
+the three- and nine-month periods ended June 25, 2022 and June 26, 2021.
+Accounts Receivable
+Trade Receivables
+The Company has considerable trade receivables outstanding with its third-party cellular network carriers, wholesalers, retailers, resellers, small and mid-sized
+businesses and education, enterprise and government customers. The Company generally does not require collateral from its customers; however, the
+Company will require collateral or third-party credit support in certain instances to limit credit risk. In addition, when possible, the Company attempts to limit credit
+risk on trade receivables with credit insurance for certain customers or by requiring third-party financing, loans or leases to support credit exposure. These creditfinancing arrangements are directly between the third-party financing company and the end customer. As such, the Company generally does not assume any
+recourse or credit risk sharing related to any of these arrangements.
+The Company’s cellular network carriers accounted for 36% and 42% of total trade receivables as of June 25, 2022 and September 25, 2021, respectively.
+Vendor Non-Trade Receivables
+The Company has non-trade receivables from certain of its manufacturing vendors resulting from the sale of components to these vendors who manufacture
+subassemblies or assemble final products for the Company. The Company purchases these components directly from suppliers. As of June 25, 2022, the
+Company had two vendors that individually represented 10% or more of total vendor non-trade receivables, which accounted for 54% and 12%. As of
+September 25, 2021, the Company had three vendors that individually represented 10% or more of total vendor non-trade receivables, which accounted for
+52%, 11% and 11%.
+Note 4 – Condensed Consolidated Financial Statement Details
+The following tables show the Company’s condensed consolidated financial statement details as of June 25, 2022 and September 25, 2021 (in millions):
+Property, Plant and Equipment, Net
+June 25,
+2022
+September 25,
+2021
+Gross property, plant and equipment $ 111,851 $ 109,723
+Accumulated depreciation and amortization (71,516) (70,283)
+Total property, plant and equipment, net $ 40,335 $ 39,440
+Other Non-Current Liabilities
+June 25,
+2022
+September 25,
+2021
+Long-term taxes payable $ 20,699 $ 24,689
+Other non-current liabilities 32,930 28,636
+Total other non-current liabilities $ 53,629 $ 53,325
+Apple Inc. | Q3 2022 Form 10-Q | 10
+
+Other Income/(Expense), Net
+The following table shows the detail of other income/(expense), net for the three- and nine-month periods ended June 25, 2022 and June 26, 2021 (in millions):
+Three Months Ended Nine Months Ended
+June 25,
+2022
+June 26,
+2021
+June 25,
+2022
+June 26,
+2021
+Interest and dividend income $ 722 $ 719 $ 2,072 $ 2,184
+Interest expense (719) (665) (2,104) (1,973)
+Other income/(expense), net (13) 189 (65) 585
+Total other income/(expense), net $ (10) $ 243 $ (97) $ 796
+Note 5 – Debt
+Commercial Paper
+The Company issues unsecured short-term promissory notes (“Commercial Paper”) pursuant to a commercial paper program. The Company uses net proceeds
+from the commercial paper program for general corporate purposes, including dividends and share repurchases. As of June 25, 2022 and September 25, 2021,
+the Company had $11.0 billion and $6.0 billion of Commercial Paper outstanding, respectively. The following table provides a summary of cash flows associated
+with the issuance and maturities of Commercial Paper for the nine months ended June 25, 2022 and June 26, 2021 (in millions):
+Nine Months Ended
+June 25,
+2022
+June 26,
+2021
+Maturities 90 days or less:
+Proceeds from commercial paper, net $ 4,383 $ 2,745
+Maturities greater than 90 days:
+Proceeds from commercial paper 5,731 3,993
+Repayments of commercial paper (5,144) (3,716)
+Proceeds from commercial paper, net 587 277
+Total proceeds from commercial paper, net $ 4,970 $ 3,022
+Term Debt
+As of June 25, 2022 and September 25, 2021, the Company had outstanding floating- and fixed-rate notes with varying maturities for an aggregate carrying
+amount of $108.7 billion and $118.7 billion, respectively (collectively the “Notes”). As of June 25, 2022 and September 25, 2021, the fair value of the Company’s
+Notes, based on Level 2 inputs, was $101.0 billion and $125.3 billion, respectively.
+Note 6 – Shareholders’ Equity
+Share Repurchase Program
+During the nine months ended June 25, 2022, the Company repurchased 408 million shares of its common stock for $65.0 billion under a share repurchase
+program authorized by the Board of Directors (the “Program”), including 35 million shares delivered under accelerated share repurchase agreements totaling
+$6.0 billion that were entered into in November 2021. The Program does not obligate the Company to acquire a minimum amount of shares. Under the Program,
+shares may be repurchased in privately negotiated and/or open market transactions, including under plans complying with Rule 10b5-1 under the Securities
+Exchange Act of 1934, as amended.
+Apple Inc. | Q3 2022 Form 10-Q | 11
+
+Note 7 – Benefit Plans
+Restricted Stock Units
+A summary of the Company’s restricted stock unit (“RSU”) activity and related information for the nine months ended June 25, 2022 is as follows:
+Number of
+RSUs
+(in thousands)
+Weighted-Average
+Grant Date Fair
+Value Per RSU
+Aggregate
+Fair Value
+(in millions)
+Balance as of September 25, 2021 240,427 $ 75.16
+RSUs granted 84,927 $ 150.02
+RSUs vested (109,846) $ 70.96
+RSUs canceled (12,986) $ 98.26
+Balance as of June 25, 2022 202,522 $ 107.35 $ 28,689
+The fair value as of the respective vesting dates of RSUs was $7.8 billion and $17.3 billion for the three- and nine-month periods ended June 25, 2022,
+respectively, and was $7.9 billion and $17.3 billion for the three- and nine-month periods ended June 26, 2021, respectively.
+Share-Based Compensation
+The following table shows share-based compensation expense and the related income tax benefit included in the Condensed Consolidated Statements of
+Operations for the three- and nine-month periods ended June 25, 2022 and June 26, 2021 (in millions):
+Three Months Ended Nine Months Ended
+June 25,
+2022
+June 26,
+2021
+June 25,
+2022
+June 26,
+2021
+Share-based compensation expense $ 2,243 $ 1,960 $ 6,760 $ 5,961
+Income tax benefit related to share-based compensation expense $ (1,231) $ (1,319) $ (3,416) $ (3,518)
+As of June 25, 2022, the total unrecognized compensation cost related to outstanding RSUs and stock options was $18.1 billion, which the Company expects to
+recognize over a weighted-average period of 2.7 years.
+Note 8 – Commitments and Contingencies
+Accrued Warranty
+The following table shows changes in the Company’s accrued warranties and related costs for the three- and nine-month periods ended June 25, 2022 and June
+26, 2021 (in millions):
+Three Months Ended Nine Months Ended
+June 25,
+2022
+June 26,
+2021
+June 25,
+2022
+June 26,
+2021
+Beginning accrued warranty and related costs $ 3,206 $ 3,784 $ 3,364 $ 3,354
+Cost of warranty claims (534) (636) (1,787) (2,008)
+Accruals for product warranty 177 384 1,272 2,186
+Ending accrued warranty and related costs $ 2,849 $ 3,532 $ 2,849 $ 3,532
+Contingencies
+The Company is subject to various legal proceedings and claims that have arisen in the ordinary course of business and that have not been fully resolved. The
+outcome of litigation is inherently uncertain. In the opinion of management, there was not at least a reasonable possibility the Company may have incurred a
+material loss, or a material loss greater than a recorded accrual, concerning loss contingencies for asserted legal and other claims.
+Apple Inc. | Q3 2022 Form 10-Q | 12
+
+Note 9 – Segment Information and Geographic Data
+The following table shows information by reportable segment for the three- and nine-month periods ended June 25, 2022 and June 26, 2021 (in millions):
+Three Months Ended Nine Months Ended
+June 25,
+2022
+June 26,
+2021
+June 25,
+2022
+June 26,
+2021
+Americas:
+Net sales $ 37,472 $ 35,870 $ 129,850 $ 116,486
+Operating income $ 13,914 $ 12,916 $ 48,778 $ 40,751
+Europe:
+Net sales $ 19,287 $ 18,943 $ 72,323 $ 68,513
+Operating income $ 7,124 $ 7,085 $ 27,174 $ 24,939
+Greater China:
+Net sales $ 14,604 $ 14,762 $ 58,730 $ 53,803
+Operating income $ 5,760 $ 6,303 $ 25,055 $ 22,591
+Japan:
+Net sales $ 5,446 $ 6,464 $ 20,277 $ 22,491
+Operating income $ 2,418 $ 3,031 $ 9,263 $ 9,962
+Rest of Asia Pacific:
+Net sales $ 6,150 $ 5,395 $ 23,002 $ 21,164
+Operating income $ 2,367 $ 2,116 $ 9,185 $ 7,805
+A reconciliation of the Company’s segment operating income to the Condensed Consolidated Statements of Operations for the three- and nine-month periods
+ended June 25, 2022 and June 26, 2021 is as follows (in millions):
+Three Months Ended Nine Months Ended
+June 25,
+2022
+June 26,
+2021
+June 25,
+2022
+June 26,
+2021
+Segment operating income $ 31,583 $ 31,451 $ 119,455 $ 106,048
+Research and development expense (6,797) (5,717) (19,490) (16,142)
+Other corporate expenses, net (1,710) (1,608) (5,422) (4,743)
+Total operating income $ 23,076 $ 24,126 $ 94,543 $ 85,163
+Apple Inc. | Q3 2022 Form 10-Q | 13
+
+Item 2. Management’s Discussion and Analysis of Financial Condition and Results of Operations
+This section and other parts of this Quarterly Report on Form 10-Q (“Form 10-Q”) contain forward-looking statements, within the meaning of the Private
+Securities Litigation Reform Act of 1995, that involve risks and uncertainties. Forward-looking statements provide current expectations of future events based on
+certain assumptions and include any statement that does not directly relate to any historical or current fact. For example, statements in this Form 10-Q regarding
+the potential future impact of the COVID-19 pandemic on the Company’s business and results of operations are forward-looking statements. Forward-looking
+statements can also be identified by words such as “future,” “anticipates,” “believes,” “estimates,” “expects,” “intends,” “plans,” “predicts,” “will,” “would,” “could,”
+“can,” “may,” and similar terms. Forward-looking statements are not guarantees of future performance and the Company’s actual results may differ significantly
+from the results discussed in the forward-looking statements. Factors that might cause such differences include, but are not limited to, those discussed in Part I,
+Item 1A of the Company’s Annual Report on Form 10-K for the fiscal year ended September 25, 2021 (the “2021 Form 10-K”) under the heading “Risk Factors.”
+The Company assumes no obligation to revise or update any forward-looking statements for any reason, except as required by law.
+Unless otherwise stated, all information presented herein is based on the Company’s fiscal calendar, and references to particular years, quarters, months or
+periods refer to the Company’s fiscal years ended in September and the associated quarters, months and periods of those fiscal years. Each of the terms the
+“Company” and “Apple” as used herein refers collectively to Apple Inc. and its wholly owned subsidiaries, unless otherwise stated.
+The following discussion should be read in conjunction with the 2021 Form 10-K filed with the U.S. Securities and Exchange Commission (the “SEC”) and the
+condensed consolidated financial statements and accompanying notes included in Part I, Item 1 of this Form 10-Q.
+Available Information
+The Company periodically provides certain information for investors on its corporate website, www.apple.com, and its investor relations website,
+investor.apple.com. This includes press releases and other information about financial performance, information on environmental, social and corporate
+governance matters, and details related to the Company’s annual meeting of shareholders. The information contained on the websites referenced in this Form
+10-Q is not incorporated by reference into this filing. Further, the Company’s references to website URLs are intended to be inactive textual references only.
+Business Seasonality and Product Introductions
+The Company has historically experienced higher net sales in its first quarter compared to other quarters in its fiscal year due in part to seasonal holiday
+demand. Additionally, new product and service introductions can significantly impact net sales, cost of sales and operating expenses. The timing of product
+introductions can also impact the Company’s net sales to its indirect distribution channels as these channels are filled with new inventory following a product
+launch, and channel inventory of an older product often declines as the launch of a newer product approaches. Net sales can also be affected when consumers
+and distributors anticipate a product introduction.
+Quarterly Highlights
+Total net sales increased 2% or $1.5 billion during the third quarter of 2022 compared to the same quarter in 2021, driven primarily by higher net sales of
+Services and iPhone, partially offset by lower net sales of Mac and Wearables, Home and Accessories. The weakness in foreign currencies relative to the U.S.
+dollar had an unfavorable impact on all Products and Services net sales during the third quarter of 2022.
+At the end of the third quarter of 2022, the Company introduced an all-new MacBook Air and an updated 13-inch MacBook Pro , both powered by the new
+Apple M2 chip. The Company also announced iOS 16, macOS Ventura, iPadOS 16 and watchOS 9, updates to its operating systems that are expected to be
+available in the fall of 2022.
+The Company repurchased $21.7 billion of its common stock and paid dividends and dividend equivalents of $3.8 billion during the third quarter of 2022.
+® ®
+® ® ®
+Apple Inc. | Q3 2022 Form 10-Q | 14
+
+COVID-19
+The COVID-19 pandemic has had, and continues to have, a significant impact around the world, prompting governments and businesses to take unprecedented
+measures, such as restrictions on travel and business operations, temporary closures of businesses, and quarantine and shelter-in-place orders. The COVID-19
+pandemic has at times significantly curtailed global economic activity and caused significant volatility and disruption in global financial markets. The COVID-19
+pandemic and the measures taken by many countries in response have affected and could in the future materially impact the Company’s business, results of
+operations and financial condition.
+Certain of the Company’s outsourcing partners, component suppliers and logistical service providers have experienced disruptions during the COVID-19
+pandemic, resulting in supply shortages. Similar disruptions could occur in the future.
+Products and Services Performance
+The following table shows net sales by category for the three- and nine-month periods ended June 25, 2022 and June 26, 2021 (dollars in millions):
+Three Months Ended Nine Months Ended
+June 25,
+2022
+June 26,
+2021 Change
+June 25,
+2022
+June 26,
+2021 Change
+Net sales by category:
+iPhone $ 40,665 $ 39,570 3 % $ 162,863 $ 153,105 6 %
+Mac 7,382 8,235 (10)% 28,669 26,012 10 %
+iPad 7,224 7,368 (2)% 22,118 23,610 (6)%
+Wearables, Home and Accessories 8,084 8,775 (8)% 31,591 29,582 7 %
+Services 19,604 17,486 12 % 58,941 50,148 18 %
+Total net sales $ 82,959 $ 81,434 2 % $ 304,182 $ 282,457 8 %
+(1) Products net sales include amortization of the deferred value of unspecified software upgrade rights, which are bundled in the sales price of the respective
+product.
+(2) Wearables, Home and Accessories net sales include sales of AirPods, Apple TV, Apple Watch, Beats products, HomePod mini and accessories.
+(3) Services net sales include sales from the Company’s advertising, AppleCare, cloud, digital content, payment and other services. Services net sales also include
+amortization of the deferred value of services bundled in the sales price of certain products.
+iPhone
+iPhone net sales increased during the third quarter and first nine months of 2022 compared to the same periods in 2021 due primarily to higher net sales from
+the Company’s new iPhone models.
+Mac
+Mac net sales decreased during the third quarter of 2022 compared to the third quarter of 2021 due primarily to lower net sales of MacBook Air and iMac ,
+partially offset by higher net sales of MacBook Pro. Year-over-year Mac net sales increased during the first nine months of 2022 due primarily to higher net sales
+of MacBook Pro, partially offset by lower net sales of MacBook Air.
+iPad
+iPad net sales decreased during the third quarter of 2022 compared to the third quarter of 2021 due primarily to lower net sales of iPad Pro , partially offset by
+higher net sales of all other iPad models. Year-over-year iPad net sales decreased during the first nine months of 2022 due primarily to lower net sales of the 10-
+inch version of iPad and iPad Air , partially offset by higher net sales of iPad mini .
+Wearables, Home and Accessories
+Wearables, Home and Accessories net sales decreased during the third quarter of 2022 compared to the third quarter of 2021 due primarily to lower net sales of
+AirPods and Apple Watch. Year-over-year Wearables, Home and Accessories net sales increased during the first nine months of 2022 due primarily to higher net
+sales of Apple Watch and AirPods.
+(1)
+(1)
+(1)
+(1)(2)
+(3)
+®
+®
+® ®
+Apple Inc. | Q3 2022 Form 10-Q | 15
+
+Services
+Services net sales increased during the third quarter of 2022 compared to the third quarter of 2021 due primarily to higher net sales from advertising, cloud
+services and AppleCare. Year-over-year Services net sales increased during the first nine months of 2022 due primarily to higher net sales from advertising, the
+App Store and cloud services.
+Segment Operating Performance
+The Company manages its business primarily on a geographic basis. The Company’s reportable segments consist of the Americas, Europe, Greater China,
+Japan and Rest of Asia Pacific. Americas includes both North and South America. Europe includes European countries, as well as India, the Middle East and
+Africa. Greater China includes China mainland, Hong Kong and Taiwan. Rest of Asia Pacific includes Australia and those Asian countries not included in the
+Company’s other reportable segments. Although the reportable segments provide similar hardware and software products and similar services, each one is
+managed separately to better align with the location of the Company’s customers and distribution partners and the unique market dynamics of each geographic
+region. Further information regarding the Company’s reportable segments can be found in Part I, Item 1 of this Form 10-Q in the Notes to Condensed
+Consolidated Financial Statements in Note 9, “Segment Information and Geographic Data.”
+The following table shows net sales by reportable segment for the three- and nine-month periods ended June 25, 2022 and June 26, 2021 (dollars in millions):
+Three Months Ended Nine Months Ended
+June 25,
+2022
+June 26,
+2021 Change
+June 25,
+2022
+June 26,
+2021 Change
+Net sales by reportable segment:
+Americas $ 37,472 $ 35,870 4 % $ 129,850 $ 116,486 11 %
+Europe 19,287 18,943 2 % 72,323 68,513 6 %
+Greater China 14,604 14,762 (1)% 58,730 53,803 9 %
+Japan 5,446 6,464 (16)% 20,277 22,491 (10)%
+Rest of Asia Pacific 6,150 5,395 14 % 23,002 21,164 9 %
+Total net sales $ 82,959 $ 81,434 2 % $ 304,182 $ 282,457 8 %
+Americas
+Americas net sales increased during the third quarter of 2022 compared to the third quarter of 2021 due primarily to higher net sales of Services and iPhone,
+partially offset by lower net sales of Mac and Wearables, Home and Accessories. Year-over-year Americas net sales increased during the first nine months of
+2022 due primarily to higher net sales of iPhone, Services and Wearables, Home and Accessories.
+Europe
+Europe net sales increased during the third quarter of 2022 compared to the third quarter of 2021 due primarily to higher net sales of iPhone, partially offset by
+lower net sales of Mac. Year-over-year Europe net sales increased during the first nine months of 2022 due primarily to higher net sales of Services and iPhone.
+The weakness in foreign currencies relative to the U.S. dollar had a net unfavorable impact on Europe net sales during the third quarter and first nine months of
+2022.
+Greater China
+Greater China net sales decreased during the third quarter of 2022 compared to the third quarter of 2021 due primarily to lower net sales of iPhone, partially
+offset by higher net sales of Services. Year-over-year Greater China net sales increased during the first nine months of 2022 due primarily to higher net sales of
+iPhone and Services. The weakness in foreign currencies relative to the U.S. dollar had an unfavorable impact on Greater China net sales during the third
+quarter of 2022. The strength of the renminbi relative to the U.S. dollar had a favorable impact on Greater China net sales during the first nine months of 2022.
+Japan
+Japan net sales decreased during the third quarter and first nine months of 2022 compared to the same periods in 2021 due primarily to lower net sales of
+iPhone and iPad. The weakness of the yen relative to the U.S. dollar had an unfavorable impact on Japan net sales during the third quarter and first nine months
+of 2022.
+®
+Apple Inc. | Q3 2022 Form 10-Q | 16
+
+Rest of Asia Pacific
+Rest of Asia Pacific net sales increased during the third quarter of 2022 compared to the third quarter of 2021 due primarily to higher net sales of iPhone and
+Services. Year-over-year Rest of Asia Pacific net sales increased during the first nine months of 2022 due primarily to higher net sales of Services, iPhone and
+Mac. The weakness in foreign currencies relative to the U.S. dollar had a net unfavorable impact on Rest of Asia Pacific net sales during the third quarter and
+first nine months of 2022.
+Gross Margin
+Products and Services gross margin and gross margin percentage for the three- and nine-month periods ended June 25, 2022 and June 26, 2021 were as
+follows (dollars in millions):
+Three Months Ended Nine Months Ended
+June 25,
+2022
+June 26,
+2021
+June 25,
+2022
+June 26,
+2021
+Gross margin:
+Products $ 21,870 $ 23,049 $ 90,157 $ 82,833
+Services 14,015 12,206 42,530 34,829
+Total gross margin $ 35,885 $ 35,255 $ 132,687 $ 117,662
+Gross margin percentage:
+Products 34.5 % 36.0 % 36.8 % 35.7 %
+Services 71.5 % 69.8 % 72.2 % 69.5 %
+Total gross margin percentage 43.3 % 43.3 % 43.6 % 41.7 %
+Products Gross Margin
+Products gross margin decreased during the third quarter of 2022 compared to the third quarter of 2021 due primarily to the weakness in foreign currencies
+relative to the U.S. dollar. Year-over-year Products gross margin increased during the first nine months of 2022 due primarily to a different Products mix and
+higher Products volume, partially offset by the weakness in foreign currencies relative to the U.S. dollar.
+Products gross margin percentage decreased during the third quarter of 2022 compared to the third quarter of 2021 due primarily to the weakness in foreign
+currencies relative to the U.S. dollar and a different Products mix. Year-over-year Products gross margin percentage increased during the first nine months of
+2022 due primarily to a different Products mix.
+Services Gross Margin
+Services gross margin increased during the third quarter and first nine months of 2022 compared to the same periods in 2021 due primarily to higher Services
+net sales, partially offset by the weakness in foreign currencies relative to the U.S. dollar.
+Services gross margin percentage increased during the third quarter and first nine months of 2022 compared to the same periods in 2021 due primarily to
+improved leverage and a different Services mix, partially offset by the weakness in foreign currencies relative to the U.S. dollar and higher Services costs.
+The Company’s future gross margins can be impacted by a variety of factors, as discussed in Part I, Item 1A of the 2021 Form 10-K under the heading “Risk
+Factors.” As a result, the Company believes, in general, gross margins will be subject to volatility and downward pressure.
+Apple Inc. | Q3 2022 Form 10-Q | 17
+
+Operating Expenses
+Operating expenses for the three- and nine-month periods ended June 25, 2022 and June 26, 2021 were as follows (dollars in millions):
+Three Months Ended Nine Months Ended
+June 25,
+2022
+June 26,
+2021
+June 25,
+2022
+June 26,
+2021
+Research and development $ 6,797 $ 5,717 $ 19,490 $ 16,142
+Percentage of total net sales 8 % 7 % 6 % 6 %
+Selling, general and administrative $ 6,012 $ 5,412 $ 18,654 $ 16,357
+Percentage of total net sales 7 % 7 % 6 % 6 %
+Total operating expenses $ 12,809 $ 11,129 $ 38,144 $ 32,499
+Percentage of total net sales 15 % 14 % 13 % 12 %
+Research and Development
+The growth in research and development (“R&D”) expense during the third quarter and first nine months of 2022 compared to the same periods in 2021 was
+driven primarily by increases in headcount-related expenses, engineering program costs and professional services. The Company continues to believe that
+focused investments in R&D are critical to its future growth and competitive position in the marketplace, and to the development of new and updated products
+and services that are central to the Company’s core business strategy.
+Selling, General and Administrative
+The growth in selling, general and administrative expense during the third quarter and first nine months of 2022 compared to the same periods in 2021 was
+driven primarily by increases in headcount-related expenses, advertising and professional services.
+Other Income/(Expense), Net
+Other income/(expense), net (“OI&E”) for the three- and nine-month periods ended June 25, 2022 and June 26, 2021 was as follows (dollars in millions):
+Three Months Ended Nine Months Ended
+June 25,
+2022
+June 26,
+2021 Change
+June 25,
+2022
+June 26,
+2021 Change
+Interest and dividend income $ 722 $ 719 $ 2,072 $ 2,184
+Interest expense (719) (665) (2,104) (1,973)
+Other income/(expense), net (13) 189 (65) 585
+Total other income/(expense), net $ (10) $ 243 (104)% $ (97) $ 796 (112)%
+OI&E decreased during the third quarter and first nine months of 2022 compared to the same periods in 2021 due primarily to fair value adjustments and
+realized losses on marketable securities and higher interest expense, partially offset by foreign exchange gains.
+Provision for Income Taxes
+Provision for income taxes, effective tax rate and statutory federal income tax rate for the three- and nine-month periods ended June 25, 2022 and June 26,
+2021 were as follows (dollars in millions):
+Three Months Ended Nine Months Ended
+June 25,
+2022
+June 26,
+2021
+June 25,
+2022
+June 26,
+2021
+Provision for income taxes $ 3,624 $ 2,625 $ 15,364 $ 11,830
+Effective tax rate 15.7 % 10.8 % 16.3 % 13.8 %
+Statutory federal income tax rate 21 % 21 % 21 % 21 %
+The Company’s effective tax rate for the third quarter and first nine months of 2022 was lower than the statutory federal income tax rate due primarily to a lower
+effective tax rate on foreign earnings, tax benefits from share-based compensation and the impact of the U.S. federal R&D tax credit, partially offset by state
+income taxes.
+Apple Inc. | Q3 2022 Form 10-Q | 18
+
+The Company’s effective tax rate for the third quarter of 2022 was higher compared to the third quarter of 2021 due primarily to a higher effective tax rate on
+foreign earnings and an adjustment to prior years’ foreign-derived intangible income deductions. The Company’s effective tax rate for the first nine months of
+2022 was higher compared to the same period in 2021 due primarily to a higher effective tax rate on foreign earnings, lower tax benefits from share-based
+compensation, and the impact to U.S. foreign tax credits as a result of regulations issued by the U.S. Department of the Treasury in January 2022.
+Liquidity and Capital Resources
+The Company believes its balances of cash, cash equivalents and unrestricted marketable securities, along with cash generated by ongoing operations and
+continued access to debt markets, will be sufficient to satisfy its cash requirements and capital return program over the next 12 months and beyond.
+The Company’s contractual cash requirements have not changed materially since the 2021 Form 10-K, except for manufacturing purchase obligations.
+Manufacturing Purchase Obligations
+The Company utilizes several outsourcing partners to manufacture subassemblies for the Company’s products and to perform final assembly and testing of
+finished products. The Company also obtains individual components for its products from a wide variety of individual suppliers. Outsourcing partners acquire
+components and build product based on demand information supplied by the Company, which typically covers periods up to 150 days. As of June 25, 2022, the
+Company had manufacturing purchase obligations of $43.1 billion, with $43.0 billion payable within 12 months. The Company’s manufacturing purchase
+obligations are primarily noncancelable.
+In addition to its contractual cash requirements, the Company has a share repurchase program authorized by the Board of Directors (the “Program”). The
+Program does not obligate the Company to acquire a minimum amount of shares. As of June 25, 2022, the Company’s quarterly cash dividend was $0.23 per
+share. The Company intends to increase its dividend on an annual basis, subject to declaration by the Board of Directors.
+Critical Accounting Estimates
+The preparation of financial statements and related disclosures in conformity with U.S. generally accepted accounting principles and the Company’s discussion
+and analysis of its financial condition and operating results require the Company’s management to make judgments, assumptions and estimates that affect the
+amounts reported. Note 1, “Summary of Significant Accounting Policies” of the Notes to condensed consolidated Financial Statements in Part I, Item 1 of this
+Form 10-Q and in the Notes to Consolidated Financial Statements in Part II, Item 8 of the 2021 Form 10-K describe the significant accounting policies and
+methods used in the preparation of the Company’s condensed consolidated financial statements. There have been no material changes to the Company’s
+critical accounting estimates since the 2021 Form 10-K.
+Item 3. Quantitative and Qualitative Disclosures About Market Risk
+There have been no material changes to the Company’s market risk during the first nine months of 2022. For a discussion of the Company’s exposure to market
+risk, refer to the Company’s market risk disclosures set forth in Part II, Item 7A, “Quantitative and Qualitative Disclosures About Market Risk” of the 2021 Form
+10-K.
+Item 4. Controls and Procedures
+Evaluation of Disclosure Controls and Procedures
+Based on an evaluation under the supervision and with the participation of the Company’s management, the Company’s principal executive officer and principal
+financial officer have concluded that the Company’s disclosure controls and procedures as defined in Rules 13a-15(e) and 15d-15(e) under the Securities
+Exchange Act of 1934, as amended (the “Exchange Act”) were effective as of June 25, 2022 to provide reasonable assurance that information required to be
+disclosed by the Company in reports that it files or submits under the Exchange Act is (i) recorded, processed, summarized and reported within the time periods
+specified in the SEC rules and forms and (ii) accumulated and communicated to the Company’s management, including its principal executive officer and
+principal financial officer, as appropriate to allow timely decisions regarding required disclosure.
+Changes in Internal Control over Financial Reporting
+There were no changes in the Company’s internal control over financial reporting during the third quarter of 2022, which were identified in connection with
+management’s evaluation required by paragraph (d) of Rules 13a-15 and 15d-15 under the Exchange Act, that have materially affected, or are reasonably likely
+to materially affect, the Company’s internal control over financial reporting.
+Apple Inc. | Q3 2022 Form 10-Q | 19
+
+PART II — OTHER INFORMATION
+Item 1. Legal Proceedings
+Epic Games
+Epic Games, Inc. (“Epic”) filed a lawsuit in the U.S. District Court for the Northern District of California (the “Northern California District Court”) against the
+Company alleging violations of federal and state antitrust laws and California’s unfair competition law based upon the Company’s operation of its App Store. The
+Company filed a counterclaim for breach of contract. On September 10, 2021, the Northern California District Court ruled in favor of the Company with respect to
+nine out of the ten counts included in Epic’s claim, and in favor of the Company with respect to the Company’s claims for breach of contract. The Northern
+California District Court found that certain provisions of the Company’s App Store Review Guidelines violate California’s unfair competition law and issued an
+injunction. Epic appealed the decision. The Company filed a cross-appeal and has been granted a stay pending the appeal.
+Other Legal Proceedings
+The Company is subject to other legal proceedings and claims that have not been fully resolved and that have arisen in the ordinary course of business. The
+Company settled certain matters during the third quarter of 2022 that did not individually or in the aggregate have a material impact on the Company’s financial
+condition or operating results. The outcome of litigation is inherently uncertain. If one or more legal matters were resolved against the Company in a reporting
+period for amounts above management’s expectations, the Company’s financial condition and operating results for that reporting period could be materially
+adversely affected.
+Item 1A. Risk Factors
+The Company’s business, reputation, results of operations and financial condition, as well as the price of the Company’s stock, can be affected by a number of
+factors, whether currently known or unknown, including those described in Part I, Item 1A of the 2021 Form 10-K under the heading “Risk Factors.” When any
+one or more of these risks materialize from time to time, the Company’s business, reputation, results of operations and financial condition, as well as the price of
+the Company’s stock, can be materially and adversely affected. There have been no material changes to the Company’s risk factors since the 2021 Form 10-K.
+Item 2. Unregistered Sales of Equity Securities and Use of Proceeds
+Purchases of Equity Securities by the Issuer and Affiliated Purchasers
+Share repurchase activity during the three months ended June 25, 2022 was as follows (in millions, except number of shares, which are reflected in thousands,
+and per share amounts):
+Periods
+Total Number
+of Shares
+Purchased
+Average Price
+Paid Per
+Share
+Total Number of
+Shares
+Purchased as Part
+of Publicly
+Announced Plans or
+Programs
+Approximate Dollar
+Value of
+Shares That May Yet Be
+Purchased
+Under the Plans or
+Programs
+March 27, 2022 to April 30, 2022:
+Open market and privately negotiated purchases 50,578 $ 168.06 50,578
+May 1, 2022 to May 28, 2022:
+Open market and privately negotiated purchases 42,069 $ 148.45 42,069
+May 29, 2022 to June 25, 2022:
+Open market and privately negotiated purchases 50,027 $ 139.06 50,027
+Total 142,674 $ 85,877
+(1) On April 28, 2022, the Board of Directors authorized the purchase of an additional $90 billion of the Company’s common stock under the Program. As of
+June 25, 2022, total utilization under the April 2022 authorization was $4.1 billion. During the third quarter of 2022, the Company also utilized the final $17.6
+billion under the $90 billion Program authorization approved in April 2021. The Program does not obligate the Company to acquire a minimum amount of shares.
+Under the Program, shares may be repurchased in privately negotiated and/or open market transactions, including under plans complying with Rule 10b5-1
+under the Exchange Act.
+(1)
+Apple Inc. | Q3 2022 Form 10-Q | 20
+
+Item 3. Defaults Upon Senior Securities
+None.
+Item 4. Mine Safety Disclosures
+Not applicable.
+Item 5. Other Information
+Rule 10b5-1 Trading Plans
+During the three months ended June 25, 2022, Katherine L. Adams, Timothy D. Cook, Luca Maestri, Deirdre O’Brien and Jeffrey Williams, each an officer for
+purposes of Section 16 of the Exchange Act, had equity trading plans in place in accordance with Rule 10b5-1(c)(1) under the Exchange Act. An equity trading
+plan is a written document that preestablishes the amounts, prices and dates (or formula for determining the amounts, prices and dates) of future purchases or
+sales of the Company’s stock, including sales of shares acquired under the Company’s employee and director equity plans.
+Item 6. Exhibits
+Incorporated by Reference
+Exhibit
+Number Exhibit Description Form Exhibit
+Filing Date/
+Period End
+Date
+31.1* Rule 13a-14(a) / 15d-14(a) Certification of Chief Executive Officer.
+31.2* Rule 13a-14(a) / 15d-14(a) Certification of Chief Financial Officer.
+32.1** Section 1350 Certifications of Chief Executive Officer and Chief Financial Officer.
+101* Inline XBRL Document Set for the condensed consolidated financial statements and accompanying
+notes in Part I, Item 1, “Financial Statements” of this Quarterly Report on Form 10-Q.
+104* Inline XBRL for the cover page of this Quarterly Report on Form 10-Q, included in the Exhibit 101
+Inline XBRL Document Set.
+* Filed herewith.
+** Furnished herewith.
+Apple Inc. | Q3 2022 Form 10-Q | 21
+
+SIGNATURE
+Pursuant to the requirements of the Securities Exchange Act of 1934, the Registrant has duly caused this report to be signed on its behalf by the undersigned
+thereunto duly authorized.
+Date: July 28, 2022 Apple Inc.
+By: /s/ Luca Maestri
+Luca Maestri
+Senior Vice President,
+Chief Financial Officer
+Apple Inc. | Q3 2022 Form 10-Q | 22
+
+Exhibit 31.1
+CERTIFICATION
+I, Timothy D. Cook, certify that:
+1. I have reviewed this quarterly report on Form 10-Q of Apple Inc.;
+2. Based on my knowledge, this report does not contain any untrue statement of a material fact or omit to state a material fact necessary to make the
+statements made, in light of the circumstances under which such statements were made, not misleading with respect to the period covered by this report;
+3. Based on my knowledge, the financial statements, and other financial information included in this report, fairly present in all material respects the financial
+condition, results of operations and cash flows of the Registrant as of, and for, the periods presented in this report;
+4. The Registrant’s other certifying officer(s) and I are responsible for establishing and maintaining disclosure controls and procedures (as defined in Exchange
+Act Rules 13a-15(e) and 15d-15(e)) and internal control over financial reporting (as defined in Exchange Act Rules 13a-15(f) and 15d-15(f)) for the
+Registrant and have:
+(a) Designed such disclosure controls and procedures, or caused such disclosure controls and procedures to be designed under our supervision,
+to ensure that material information relating to the Registrant, including its consolidated subsidiaries, is made known to us by others within
+those entities, particularly during the period in which this report is being prepared;
+(b) Designed such internal control over financial reporting, or caused such internal control over financial reporting to be designed under our
+supervision, to provide reasonable assurance regarding the reliability of financial reporting and the preparation of financial statements for
+external purposes in accordance with generally accepted accounting principles;
+(c) Evaluated the effectiveness of the Registrant’s disclosure controls and procedures and presented in this report our conclusions about the
+effectiveness of the disclosure controls and procedures, as of the end of the period covered by this report based on such evaluation; and
+(d) Disclosed in this report any change in the Registrant’s internal control over financial reporting that occurred during the Registrant’s most recent
+fiscal quarter (the Registrant’s fourth fiscal quarter in the case of an annual report) that has materially affected, or is reasonably likely to
+materially affect, the Registrant’s internal control over financial reporting; and
+5. The Registrant’s other certifying officer(s) and I have disclosed, based on our most recent evaluation of internal control over financial reporting, to the
+Registrant’s auditors and the audit committee of the Registrant’s board of directors (or persons performing the equivalent functions):
+(a) All significant deficiencies and material weaknesses in the design or operation of internal control over financial reporting which are reasonably
+likely to adversely affect the Registrant’s ability to record, process, summarize and report financial information; and
+(b) Any fraud, whether or not material, that involves management or other employees who have a significant role in the Registrant’s internal
+control over financial reporting.
+Date: July 28, 2022
+By: /s/ Timothy D. Cook
+Timothy D. Cook
+Chief Executive Officer
+
+Exhibit 31.2
+CERTIFICATION
+I, Luca Maestri, certify that:
+1. I have reviewed this quarterly report on Form 10-Q of Apple Inc.;
+2. Based on my knowledge, this report does not contain any untrue statement of a material fact or omit to state a material fact necessary to make the
+statements made, in light of the circumstances under which such statements were made, not misleading with respect to the period covered by this report;
+3. Based on my knowledge, the financial statements, and other financial information included in this report, fairly present in all material respects the financial
+condition, results of operations and cash flows of the Registrant as of, and for, the periods presented in this report;
+4. The Registrant’s other certifying officer(s) and I are responsible for establishing and maintaining disclosure controls and procedures (as defined in Exchange
+Act Rules 13a-15(e) and 15d-15(e)) and internal control over financial reporting (as defined in Exchange Act Rules 13a-15(f) and 15d-15(f)) for the
+Registrant and have:
+(a) Designed such disclosure controls and procedures, or caused such disclosure controls and procedures to be designed under our supervision,
+to ensure that material information relating to the Registrant, including its consolidated subsidiaries, is made known to us by others within
+those entities, particularly during the period in which this report is being prepared;
+(b) Designed such internal control over financial reporting, or caused such internal control over financial reporting to be designed under our
+supervision, to provide reasonable assurance regarding the reliability of financial reporting and the preparation of financial statements for
+external purposes in accordance with generally accepted accounting principles;
+(c) Evaluated the effectiveness of the Registrant’s disclosure controls and procedures and presented in this report our conclusions about the
+effectiveness of the disclosure controls and procedures, as of the end of the period covered by this report based on such evaluation; and
+(d) Disclosed in this report any change in the Registrant’s internal control over financial reporting that occurred during the Registrant’s most recent
+fiscal quarter (the Registrant’s fourth fiscal quarter in the case of an annual report) that has materially affected, or is reasonably likely to
+materially affect, the Registrant’s internal control over financial reporting; and
+5. The Registrant’s other certifying officer(s) and I have disclosed, based on our most recent evaluation of internal control over financial reporting, to the
+Registrant’s auditors and the audit committee of the Registrant’s board of directors (or persons performing the equivalent functions):
+(a) All significant deficiencies and material weaknesses in the design or operation of internal control over financial reporting which are reasonably
+likely to adversely affect the Registrant’s ability to record, process, summarize and report financial information; and
+(b) Any fraud, whether or not material, that involves management or other employees who have a significant role in the Registrant’s internal
+control over financial reporting.
+Date: July 28, 2022
+By: /s/ Luca Maestri
+Luca Maestri
+Senior Vice President,
+Chief Financial Officer
+
+Exhibit 32.1
+CERTIFICATIONS OF CHIEF EXECUTIVE OFFICER AND CHIEF FINANCIAL OFFICER
+PURSUANT TO
+18 U.S.C. SECTION 1350,
+AS ADOPTED PURSUANT TO
+SECTION 906 OF THE SARBANES-OXLEY ACT OF 2002
+I, Timothy D. Cook, certify, as of the date hereof, pursuant to 18 U.S.C. Section 1350, as adopted pursuant to Section 906 of the Sarbanes-Oxley Act of 2002,
+that the Quarterly Report of Apple Inc. on Form 10-Q for the period ended June 25, 2022 fully complies with the requirements of Section 13(a) or 15(d) of the
+Securities Exchange Act of 1934 and that information contained in such Form 10-Q fairly presents in all material respects the financial condition and results of
+operations of Apple Inc. at the dates and for the periods indicated.
+Date: July 28, 2022
+By: /s/ Timothy D. Cook
+Timothy D. Cook
+Chief Executive Officer
+I, Luca Maestri, certify, as of the date hereof, pursuant to 18 U.S.C. Section 1350, as adopted pursuant to Section 906 of the Sarbanes-Oxley Act of 2002, that
+the Quarterly Report of Apple Inc. on Form 10-Q for the period ended June 25, 2022 fully complies with the requirements of Section 13(a) or 15(d) of the
+Securities Exchange Act of 1934 and that information contained in such Form 10-Q fairly presents in all material respects the financial condition and results of
+operations of Apple Inc. at the dates and for the periods indicated.
+Date: July 28, 2022
+By: /s/ Luca Maestri
+Luca Maestri
+Senior Vice President,
+Chief Financial Officer
+A signed original of this written statement required by Section 906 has been provided to Apple Inc. and will be retained by Apple Inc. and furnished to the
+Securities and Exchange Commission or its staff upon request.
+

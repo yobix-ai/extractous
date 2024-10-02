@@ -23,7 +23,7 @@ requires-python = ">=3.8,<3.13"
 docs = ["pdoc"]
 # To run tests using pytest we need to run:
 # pytest -s
-test = ["pytest"]
+test = ["pytest","scikit-learn"]
 
 [project.urls]
 Documentation = "https://extractous.yobix.ai/docs/python/index.html"
