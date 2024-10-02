@@ -70,7 +70,7 @@ jobs:
           python3 -m venv .venv
           source .venv/bin/activate
           pip install extractous --find-links bindings/extractous-python/dist --force-reinstall
-          pip install pytest
+          pip install pytest scikit-learn
           cd bindings/extractous-python
           pytest -s
 
@@ -84,7 +84,7 @@ jobs:
           install: |
             apt-get update
             apt-get install -y --no-install-recommends python3 python3-pip
-            pip3 install -U pip pytest
+            pip3 install -U pip pytest scikit-learn
           run: |
             set -e
             pip3 install extractous --find-links bindings/extractous-python/dist --force-reinstall
@@ -130,7 +130,7 @@ jobs:
 #          python3 -m venv .venv
 #          source .venv/Scripts/activate
 #          pip install extractous --find-links bindings/extractous-python/dist --force-reinstall
-#          pip install pytest
+#          pip install pytest scikit-learn
 #          cd bindings/extractous-python
 #          pytest -s
 
@@ -180,7 +180,7 @@ jobs:
           python3 -m venv .venv
           source .venv/bin/activate
           pip install extractous --find-links bindings/extractous-python/dist --force-reinstall
-          pip install pytest
+          pip install pytest scikit-learn
           cd bindings/extractous-python
           pytest -s
 
