@@ -1,7 +1,7 @@
 use crate::errors::{Error, ExtractResult};
 use crate::tika::jni_utils::{jni_call_method, jni_jobject_to_string, jni_new_string_as_jvalue};
 use crate::tika::vm;
-use crate::{DEFAULT_BUF_SIZE, OfficeParserConfig, PdfParserConfig, TesseractOcrConfig};
+use crate::{OfficeParserConfig, PdfParserConfig, TesseractOcrConfig, DEFAULT_BUF_SIZE};
 use bytemuck::cast_slice_mut;
 use jni::objects::{GlobalRef, JByteArray, JObject, JValue};
 use jni::sys::jsize;
