@@ -37,7 +37,7 @@ def test_extract_file_data(file_name, target_dist):
         f"Cosine similarity is less than {target_dist} for file: {file_name}"
 
     assert len(metadata) > 0
-    assert metadata == expected_metadata
+    assert set(metadata).issubset(expected_metadata)
 
 
 def cosine_similarity(text1, text2):

@@ -5,6 +5,7 @@ Compression CompressionTypeName:deflate
 Compression Lossless:true
 Compression NumProgressiveScans:1
 Content-Length:79808
+Content-Type-Parser-Override:image/ocr-png
 Content-Type:image/png
 Data BitsPerSample:8 8 8
 Data PlanarConfiguration:PixelInterleaved
