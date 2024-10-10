@@ -13,7 +13,7 @@ pub use extractor::*;
 mod config;
 pub use config::*;
 
-/// Extractous is a library that extracts text from various file formats.
+/// Extractous is a library that extracts text and metadata from various file formats.
 /// * Supports many file formats such as Word, Excel, PowerPoint, PDF, and many more.
 /// * Strives to be simple fast and efficient
 ///

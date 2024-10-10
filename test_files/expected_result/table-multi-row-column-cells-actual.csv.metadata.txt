@@ -1,0 +1,9 @@
+Content-Encoding:ISO-8859-1
+Content-Length:326
+Content-Type:text/csv; charset=ISO-8859-1; delimiter=comma
+X-TIKA:Parsed-By-Full-Set:org.apache.tika.parser.DefaultParser
+X-TIKA:Parsed-By:org.apache.tika.parser.DefaultParser
+csv:delimiter:comma
+csv:num_columns:6
+csv:num_rows:6
+resourceName:table-multi-row-column-cells-actual.csv

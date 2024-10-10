@@ -1,0 +1,24 @@
+Chroma BlackIsZero:true
+Chroma ColorSpaceType:RGB
+Chroma NumChannels:3
+Compression CompressionTypeName:deflate
+Compression Lossless:true
+Compression NumProgressiveScans:1
+Content-Length:79808
+Content-Type:image/png
+Data BitsPerSample:8 8 8
+Data PlanarConfiguration:PixelInterleaved
+Data SampleFormat:UnsignedIntegral
+Dimension ImageOrientation:Normal
+Dimension PixelAspectRatio:1.0
+IHDR:width=1377, height=648, bitDepth=8, colorType=RGB, compressionMethod=deflate, filterMethod=adaptive, interlaceMethod=none
+Transparency Alpha:none
+X-TIKA:Parsed-By-Full-Set:org.apache.tika.parser.DefaultParser
+X-TIKA:Parsed-By:org.apache.tika.parser.DefaultParser
+height:648
+imagereader:NumImages:1
+resourceName:table-multi-row-column-cells.png
+tiff:BitsPerSample:8 8 8
+tiff:ImageLength:648
+tiff:ImageWidth:1377
+width:1377

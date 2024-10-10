@@ -1,0 +1,20 @@
+Content-Length:11220
+Content-Type:application/vnd.openxmlformats-officedocument.wordprocessingml.document
+X-TIKA:Parsed-By-Full-Set:org.apache.tika.parser.DefaultParser
+X-TIKA:Parsed-By:org.apache.tika.parser.DefaultParser
+cp:revision:3
+dc:language:en-US
+dcterms:created:2023-09-22T18:38:00Z
+dcterms:modified:2023-09-26T15:58:44Z
+extended-properties:AppVersion:15.0000
+extended-properties:Application:LibreOffice/7.5.5.2$MacOSX_AARCH64 LibreOffice_project/ca8fe7424262805f223b9a2334bc7181abbcbf5e
+extended-properties:DocSecurityString:None
+extended-properties:Template:Normal.dotm
+extended-properties:TotalTime:7
+meta:character-count-with-spaces:1558
+meta:character-count:1285
+meta:page-count:1
+meta:paragraph-count:12
+meta:word-count:288
+resourceName:category-level.docx
+xmpTPg:NPages:1

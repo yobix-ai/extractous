@@ -1,5 +1,5 @@
 use crate::errors::{Error, ExtractResult};
-use crate::tika::jni_utils::{jni_call_method, jni_jobject_to_string, jni_new_string_as_jvalue};
+use crate::tika::jni_utils::{jni_call_method, jni_jobject_array_to_vec, jni_jobject_to_string, jni_new_string_as_jvalue};
 use crate::tika::vm;
 use crate::{DEFAULT_BUF_SIZE, OfficeParserConfig, PdfParserConfig, TesseractOcrConfig};
 use bytemuck::cast_slice_mut;
@@ -104,11 +104,12 @@ impl Drop for JReaderInputStream {
 
 /// Wrapper for the Java class  `ai.yobix.StringResult`
 /// Upon creation it parses the java StringResult object and saves the converted Rust string
-pub(crate) struct JStringResult {
-    pub(crate) content: String,
+pub struct JResult {
+    pub content: String,
+    pub metadata: Vec<String>,
 }
 
-impl<'local> JStringResult {
+impl<'local> JResult {
     pub(crate) fn new(env: &mut JNIEnv<'local>, obj: JObject<'local>) -> ExtractResult<Self> {
         let is_error = jni_call_method(env, &obj, "isError", "()Z", &[])?.z()?;
 
@@ -127,10 +128,14 @@ impl<'local> JStringResult {
             let call_result_obj = env
                 .call_method(&obj, "getContent", "()Ljava/lang/String;", &[])?
                 .l()?;
-
             let content = jni_jobject_to_string(env, call_result_obj)?;
 
-            Ok(Self { content })
+            let metadata_obj_array = env
+                .call_method(&obj, "getMetadata", "()[Ljava/lang/String;", &[])?
+                .l()?;
+            let metadata = jni_jobject_array_to_vec(env, metadata_obj_array)?;
+
+            Ok(Self { content, metadata })
         }
     }
 }
@@ -165,7 +170,7 @@ impl<'local> JReaderResult<'local> {
                 "()Lorg/apache/commons/io/input/ReaderInputStream;",
                 &[],
             )?
-            .l()?;
+                .l()?;
 
             Ok(Self {
                 java_reader: reader_obj,

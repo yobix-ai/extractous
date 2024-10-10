@@ -1,7 +1,7 @@
 use std::os::raw::{c_char, c_void};
 
 use jni::errors::jni_error_code_to_result;
-use jni::objects::{JObject, JString, JValue, JValueOwned};
+use jni::objects::{JObject, JObjectArray, JString, JValue, JValueOwned};
 use jni::{sys, JNIEnv, JavaVM};
 
 use crate::errors::{Error, ExtractResult};
@@ -78,6 +78,25 @@ pub fn jni_jobject_to_string<'local>(
     //let output_str = javastr_output.to_str().map_err(Error::Utf8Error)?;
 
     Ok(output_str.to_string())
+}
+
+/// Converts a Java String[] to a Rust Vec<String>
+pub fn jni_jobject_array_to_vec<'local>(
+    env: &mut JNIEnv<'local>,
+    array: JObject<'local>,
+) -> ExtractResult<Vec<String>> {
+    let j_array_string = JObjectArray::from(array);
+    let j_array_length = env.get_array_length(&j_array_string)?;
+
+    let mut vec = Vec::with_capacity(j_array_length as usize);
+
+    for i in 0..j_array_length {
+        let elem_obj = env.get_object_array_element(&j_array_string, i)?;
+        let elem_str = jni_jobject_to_string(env, elem_obj)?;
+        vec.push(elem_str);
+    }
+
+    Ok(vec)
 }
 
 /// Checks if there is an exception in the jni environment, describes it to

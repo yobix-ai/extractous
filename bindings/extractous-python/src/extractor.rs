@@ -1,7 +1,7 @@
 use crate::{ecore, OfficeParserConfig, PdfParserConfig, TesseractOcrConfig};
 use pyo3::exceptions::PyTypeError;
 use pyo3::prelude::*;
-use pyo3::types::PyByteArray;
+use pyo3::types::{IntoPyDict, PyByteArray, PyList};
 use std::io::Read;
 
 // PyO3 supports unit-only enums (which contain only unit variants)
@@ -142,9 +142,27 @@ impl Extractor {
     /// Extracts text from a file path. Returns a string that is of maximum length
     /// of the extractor's `extract_string_max_length`
     pub fn extract_file_to_string(&self, filename: &str) -> PyResult<String> {
-        self.0
-            .extract_file_to_string(filename)
-            .map_err(|e| PyErr::new::<PyTypeError, _>(format!("{:?}", e)))
+        Ok(self.0
+            .extract_file_to_struct(filename)
+            .map_err(|e| PyErr::new::<PyTypeError, _>(format!("{:?}", e)))?.content)
+    }
+
+    /// Extracts text and metadata from a file path. Returns a dict that contains the content and metadata.
+    pub fn extract_file_to_dict(&self, filename: &str) -> PyResult<PyObject> {
+        let extract_struct = self.0
+            .extract_file_to_struct(filename)
+            .map_err(|e| PyErr::new::<PyTypeError, _>(format!("{:?}", e)))?;
+
+        let content = extract_struct.content;
+        let metadata = extract_struct.metadata;
+
+        Python::with_gil(|py| {
+            let dict = vec![
+                ("content", content.into_py(py)),
+                ("metadata", PyList::new_bound(py, &metadata).into_py(py))
+            ].into_py_dict_bound(py);
+            Ok(dict.into())
+        })
     }
 
     fn __repr__(&self) -> String {

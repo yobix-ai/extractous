@@ -5,12 +5,17 @@ def expected_result():
     return "\nHello Quarkus\n\n\n"
 
 
-def test_extract_file_to_string():
+def test_extract_file_to_dict():
     extractor = Extractor()
-    result = extractor.extract_file_to_string("tests/quarkus.pdf")
+    ext_dict = extractor.extract_file_to_dict("tests/quarkus.pdf")
+    content = ext_dict.get("content")
+    metadata = ext_dict.get("metadata")
 
-    print(result)
-    assert result == expected_result()
+    print(content)
+    assert content == expected_result()
+
+    print(metadata)
+    assert len(metadata) > 0
 
 
 def test_extract_file():

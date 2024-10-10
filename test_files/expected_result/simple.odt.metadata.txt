@@ -1,0 +1,9 @@
+Content-Length:7649
+Content-Type:application/vnd.oasis.opendocument.text
+X-TIKA:Parsed-By-Full-Set:org.apache.tika.parser.DefaultParser
+X-TIKA:Parsed-By:org.apache.tika.parser.DefaultParser
+dcterms:created:2024-05-15T21:26:37Z
+dcterms:modified:2024-05-15T21:26:37Z
+generator:Pandoc/3.1.11.1
+odf:version:1.3
+resourceName:simple.odt

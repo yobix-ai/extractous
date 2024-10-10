@@ -18,5 +18,5 @@ doc = false
 
 [dependencies]
 # "abi3-py310" tells pyo3 (and maturin) to build using the stable ABI with minimum Python version 3.10
-pyo3 = { version = "0.22.2", features = ["abi3", "abi3-py38"] }
+pyo3 = { version = "0.22.2", features = ["abi3", "abi3-py38", "gil-refs"] }
 extractous = { path = "../../extractous-core" }

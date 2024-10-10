@@ -1,0 +1,45 @@
+Content-Length:266240
+Content-Type:application/pdf
+X-TIKA:Parsed-By-Full-Set:org.apache.tika.parser.DefaultParser
+X-TIKA:Parsed-By:org.apache.tika.parser.DefaultParser
+access_permission:assemble_document:true
+access_permission:can_modify:true
+access_permission:can_print:true
+access_permission:can_print_degraded:true
+access_permission:extract_content:true
+access_permission:extract_for_accessibility:true
+access_permission:fill_in_form:true
+access_permission:modify_annotations:true
+dc:creator:EDGAR Online, a division of Donnelley Financial Solutions
+dc:format:application/pdf; version=1.4
+dc:subject:0000320193-22-000070; ; 10-Q
+dc:title:0000320193-22-000070
+dcterms:created:2022-07-29T10:03:21Z
+dcterms:modified:2022-07-29T10:03:28Z
+pdf:PDFVersion:1.4
+pdf:annotationSubtypes:Link
+pdf:annotationTypes:null
+pdf:charsPerPage:2588
+pdf:containsDamagedFont:false
+pdf:containsNonEmbeddedFont:false
+pdf:docinfo:created:2022-07-29T10:03:21Z
+pdf:docinfo:creator:EDGAR Online, a division of Donnelley Financial Solutions
+pdf:docinfo:creator_tool:EDGAR Filing HTML Converter
+pdf:docinfo:keywords:0000320193-22-000070; ; 10-Q
+pdf:docinfo:modified:2022-07-29T10:03:28Z
+pdf:docinfo:producer:EDGRpdf Service w/ EO.Pdf 22.0.40.0
+pdf:docinfo:subject:Form 10-Q filed on 2022-07-29 for the period ending 2022-06-25
+pdf:docinfo:title:0000320193-22-000070
+pdf:encrypted:true
+pdf:hasCollection:false
+pdf:hasMarkedContent:false
+pdf:hasXFA:false
+pdf:hasXMP:false
+pdf:num3DAnnotations:0
+pdf:overallPercentageUnmappedUnicodeChars:0.0
+pdf:producer:EDGRpdf Service w/ EO.Pdf 22.0.40.0
+pdf:totalUnmappedUnicodeChars:0
+pdf:unmappedUnicodeCharsPerPage:0
+resourceName:2022_Q3_AAPL.pdf
+xmp:CreatorTool:EDGAR Filing HTML Converter
+xmpTPg:NPages:28

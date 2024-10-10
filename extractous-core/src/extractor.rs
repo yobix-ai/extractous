@@ -1,6 +1,6 @@
 use crate::errors::ExtractResult;
 use crate::tika;
-use crate::tika::JReaderInputStream;
+use crate::tika::{JReaderInputStream, JResult};
 use crate::{OfficeParserConfig, PdfParserConfig, TesseractOcrConfig};
 use strum_macros::{Display, EnumString};
 
@@ -41,16 +41,17 @@ impl std::io::Read for StreamReader {
     }
 }
 
-/// Extractor for extracting text from different file formats
+/// Extractor for extracting text and metadata from different file formats
 ///
 /// The Extractor uses the builder pattern to set configurations. This allows configuring and
 /// extracting text in one line. For example
 /// ```rust
 /// use extractous::{CharSet, Extractor};
-/// let text = Extractor::new()
+/// let ext = Extractor::new()
 ///             .set_extract_string_max_length(1000)
-///             .extract_file_to_string("README.md");
-/// println!("{}", text.unwrap());
+///             .extract_file_to_struct("README.md").unwrap();
+/// println!("{}", ext.content);
+/// println!("{:?}", ext.metadata);
 /// ```
 ///
 #[derive(Debug, Clone)]
@@ -126,8 +127,8 @@ impl Extractor {
 
     /// Extracts text from a file path. Returns a string that is of maximum length
     /// of the extractor's `extract_string_max_length`
-    pub fn extract_file_to_string(&self, file_path: &str) -> ExtractResult<String> {
-        tika::parse_file_to_string(file_path, self.extract_string_max_length)
+    pub fn extract_file_to_struct(&self, file_path: &str) -> ExtractResult<JResult> {
+        tika::parse_file_to_struct(file_path, self.extract_string_max_length)
     }
 }
 
@@ -175,8 +176,10 @@ mod tests {
 
         // Parse the files using extractous
         let extractor = Extractor::new();
-        let result = extractor.extract_file_to_string(TEST_FILE);
-        let content = result.unwrap();
-        assert_eq!(content.trim(), expected_content.trim());
+        let result = extractor.extract_file_to_struct(TEST_FILE);
+        let result = result.unwrap();
+        assert_eq!(result.content.trim(), expected_content.trim());
+        //println!("{}", result.content.trim());
+        //println!("{:?}", result.metadata);
     }
 }

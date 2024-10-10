@@ -2,7 +2,6 @@ package ai.yobix;
 
 import org.apache.commons.io.input.ReaderInputStream;
 import org.apache.tika.parser.ParsingReader;
-import org.xml.sax.ContentHandler;
 import org.apache.tika.Tika;
 import org.apache.tika.config.TikaConfig;
 import org.apache.tika.exception.TikaException;
@@ -55,6 +54,21 @@ public class TikaNativeMain {
     }
 
     /**
+     * Parse tika metadata to array String.
+     * @param metadata: Tika Metadata
+     * @return String[]
+     */
+    private static String[] parseMetadata(Metadata metadata) {
+        String[] result = new String[metadata.size()];
+        int i = 0;
+        for (String name : metadata.names()) {
+            result[i] = name + ":" + metadata.get(name);
+            i++;
+        }
+        return result;
+    }
+
+    /**
      * Parses the given file and returns its content as String.
      * To avoid unpredictable excess memory use, the returned string contains only up to maxLength
      * first characters extracted from the input document.
@@ -68,9 +82,8 @@ public class TikaNativeMain {
             final Path path = Paths.get(filePath);
             final Metadata metadata = new Metadata();
             final InputStream stream = TikaInputStream.get(path, metadata);
-
-            // No need to close the stream because parseToString does so
-            return new StringResult(tika.parseToString(stream, metadata, maxLength));
+            String parseString = tika.parseToString(stream, metadata, maxLength);
+            return new StringResult(parseString, parseMetadata(metadata));
         } catch (java.io.IOException e) {
             return new StringResult((byte) 1, "Could not open file: " + e.getMessage());
         } catch (TikaException e) {

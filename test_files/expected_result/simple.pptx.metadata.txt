@@ -1,0 +1,22 @@
+Content-Length:34865
+Content-Type:application/vnd.openxmlformats-officedocument.presentationml.presentation
+X-TIKA:Parsed-By-Full-Set:org.apache.tika.parser.DefaultParser
+X-TIKA:Parsed-By:org.apache.tika.parser.DefaultParser
+cp:revision:1
+dc:creator:Steve Canny
+dc:publisher:
+dc:title:Title Slide
+dcterms:created:2024-07-22T23:29:33Z
+dcterms:modified:2024-07-22T23:31:59Z
+extended-properties:AppVersion:16.0016
+extended-properties:Application:Microsoft Macintosh PowerPoint
+extended-properties:Company:
+extended-properties:DocSecurityString:None
+extended-properties:PresentationFormat:Widescreen
+extended-properties:TotalTime:2
+meta:last-author:Steve Canny
+meta:paragraph-count:8
+meta:slide-count:2
+meta:word-count:38
+resourceName:simple.pptx
+xmpTPg:NPages:2

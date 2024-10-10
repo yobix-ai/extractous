@@ -5,7 +5,7 @@
 //! # Quick Start
 //! Extractous API entry point is the [`Extractor`] struct.
 //! All public apis are accessible through an extractor.
-//! The extractor provides functions to extract text from files, Urls, and byte arrays.
+//! The extractor provides functions to extract text and metadata from files, Urls, and byte arrays.
 //! To use an extractor, you need to:
 //! - [create and configure new the extractor](#create-and-config-an-extractor)
 //! - [use the extractor to extract text](#extract-text)
@@ -39,9 +39,10 @@
 //! // Create a new extractor. Note it uses a consuming builder pattern
 //! let mut extractor = Extractor::new().set_extract_string_max_length(1000);
 //!
-//! // Extract text from a file
-//! let text = extractor.extract_file_to_string("README.md").unwrap();
-//! println!("{}", text);
+//! // Extract text and metadata from a file
+//! let ext = extractor.extract_file_to_struct("README.md").unwrap();
+//! println!("{}", ext.content);
+//! println!("{:?}", ext.metadata);
 //!
 //! ```
 
@@ -67,4 +68,5 @@ mod tika {
     mod wrappers;
     pub use parse::*;
     pub use wrappers::JReaderInputStream;
+    pub use wrappers::JResult;
 }

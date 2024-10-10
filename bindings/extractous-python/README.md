@@ -19,10 +19,22 @@ Extracting a file to string:
 from extractous import Extractor
 
 extractor = Extractor()
-extractor.set_extract_string_max_length(1000)
+extractor.set_extract_string_max_length(1000) # optional, default 500_000
 result = extractor.extract_file_to_string("README.md")
 
 print(result)
+```
+
+Extracting a file to dict (content, metadata):
+
+```python
+from extractous import Extractor
+
+extractor = Extractor()
+extractor.set_extract_string_max_length(1000) # optional, default 500_000
+ext_dict = extractor.extract_file_to_dict("README.md")
+
+print(ext_dict)
 ```
 
 Extracting a file to a buffered stream:

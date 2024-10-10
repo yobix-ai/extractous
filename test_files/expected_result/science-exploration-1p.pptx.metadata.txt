@@ -1,0 +1,25 @@
+Content-Length:1235192
+Content-Type:application/vnd.openxmlformats-officedocument.presentationml.presentation
+X-TIKA:Parsed-By-Full-Set:org.apache.tika.parser.DefaultParser
+X-TIKA:Parsed-By:org.apache.tika.parser.DefaultParser
+cp:revision:122
+custom:ContentTypeId:0x010100A8ED02ACC8695A47B8BDC1B4C6351D79
+custom:Notes:3
+custom:PresentationFormat:On-screen Show (4:3)
+custom:Slides:41
+dc:creator:ODIN
+dc:language:en-US
+dc:publisher:LM ES&S
+dc:title:Slide 1
+dcterms:created:2011-05-17T19:40:42Z
+dcterms:modified:2023-05-24T22:29:50Z
+extended-properties:AppVersion:15.0000
+extended-properties:Application:LibreOffice/7.5.3.2$MacOSX_AARCH64 LibreOffice_project/9f56dff12ba03b9acd7730a5a481eea045e468f3
+extended-properties:Company:LM ES&S
+extended-properties:DocSecurityString:None
+extended-properties:Template:
+extended-properties:TotalTime:5296
+meta:paragraph-count:690
+meta:print-date:2011-06-23T21:56:37Z
+meta:word-count:3969
+resourceName:science-exploration-1p.pptx
