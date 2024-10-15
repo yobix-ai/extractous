@@ -19,23 +19,7 @@ fn main() {
 
     // Main build output directory
     let out_dir = env::var("OUT_DIR").map(PathBuf::from).unwrap();
-    let jdk_install_dir = out_dir.join("graalvm-jdk"); // out_dir subdir where jdk is downloaded
     let libs_out_dir = out_dir.join("libs"); // out_dir subdir to copy the built libs to
-    let tika_native_dir = out_dir.join("tika-native"); // out_dir subdir where the gradle build is run
-
-    // Try to find a GraalVM JDK or install one if not found
-    let graalvm_home = get_graalvm_home(&jdk_install_dir);
-
-    // Because build script are not allowed to change files outside of OUT_DIR
-    // we need to copy the tika-native source directory to OUT_DIR and call gradle build there
-    if !tika_native_dir.is_dir() {
-        fs_extra::dir::copy(
-            &tika_native_source_dir,
-            &out_dir,
-            &fs_extra::dir::CopyOptions::new(),
-        )
-        .expect("Failed to copy tika-native source to OUT_DIR");
-    }
 
     // Just for debugging
     // let graal_home = env::var("GRAALVM_HOME");
@@ -43,17 +27,25 @@ fn main() {
     // println!("cargo:warning=GRAALVM_HOME: {:?}", graal_home);
     // println!("cargo:warning=JAVA_HOME: {:?}", java_home);
     //println!("cargo:warning=dist_dir: {}", dist_dir.display());
-    // println!("cargo:warning=out_dir: {}", out_dir.display());
+    //println!("cargo:warning=out_dir: {}", out_dir.display());
     //println!("cargo:warning=tika_native_dir: {:?}", tika_native_dir);
 
-    // Launch the gradle build
-    gradle_build(
-        &graalvm_home,
-        &tika_native_dir,
-        &libs_out_dir,
-        &python_bind_dir,
-    );
-    println!("Successfully built libs 🚀");
+    // Try to find already built libs
+    match find_already_built_libs(&out_dir) {
+        Some(libs_dir) => {
+            // If the libs are already built, copy them to the output directory
+            copy_build_artifacts(&libs_dir, vec![&libs_out_dir], false);
+        }
+        None => {
+            // Launch the gradle build
+            gradle_build(
+                &tika_native_source_dir,
+                &out_dir,
+                &libs_out_dir,
+                &python_bind_dir,
+            );
+        }
+    }
 
     // Tell cargo to look for shared libraries in the specified directory
     println!("cargo:rustc-link-search={}", libs_out_dir.display());
@@ -62,30 +54,76 @@ fn main() {
     println!("cargo:rustc-link-lib=dylib=tika_native");
 }
 
+/// Searches for directories two levels up from `out_dir` and checks if any of them
+/// have two subdirectories: "libs" and "tika-native".
+fn find_already_built_libs(out_dir: &Path) -> Option<PathBuf> {
+    // Traverse two levels up going to the build dir (target/debug/build)
+    if let Some(parent_dir) = out_dir.parent().and_then(|p| p.parent()) {
+        // Iterate over the entries in (target/debug/build)
+        if let Ok(entries) = fs::read_dir(parent_dir) {
+            for entry in entries.flatten() {
+                let path = entry.path();
+                // Check if the current entry is a directory
+                if path.is_dir() {
+                    // Get the directory name as a string and check if it starts with "extractous-"
+                    if let Some(dir_name) = path.file_name().and_then(|name| name.to_str()) {
+                        if dir_name.starts_with("extractous-") {
+                            // Check if both "libs" and "tika-native" exist in this directory
+                            let libs_dir = path.join("out").join("libs");
+                            let tika_native_dir = path.join("out").join("tika-native");
+
+                            if libs_dir.is_dir() && tika_native_dir.is_dir() {
+                                return Some(libs_dir);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    None
+}
+
 // Run the gradle build command to build tika-native
 fn gradle_build(
-    graalvm_home: &PathBuf,
-    tika_native_dir: &PathBuf,
+    tika_native_source_dir: &PathBuf,
+    out_dir: &PathBuf,
     libs_out_dir: &PathBuf,
     python_bind_dir: &PathBuf,
 ) {
+    let jdk_install_dir = out_dir.join("graalvm-jdk"); // out_dir subdir where jdk is downloaded
+    let tika_native_dir = out_dir.join("tika-native"); // out_dir subdir where the gradle build is run
+
+    // Try to find a GraalVM JDK or install one if not found
+    let graalvm_home = get_graalvm_home(&jdk_install_dir);
+
     println!("Using GraalVM JDK found at {}", graalvm_home.display());
     println!("Building tika_native libs this might take a while ... Please be patient!!");
 
+    // Because build script are not allowed to change files outside of OUT_DIR
+    // we need to copy the tika-native source directory to OUT_DIR and call gradle build there
+    if !tika_native_dir.is_dir() {
+        fs_extra::dir::copy(
+            tika_native_source_dir,
+            out_dir,
+            &fs_extra::dir::CopyOptions::new(),
+        )
+        .expect("Failed to copy tika-native source to OUT_DIR");
+    }
+
     let gradlew = if cfg!(target_os = "windows") {
-        tika_native_dir.join("gradlew.bat")
+        &tika_native_dir.join("gradlew.bat")
     } else {
-        tika_native_dir.join("gradlew")
+        &tika_native_dir.join("gradlew")
     };
 
+    // Launch the gradle build
     Command::new(gradlew)
-        .current_dir(tika_native_dir)
+        .current_dir(&tika_native_dir)
         .arg("nativeCompile")
         .env("JAVA_HOME", graalvm_home)
         .status()
         .expect("Failed to build tika-native");
-
-    let build_path = tika_native_dir.join("build/native/nativeCompile");
 
     // Decide where to copy the graalvm build artifacts
     let mut copy_to_dirs = vec![libs_out_dir];
@@ -97,18 +135,28 @@ fn gradle_build(
     };
 
     // Copy the build artifacts to the specified directories
+    let build_path = tika_native_dir.join("build/native/nativeCompile");
+    copy_build_artifacts(&build_path, copy_to_dirs, true);
+
+    println!("Successfully built libs 🚀");
+}
+
+pub fn copy_build_artifacts(from_path: &PathBuf, copy_to_dirs: Vec<&PathBuf>, clean: bool) {
+    // Copy the build artifacts to the specified directories
     let mut options = fs_extra::dir::CopyOptions::new();
     options.overwrite = true;
     options.content_only = true;
 
     for dir in copy_to_dirs.iter() {
-        fs_extra::dir::copy(&build_path, dir, &options)
+        fs_extra::dir::copy(from_path, dir, &options)
             .expect("Failed to copy build artifacts to OUTPUT_DIR");
 
-        fs::remove_file(dir.join("graal_isolate_dynamic.h")).unwrap();
-        fs::remove_file(dir.join("graal_isolate.h")).unwrap();
-        fs::remove_file(dir.join("libtika_native_dynamic.h")).unwrap();
-        fs::remove_file(dir.join("libtika_native.h")).unwrap();
+        if clean {
+            fs::remove_file(dir.join("graal_isolate_dynamic.h")).unwrap();
+            fs::remove_file(dir.join("graal_isolate.h")).unwrap();
+            fs::remove_file(dir.join("libtika_native_dynamic.h")).unwrap();
+            fs::remove_file(dir.join("libtika_native.h")).unwrap();
+        }
     }
 }
 

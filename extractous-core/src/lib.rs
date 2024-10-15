@@ -45,7 +45,6 @@
 //!
 //! ```
 
-
 /// Default buffer size
 pub const DEFAULT_BUF_SIZE: usize = 32768;
 
