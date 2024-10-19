@@ -1,6 +1,7 @@
 use std::env;
 use std::fs;
 use std::io;
+use std::io::Write;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
@@ -280,15 +281,21 @@ pub fn install_graalvm_ce(install_dir: &PathBuf) -> PathBuf {
 
         // Download the GraalVM archive file if it was not downloaded before
         if !archive_path.exists() {
-            println!("Downloading GraalVM JDK from {}", base_url);
-
             let client = reqwest::blocking::Client::builder()
                 .timeout(std::time::Duration::from_secs(60 * 5)) // 5 minutes
                 .build()
                 .unwrap();
             let response = client.get(base_url).send().unwrap();
-            let mut out = fs::File::create(&archive_path).unwrap();
-            io::copy(&mut response.bytes().unwrap().as_ref(), &mut out).unwrap();
+            // copy the resp bytes to a buffer first. This will prevent creating a corrupt archive
+            // in case of a download error
+            let mut buffer: Vec<u8> = vec![];
+            io::copy(&mut response.bytes()
+                .expect(&format!("Failed to download GraalVM JDK from {}", base_url))
+                .as_ref(), &mut buffer
+            ).unwrap();
+            //let mut out = fs::File::create(&archive_path).unwrap();
+            //out.write_all(&buffer).unwrap();
+            fs::write(&archive_path, &buffer).expect("Failed to write archive file");
         }
 
         // Extract the archive file
