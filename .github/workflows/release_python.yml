@@ -124,14 +124,13 @@ jobs:
           path: bindings/extractous-python/dist
       - name: pytest
         if: ${{ !startsWith(matrix.platform.target, 'aarch64') }}
-        shell: bash
+        shell: cmd
         run: |
-          set -e
-          python3 -m venv .venv
-          .\.venv\Scripts\activate
+          python -m venv .venv
+          .venv\Scripts\activate.bat
           pip install extractous --find-links bindings/extractous-python/dist --force-reinstall
           pip install pytest scikit-learn
-          cd bindings/extractous-python
+          cd bindings\extractous-python
           pytest -s
 
   macos:
