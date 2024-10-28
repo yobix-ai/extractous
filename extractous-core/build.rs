@@ -1,7 +1,6 @@
 use std::env;
 use std::fs;
 use std::io;
-use std::io::Write;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
@@ -34,8 +33,11 @@ fn main() {
     // Try to find already built libs
     match find_already_built_libs(&out_dir) {
         Some(libs_dir) => {
-            // If the libs are already built, copy them to the output directory
-            copy_build_artifacts(&libs_dir, vec![&libs_out_dir], false);
+            // ignore if libs_dir/.. is the same as out_dir
+            if out_dir.join("libs") != libs_dir {
+                // If the libs are already built, copy them to the output directory
+                copy_build_artifacts(&libs_dir, vec![&libs_out_dir], false);
+            }
         }
         None => {
             // Launch the gradle build
