@@ -204,7 +204,7 @@ jobs:
   publish-to-testpypi:
     name: Publish to TestPyPI
     # publish to TestPyPI on any push
-    needs: [linux, macos, sdist]
+    needs: [linux, macos, windows, sdist]
     runs-on: ubuntu-latest
     environment:
       name: testpypi
@@ -229,7 +229,7 @@ jobs:
     name: Publish to PyPI
     # only publish to PyPI on tag pushes
     if: "startsWith(github.ref, 'refs/tags/')"
-    needs: [linux, macos, sdist]
+    needs: [linux, macos, windows, sdist]
     runs-on: ubuntu-latest
     environment:
       name: pypi
