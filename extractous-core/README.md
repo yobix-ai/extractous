@@ -11,15 +11,6 @@ types such as PDF, Word, HTML, and [many other formats](#supported-file-formats)
 * Internally it calls the [Apache Tika](https://tika.apache.org/) for any file format that is not natively supported in the Rust core.
 * Comprehensive documentation and examples to help you get started quickly.
 
-## Installation
-
-To use extractous in your Rust project, add the following line to your `Cargo.toml` file:
-
-```toml
-[dependencies]
-extractous = "0.1.3"
-```
-
 ## Usage
 
 * Create and configure an `Extractor` instance
@@ -102,6 +93,11 @@ OpenJDK 64-Bit Server VM Liberica-NIK-24.0.1-1 (build 22.0.1+10, mixed mode, sha
 * On macOS the official GraalVM JDKs fail to work with code that use java awt. On macOS, we recommend using
   Bellsoft Liberica NIK
 * `sdk install java 24.0.1.r22-nik`
+* Extractous supports OCR through [tesseract](https://github.com/tesseract-ocr/tesseract), make sure tesseract is 
+installed on your system because some of the OCR tests will fail if no tesseract is found.
+* `sudo apt install tesseract-ocr`
+* Install any language extensions you want. for example to install German and Arabic: 
+* `sudo apt install tesseract-ocr-deu tesseract-ocr-ara`
 
 ### Building Extractous
 * To build Extractous, just run: 
