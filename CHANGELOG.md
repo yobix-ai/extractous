@@ -1,4 +1,25 @@
-# [](https://github.com/yobix-ai/extractous/compare/v0.1.3...v) (2024-09-18)
+# [](https://github.com/yobix-ai/extractous/compare/v0.1.5...v) (2024-10-29)
+
+
+
+## [0.1.5](https://github.com/yobix-ai/extractous/compare/v0.1.4...v0.1.5) (2024-10-29)
+
+
+### Bug Fixes
+
+* add python extension dir to the windows PATH to find graalvm libs ([8cd1240](https://github.com/yobix-ai/extractous/commit/8cd1240cb0dfca7e67f4254d34947bb9c7fa5c25))
+* don't copy libs to same dir ([e5dad2f](https://github.com/yobix-ai/extractous/commit/e5dad2f7434b8cae58b6aa61c0c66165473aa35f))
+* don't create graalvm archive if download fails ([2c84a50](https://github.com/yobix-ai/extractous/commit/2c84a5005bbea993d57e187a1f7f7f73ca8c3f87))
+* don't include static lib on windows + bump release version ([02ed47f](https://github.com/yobix-ai/extractous/commit/02ed47fd79572acc671309188adb8dcb2995592a))
+
+
+### Features
+
+* implemented windows support + updated readme with ocr ([17b5663](https://github.com/yobix-ai/extractous/commit/17b5663b4f852396646ec43c03f0fb888825d750))
+
+
+
+## [0.1.4](https://github.com/yobix-ai/extractous/compare/v0.1.3...v0.1.4) (2024-09-18)
 
 
 ### Bug Fixes
