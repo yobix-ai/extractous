@@ -24,7 +24,7 @@ def test_extract_file_to_string(file_name, target_dist):
     expected_result_filepath = f"../../test_files/expected_result/{file_name}.txt"
     extractor = Extractor()
     result = extractor.extract_file_to_string(original_filepath)
-    with open(expected_result_filepath, "r") as file:
+    with open(expected_result_filepath, "r",  encoding="utf8") as file:
         expected = file.read()
     
     assert cosine_similarity(result, expected) > target_dist, \

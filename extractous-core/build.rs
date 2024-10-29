@@ -1,7 +1,6 @@
 use std::env;
 use std::fs;
 use std::io;
-use std::io::Write;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
@@ -34,8 +33,11 @@ fn main() {
     // Try to find already built libs
     match find_already_built_libs(&out_dir) {
         Some(libs_dir) => {
-            // If the libs are already built, copy them to the output directory
-            copy_build_artifacts(&libs_dir, vec![&libs_out_dir], false);
+            // ignore if libs_dir/.. is the same as out_dir
+            if out_dir.join("libs") != libs_dir {
+                // If the libs are already built, copy them to the output directory
+                copy_build_artifacts(&libs_dir, vec![&libs_out_dir], false);
+            }
         }
         None => {
             // Launch the gradle build
@@ -52,7 +54,12 @@ fn main() {
     println!("cargo:rustc-link-search={}", libs_out_dir.display());
 
     // Tell cargo to tell rustc to link the `tika_native` shared library.
-    println!("cargo:rustc-link-lib=dylib=tika_native");
+    let lib_tika_name = if cfg!(target_os = "windows") {
+        "libtika_native"
+    } else {
+        "tika_native"
+    };
+    println!("cargo:rustc-link-lib=dylib={}", lib_tika_name);
 }
 
 /// Searches for directories two levels up from `out_dir` and checks if any of them
@@ -121,6 +128,7 @@ fn gradle_build(
     // Launch the gradle build
     Command::new(gradlew)
         .current_dir(&tika_native_dir)
+        .arg("--no-daemon")
         .arg("nativeCompile")
         .env("JAVA_HOME", graalvm_home)
         .status()
@@ -290,7 +298,7 @@ pub fn install_graalvm_ce(install_dir: &PathBuf) -> PathBuf {
             // in case of a download error
             let mut buffer: Vec<u8> = vec![];
             io::copy(&mut response.bytes()
-                .expect(&format!("Failed to download GraalVM JDK from {}", base_url))
+                .unwrap_or_else(|_| panic!("Failed to download GraalVM JDK from {}", base_url))
                 .as_ref(), &mut buffer
             ).unwrap();
             //let mut out = fs::File::create(&archive_path).unwrap();
