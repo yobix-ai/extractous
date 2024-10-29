@@ -1,7 +1,6 @@
 [
-  {
-    "type":"agent-extracted",
-    "classes":[
-    ]
-  }
+    {
+        "classes": [],
+        "type": "agent-extracted"
+    }
 ]
