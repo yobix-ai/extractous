@@ -4,7 +4,7 @@ build-backend = "maturin"
 
 [project]
 name = "extractous"
-version = '0.1.4'
+version = '0.1.5'
 classifiers = [
   "Programming Language :: Rust",
   "Programming Language :: Python :: Implementation :: CPython",
@@ -65,6 +65,5 @@ rustc-args = ["-C", "link-arg=-Wl,-rpath,$ORIGIN"]
 include = [ 
   {path = "**/*.so", format = ["wheel"]},
   {path = "**/*.dylib", format = ["wheel"]},
-  {path = "**/*.dll", format = ["wheel"]},
-  {path = "**/*.lib", format = ["wheel"]}
+  {path = "**/*.dll", format = ["wheel"]}
 ]
