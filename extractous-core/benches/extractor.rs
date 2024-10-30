@@ -1,17 +1,14 @@
 use criterion::{criterion_group, criterion_main, Criterion};
 
-
-use std::io::{BufReader, Read};
 use extractous::Extractor;
+use std::io::{BufReader, Read};
 
 fn extract_to_stream(c: &mut Criterion) {
-
     let file_path = "../test_files/documents/2022_Q3_AAPL.pdf";
     let extractor = Extractor::new();
 
     c.bench_function("extract_to_stream", |b| {
         b.iter(|| {
-
             // Extract the provided file content to a stream
             let stream = extractor.extract_file(file_path).unwrap();
             // Because stream implements std::io::Read trait we can perform buffered reading
@@ -24,7 +21,6 @@ fn extract_to_stream(c: &mut Criterion) {
 }
 
 fn extract_to_string(c: &mut Criterion) {
-
     let file_path = "../test_files/documents/2022_Q3_AAPL.pdf";
     let extractor = Extractor::new();
 

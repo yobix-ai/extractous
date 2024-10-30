@@ -18,7 +18,9 @@ impl From<PdfOcrStrategy> for ecore::PdfOcrStrategy {
         match strategy {
             PdfOcrStrategy::NO_OCR => ecore::PdfOcrStrategy::NO_OCR,
             PdfOcrStrategy::OCR_ONLY => ecore::PdfOcrStrategy::OCR_ONLY,
-            PdfOcrStrategy::OCR_AND_TEXT_EXTRACTION => ecore::PdfOcrStrategy::OCR_AND_TEXT_EXTRACTION,
+            PdfOcrStrategy::OCR_AND_TEXT_EXTRACTION => {
+                ecore::PdfOcrStrategy::OCR_AND_TEXT_EXTRACTION
+            }
             PdfOcrStrategy::AUTO => ecore::PdfOcrStrategy::AUTO,
         }
     }
@@ -36,7 +38,6 @@ impl From<PdfParserConfig> for ecore::PdfParserConfig {
         config.0
     }
 }
-
 
 #[pymethods]
 impl PdfParserConfig {
@@ -154,7 +155,6 @@ impl OfficeParserConfig {
         Ok(Self(inner))
     }
 
-
     /// Whether to include headers and footers. This only operates on headers and footers in
     /// Word and Excel, not master slide content in PowerPoint.
     /// Default: true
@@ -211,8 +211,6 @@ impl OfficeParserConfig {
         format!("{:?}", self.0)
     }
 }
-
-
 
 /// Tesseract OCR configuration settings
 ///

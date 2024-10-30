@@ -297,10 +297,14 @@ pub fn install_graalvm_ce(install_dir: &PathBuf) -> PathBuf {
             // copy the resp bytes to a buffer first. This will prevent creating a corrupt archive
             // in case of a download error
             let mut buffer: Vec<u8> = vec![];
-            io::copy(&mut response.bytes()
-                .unwrap_or_else(|_| panic!("Failed to download GraalVM JDK from {}", base_url))
-                .as_ref(), &mut buffer
-            ).unwrap();
+            io::copy(
+                &mut response
+                    .bytes()
+                    .unwrap_or_else(|_| panic!("Failed to download GraalVM JDK from {}", base_url))
+                    .as_ref(),
+                &mut buffer,
+            )
+            .unwrap();
             //let mut out = fs::File::create(&archive_path).unwrap();
             //out.write_all(&buffer).unwrap();
             fs::write(&archive_path, &buffer).expect("Failed to write archive file");
