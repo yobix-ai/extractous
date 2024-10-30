@@ -2,6 +2,8 @@ use criterion::{criterion_group, criterion_main, Criterion};
 
 use extractous::Extractor;
 use std::io::{BufReader, Read};
+use std::path::PathBuf;
+use std::str::FromStr;
 
 fn extract_to_stream(c: &mut Criterion) {
     let file_path = "../test_files/documents/2022_Q3_AAPL.pdf";
@@ -32,5 +34,13 @@ fn extract_to_string(c: &mut Criterion) {
     });
 }
 
-criterion_group!(benches, extract_to_stream, extract_to_string);
+// Saves results to test_files/criterion which is added to git unlike the default target/criterion
+criterion_group! {
+    name = benches;
+    config = Criterion::default()
+        .sample_size(30)
+        .without_plots()
+        .output_directory(&PathBuf::from_str("../test_files/criterion").unwrap());
+    targets = extract_to_stream, extract_to_string
+}
 criterion_main!(benches);

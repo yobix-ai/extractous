@@ -17,7 +17,7 @@ keywords = ["unstructured", "tika", "text", "pdf", "parser"]
 categories = ["parsing", "text-processing"]
 
 [[bench]]
-name = "extractor"
+name = "extractor-bench"
 harness = false
 required-features = []
 
