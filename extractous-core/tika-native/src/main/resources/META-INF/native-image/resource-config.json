@@ -42,9 +42,6 @@
     "resources": {
         "includes": [
             {
-                "pattern": "\\Q2022_Q3_AAPL.pdf\\E"
-            },
-            {
                 "pattern": "\\QMETA-INF/log4j-provider.properties\\E"
             },
             {
@@ -141,16 +138,7 @@
                 "pattern": "\\QMETA-INF/services/org.slf4j.spi.SLF4JServiceProvider\\E"
             },
             {
-                "pattern": "\\Qamericanexpress.pdf\\E"
-            },
-            {
                 "pattern": "\\Qcommons-logging.properties\\E"
-            },
-            {
-                "pattern": "\\Qhandbook-1p.docx\\E"
-            },
-            {
-                "pattern": "\\Qinvoice.pdf\\E"
             },
             {
                 "pattern": "\\Qjunit-platform.properties\\E"
@@ -172,9 +160,6 @@
             },
             {
                 "pattern": "\\Qlog4j2.system.properties\\E"
-            },
-            {
-                "pattern": "\\Qno-new-roman.pdf\\E"
             },
             {
                 "pattern": "\\Qorg/apache/fontbox/cmap/Adobe-Korea1-0\\E"
@@ -445,6 +430,9 @@
             },
             {
                 "pattern": "\\Qorg/apache/poi/schemas/ooxml/system/ooxml/ctpa1e2type.xsb\\E"
+            },
+            {
+                "pattern": "\\Qorg/apache/poi/schemas/ooxml/system/ooxml/ctpicture1054type.xsb\\E"
             },
             {
                 "pattern": "\\Qorg/apache/poi/schemas/ooxml/system/ooxml/ctpicture1d48type.xsb\\E"
@@ -796,24 +784,6 @@
             },
             {
                 "pattern": "\\Qorg/slf4j/impl/StaticLoggerBinder.class\\E"
-            },
-            {
-                "pattern": "\\Qquarkus.odt\\E"
-            },
-            {
-                "pattern": "\\Qquarkus.pdf\\E"
-            },
-            {
-                "pattern": "\\Qquarkus.txt\\E"
-            },
-            {
-                "pattern": "\\Qtable-multi-row-column-cells.png\\E"
-            },
-            {
-                "pattern": "\\QtestEXCEL_embeded.xls\\E"
-            },
-            {
-                "pattern": "\\Qword.docx\\E"
             },
             {
                 "pattern": "java.base:\\Qjdk/internal/icu/impl/data/icudt72b/nfkc.nrm\\E"

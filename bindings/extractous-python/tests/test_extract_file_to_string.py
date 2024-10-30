@@ -15,6 +15,7 @@ TEST_CASES = [
     ("simple.pptx", 0.9),
     ("table-multi-row-column-cells.png", -1.0),
     ("winter-sports.epub", 0.9),
+    ("bug_16.docx", 0.9),
 ]
 
 @pytest.mark.parametrize("file_name, target_dist", TEST_CASES)

@@ -16,6 +16,7 @@ use textdistance::nstr::cosine;
 #[test_case("simple.pptx", 0.9; "Test another PPTX file")]
 #[test_case("table-multi-row-column-cells.png", -1.0; "Test PNG file")]
 #[test_case("winter-sports.epub", 0.9; "Test EPUB file")]
+#[test_case("bug_16.docx", 0.9; "Test bug16 DOCX file")]
 fn test_extract_file_to_string(file_name: &str, target_dist: f64) {
     let extractor = Extractor::new().set_extract_string_max_length(1000000);
     // extract file with extractor
