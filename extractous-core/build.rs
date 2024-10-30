@@ -120,9 +120,9 @@ fn gradle_build(
     }
 
     let gradlew = if cfg!(target_os = "windows") {
-        &tika_native_dir.join("gradlew.bat")
+        tika_native_dir.join("gradlew.bat")
     } else {
-        &tika_native_dir.join("gradlew")
+        tika_native_dir.join("gradlew")
     };
 
     // Launch the gradle build
