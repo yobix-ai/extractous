@@ -16,6 +16,10 @@ readme = "README.md"
 keywords = ["unstructured", "tika", "text", "pdf", "parser"]
 categories = ["parsing", "text-processing"]
 
+[[bench]]
+name = "extractor"
+harness = false
+required-features = []
 
 [dependencies]
 libc = { version = "0.2.158" }
@@ -29,6 +33,7 @@ strum_macros = { version = "0.26.2" }
 [dev-dependencies]
 textdistance = "1.1.0"
 test-case = "3.0"
+criterion = "0.5.1"
 
 [build-dependencies]
 fs_extra = { version = "1.3.0" }
