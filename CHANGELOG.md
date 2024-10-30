@@ -1,4 +1,11 @@
-# [](https://github.com/yobix-ai/extractous/compare/v0.1.5...v) (2024-10-29)
+# [](https://github.com/yobix-ai/extractous/compare/v0.1.5...v) (2024-10-30)
+
+
+### Bug Fixes
+
+* add criterion benchmarks ([5858356](https://github.com/yobix-ai/extractous/commit/585835623bb7c098e4359636d8d028af4835d699))
+* fixed issue 16 and added test case ([03062be](https://github.com/yobix-ai/extractous/commit/03062beca1eceede16878707dc2647b71848b65e))
+* minor fix to build script ([8ac14b8](https://github.com/yobix-ai/extractous/commit/8ac14b8d36c8a8d733c08a123686d02c52bcf5bb))
 
 
 
