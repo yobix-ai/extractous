@@ -67,7 +67,7 @@ jobs:
         shell: bash
         run: |
           set -e
-          apt install tesseract-ocr tesseract-ocr-deu tesseract-ocr-ara
+          sudo apt install tesseract-ocr tesseract-ocr-deu tesseract-ocr-ara
           python3 -m venv .venv
           source .venv/bin/activate
           pip install extractous --find-links bindings/extractous-python/dist --no-index --force-reinstall
@@ -178,7 +178,7 @@ jobs:
       - name: pytest
         run: |
           set -e
-          brew install tesseract tesseract-deu tesseract-ara
+          brew install tesseract tesseract-lang
           python3 -m venv .venv
           source .venv/bin/activate
           pip install extractous --find-links bindings/extractous-python/dist --no-index --force-reinstall
