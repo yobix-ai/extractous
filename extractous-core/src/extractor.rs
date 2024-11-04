@@ -127,7 +127,13 @@ impl Extractor {
     /// Extracts text from a file path. Returns a string that is of maximum length
     /// of the extractor's `extract_string_max_length`
     pub fn extract_file_to_string(&self, file_path: &str) -> ExtractResult<String> {
-        tika::parse_file_to_string(file_path, self.extract_string_max_length)
+        tika::parse_file_to_string(
+            file_path,
+            self.extract_string_max_length,
+            &self.pdf_config,
+            &self.office_config,
+            &self.ocr_config,
+        )
     }
 }
 
