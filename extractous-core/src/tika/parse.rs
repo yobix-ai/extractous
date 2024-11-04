@@ -63,40 +63,37 @@ pub fn parse_file(
 }
 
 /// Parses a file to a string using the Apache Tika library.
-pub fn parse_file_to_string(file_path: &str, max_length: i32) -> ExtractResult<String> {
+pub fn parse_file_to_string(
+    file_path: &str,
+    max_length: i32,
+    pdf_conf: &PdfParserConfig,
+    office_conf: &OfficeParserConfig,
+    ocr_conf: &TesseractOcrConfig,
+) -> ExtractResult<String> {
     // Attaching a thead that is already attached is a no-op. Good to have this in case this method
     // is called from another thread
     let mut env = vm().attach_current_thread()?;
 
     // Create a new Java string from the Rust string
     let file_path_val = jni_new_string_as_jvalue(&mut env, file_path)?;
-
-    // Make the parse call
-    // let main_class = env.find_class("ai/yobix/TikaNativeMain")?;
-    // let parse_mid = env.get_static_method_id(
-    //     &main_class,
-    //     "parseToString",
-    //     "(Ljava/lang/String;I)Lai/yobix/StringResult;",
-    // )?;
-    // println!("here1");
-    //
-    // let call_result = unsafe {
-    //     env.call_static_method_unchecked(
-    //         main_class,
-    //         parse_mid,
-    //         ReturnType::Object,
-    //         &[file_path_val.as_jni(), JValue::Int(max_length).as_jni()],
-    //     )
-    // };
-    // jni_check_exception(&mut env)?; // prints any exceptions thrown to stderr
-    // let call_result_obj = call_result?.l()?;
+    let j_pdf_conf = JPDFParserConfig::new(&mut env, pdf_conf)?;
+    let j_office_conf = JOfficeParserConfig::new(&mut env, office_conf)?;
+    let j_ocr_conf = JTesseractOcrConfig::new(&mut env, ocr_conf)?;
 
     let call_result = jni_call_static_method(
         &mut env,
         "ai/yobix/TikaNativeMain",
         "parseToString",
-        "(Ljava/lang/String;I)Lai/yobix/StringResult;",
-        &[(&file_path_val).into(), JValue::Int(max_length)],
+        "(Ljava/lang/String;ILorg/apache/tika/parser/pdf/PDFParserConfig;\
+        Lorg/apache/tika/parser/microsoft/OfficeParserConfig;\
+        Lorg/apache/tika/parser/ocr/TesseractOCRConfig;)Lai/yobix/StringResult;",
+        &[
+            (&file_path_val).into(),
+            JValue::Int(max_length),
+            (&j_pdf_conf.internal).into(),
+            (&j_office_conf.internal).into(),
+            (&j_ocr_conf.internal).into(),
+        ],
     );
     let call_result_obj = call_result?.l()?;
 

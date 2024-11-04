@@ -1,8 +1,7 @@
 import pytest
 
 from extractous import Extractor
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.metrics.pairwise import cosine_similarity as cosine_sim
+from utils import cosine_similarity
 
 TEST_CASES = [
     ("2022_Q3_AAPL.pdf", 0.9),
@@ -16,6 +15,7 @@ TEST_CASES = [
     ("table-multi-row-column-cells.png", -1.0),
     ("winter-sports.epub", 0.9),
     ("bug_16.docx", 0.9),
+    ("deu-ocr.pdf", 0.9),
 ]
 
 @pytest.mark.parametrize("file_name, target_dist", TEST_CASES)
@@ -31,13 +31,3 @@ def test_extract_file_to_string(file_name, target_dist):
     assert cosine_similarity(result, expected) > target_dist, \
         f"Cosine similarity is less than {target_dist} for file: {file_name}"
 
-def cosine_similarity(text1, text2):
-    """Calculate the cosine similarity between two texts."""
-
-    # Create the CountVectorizer and transform the texts into vectors
-    vectorizer = CountVectorizer().fit_transform([text1, text2])
-    vectors = vectorizer.toarray()
-    
-    # Calculate cosine similarity between the two vectors
-    cos_sim = cosine_sim(vectors)
-    return cos_sim[0][1]

@@ -73,6 +73,24 @@ fn main() {
 }
 ```
 
+* Extract content of PDF with OCR. You need to have Tesseract installed with the language pack. For example on debian `sudo apt install tesseract-ocr tesseract-ocr-deu`
+* If you get `Parse error occurred : Unable to extract PDF content`, it is most likely that OCR language pack is not installed
+```rust
+use extractous::Extractor;
+
+fn main() {
+  let file_path = "../test_files/documents/deu-ocr.pdf";
+  
+    let extractor = Extractor::new()
+          .set_ocr_config(TesseractOcrConfig::new().set_language("deu"))
+          .set_pdf_config(PdfParserConfig::new().set_ocr_strategy(PdfOcrStrategy::OCR_ONLY));
+    // extract file with extractor
+  let content = extractor.extract_file_to_string(file_path).unwrap();
+  println!("{}", content);
+}
+```
+
+
 ## Building
 
 ### Requirements
@@ -84,6 +102,7 @@ fn main() {
   specific local version, you can do so by setting the GRAALVM_HOME environment variable
 * We recommend using [sdkman](https://sdkman.io/install) to install GraalVM JDKs
 * `sdk install java 22.0.1-graalce`
+* To be able to use it from IDEA, on Ubuntu for example add `GRAALVM_HOME=$HOME/.sdkman/candidates/java/22.0.2-graalce` to `/etc/environment`
 * Confirm that GraalVM is installed correctly by running `java -version`. You should see something like:
 ```text
 openjdk 22.0.1 2024-04-16

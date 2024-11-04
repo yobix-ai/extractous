@@ -28,7 +28,7 @@ impl Default for PdfParserConfig {
         Self {
             ocr_strategy: PdfOcrStrategy::AUTO,
             extract_inline_images: false,
-            extract_unique_inline_images_only: true,
+            extract_unique_inline_images_only: false,
             extract_marked_content: false,
             extract_annotation_text: true,
         }
@@ -71,7 +71,7 @@ impl PdfParserConfig {
     /// or similar equality metric. If the PDF actually contains multiple copies of the same
     /// image -- all with different object ids -- then all images will be extracted.
     /// For this parameter to have any effect, extractInlineImages must be set to true.
-    /// Default: true.
+    /// Default: false.
     pub fn set_extract_unique_inline_images_only(mut self, val: bool) -> Self {
         self.extract_unique_inline_images_only = val;
         self

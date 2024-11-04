@@ -76,7 +76,10 @@
                 "name": "parseToString",
                 "parameterTypes": [
                     "java.lang.String",
-                    "int"
+                    "int",
+                    "org.apache.tika.parser.pdf.PDFParserConfig",
+                    "org.apache.tika.parser.microsoft.OfficeParserConfig",
+                    "org.apache.tika.parser.ocr.TesseractOCRConfig"
                 ]
             },
             {

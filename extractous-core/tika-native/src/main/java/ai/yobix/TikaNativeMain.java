@@ -1,12 +1,15 @@
 package ai.yobix;
 
 import org.apache.commons.io.input.ReaderInputStream;
+import org.apache.tika.exception.WriteLimitReachedException;
 import org.apache.tika.parser.ParsingReader;
-import org.xml.sax.ContentHandler;
+import org.apache.tika.sax.BodyContentHandler;
+import org.apache.tika.sax.WriteOutContentHandler;
 import org.apache.tika.Tika;
 import org.apache.tika.config.TikaConfig;
 import org.apache.tika.exception.TikaException;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.net.MalformedURLException;
@@ -31,6 +34,7 @@ import org.graalvm.nativeimage.c.function.CEntryPoint;
 import org.graalvm.nativeimage.c.type.CCharPointer;
 import org.graalvm.nativeimage.c.type.CConst;
 import org.graalvm.nativeimage.c.type.CTypeConversion;
+import org.xml.sax.SAXException;
 
 public class TikaNativeMain {
 
@@ -63,20 +67,62 @@ public class TikaNativeMain {
      * @param maxLength: maximum length of the returned string
      * @return StringResult
      */
-    public static StringResult parseToString(String filePath, int maxLength) {
+    public static StringResult parseToString(
+            String filePath,
+            int maxLength,
+            PDFParserConfig pdfConfig,
+            OfficeParserConfig officeConfig,
+            TesseractOCRConfig tesseractConfig
+    ) {
         try {
             final Path path = Paths.get(filePath);
             final Metadata metadata = new Metadata();
             final InputStream stream = TikaInputStream.get(path, metadata);
 
             // No need to close the stream because parseToString does so
-            return new StringResult(tika.parseToString(stream, metadata, maxLength));
+            return new StringResult(parseToStringWithConfig(
+                    stream, metadata, maxLength, pdfConfig, officeConfig, tesseractConfig)
+            );
         } catch (java.io.IOException e) {
             return new StringResult((byte) 1, "Could not open file: " + e.getMessage());
         } catch (TikaException e) {
             return new StringResult((byte) 2, "Parse error occurred : " + e.getMessage());
         }
     }
+
+    private static String parseToStringWithConfig(
+            InputStream stream,
+            Metadata metadata,
+            int maxLength,
+            PDFParserConfig pdfConfig,
+            OfficeParserConfig officeConfig,
+            TesseractOCRConfig tesseractConfig
+    ) throws IOException, TikaException {
+        final WriteOutContentHandler handler = new WriteOutContentHandler(maxLength);
+
+        try {
+            final TikaConfig config = TikaConfig.getDefaultConfig();
+            final ParseContext parsecontext = new ParseContext();
+            final Parser parser = new AutoDetectParser(config);
+
+            parsecontext.set(Parser.class, parser);
+            parsecontext.set(PDFParserConfig.class, pdfConfig);
+            parsecontext.set(OfficeParserConfig.class, officeConfig);
+            parsecontext.set(TesseractOCRConfig.class, tesseractConfig);
+
+            parser.parse(stream, new BodyContentHandler(handler), metadata, parsecontext);
+
+        } catch (SAXException e) {
+            if (!WriteLimitReachedException.isWriteLimitReached(e)) {
+                // This should never happen with BodyContentHandler...
+                throw new TikaException("Unexpected SAX processing failure", e);
+            }
+        } finally {
+            stream.close();
+        }
+        return handler.toString();
+    }
+
 
     /**
      * Parses the given file and returns its content as Reader. The reader can be used

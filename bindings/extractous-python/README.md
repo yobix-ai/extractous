@@ -41,3 +41,14 @@ while len(buffer) > 0:
 
 print(result)
 ```
+
+Extracting a file with OCR:
+
+```python
+from extractous import Extractor, TesseractOcrConfig
+
+extractor = Extractor().set_ocr_config(TesseractOcrConfig().set_language("deu"))
+result = extractor.extract_file_to_string("../../test_files/documents/eng-ocr.pdf")
+
+print(result)
+```
