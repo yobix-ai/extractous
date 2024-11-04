@@ -77,20 +77,93 @@ extractor.set_extract_string_max_length(1000)
 result = extractor.extract_file_to_string("README.md")
 print(result)
 ```
+* Extracting a file to a buffered stream:
+
+```python
+from extractous import Extractor
+
+extractor = Extractor()
+reader = extractor.extract_file("tests/quarkus.pdf")
+
+result = ""
+buffer = reader.read(4096)
+while len(buffer) > 0:
+    result += buffer.decode("utf-8")
+    buffer = reader.read(4096)
+
+print(result)
+```
+
+* Extracting a file with OCR:
+
+You need to have Tesseract installed with the language pack. For example on debian `sudo apt install tesseract-ocr tesseract-ocr-deu`
+
+```python
+from extractous import Extractor, TesseractOcrConfig
+
+extractor = Extractor().set_ocr_config(TesseractOcrConfig().set_language("deu"))
+result = extractor.extract_file_to_string("../../test_files/documents/eng-ocr.pdf")
+
+print(result)
+```
 
 #### Rust
 * Extract a file content to a string:
 ```rust
 use extractous::Extractor;
-use extractous::PdfParserConfig;
 
-// Create a new extractor. Note it uses a consuming builder pattern
-let mut extractor = Extractor::new().set_extract_string_max_length(1000);
+fn main() {
+    // Create a new extractor. Note it uses a consuming builder pattern
+    let mut extractor = Extractor::new().set_extract_string_max_length(1000);
 
-// Extract text from a file
-let text = extractor.extract_file_to_string("README.md").unwrap();
-println!("{}", text);
+    // Extract text from a file
+    let text = extractor.extract_file_to_string("README.md").unwrap();
+    println!("{}", text);
+}
 ```
+
+* Extract a content of a file to a `StreamReader` and perform buffered reading
+```rust
+use std::io::Read;
+use extractous::Extractor;
+
+fn main() {
+    // Get the command-line arguments
+    let args: Vec<String> = std::env::args().collect();
+    let file_path = &args[1];
+
+    // Extract the provided file content to a string
+    let extractor = Extractor::new();
+    let stream = extractor.extract_file(file_path).unwrap();
+
+    // Because stream implements std::io::Read trait we can perform buffered reading
+    // For example we can use it to create a BufReader
+    let mut buffer = Vec::new();
+    stream.read_to_end(&mut buffer).unwrap();
+
+    println!("{}", String::from_utf8(buffer).unwrap())
+}
+```
+
+* Extract content of PDF with OCR. 
+
+You need to have Tesseract installed with the language pack. For example on debian `sudo apt install tesseract-ocr tesseract-ocr-deu`
+
+```rust
+use extractous::Extractor;
+
+fn main() {
+  let file_path = "../test_files/documents/deu-ocr.pdf";
+  
+    let extractor = Extractor::new()
+          .set_ocr_config(TesseractOcrConfig::new().set_language("deu"))
+          .set_pdf_config(PdfParserConfig::new().set_ocr_strategy(PdfOcrStrategy::OCR_ONLY));
+    // extract file with extractor
+  let content = extractor.extract_file_to_string(file_path).unwrap();
+  println!("{}", content);
+}
+```
+
 
 ## 🔥 Performance
 * **Extractous** is fast, please don't take our word for it, you can run the [benchmarks](https://github.com/yobix-ai/extractous-benchmarks) yourself. For example extracting content out of [sec10 filings pdf forms](https://github.com/yobix-ai/extractous-benchmarks/raw/main/dataset/sec10-filings), Extractous is on average **~18x faster** than unstructured-io:
