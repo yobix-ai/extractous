@@ -68,10 +68,11 @@ fn test_extract_ara_ocr_png_to_string() {
 fn test_ocr_only_strategy_extract_deu_ocr_pdf_to_string() {
     let extractor = Extractor::new()
         .set_ocr_config(TesseractOcrConfig::new().set_language("deu"))
-        .set_pdf_config(PdfParserConfig::new()
-            .set_ocr_strategy(PdfOcrStrategy::OCR_ONLY)
-            .set_extract_inline_images(true)
-            .set_extract_unique_inline_images_only(true)
+        .set_pdf_config(
+            PdfParserConfig::new()
+                .set_ocr_strategy(PdfOcrStrategy::OCR_ONLY)
+                .set_extract_inline_images(true)
+                .set_extract_unique_inline_images_only(true),
         );
     // extract file with extractor
     let extracted = extractor

@@ -92,8 +92,8 @@ pub fn parse_file_to_string(
             JValue::Int(max_length),
             (&j_pdf_conf.internal).into(),
             (&j_office_conf.internal).into(),
-            (&j_ocr_conf.internal).into()
-        ]
+            (&j_ocr_conf.internal).into(),
+        ],
     );
     let call_result_obj = call_result?.l()?;
 
