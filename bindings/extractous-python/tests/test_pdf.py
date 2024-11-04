@@ -9,7 +9,7 @@ def test_extract_file_to_string():
     extractor = Extractor()
     result = extractor.extract_file_to_string("tests/quarkus.pdf")
 
-    print(result)
+    #print(result)
     assert result == expected_result()
 
 
@@ -23,5 +23,5 @@ def test_extract_file():
         result += b.decode("utf-8")
         b = reader.read(4096)
 
-    print(result)
+    #print(result)
     assert result == expected_result()

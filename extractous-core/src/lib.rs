@@ -9,6 +9,7 @@
 //! To use an extractor, you need to:
 //! - [create and configure new the extractor](#create-and-config-an-extractor)
 //! - [use the extractor to extract text](#extract-text)
+//! - [enable OCR for the extractor](#extract-text-with-ocr)
 //!
 //! ## Create and config an extractor
 //!
@@ -42,6 +43,26 @@
 //! // Extract text from a file
 //! let text = extractor.extract_file_to_string("README.md").unwrap();
 //! println!("{}", text);
+//!
+//! ```
+//!
+//! ## Extract text with OCR
+//! * Make sure Tesseract is installed with the corresponding language packs. For example on debian `sudo apt install tesseract-ocr tesseract-ocr-deu` to install tesseract with German language pack.
+//! * If you get `Parse error occurred : Unable to extract PDF content`, it is most likely that the OCR language pack is not installed
+//!
+//! ```no_run
+//! use extractous::{Extractor, TesseractOcrConfig, PdfParserConfig, PdfOcrStrategy};
+//!
+//! let file_path = "../test_files/documents/deu-ocr.pdf";
+//!
+//! // Create a new extractor. Note it uses a consuming builder pattern
+//! let extractor = Extractor::new()
+//!  .set_ocr_config(TesseractOcrConfig::new().set_language("deu"))
+//!  .set_pdf_config(PdfParserConfig::new().set_ocr_strategy(PdfOcrStrategy::OCR_ONLY));
+//!
+//! // extract file with extractor
+//! let content = extractor.extract_file_to_string(file_path).unwrap();
+//! println!("{}", content);
 //!
 //! ```
 
