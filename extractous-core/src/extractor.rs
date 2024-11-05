@@ -124,6 +124,31 @@ impl Extractor {
         )
     }
 
+    /// Extracts text from a byte buffer. Returns a stream of the extracted text
+    /// the stream is decoded using the extractor's `encoding`
+    pub fn extract_bytes(&self, buffer: &Vec<u8>) -> ExtractResult<StreamReader> {
+        tika::parse_bytes(
+            buffer,
+            &self.encoding,
+            &self.pdf_config,
+            &self.office_config,
+            &self.ocr_config,
+        )
+    }
+
+    /// Extracts text from a url. Returns a stream of the extracted text
+    /// the stream is decoded using the extractor's `encoding`
+    pub fn extract_url(&self, url: &str) -> ExtractResult<StreamReader> {
+        tika::parse_url(
+            url,
+            &self.encoding,
+            &self.pdf_config,
+            &self.office_config,
+            &self.ocr_config,
+        )
+    }
+
+
     /// Extracts text from a file path. Returns a string that is of maximum length
     /// of the extractor's `extract_string_max_length`
     pub fn extract_file_to_string(&self, file_path: &str) -> ExtractResult<String> {
@@ -141,15 +166,27 @@ impl Extractor {
 mod tests {
     use crate::Extractor;
     use std::fs::File;
-    use std::io::prelude::*;
+    use std::io::{self, Read};
     use std::io::BufReader;
 
+    use super::StreamReader;
+
     const TEST_FILE: &str = "README.md";
+    const TEST_URL: &str = "https://www.google.com/";
 
     fn expected_content() -> String {
         let mut file = File::open(TEST_FILE).unwrap();
         let mut content = String::new();
         file.read_to_string(&mut content).unwrap();
+        content
+    }
+
+    fn read_content_from_stream(stream: StreamReader) -> String {
+        let mut reader = BufReader::new(stream);
+        let mut buffer = Vec::new();
+        reader.read_to_end(&mut buffer).unwrap();
+
+        let content = String::from_utf8(buffer).unwrap();
         content
     }
 
@@ -161,17 +198,8 @@ mod tests {
         // Parse the files using extractous
         let extractor = Extractor::new();
         let result = extractor.extract_file(TEST_FILE);
-        let mut reader = BufReader::new(result.unwrap());
-        let mut buffer = Vec::new();
-        reader.read_to_end(&mut buffer).unwrap();
-
-        let content = String::from_utf8(buffer).unwrap();
+        let content = read_content_from_stream(result.unwrap());
         assert_eq!(content.trim(), expected_content.trim());
-
-        // let mut reader = BufReader::new(result.unwrap());
-        // let mut line = String::new();
-        // let _len = reader.read_line(&mut line).unwrap();
-        //assert_eq!("# Extractous", line.trim());
     }
 
     #[test]
@@ -185,4 +213,33 @@ mod tests {
         let content = result.unwrap();
         assert_eq!(content.trim(), expected_content.trim());
     }
+
+	fn read_file_as_bytes(path: &str) -> io::Result<Vec<u8>> {
+		let mut file = File::open(path)?;
+		let mut buffer = Vec::new();
+		file.read_to_end(&mut buffer)?;
+		Ok(buffer)
+	}
+
+	#[test]
+	fn extract_bytes_test() {
+        // Prepare expected_content
+        let expected_content = expected_content();
+
+        // Parse the bytes using extractous
+        let file_bytes = read_file_as_bytes(TEST_FILE).unwrap();
+        let extractor = Extractor::new();
+        let result = extractor.extract_bytes(&file_bytes);
+        let content = read_content_from_stream(result.unwrap());
+        assert_eq!(content.trim(), expected_content.trim());
+	}
+
+	#[test]
+	fn extract_url_test() {
+        // Parse url by extractous
+        let extractor = Extractor::new();
+        let result = extractor.extract_url(&TEST_URL);
+        let content = read_content_from_stream(result.unwrap());
+        assert!(content.contains("Google"));
+	}
 }
