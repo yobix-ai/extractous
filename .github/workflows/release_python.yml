@@ -31,11 +31,12 @@ jobs:
             target: x86_64
           #- runner: self-hosted-arm64
           #  target: aarch64
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.8"
+          python-version: ${{ matrix.python-version }}
 
       # On linux we dont use graalvm/setup-graalvm@v1.2.2 action to install graalvm because it will install it 
       # on the runner machine and on linux the build will happen inside a manylinux docker. 
@@ -46,7 +47,7 @@ jobs:
         with:
           command: build
           #working-directory: "bindings/extractous-python" # dont use working dir with docker fails to reapply permission on target dir
-          args: --manifest-path bindings/extractous-python/Cargo.toml --release --out bindings/extractous-python/dist -i python3.8 --compatibility manylinux_2_28
+          args: --manifest-path bindings/extractous-python/Cargo.toml --release --out bindings/extractous-python/dist -i python${{ matrix.python-version }} --compatibility manylinux_2_28
           sccache: 'false'
           target: ${{ matrix.platform.target }}
           container: quay.io/pypa/manylinux_2_28_${{ matrix.platform.target }}:latest
@@ -57,6 +58,7 @@ jobs:
 
       # On linux we don't need to patch the wheel as the RPATH is set by the rustc compiler
       - name: Upload wheels
+        if: ${{ matrix.python-version == '3.8' }}
         uses: actions/upload-artifact@v4
         with:
           name: wheels-linux-${{ matrix.platform.target }}
@@ -92,40 +94,6 @@ jobs:
             pip3 install extractous --find-links bindings/extractous-python/dist --no-index --force-reinstall
             cd bindings/extractous-python
             pytest -s
-
-  python-versions:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Build wheels
-        uses: PyO3/maturin-action@v1
-        with:
-          command: build
-          args: --manifest-path bindings/extractous-python/Cargo.toml --release --out bindings/extractous-python/dist -i python${{ matrix.python-version }} --compatibility manylinux_2_28
-          sccache: 'false'
-          target: ${{ matrix.platform.target }}
-          container: quay.io/pypa/manylinux_2_28_${{ matrix.platform.target }}:latest
-          before-script-linux: .github/workflows/install-graalvm-sdkman.sh 22.0.1-graalce
-          docker-options: "-e JAVA_HOME=/root/.sdkman/candidates/java/22.0.1-graalce -e GRAALVM_HOME=/root/.sdkman/candidates/java/22.0.1-graalce"
-
-      - name: pytest
-        shell: bash
-        run: |
-          set -e
-          sudo apt install tesseract-ocr tesseract-ocr-deu tesseract-ocr-ara
-          python3 -m venv .venv
-          source .venv/bin/activate
-          pip install extractous --find-links bindings/extractous-python/dist --no-index --force-reinstall
-          pip install pytest scikit-learn
-          cd bindings/extractous-python
-          pytest -s
 
   windows:
     runs-on: ${{ matrix.platform.runner }}
@@ -240,7 +208,7 @@ jobs:
   publish-to-testpypi:
     name: Publish to TestPyPI
     # publish to TestPyPI on any push
-    needs: [python-versions, linux, macos, windows, sdist]
+    needs: [linux, macos, windows, sdist]
     runs-on: ubuntu-latest
     environment:
       name: testpypi
