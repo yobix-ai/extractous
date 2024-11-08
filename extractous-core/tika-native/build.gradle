@@ -68,7 +68,8 @@ graalvmNative {
                     "-H:+AddAllCharsets", // Very important to get UTF8 working
                     "-O3",
                     "--parallelism=$numThreads",
-                    "-march=compatibility" // VERY IMPORTANT to use compatibility flag. If not the libs will use the cpu arch of the build machine and will notwork on other CPUs if distributed
+                    "-march=compatibility", // VERY IMPORTANT to use compatibility flag. If not the libs will use the cpu arch of the build machine and will notwork on other CPUs if distributed
+                    "--enable-url-protocols=https",
             )
             jvmArgs.add('-Djava.awt.headless=true')
             requiredVersion = '22' // The minimal GraalVM version, can be `MAJOR`, `MAJOR.MINOR` or `MAJOR.MINOR.PATCH`

@@ -147,6 +147,39 @@ impl Extractor {
             .map_err(|e| PyErr::new::<PyTypeError, _>(format!("{:?}", e)))
     }
 
+    /// Extracts text from a bytearray. Returns a stream of the extracted text
+    /// the stream is decoded using the extractor's `encoding`
+    pub fn extract_bytes(&self, buffer: &Bound<'_, PyByteArray>) -> PyResult<StreamReader> {
+        let slice = buffer.to_vec();
+        let reader = self
+            .0
+            .extract_bytes(&slice)
+            .map_err(|e| PyErr::new::<PyTypeError, _>(format!("{:?}", e)))?;
+
+        // Create a new `StreamReader` with initial buffer capacity of ecore::DEFAULT_BUF_SIZE bytes
+        Ok(StreamReader {
+            reader,
+            buffer: Vec::with_capacity(ecore::DEFAULT_BUF_SIZE),
+            py_bytes: None,
+        })
+    }
+
+    /// Extracts text from a url. Returns a string that is of maximum length
+    /// of the extractor's `extract_string_max_length`
+    pub fn extract_url(&self, url: &str) -> PyResult<StreamReader> {
+        let reader = self
+            .0
+            .extract_url(&url)
+            .map_err(|e| PyErr::new::<PyTypeError, _>(format!("{:?}", e)))?;
+
+        // Create a new `StreamReader` with initial buffer capacity of ecore::DEFAULT_BUF_SIZE bytes
+        Ok(StreamReader {
+            reader,
+            buffer: Vec::with_capacity(ecore::DEFAULT_BUF_SIZE),
+            py_bytes: None,
+        })
+    }
+
     fn __repr__(&self) -> String {
         format!("{:?}", self.0)
     }
