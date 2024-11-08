@@ -21,3 +21,8 @@ def read_to_string(reader):
         b = reader.read(4096)
     return result
 
+def read_file_to_bytearray(file_path: str):
+    """Read file to bytes array."""
+    with open(file_path, 'rb') as file:
+        file_content = bytearray(file.read())
+    return file_content
