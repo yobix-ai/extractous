@@ -1,13 +1,28 @@
 package ai.yobix;
 
 import org.apache.commons.io.input.ReaderInputStream;
-import org.apache.tika.exception.WriteLimitReachedException;
-import org.apache.tika.parser.ParsingReader;
-import org.apache.tika.sax.BodyContentHandler;
-import org.apache.tika.sax.WriteOutContentHandler;
 import org.apache.tika.Tika;
 import org.apache.tika.config.TikaConfig;
 import org.apache.tika.exception.TikaException;
+import org.apache.tika.exception.WriteLimitReachedException;
+import org.apache.tika.io.TemporaryResources;
+import org.apache.tika.io.TikaInputStream;
+import org.apache.tika.metadata.Metadata;
+import org.apache.tika.parser.AutoDetectParser;
+import org.apache.tika.parser.ParseContext;
+import org.apache.tika.parser.Parser;
+import org.apache.tika.parser.ParsingReader;
+import org.apache.tika.parser.microsoft.OfficeParserConfig;
+import org.apache.tika.parser.ocr.TesseractOCRConfig;
+import org.apache.tika.parser.pdf.PDFParserConfig;
+import org.apache.tika.sax.BodyContentHandler;
+import org.apache.tika.sax.WriteOutContentHandler;
+import org.graalvm.nativeimage.IsolateThread;
+import org.graalvm.nativeimage.c.function.CEntryPoint;
+import org.graalvm.nativeimage.c.type.CCharPointer;
+import org.graalvm.nativeimage.c.type.CConst;
+import org.graalvm.nativeimage.c.type.CTypeConversion;
+import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,25 +31,11 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
-import org.apache.tika.io.TikaInputStream;
-import org.apache.tika.metadata.Metadata;
-import org.apache.tika.parser.AutoDetectParser;
-import org.apache.tika.parser.ParseContext;
-import org.apache.tika.parser.Parser;
-import org.apache.tika.parser.microsoft.OfficeParserConfig;
-import org.apache.tika.parser.ocr.TesseractOCRConfig;
-import org.apache.tika.parser.pdf.PDFParserConfig;
-import org.graalvm.nativeimage.IsolateThread;
-import org.graalvm.nativeimage.c.function.CEntryPoint;
-import org.graalvm.nativeimage.c.type.CCharPointer;
-import org.graalvm.nativeimage.c.type.CConst;
-import org.graalvm.nativeimage.c.type.CTypeConversion;
-import org.xml.sax.SAXException;
 
 public class TikaNativeMain {
 
@@ -196,15 +197,17 @@ public class TikaNativeMain {
      * @return ReaderResult
      */
     public static ReaderResult parseBytes(
-            byte[] data,
+            ByteBuffer data,
             String charsetName,
             PDFParserConfig pdfConfig,
             OfficeParserConfig officeConfig,
             TesseractOCRConfig tesseractConfig
     ) {
 
+
         final Metadata metadata = new Metadata();
-        final TikaInputStream stream = TikaInputStream.get(data, metadata);
+        final ByteBufferInputStream inStream = new ByteBufferInputStream(data);
+        final TikaInputStream stream = TikaInputStream.get(inStream, new TemporaryResources(), metadata);
 
         return parse(stream, metadata, charsetName, pdfConfig, officeConfig, tesseractConfig);
     }

@@ -1,10 +1,23 @@
 use std::os::raw::{c_char, c_void};
 
 use jni::errors::jni_error_code_to_result;
-use jni::objects::{JObject, JString, JValue, JValueOwned};
+use jni::objects::{JByteBuffer, JObject, JString, JValue, JValueOwned};
 use jni::{sys, JNIEnv, JavaVM};
 
 use crate::errors::{Error, ExtractResult};
+
+/// Calls a static method and prints any thrown exceptions to stderr
+pub fn jni_new_direct_buffer<'local>(
+    env: &mut JNIEnv<'local>,
+    data: *mut u8,
+    len: usize
+) -> ExtractResult<JByteBuffer<'local>> {
+    let direct_byte_buffer = unsafe {
+        env.new_direct_byte_buffer(data, len)
+    }.map_err(|_e| Error::JniEnvCall("Failed to create direct byte buffer"))?;
+
+    Ok(direct_byte_buffer)
+}
 
 /// Calls a static method and prints any thrown exceptions to stderr
 pub fn jni_call_static_method<'local>(

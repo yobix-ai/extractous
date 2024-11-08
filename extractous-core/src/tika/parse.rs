@@ -17,7 +17,7 @@ pub(crate) fn vm() -> &'static JavaVM {
     GRAAL_VM.get_or_init(create_vm_isolate)
 }
 
-fn env<'local>() -> ExtractResult<AttachGuard<'local>> {
+fn get_vm_attach_current_thread<'local>() -> ExtractResult<AttachGuard<'local>> {
     // Attaching a thead that is already attached is a no-op. Good to have this in case this method
     // is called from another thread
     let env = vm().attach_current_thread()?;
@@ -70,7 +70,7 @@ pub fn parse_file(
     office_conf: &OfficeParserConfig,
     ocr_conf: &TesseractOcrConfig,
 ) -> ExtractResult<StreamReader> {
-    let mut env = env()?;
+    let mut env = get_vm_attach_current_thread()?;
 
     let file_path_val = jni_new_string_as_jvalue(&mut env, file_path)?;
     return parse_to_stream(env, (&file_path_val).into(), char_set, pdf_conf, office_conf, ocr_conf,
@@ -92,9 +92,7 @@ pub fn parse_file_to_string(
     office_conf: &OfficeParserConfig,
     ocr_conf: &TesseractOcrConfig,
 ) -> ExtractResult<String> {
-    // Attaching a thead that is already attached is a no-op. Good to have this in case this method
-    // is called from another thread
-    let mut env = vm().attach_current_thread()?;
+    let mut env = get_vm_attach_current_thread()?;
 
     // Create a new Java string from the Rust string
     let file_path_val = jni_new_string_as_jvalue(&mut env, file_path)?;
@@ -126,18 +124,23 @@ pub fn parse_file_to_string(
 }
 
 pub fn parse_bytes(
-    buffer: &Vec<u8>,
+    buffer: &[u8],
     char_set: &CharSet,
     pdf_conf: &PdfParserConfig,
     office_conf: &OfficeParserConfig,
     ocr_conf: &TesseractOcrConfig,
 ) -> ExtractResult<StreamReader> {
-    let env = env()?;
+    let mut env = get_vm_attach_current_thread()?;
 
-    let buffer_val = env.byte_array_from_slice(&buffer).expect("Couldn't create byte array");
-    return parse_to_stream(env, (&buffer_val).into(), char_set, pdf_conf, office_conf, ocr_conf,
+    // Because we know the buffer is used for reading only, cast it to *mut u8 to satisfy the
+    // jni_new_direct_buffer call, which requires a mutable pointer
+    let mut_ptr: *mut u8 = buffer.as_ptr() as *mut u8;
+
+    let byte_buffer = jni_new_direct_buffer(&mut env, mut_ptr, buffer.len())?;
+
+    return parse_to_stream(env, (&byte_buffer).into(), char_set, pdf_conf, office_conf, ocr_conf,
         "parseBytes",
-        "([B\
+        "(Ljava/nio/ByteBuffer;\
         Ljava/lang/String;\
         Lorg/apache/tika/parser/pdf/PDFParserConfig;\
         Lorg/apache/tika/parser/microsoft/OfficeParserConfig;\
@@ -153,7 +156,7 @@ pub fn parse_url(
     office_conf: &OfficeParserConfig,
     ocr_conf: &TesseractOcrConfig,
 ) -> ExtractResult<StreamReader> {
-    let mut env = env()?;
+    let mut env = get_vm_attach_current_thread()?;
 
     let url_val = jni_new_string_as_jvalue(&mut env, url)?;
     return parse_to_stream(env, (&url_val).into(), char_set, pdf_conf, office_conf, ocr_conf,
