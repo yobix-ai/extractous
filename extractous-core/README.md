@@ -125,6 +125,8 @@ installed on your system because some of the OCR tests will fail if no tesseract
 * `sudo apt install tesseract-ocr`
 * Install any language extensions you want. for example to install German and Arabic:
 * `sudo apt install tesseract-ocr-deu tesseract-ocr-ara`
+* On Mac 
+* `brew install tesseract tesseract-lang`
 
 ### Building Extractous
 * To build Extractous, just run:
