@@ -27,6 +27,15 @@
                 "parameterTypes": []
             }
         ],
+        "name": "apple.security.AppleProvider"
+    },
+    {
+        "methods": [
+            {
+                "name": "<init>",
+                "parameterTypes": []
+            }
+        ],
         "name": "com.drew.metadata.exif.ExifIFD0Directory"
     },
     {

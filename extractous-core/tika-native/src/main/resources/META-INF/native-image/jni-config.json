@@ -98,6 +98,31 @@
     {
         "methods": [
             {
+                "name": "handleNativeNotification",
+                "parameterTypes": [
+                    "int"
+                ]
+            }
+        ],
+        "name": "com.apple.eawt._AppEventHandler"
+    },
+    {
+        "methods": [
+            {
+                "name": "initMenuStates",
+                "parameterTypes": [
+                    "boolean",
+                    "boolean",
+                    "boolean",
+                    "boolean"
+                ]
+            }
+        ],
+        "name": "com.apple.eawt._AppMenuBarHandler"
+    },
+    {
+        "methods": [
+            {
                 "name": "acceptPixels",
                 "parameterTypes": [
                     "int",
@@ -167,6 +192,41 @@
         "name": "com.sun.imageio.plugins.jpeg.JPEGImageReader"
     },
     {
+        "methods": [
+            {
+                "name": "grabPixels",
+                "parameterTypes": [
+                    "int"
+                ]
+            },
+            {
+                "name": "warningOccurred",
+                "parameterTypes": [
+                    "int"
+                ]
+            },
+            {
+                "name": "warningWithMessage",
+                "parameterTypes": [
+                    "java.lang.String"
+                ]
+            },
+            {
+                "name": "writeMetadata",
+                "parameterTypes": []
+            },
+            {
+                "name": "writeOutputData",
+                "parameterTypes": [
+                    "byte[]",
+                    "int",
+                    "int"
+                ]
+            }
+        ],
+        "name": "com.sun.imageio.plugins.jpeg.JPEGImageWriter"
+    },
+    {
         "fields": [
             {
                 "name": "extraAlpha"
@@ -201,6 +261,20 @@
             }
         ],
         "name": "java.awt.Dimension"
+    },
+    {
+        "methods": [
+            {
+                "name": "<init>",
+                "parameterTypes": [
+                    "int",
+                    "int",
+                    "int",
+                    "int"
+                ]
+            }
+        ],
+        "name": "java.awt.DisplayMode"
     },
     {
         "methods": [
@@ -269,6 +343,15 @@
         "name": "java.awt.Toolkit"
     },
     {
+        "methods": [
+            {
+                "name": "getButtonDownMasks",
+                "parameterTypes": []
+            }
+        ],
+        "name": "java.awt.event.InputEvent"
+    },
+    {
         "fields": [
             {
                 "name": "m00"
@@ -312,6 +395,20 @@
             }
         ],
         "name": "java.awt.geom.Path2D$Float"
+    },
+    {
+        "methods": [
+            {
+                "name": "<init>",
+                "parameterTypes": [
+                    "double",
+                    "double",
+                    "double",
+                    "double"
+                ]
+            }
+        ],
+        "name": "java.awt.geom.Rectangle2D$Double"
     },
     {
         "fields": [
@@ -509,8 +606,38 @@
     {
         "methods": [
             {
+                "name": "lastIndexOf",
+                "parameterTypes": [
+                    "int"
+                ]
+            },
+            {
+                "name": "substring",
+                "parameterTypes": [
+                    "int"
+                ]
+            }
+        ],
+        "name": "java.lang.String"
+    },
+    {
+        "methods": [
+            {
+                "name": "getProperty",
+                "parameterTypes": [
+                    "java.lang.String"
+                ]
+            },
+            {
                 "name": "load",
                 "parameterTypes": [
+                    "java.lang.String"
+                ]
+            },
+            {
+                "name": "setProperty",
+                "parameterTypes": [
+                    "java.lang.String",
                     "java.lang.String"
                 ]
             }
@@ -722,6 +849,19 @@
         "name": "org.apache.tika.parser.pdf.PDFParserConfig"
     },
     {
+        "methods": [
+            {
+                "name": "notifyToolkitThreadBusy",
+                "parameterTypes": []
+            },
+            {
+                "name": "notifyToolkitThreadFree",
+                "parameterTypes": []
+            }
+        ],
+        "name": "sun.awt.AWTAutoShutdown"
+    },
+    {
         "fields": [
             {
                 "name": "INTVAL_STROKE_PURE"
@@ -813,6 +953,26 @@
             }
         ],
         "name": "sun.awt.image.ByteComponentRaster"
+    },
+    {
+        "fields": [
+            {
+                "name": "data"
+            },
+            {
+                "name": "dataBitOffset"
+            },
+            {
+                "name": "pixelBitStride"
+            },
+            {
+                "name": "scanlineStride"
+            },
+            {
+                "name": "type"
+            }
+        ],
+        "name": "sun.awt.image.BytePackedRaster"
     },
     {
         "fields": [
@@ -1356,5 +1516,25 @@
             }
         ],
         "name": "sun.java2d.xr.XRSurfaceData"
+    },
+    {
+        "methods": [
+            {
+                "name": "installToolkitThreadInJava",
+                "parameterTypes": []
+            }
+        ],
+        "name": "sun.lwawt.macosx.LWCToolkit"
+    },
+    {
+        "methods": [
+            {
+                "name": "main",
+                "parameterTypes": [
+                    "java.lang.String[]"
+                ]
+            }
+        ],
+        "name": "worker.org.gradle.process.internal.worker.GradleWorkerMain"
     }
 ]

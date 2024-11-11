@@ -9,6 +9,9 @@
             "name": "java.lang.AssertionError"
         },
         {
+            "name": "java.lang.Boolean"
+        },
+        {
             "name": "java.lang.Enum"
         },
         {
