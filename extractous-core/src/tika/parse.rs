@@ -34,7 +34,6 @@ fn parse_to_stream(
     method_name: &str,
     signature: &str,
 ) -> ExtractResult<StreamReader> {
-
     let charset_name_val = jni_new_string_as_jvalue(&mut env, &char_set.to_string())?;
     let j_pdf_conf = JPDFParserConfig::new(&mut env, pdf_conf)?;
     let j_office_conf = JOfficeParserConfig::new(&mut env, office_conf)?;
@@ -73,7 +72,13 @@ pub fn parse_file(
     let mut env = get_vm_attach_current_thread()?;
 
     let file_path_val = jni_new_string_as_jvalue(&mut env, file_path)?;
-    return parse_to_stream(env, (&file_path_val).into(), char_set, pdf_conf, office_conf, ocr_conf,
+    parse_to_stream(
+        env,
+        (&file_path_val).into(),
+        char_set,
+        pdf_conf,
+        office_conf,
+        ocr_conf,
         "parseFile",
         "(Ljava/lang/String;\
         Ljava/lang/String;\
@@ -81,7 +86,7 @@ pub fn parse_file(
         Lorg/apache/tika/parser/microsoft/OfficeParserConfig;\
         Lorg/apache/tika/parser/ocr/TesseractOCRConfig;\
         )Lai/yobix/ReaderResult;",
-        )
+    )
 }
 
 /// Parses a file to a string using the Apache Tika library.
@@ -138,7 +143,13 @@ pub fn parse_bytes(
 
     let byte_buffer = jni_new_direct_buffer(&mut env, mut_ptr, buffer.len())?;
 
-    return parse_to_stream(env, (&byte_buffer).into(), char_set, pdf_conf, office_conf, ocr_conf,
+    parse_to_stream(
+        env,
+        (&byte_buffer).into(),
+        char_set,
+        pdf_conf,
+        office_conf,
+        ocr_conf,
         "parseBytes",
         "(Ljava/nio/ByteBuffer;\
         Ljava/lang/String;\
@@ -146,7 +157,7 @@ pub fn parse_bytes(
         Lorg/apache/tika/parser/microsoft/OfficeParserConfig;\
         Lorg/apache/tika/parser/ocr/TesseractOCRConfig;\
         )Lai/yobix/ReaderResult;",
-        )
+    )
 }
 
 pub fn parse_url(
@@ -159,7 +170,13 @@ pub fn parse_url(
     let mut env = get_vm_attach_current_thread()?;
 
     let url_val = jni_new_string_as_jvalue(&mut env, url)?;
-    return parse_to_stream(env, (&url_val).into(), char_set, pdf_conf, office_conf, ocr_conf,
+    parse_to_stream(
+        env,
+        (&url_val).into(),
+        char_set,
+        pdf_conf,
+        office_conf,
+        ocr_conf,
         "parseUrl",
         "(Ljava/lang/String;\
         Ljava/lang/String;\
@@ -167,5 +184,5 @@ pub fn parse_url(
         Lorg/apache/tika/parser/microsoft/OfficeParserConfig;\
         Lorg/apache/tika/parser/ocr/TesseractOCRConfig;\
         )Lai/yobix/ReaderResult;",
-        )
+    )
 }

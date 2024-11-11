@@ -10,11 +10,10 @@ use crate::errors::{Error, ExtractResult};
 pub fn jni_new_direct_buffer<'local>(
     env: &mut JNIEnv<'local>,
     data: *mut u8,
-    len: usize
+    len: usize,
 ) -> ExtractResult<JByteBuffer<'local>> {
-    let direct_byte_buffer = unsafe {
-        env.new_direct_byte_buffer(data, len)
-    }.map_err(|_e| Error::JniEnvCall("Failed to create direct byte buffer"))?;
+    let direct_byte_buffer = unsafe { env.new_direct_byte_buffer(data, len) }
+        .map_err(|_e| Error::JniEnvCall("Failed to create direct byte buffer"))?;
 
     Ok(direct_byte_buffer)
 }
@@ -112,18 +111,18 @@ pub fn jni_check_exception(env: &mut JNIEnv) -> ExtractResult<bool> {
 /// linked in by the build script.
 pub fn create_vm_isolate() -> JavaVM {
     unsafe {
-        let mut vm_options : Vec<sys::JavaVMOption> = vec![];
-
-        // Set java.library.path to be able to load libawt.so, which must be in the same dir as libtika_native.so
-        vm_options.push(sys::JavaVMOption {
-            optionString: "-Djava.library.path=.".as_ptr() as *mut c_char,
-            extraInfo: std::ptr::null_mut(),
-        });
-        // enable awt headless mode
-        vm_options.push(sys::JavaVMOption {
-            optionString: "Djava.awt.headless=true".as_ptr() as *mut c_char,
-            extraInfo: std::ptr::null_mut(),
-        });
+        let vm_options: Vec<sys::JavaVMOption> = vec![
+            // Set java.library.path to be able to load libawt.so, which must be in the same dir as libtika_native.so
+            sys::JavaVMOption {
+                optionString: "-Djava.library.path=.".as_ptr() as *mut c_char,
+                extraInfo: std::ptr::null_mut(),
+            },
+            // enable awt headless mode
+            sys::JavaVMOption {
+                optionString: "Djava.awt.headless=true".as_ptr() as *mut c_char,
+                extraInfo: std::ptr::null_mut(),
+            },
+        ];
 
         let mut args = sys::JavaVMInitArgs {
             version: sys::JNI_VERSION_1_8,
