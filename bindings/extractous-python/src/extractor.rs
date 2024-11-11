@@ -75,6 +75,18 @@ impl StreamReader {
             ))),
         }
     }
+
+    /// Reads into the specified buffer
+    pub fn readinto<'py>(&mut self, buf: Bound<'py, PyByteArray>) -> PyResult<usize> {
+        let bs = unsafe { buf.as_bytes_mut() };
+
+        let bytes_read = self.reader.read(bs)
+            .map_err(|e| PyErr::new::<pyo3::exceptions::PyIOError, _>(
+                format!("{}", e))
+            )?;
+        Ok(bytes_read)
+    }
+
 }
 
 /// `Extractor` is the entry for all extract APIs
