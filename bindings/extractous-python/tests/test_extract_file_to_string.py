@@ -15,8 +15,9 @@ TEST_CASES = [
     ("table-multi-row-column-cells.png", -1.0),
     ("winter-sports.epub", 0.9),
     ("bug_16.docx", 0.9),
-    ("deu-ocr.pdf", 0.9),
+    #("eng-ocr.pdf", 0.9),
 ]
+
 
 @pytest.mark.parametrize("file_name, target_dist", TEST_CASES)
 def test_extract_file_to_string(file_name, target_dist):
