@@ -28,6 +28,74 @@
         "name": "ai.yobix.ReaderResult"
     },
     {
+        "name": "java.util.HashMap"
+    },
+    {
+        "name": "java.util.Map",
+        "methods": [
+            {
+                "name": "get",
+                "parameterTypes": ["java.lang.Object"],
+                "returnType": "java.lang.Object"
+            },
+            {
+                "name": "put",
+                "parameterTypes": ["java.lang.Object", "java.lang.Object"],
+                "returnType": "java.lang.Object"
+            },
+            {
+                "name": "remove",
+                "parameterTypes": ["java.lang.Object"],
+                "returnType": "java.lang.Object"
+            },
+            {
+                "name": "entrySet",
+                "parameterTypes": [],
+                "returnType": "java.util.Set"
+            }
+        ]
+    },
+    {
+        "name": "java.util.Set",
+        "methods": [
+            {
+                "name": "iterator",
+                "parameterTypes": [],
+                "returnType": "java.util.Iterator"
+            }
+        ]
+    },
+    {
+        "name": "java.util.Iterator",
+        "methods": [
+            {
+                "name": "hasNext",
+                "parameterTypes": [],
+                "returnType": "boolean"
+            },
+            {
+                "name": "next",
+                "parameterTypes": [],
+                "returnType": "java.lang.Object"
+            }
+        ]
+    },
+    {
+        "name": "java.util.Map$Entry",
+        "methods": [
+            {
+                "name": "getKey",
+                "parameterTypes": [],
+                "returnType": "java.lang.Object"
+            },
+            {
+                "name": "getValue",
+                "parameterTypes": [],
+                "returnType": "java.lang.Object"
+            }
+        ]
+    },
+    {
         "methods": [
             {
                 "name": "getContent",

@@ -121,20 +121,20 @@ pub fn jni_jobject_hashmap_to_hashmap<'local>(
     */
 
 
-    //let jmap = JMap::from_env(env, &jobject)?; // <---- ERROR IN THE ORIGINAL CODE.
+    let jmap = JMap::from_env(env, &jobject)?; // <---- ERROR IN THE ORIGINAL CODE.
     let mut metadata = HashMap::new();
 
     // DATA TEST FAKE
-    metadata.insert("Author".to_string(), "John Doe".to_string());
-    metadata.insert("Title".to_string(), "Fake Document".to_string());
+    // metadata.insert("Author".to_string(), "John Doe".to_string());
+    // metadata.insert("Title".to_string(), "Fake Document".to_string());
 
-    //let mut iter = jmap.iter(env)?;
-    //while let Ok(Some(_entry)) = iter.next(env) {
-    //let (key_object, value_object) = entry;
-    //let key = jni_jobject_to_string(env, key_object)?;
-    //let value = jni_jobject_to_string(env, value_object)?;
-    //metadata.insert(key, value);
-    //}
+    let mut iter = jmap.iter(env)?;
+    while let Ok(Some(entry)) = iter.next(env) {
+        let (key_object, value_object) = entry;
+        let key = jni_jobject_to_string(env, key_object)?;
+        let value = jni_jobject_to_string(env, value_object)?;
+        metadata.insert(key, value);
+    }
     Ok(metadata)
 }
 
