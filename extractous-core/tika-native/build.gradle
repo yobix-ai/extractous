@@ -66,6 +66,7 @@ graalvmNative {
 
             buildArgs.addAll(
                     "-H:+AddAllCharsets", // Very important to get UTF8 working
+                    "--enable-https", // Very important https working
                     "-O3",
                     "--parallelism=$numThreads",
                     "-march=compatibility" // VERY IMPORTANT to use compatibility flag. If not the libs will use the cpu arch of the build machine and will notwork on other CPUs if distributed

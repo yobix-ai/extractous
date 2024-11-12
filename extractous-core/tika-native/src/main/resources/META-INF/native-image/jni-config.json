@@ -55,7 +55,7 @@
             {
                 "name": "parseBytes",
                 "parameterTypes": [
-                    "byte[]",
+                    "java.nio.ByteBuffer",
                     "java.lang.String",
                     "org.apache.tika.parser.pdf.PDFParserConfig",
                     "org.apache.tika.parser.microsoft.OfficeParserConfig",

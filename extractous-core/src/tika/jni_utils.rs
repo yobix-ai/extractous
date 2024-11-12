@@ -1,10 +1,22 @@
 use std::os::raw::{c_char, c_void};
 
 use jni::errors::jni_error_code_to_result;
-use jni::objects::{JObject, JString, JValue, JValueOwned};
+use jni::objects::{JByteBuffer, JObject, JString, JValue, JValueOwned};
 use jni::{sys, JNIEnv, JavaVM};
 
 use crate::errors::{Error, ExtractResult};
+
+/// Calls a static method and prints any thrown exceptions to stderr
+pub fn jni_new_direct_buffer<'local>(
+    env: &mut JNIEnv<'local>,
+    data: *mut u8,
+    len: usize,
+) -> ExtractResult<JByteBuffer<'local>> {
+    let direct_byte_buffer = unsafe { env.new_direct_byte_buffer(data, len) }
+        .map_err(|_e| Error::JniEnvCall("Failed to create direct byte buffer"))?;
+
+    Ok(direct_byte_buffer)
+}
 
 /// Calls a static method and prints any thrown exceptions to stderr
 pub fn jni_call_static_method<'local>(
@@ -99,20 +111,23 @@ pub fn jni_check_exception(env: &mut JNIEnv) -> ExtractResult<bool> {
 /// linked in by the build script.
 pub fn create_vm_isolate() -> JavaVM {
     unsafe {
-        // let mut option0 = sys::JavaVMOption {
-        //     optionString: "-Djava.awt.headless=true".as_ptr() as *mut c_char,
-        //     extraInfo: std::ptr::null_mut(),
-        // };
+        let vm_options: Vec<sys::JavaVMOption> = vec![
+            // Set java.library.path to be able to load libawt.so, which must be in the same dir as libtika_native.so
+            sys::JavaVMOption {
+                optionString: "-Djava.library.path=.".as_ptr() as *mut c_char,
+                extraInfo: std::ptr::null_mut(),
+            },
+            // enable awt headless mode
+            sys::JavaVMOption {
+                optionString: "Djava.awt.headless=true".as_ptr() as *mut c_char,
+                extraInfo: std::ptr::null_mut(),
+            },
+        ];
 
-        // Set java.library.path to be able to load libawt.so, which must be in the same dir as libtika_native.so
-        let mut options = sys::JavaVMOption {
-            optionString: "-Djava.library.path=.".as_ptr() as *mut c_char,
-            extraInfo: std::ptr::null_mut(),
-        };
         let mut args = sys::JavaVMInitArgs {
             version: sys::JNI_VERSION_1_8,
-            nOptions: 1,
-            options: &mut options,
+            nOptions: vm_options.len() as sys::jint,
+            options: vm_options.as_ptr() as *mut sys::JavaVMOption,
             ignoreUnrecognized: sys::JNI_TRUE,
         };
         let mut ptr: *mut sys::JavaVM = std::ptr::null_mut();

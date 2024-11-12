@@ -1,7 +1,7 @@
 import pytest
 
 from extractous import Extractor
-from utils import cosine_similarity
+from utils import cosine_similarity, read_to_string, read_file_to_bytearray
 
 TEST_CASES = [
     ("2022_Q3_AAPL.pdf", 0.9),
@@ -20,12 +20,18 @@ TEST_CASES = [
 
 
 @pytest.mark.parametrize("file_name, target_dist", TEST_CASES)
-def test_extract_file_to_string(file_name, target_dist):
-    """Test the extraction and comparison of various file types."""
+def test_extract_bytes_to_stream(file_name, target_dist):
+    """Test the extraction from bytes of various file types."""
     original_filepath = f"../../test_files/documents/{file_name}"
     expected_result_filepath = f"../../test_files/expected_result/{file_name}.txt"
+
+    file_bytes = read_file_to_bytearray(original_filepath)
+
     extractor = Extractor()
-    result = extractor.extract_file_to_string(original_filepath)
+    reader = extractor.extract_bytes(file_bytes)
+    result = read_to_string(reader)
+
+    # Expected
     with open(expected_result_filepath, "r",  encoding="utf8") as file:
         expected = file.read()
     

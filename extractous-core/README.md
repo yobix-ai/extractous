@@ -49,8 +49,9 @@ fn main() {
 }
 ```
 
-* Extract a content of a file to a `StreamReader` and perform buffered reading
+* Extract a content of a file(URL/ bytes) to a `StreamReader` and perform buffered reading
 ```rust
+// use std::fs::File; use for bytes
 use std::io::{BufReader, Read};
 use extractous::Extractor;
 
@@ -62,6 +63,13 @@ fn main() {
     // Extract the provided file content to a string
     let extractor = Extractor::new();
     let stream = extractor.extract_file(file_path).unwrap();
+    // Extract url
+    // let stream = extractor.extract_url("https://www.google.com/").unwrap();
+    // Extract bytes
+    // let mut file = File::open(file_path)?;
+    // let mut buffer = Vec::new();
+    // file.read_to_end(&mut buffer)?;
+    // let stream= extractor.extract_bytes(&file_bytes);
 
     // Because stream implements std::io::Read trait we can perform buffered reading
     // For example we can use it to create a BufReader
@@ -80,7 +88,7 @@ use extractous::Extractor;
 
 fn main() {
   let file_path = "../test_files/documents/deu-ocr.pdf";
-  
+
     let extractor = Extractor::new()
           .set_ocr_config(TesseractOcrConfig::new().set_language("deu"))
           .set_pdf_config(PdfParserConfig::new().set_ocr_strategy(PdfOcrStrategy::OCR_ONLY));
@@ -94,11 +102,11 @@ fn main() {
 ## Building
 
 ### Requirements
-* Extractous uses [Apache Tika](https://tika.apache.org/) for file formats that are not natively supported in Rust. 
-  However, to achieve one of Extractous goals, which is speed and efficiency, we do not set up any Tika as a servers or 
-  run any Java code. We instead, compile [Apache Tika](https://tika.apache.org/) as native shared libraries and use 
-  them on our Rust core as ffi. [GraalVm](https://www.graalvm.org/) is required to build Tika as native libs. 
-* The provided build script already takes care of installing the required GraalVM JDK. However, if you want to use a 
+* Extractous uses [Apache Tika](https://tika.apache.org/) for file formats that are not natively supported in Rust.
+  However, to achieve one of Extractous goals, which is speed and efficiency, we do not set up any Tika as a servers or
+  run any Java code. We instead, compile [Apache Tika](https://tika.apache.org/) as native shared libraries and use
+  them on our Rust core as ffi. [GraalVm](https://www.graalvm.org/) is required to build Tika as native libs.
+* The provided build script already takes care of installing the required GraalVM JDK. However, if you want to use a
   specific local version, you can do so by setting the GRAALVM_HOME environment variable
 * We recommend using [sdkman](https://sdkman.io/install) to install GraalVM JDKs
 * `sdk install java 22.0.1-graalce`
@@ -112,14 +120,16 @@ OpenJDK 64-Bit Server VM Liberica-NIK-24.0.1-1 (build 22.0.1+10, mixed mode, sha
 * On macOS the official GraalVM JDKs fail to work with code that use java awt. On macOS, we recommend using
   Bellsoft Liberica NIK
 * `sdk install java 24.0.1.r22-nik`
-* Extractous supports OCR through [tesseract](https://github.com/tesseract-ocr/tesseract), make sure tesseract is 
+* Extractous supports OCR through [tesseract](https://github.com/tesseract-ocr/tesseract), make sure tesseract is
 installed on your system because some of the OCR tests will fail if no tesseract is found.
 * `sudo apt install tesseract-ocr`
-* Install any language extensions you want. for example to install German and Arabic: 
+* Install any language extensions you want. for example to install German and Arabic:
 * `sudo apt install tesseract-ocr-deu tesseract-ocr-ara`
+* On Mac 
+* `brew install tesseract tesseract-lang`
 
 ### Building Extractous
-* To build Extractous, just run: 
+* To build Extractous, just run:
 * `cargo build`
 
 ### Running Tests

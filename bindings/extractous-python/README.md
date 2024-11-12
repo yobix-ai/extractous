@@ -1,6 +1,6 @@
 # Extractous Python Bindings
 
-This project provides Python bindings for the Extractous library, allowing you to use extractous functionality in 
+This project provides Python bindings for the Extractous library, allowing you to use extractous functionality in
 your Python applications.
 
 ## Installation
@@ -25,13 +25,20 @@ result = extractor.extract_file_to_string("README.md")
 print(result)
 ```
 
-Extracting a file to a buffered stream:
+Extracting a file(URL / bytearray) to a buffered stream:
 
 ```python
 from extractous import Extractor
 
 extractor = Extractor()
+# for file
 reader = extractor.extract_file("tests/quarkus.pdf")
+# for url
+# reader = extractor.extract_url("https://www.google.com")
+# for bytearray
+# with open("tests/quarkus.pdf", "rb") as file:
+#     buffer = bytearray(file.read())
+# reader = extractor.extract_bytes(buffer)
 
 result = ""
 buffer = reader.read(4096)
