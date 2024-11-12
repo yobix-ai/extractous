@@ -3,7 +3,6 @@
         {
             "locales": [
                 "en",
-                "en-GB",
                 "en-US",
                 "und"
             ],
@@ -11,7 +10,6 @@
         },
         {
             "locales": [
-                "en-GB",
                 "en-US",
                 "und"
             ],
@@ -22,25 +20,13 @@
                 "sun.awt.resources.awt"
             ],
             "locales": [
-                "en-GB",
                 "en-US"
             ],
             "name": "sun.awt.resources.awt"
         },
         {
-            "classNames": [
-                "sun.awt.resources.awtosx"
-            ],
-            "locales": [
-                "en-GB"
-            ],
-            "name": "sun.awt.resources.awtosx"
-        },
-        {
             "locales": [
                 "en",
-                "en-001",
-                "en-GB",
                 "en-US",
                 "und"
             ],
@@ -237,9 +223,6 @@
             },
             {
                 "pattern": "\\Qorg/apache/pdfbox/resources/glyphlist/zapfdingbats.txt\\E"
-            },
-            {
-                "pattern": "\\Qorg/apache/pdfbox/resources/icc/ISOcoated_v2_300_bas.icc\\E"
             },
             {
                 "pattern": "\\Qorg/apache/pdfbox/resources/text/BidiMirroring.txt\\E"
@@ -767,9 +750,6 @@
                 "pattern": "\\Qorg/apache/xerces/impl/msg/SAXMessages_en.properties\\E"
             },
             {
-                "pattern": "\\Qorg/apache/xerces/impl/msg/SAXMessages_en_GB.properties\\E"
-            },
-            {
                 "pattern": "\\Qorg/apache/xerces/impl/msg/SAXMessages_en_US.properties\\E"
             },
             {
@@ -777,9 +757,6 @@
             },
             {
                 "pattern": "\\Qorg/apache/xmlbeans/impl/regex/message_en.properties\\E"
-            },
-            {
-                "pattern": "\\Qorg/apache/xmlbeans/impl/regex/message_en_GB.properties\\E"
             },
             {
                 "pattern": "\\Qorg/apache/xmlbeans/impl/regex/message_en_US.properties\\E"
@@ -809,9 +786,6 @@
                 "pattern": "\\Qorg/slf4j/impl/StaticLoggerBinder.class\\E"
             },
             {
-                "pattern": "java.base:\\Qjdk/internal/icu/impl/data/icudt72b/nfc.nrm\\E"
-            },
-            {
                 "pattern": "java.base:\\Qjdk/internal/icu/impl/data/icudt72b/nfkc.nrm\\E"
             },
             {
@@ -819,9 +793,6 @@
             },
             {
                 "pattern": "java.base:\\Qjdk/internal/icu/impl/data/icudt72b/uprops.icu\\E"
-            },
-            {
-                "pattern": "java.base:\\Qjdk/internal/icu/impl/data/icudt74b/nfc.nrm\\E"
             },
             {
                 "pattern": "java.base:\\Qjdk/internal/icu/impl/data/icudt74b/nfkc.nrm\\E"
@@ -839,19 +810,7 @@
                 "pattern": "java.desktop:\\Qsun/awt/resources/awt_en.properties\\E"
             },
             {
-                "pattern": "java.desktop:\\Qsun/awt/resources/awt_en_GB.properties\\E"
-            },
-            {
                 "pattern": "java.desktop:\\Qsun/awt/resources/awt_en_US.properties\\E"
-            },
-            {
-                "pattern": "java.desktop:\\Qsun/awt/resources/awtosx_en.properties\\E"
-            },
-            {
-                "pattern": "java.desktop:\\Qsun/awt/resources/awtosx_en_GB.properties\\E"
-            },
-            {
-                "pattern": "java.desktop:\\Qsun/java2d/cmm/profiles/GRAY.pf\\E"
             },
             {
                 "pattern": "java.desktop:\\Qsun/java2d/cmm/profiles/sRGB.pf\\E"
