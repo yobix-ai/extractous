@@ -20,6 +20,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 
 import org.apache.tika.io.TikaInputStream;
 import org.apache.tika.metadata.Metadata;
@@ -59,6 +60,36 @@ public class TikaNativeMain {
     }
 
     /**
+     * Parse tika metadata to HashMap. This step is necessary because there is no way to fully return the Tika metadata Map.
+     * @param metadata: Tika Metadata
+     * @return Map<String, String>
+     */
+    private static HashMap<String, String> parseMetadata(Metadata metadata) {
+        HashMap<String, String> map = new HashMap<>();
+        for (String name : metadata.names()) {
+            map.put(name, metadata.get(name));
+        }
+        return map;
+    }
+
+    /*
+    public static void printHashMap(Map<?, ?> map) {
+        for (Map.Entry<?, ?> entry : map.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+    }
+
+    public static void main(String[] args) {
+        PDFParserConfig pdfconfig = new PDFParserConfig();
+        OfficeParserConfig officeconfig = new OfficeParserConfig();
+        TesseractOCRConfig ocrconfig = new TesseractOCRConfig();
+        StringResult r = TikaNativeMain.parseToString("/Users/flopez/gitRepo/extractous/extractous-core/tika-native/src/main/java/ai/yobix/test.txt", 1000, pdfconfig, officeconfig, ocrconfig);
+        System.out.printf(r.getContent());
+        printHashMap(r.getMetadata());
+    }
+    */
+
+    /**
      * Parses the given file and returns its content as String.
      * To avoid unpredictable excess memory use, the returned string contains only up to maxLength
      * first characters extracted from the input document.
@@ -78,11 +109,10 @@ public class TikaNativeMain {
             final Path path = Paths.get(filePath);
             final Metadata metadata = new Metadata();
             final InputStream stream = TikaInputStream.get(path, metadata);
-
             // No need to close the stream because parseToString does so
-            return new StringResult(parseToStringWithConfig(
-                    stream, metadata, maxLength, pdfConfig, officeConfig, tesseractConfig)
-            );
+            String parseToStringWithConfig = parseToStringWithConfig(
+                    stream, metadata, maxLength, pdfConfig, officeConfig, tesseractConfig);
+            return new StringResult(parseToStringWithConfig, parseMetadata(metadata));
         } catch (java.io.IOException e) {
             return new StringResult((byte) 1, "Could not open file: " + e.getMessage());
         } catch (TikaException e) {
@@ -236,7 +266,7 @@ public class TikaNativeMain {
                     .setCharset(Charset.forName(charsetName, StandardCharsets.UTF_8))
                     .get();
 
-            return new ReaderResult(readerInputStream);
+            return new ReaderResult(readerInputStream, parseMetadata(metadata));
 
         } catch (java.io.IOException e) {
             return new ReaderResult((byte) 1, "IO error occurred: " + e.getMessage());
@@ -258,6 +288,7 @@ public class TikaNativeMain {
         final Path path = Paths.get(filePath);
         try {
             final String content = tika.parseToString(path);
+
             try (CTypeConversion.CCharPointerHolder holder = CTypeConversion.toCString(content)) {
                 return holder.get();
             }

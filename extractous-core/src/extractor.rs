@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use crate::errors::ExtractResult;
 use crate::tika;
 use crate::tika::JReaderInputStream;
@@ -124,10 +125,34 @@ impl Extractor {
         )
     }
 
+    /// Extracts text from a file path. Returns a stream of the extracted text
+    /// the stream is decoded using the extractor's `encoding`, and metadata HashMap.
+    pub fn extract_file_with_metadata(&self, file_path: &str) -> ExtractResult<(StreamReader, HashMap<String, String>)> {
+        tika::parse_file_with_metadata(
+            file_path,
+            &self.encoding,
+            &self.pdf_config,
+            &self.office_config,
+            &self.ocr_config,
+        )
+    }
+
     /// Extracts text from a file path. Returns a string that is of maximum length
     /// of the extractor's `extract_string_max_length`
     pub fn extract_file_to_string(&self, file_path: &str) -> ExtractResult<String> {
         tika::parse_file_to_string(
+            file_path,
+            self.extract_string_max_length,
+            &self.pdf_config,
+            &self.office_config,
+            &self.ocr_config,
+        )
+    }
+
+    /// Extracts text from a file path. Returns a string that is of maximum length
+    /// of the extractor's `extract_string_max_length` and metadata HashMap.
+    pub fn extract_file_to_string_with_metadata(&self, file_path: &str) -> ExtractResult<(String, HashMap<String, String>)> {
+        tika::parse_file_to_string_with_metadata(
             file_path,
             self.extract_string_max_length,
             &self.pdf_config,
@@ -143,6 +168,7 @@ mod tests {
     use std::fs::File;
     use std::io::prelude::*;
     use std::io::BufReader;
+
 
     const TEST_FILE: &str = "README.md";
 
@@ -178,11 +204,11 @@ mod tests {
     fn extract_file_to_string_test() {
         // Prepare expected_content
         let expected_content = expected_content();
-
         // Parse the files using extractous
         let extractor = Extractor::new();
-        let result = extractor.extract_file_to_string(TEST_FILE);
-        let content = result.unwrap();
+        let result = extractor.extract_file_to_string_with_metadata(TEST_FILE);
+        let (content, metadata) = result.unwrap();
         assert_eq!(content.trim(), expected_content.trim());
+        println!("METADATA VALUES: {:?}", metadata);
     }
 }

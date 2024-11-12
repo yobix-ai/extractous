@@ -2,22 +2,34 @@ package ai.yobix;
 
 import org.apache.commons.io.input.ReaderInputStream;
 
+import java.util.HashMap;
+
 public class ReaderResult {
 
     private final ReaderInputStream reader;
     private final byte status;
     private final String errorMessage;
+    private final HashMap<String, String> metadata;
 
     public ReaderResult(ReaderInputStream reader) {
         this.reader = reader;
         this.status = 0;
         this.errorMessage = null;
+        this.metadata = null;
+    }
+
+    public ReaderResult(ReaderInputStream reader, HashMap<String, String> metadata) {
+        this.reader = reader;
+        this.status = 0;
+        this.errorMessage = null;
+        this.metadata = metadata;
     }
 
     public ReaderResult(byte status, String errorMessage) {
         this.reader = null;
         this.status = status;
         this.errorMessage = errorMessage;
+        this.metadata = null;
     }
 
     /**
@@ -26,6 +38,14 @@ public class ReaderResult {
      */
     public ReaderInputStream getReader() {
         return reader;
+    }
+
+    /**
+     * Returns the metadata HashMap or null if there is an error
+     * @return HashMap metadata
+     */
+    public HashMap<String, String> getMetadata() {
+        return metadata;
     }
 
     public boolean isError() {

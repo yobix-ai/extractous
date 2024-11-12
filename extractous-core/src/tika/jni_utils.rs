@@ -1,8 +1,10 @@
 use std::os::raw::{c_char, c_void};
 
 use jni::errors::jni_error_code_to_result;
-use jni::objects::{JObject, JString, JValue, JValueOwned};
+use jni::objects::{JMap, JObject, JString, JValue, JValueOwned};
 use jni::{sys, JNIEnv, JavaVM};
+
+use std::collections::HashMap;
 
 use crate::errors::{Error, ExtractResult};
 
@@ -78,6 +80,62 @@ pub fn jni_jobject_to_string<'local>(
     //let output_str = javastr_output.to_str().map_err(Error::Utf8Error)?;
 
     Ok(output_str.to_string())
+}
+
+/// Converts a java HashMap to a rust HashMap
+pub fn jni_jobject_hashmap_to_hashmap<'local>(
+    env: &mut JNIEnv<'local>,
+    jobject: JObject<'local>,
+) -> ExtractResult<HashMap<String, String>> {
+
+    /*
+    match env.find_class("java/util/ArrayList") {
+        Ok(_) => {
+            println!("Class 'java/util/ArrayList' found successfully.");
+        }
+        Err(e) => {
+            println!("Error finding class 'java/util/ArrayList': {:?}", e);
+            env.exception_describe()?;
+            return Err(e.into());
+        }
+    }
+    // RESULT: Class 'java/util/ArrayList' found successfully.
+    */
+
+
+    /*
+    match env.find_class("java/util/HashMap") {
+        Ok(_) => {
+            println!("Class 'java/util/HashMap' found successfully.");
+        }
+        Err(e) => {
+            println!("Error finding class 'java/util/HashMap': {:?}", e);
+            env.exception_describe()?;
+            return Err(e.into());
+        }
+    }
+    //RESULT: Error finding class 'java/util/HashMap': JavaException
+    // Exception in thread "main": java.lang.NoClassDefFoundError
+    // java.lang.NoClassDefFoundError: java/util/HashMap
+    // at org.graalvm.nativeimage.builder/com.oracle.svm.core.jni.functions.JNIFunctions.FindClass(JNIFunctions.java:362)
+    */
+
+
+    //let jmap = JMap::from_env(env, &jobject)?; // <---- ERROR IN THE ORIGINAL CODE.
+    let mut metadata = HashMap::new();
+
+    // DATA TEST FAKE
+    metadata.insert("Author".to_string(), "John Doe".to_string());
+    metadata.insert("Title".to_string(), "Fake Document".to_string());
+
+    //let mut iter = jmap.iter(env)?;
+    //while let Ok(Some(_entry)) = iter.next(env) {
+    //let (key_object, value_object) = entry;
+    //let key = jni_jobject_to_string(env, key_object)?;
+    //let value = jni_jobject_to_string(env, value_object)?;
+    //metadata.insert(key, value);
+    //}
+    Ok(metadata)
 }
 
 /// Checks if there is an exception in the jni environment, describes it to
