@@ -1,15 +1,25 @@
 plugins {
     id 'java-library'
-    id'org.graalvm.buildtools.native' version '0.10.2' // GraalVM plugin for Gradle
+    id'org.graalvm.buildtools.native' version '0.10.3' // GraalVM plugin for Gradle
 }
 
 
 def tikaVersion = "2.9.2"
 def numThreads = Runtime.getRuntime().availableProcessors()
+def currentOs = org.gradle.internal.os.OperatingSystem.current()
 
+
+def osName = ""
+if (currentOs.isLinux()) {
+    osName = "linux"
+} else if (currentOs.isMacOsX()) {
+    osName = "macos"
+} else if (currentOs.isWindows()) {
+    osName = "windows"
+}
 
 group = 'ai.yobix'
-version = "$tikaVersion-SNAPSHOT"
+version = "tika-$tikaVersion-$osName"
 
 
 repositories {
@@ -64,6 +74,8 @@ graalvmNative {
             // The --no-fallback option to native-image causes the utility to fail if it can not create the image.
             fallback = false
 
+            configurationFileDirectories.from(file("src/main/resources/META-INF/$group/$version"))
+
             buildArgs.addAll(
                     "-H:+AddAllCharsets", // Very important to get UTF8 working
                     "--enable-https", // Very important https working
@@ -72,7 +84,7 @@ graalvmNative {
                     "-march=compatibility" // VERY IMPORTANT to use compatibility flag. If not the libs will use the cpu arch of the build machine and will notwork on other CPUs if distributed
             )
             jvmArgs.add('-Djava.awt.headless=true')
-            requiredVersion = '22' // The minimal GraalVM version, can be `MAJOR`, `MAJOR.MINOR` or `MAJOR.MINOR.PATCH`
+            requiredVersion = '23' // The minimal GraalVM version, can be `MAJOR`, `MAJOR.MINOR` or `MAJOR.MINOR.PATCH`
         }
     }
 }

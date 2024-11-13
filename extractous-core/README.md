@@ -109,17 +109,17 @@ fn main() {
 * The provided build script already takes care of installing the required GraalVM JDK. However, if you want to use a
   specific local version, you can do so by setting the GRAALVM_HOME environment variable
 * We recommend using [sdkman](https://sdkman.io/install) to install GraalVM JDKs
-* `sdk install java 22.0.1-graalce`
-* To be able to use it from IDEA, on Ubuntu for example add `GRAALVM_HOME=$HOME/.sdkman/candidates/java/22.0.2-graalce` to `/etc/environment`
+* `sdk install java 23.0.1-graalce`
+* To be able to use it from IDEA, on Ubuntu for example add `GRAALVM_HOME=$HOME/.sdkman/candidates/java/23.0.1-graalce` to `/etc/environment`
 * Confirm that GraalVM is installed correctly by running `java -version`. You should see something like:
 ```text
-openjdk 22.0.1 2024-04-16
-OpenJDK Runtime Environment Liberica-NIK-24.0.1-1 (build 22.0.1+10)
-OpenJDK 64-Bit Server VM Liberica-NIK-24.0.1-1 (build 22.0.1+10, mixed mode, sharing)
+openjdk 23.0.1 2024-10-15
+OpenJDK Runtime Environment GraalVM CE 23.0.1+11.1 (build 23.0.1+11-jvmci-b01)
+OpenJDK 64-Bit Server VM GraalVM CE 23.0.1+11.1 (build 23.0.1+11-jvmci-b01, mixed mode, sharing)
 ```
 * On macOS the official GraalVM JDKs fail to work with code that use java awt. On macOS, we recommend using
   Bellsoft Liberica NIK
-* `sdk install java 24.0.1.r22-nik`
+* `sdk install java 24.1.1.r23-nik`
 * Extractous supports OCR through [tesseract](https://github.com/tesseract-ocr/tesseract), make sure tesseract is
 installed on your system because some of the OCR tests will fail if no tesseract is found.
 * `sudo apt install tesseract-ocr`
