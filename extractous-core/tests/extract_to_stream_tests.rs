@@ -33,7 +33,7 @@ fn test_extract_bytes_to_stream(file_name: &str, target_dist: f64) {
     let expected =
         fs::read_to_string(format!("../test_files/expected_result/{}.txt", file_name)).unwrap();
 
-    let dist = cosine(&expected, &extracted);
+    let dist = cosine(&expected.trim(), &extracted.trim());
     assert!(
         dist > target_dist,
         "Cosine similarity is less than {} for file: {}, dist: {}",
