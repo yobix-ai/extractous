@@ -1,0 +1,9 @@
+{
+    "X-TIKA:Parsed-By-Full-Set": "org.apache.tika.parser.DefaultParser",
+    "extended-properties:DocSecurityString": "None",
+    "Content-Length": "12541",
+    "X-TIKA:Parsed-By": "org.apache.tika.parser.DefaultParser",
+    "protected": "false",
+    "resourceName": "vodafone.xlsx",
+    "Content-Type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+}

@@ -1,9 +1,10 @@
 use std::os::raw::{c_char, c_void};
 
 use jni::errors::jni_error_code_to_result;
-use jni::objects::{JByteBuffer, JObject, JString, JValue, JValueOwned};
+use jni::objects::{JMap, JByteBuffer, JObject, JString, JValue, JValueOwned};
 use jni::{sys, JNIEnv, JavaVM};
 
+use std::collections::HashMap;
 use crate::errors::{Error, ExtractResult};
 
 /// Calls a static method and prints any thrown exceptions to stderr
@@ -90,6 +91,23 @@ pub fn jni_jobject_to_string<'local>(
     //let output_str = javastr_output.to_str().map_err(Error::Utf8Error)?;
 
     Ok(output_str.to_string())
+}
+
+/// Converts a java HashMap to a rust HashMap
+pub fn jni_jobject_hashmap_to_hashmap<'local>(
+    env: &mut JNIEnv<'local>,
+    jobject: JObject<'local>,
+) -> ExtractResult<HashMap<String, String>> {
+    let jmap = JMap::from_env(env, &jobject)?;
+    let mut metadata = HashMap::new();
+    let mut iter = jmap.iter(env)?;
+    while let Ok(Some(entry)) = iter.next(env) {
+        let (key_object, value_object) = entry;
+        let key = jni_jobject_to_string(env, key_object)?;
+        let value = jni_jobject_to_string(env, value_object)?;
+        metadata.insert(key, value);
+    }
+    Ok(metadata)
 }
 
 /// Checks if there is an exception in the jni environment, describes it to

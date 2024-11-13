@@ -1,0 +1,22 @@
+{
+    "dcterms:created": "2023-09-22T18:38:00Z",
+    "meta:character-count": "1285",
+    "xmpTPg:NPages": "1",
+    "extended-properties:Template": "Normal.dotm",
+    "X-TIKA:Parsed-By-Full-Set": "org.apache.tika.parser.DefaultParser",
+    "meta:character-count-with-spaces": "1558",
+    "Content-Length": "11220",
+    "extended-properties:AppVersion": "15.0000",
+    "cp:revision": "3",
+    "dc:language": "en-US",
+    "meta:word-count": "288",
+    "resourceName": "category-level.docx",
+    "dcterms:modified": "2023-09-26T15:58:44Z",
+    "extended-properties:DocSecurityString": "None",
+    "X-TIKA:Parsed-By": "org.apache.tika.parser.DefaultParser",
+    "extended-properties:TotalTime": "7",
+    "extended-properties:Application": "LibreOffice/7.5.5.2$MacOSX_AARCH64 LibreOffice_project/ca8fe7424262805f223b9a2334bc7181abbcbf5e",
+    "meta:page-count": "1",
+    "Content-Type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "meta:paragraph-count": "12"
+}

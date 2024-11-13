@@ -45,6 +45,9 @@
             "name": "java.util.Collections$EmptyList"
         },
         {
+            "name": "java.util.HashMap"
+        },
+        {
             "name": "java.util.HashSet"
         },
         {

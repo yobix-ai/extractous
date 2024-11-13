@@ -37,6 +37,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class TikaNativeMain {
 
     private static final Tika tika = new Tika();
@@ -57,6 +60,20 @@ public class TikaNativeMain {
         } catch (java.io.IOException e) {
             return new StringResult((byte) 1, e.getMessage());
         }
+    }
+
+
+    /**
+     * Parse tika metadata to HashMap. This step is necessary because there is no way to fully return the Tika metadata Map.
+     * @param metadata: Tika Metadata
+     * @return Map<String, String>
+     */
+    private static HashMap<String, String> parseMetadata(Metadata metadata) {
+        HashMap<String, String> map = new HashMap<>();
+        for (String name : metadata.names()) {
+            map.put(name, metadata.get(name));
+        }
+        return map;
     }
 
     /**
@@ -80,10 +97,10 @@ public class TikaNativeMain {
             final Metadata metadata = new Metadata();
             final InputStream stream = TikaInputStream.get(path, metadata);
 
+            String parseToStringWithConfig = parseToStringWithConfig(
+                    stream, metadata, maxLength, pdfConfig, officeConfig, tesseractConfig);
             // No need to close the stream because parseToString does so
-            return new StringResult(parseToStringWithConfig(
-                    stream, metadata, maxLength, pdfConfig, officeConfig, tesseractConfig)
-            );
+            return new StringResult(parseToStringWithConfig, parseMetadata(metadata));
         } catch (java.io.IOException e) {
             return new StringResult((byte) 1, "Could not open file: " + e.getMessage());
         } catch (TikaException e) {

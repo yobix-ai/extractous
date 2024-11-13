@@ -114,6 +114,23 @@ result = extractor.extract_file_to_string("../../test_files/documents/eng-ocr.pd
 print(result)
 ```
 
+* Extracting with metadata:
+
+You can extend the functionality with `_with_metadata` to return the file's metadata.
+
+```python
+from extractous import Extractor
+
+# Create a new extractor
+extractor = Extractor()
+extractor.set_extract_string_max_length(1000)
+
+# Extract text from a file
+result, metadata = extractor.extract_file_to_string_with_metadata("README.md")
+print(result)
+print(metadata)
+```
+
 #### Rust
 * Extract a file content to a string:
 ```rust
@@ -126,6 +143,22 @@ fn main() {
     // Extract text from a file
     let text = extractor.extract_file_to_string("README.md").unwrap();
     println!("{}", text);
+}
+```
+
+* Extracting with metadata:
+
+```rust
+use extractous::Extractor;
+
+fn main() {
+    // Create a new extractor. Note it uses a consuming builder pattern
+    let mut extractor = Extractor::new().set_extract_string_max_length(1000);
+    
+    // Extract text from a file
+    let (text, metadata) = extractor.extract_file_to_string_with_metadata("README.md").unwrap();
+    println!("{}", text);
+    println!("{:?}", metadata);
 }
 ```
 

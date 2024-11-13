@@ -1,7 +1,9 @@
+use std::collections::HashMap;
 use crate::{ecore, OfficeParserConfig, PdfParserConfig, TesseractOcrConfig};
 use pyo3::exceptions::PyTypeError;
 use pyo3::prelude::*;
 use pyo3::types::PyByteArray;
+use pyo3::types::PyDict;
 use std::io::Read;
 
 // PyO3 supports unit-only enums (which contain only unit variants)
@@ -159,6 +161,19 @@ impl Extractor {
             .map_err(|e| PyErr::new::<PyTypeError, _>(format!("{:?}", e)))
     }
 
+    /// Extracts text from a file path. Returns a tuple with string and dict that is of maximum length
+    /// of the extractor's `extract_string_max_length` and the metadata.
+    pub fn extract_file_to_string_with_metadata(&self, filename: &str) -> PyResult<(String, PyObject)> {
+        let (content, metadata) = self.0
+            .extract_file_to_string_with_metadata(filename)
+            .map_err(|e| PyErr::new::<PyTypeError, _>(format!("{:?}", e)))?;
+
+        Python::with_gil(|py| {
+            let py_metadata = hashmap_to_pydict(py, &metadata);
+            Ok((content, py_metadata.into()))
+        })
+    }
+
     /// Extracts text from a bytearray. Returns a stream of the extracted text
     /// the stream is decoded using the extractor's `encoding`
     pub fn extract_bytes(&self, buffer: &Bound<'_, PyByteArray>) -> PyResult<StreamReader> {
@@ -195,4 +210,12 @@ impl Extractor {
     fn __repr__(&self) -> String {
         format!("{:?}", self.0)
     }
+}
+
+fn hashmap_to_pydict<'py>(py: Python<'py>, hashmap: &HashMap<String, String>) -> &'py PyDict {
+    let pydict = PyDict::new(py);
+    for (key, value) in hashmap {
+        pydict.set_item(key, value).unwrap();
+    }
+    pydict
 }

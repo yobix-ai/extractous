@@ -1,11 +1,15 @@
 use crate::errors::{Error, ExtractResult};
-use crate::tika::jni_utils::{jni_call_method, jni_jobject_to_string, jni_new_string_as_jvalue};
+use crate::tika::jni_utils::{jni_call_method, jni_jobject_hashmap_to_hashmap, jni_jobject_to_string, jni_new_string_as_jvalue};
 use crate::tika::vm;
 use crate::{OfficeParserConfig, PdfParserConfig, TesseractOcrConfig, DEFAULT_BUF_SIZE};
 use bytemuck::cast_slice_mut;
 use jni::objects::{GlobalRef, JByteArray, JObject, JValue};
 use jni::sys::jsize;
 use jni::JNIEnv;
+use std::collections::HashMap;
+
+/// Alias Metadata
+type Metadata = HashMap<String, String>;
 
 /// Wrapper for [`JObject`]s that contain `org.apache.commons.io.input.ReaderInputStream`
 /// It saves a GlobalRef to the java object, which is cleared when the last GlobalRef is dropped
@@ -104,8 +108,9 @@ impl Drop for JReaderInputStream {
 
 /// Wrapper for the Java class  `ai.yobix.StringResult`
 /// Upon creation it parses the java StringResult object and saves the converted Rust string
-pub(crate) struct JStringResult {
-    pub(crate) content: String,
+pub struct JStringResult {
+    pub content: String,
+    pub metadata: Metadata,
 }
 
 impl<'local> JStringResult {
@@ -130,7 +135,10 @@ impl<'local> JStringResult {
 
             let content = jni_jobject_to_string(env, call_result_obj)?;
 
-            Ok(Self { content })
+            let metadata_obj_hashmap: JObject = env.call_method(&obj, "getMetadata", "()Ljava/util/HashMap;", &[])?
+                .l()?;
+            let metadata = jni_jobject_hashmap_to_hashmap(env, metadata_obj_hashmap)?;
+            Ok(Self { content, metadata })
         }
     }
 }

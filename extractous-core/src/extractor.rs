@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use crate::errors::ExtractResult;
 use crate::tika;
 use crate::tika::JReaderInputStream;
@@ -159,6 +160,18 @@ impl Extractor {
             &self.ocr_config,
         )
     }
+
+    /// Extracts text from a file path. Returns a string that is of maximum length
+    /// of the extractor's `extract_string_max_length` and metadata HashMap.
+    pub fn extract_file_to_string_with_metadata(&self, file_path: &str) -> ExtractResult<(String, HashMap<String, String>)> {
+        tika::parse_file_to_string_with_metadata(
+            file_path,
+            self.extract_string_max_length,
+            &self.pdf_config,
+            &self.office_config,
+            &self.ocr_config,
+        )
+    }
 }
 
 #[cfg(test)]
@@ -208,9 +221,13 @@ mod tests {
 
         // Parse the files using extractous
         let extractor = Extractor::new();
-        let result = extractor.extract_file_to_string(TEST_FILE);
-        let content = result.unwrap();
+        let result = extractor.extract_file_to_string_with_metadata(TEST_FILE);
+        let (content, metadata) = result.unwrap();
         assert_eq!(content.trim(), expected_content.trim());
+        assert!(
+            metadata.len() > 0,
+            "Metadata should contain at least one entry"
+        );
     }
 
     fn read_file_as_bytes(path: &str) -> io::Result<Vec<u8>> {
