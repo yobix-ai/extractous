@@ -150,6 +150,7 @@ jobs:
           python-version: '3.8'
       - uses: graalvm/setup-graalvm@v1.2.5
         with:
+          version: '23.0.1'
           java-version: '23'
           distribution: 'liberica'
           set-java-home: 'true'
