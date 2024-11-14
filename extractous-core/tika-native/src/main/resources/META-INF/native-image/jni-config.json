@@ -53,6 +53,21 @@
         "name": "ai.yobix.StringResult"
     },
     {
+        "methods": [
+            {
+                "name": "getValues",
+                "parameterTypes": [
+                    "java.lang.String"
+                ]
+            },
+            {
+                "name": "names",
+                "parameterTypes": []
+            }
+        ],
+        "name": "org.apache.tika.metadata.Metadata"
+    },
+    {
         "name": "java.util.HashMap"
     },
     {

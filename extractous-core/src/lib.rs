@@ -87,4 +87,5 @@ mod tika {
     mod wrappers;
     pub use parse::*;
     pub use wrappers::JReaderInputStream;
+    pub use wrappers::Metadata;
 }

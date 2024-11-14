@@ -153,6 +153,25 @@ impl Extractor {
         })
     }
 
+
+    /// Extracts text from a file path. Returns a tuple with stream of the extracted text
+    /// the stream is decoded using the extractor's `encoding` and tika metadata.
+    pub fn extract_file_with_metadata(&self, filename: &str) -> PyResult<(StreamReader, PyObject)> {
+        let (reader, metadata) = self.0
+            .extract_file_with_metadata(filename)
+            .map_err(|e| PyErr::new::<PyTypeError, _>(format!("{:?}", e)))?;
+
+        // Create a new `StreamReader` with initial buffer capacity of ecore::DEFAULT_BUF_SIZE bytes
+        Python::with_gil(|py| {
+            let py_metadata = metadata_hashmap_to_pydict(py, &metadata)?;
+            Ok((StreamReader {
+                reader,
+                buffer: Vec::with_capacity(ecore::DEFAULT_BUF_SIZE),
+                py_bytes: None,
+            }, py_metadata.into()))
+        })
+    }
+
     /// Extracts text from a file path. Returns a string that is of maximum length
     /// of the extractor's `extract_string_max_length`
     pub fn extract_file_to_string(&self, filename: &str) -> PyResult<String> {
@@ -169,7 +188,7 @@ impl Extractor {
             .map_err(|e| PyErr::new::<PyTypeError, _>(format!("{:?}", e)))?;
 
         Python::with_gil(|py| {
-            let py_metadata = hashmap_to_pydict(py, &metadata);
+            let py_metadata = metadata_hashmap_to_pydict(py, &metadata)?;
             Ok((content, py_metadata.into()))
         })
     }
@@ -191,6 +210,25 @@ impl Extractor {
         })
     }
 
+    /// Extracts text from a bytearray. Returns a tuple with stream of the extracted text
+    /// the stream is decoded using the extractor's `encoding` and tika metadata.
+    pub fn extract_bytes_with_metadata(&self, buffer: &Bound<'_, PyByteArray>) -> PyResult<(StreamReader, PyObject)> {
+        let slice = buffer.to_vec();
+        let (reader, metadata) = self.0
+            .extract_bytes_with_metadata(&slice)
+            .map_err(|e| PyErr::new::<PyTypeError, _>(format!("{:?}", e)))?;
+
+        // Create a new `StreamReader` with initial buffer capacity of ecore::DEFAULT_BUF_SIZE bytes
+        Python::with_gil(|py| {
+            let py_metadata = metadata_hashmap_to_pydict(py, &metadata)?;
+            Ok((StreamReader {
+                reader,
+                buffer: Vec::with_capacity(ecore::DEFAULT_BUF_SIZE),
+                py_bytes: None,
+            }, py_metadata.into()))
+        })
+    }
+
     /// Extracts text from a url. Returns a string that is of maximum length
     /// of the extractor's `extract_string_max_length`
     pub fn extract_url(&self, url: &str) -> PyResult<StreamReader> {
@@ -207,15 +245,34 @@ impl Extractor {
         })
     }
 
+    /// Extracts text from a url. Returns a tuple with string that is of maximum length
+    /// of the extractor's `extract_string_max_length` and tika metdata.
+    pub fn extract_url_with_metadata(&self, url: &str) -> PyResult<(StreamReader, PyObject)> {
+        let (reader, metadata) = self.0
+            .extract_url_with_metadata(&url)
+            .map_err(|e| PyErr::new::<PyTypeError, _>(format!("{:?}", e)))?;
+
+        // Create a new `StreamReader` with initial buffer capacity of ecore::DEFAULT_BUF_SIZE bytes
+        Python::with_gil(|py| {
+            let py_metadata = metadata_hashmap_to_pydict(py, &metadata)?;
+            Ok((StreamReader {
+                reader,
+                buffer: Vec::with_capacity(ecore::DEFAULT_BUF_SIZE),
+                py_bytes: None,
+            }, py_metadata.into()))
+        })
+    }
+
     fn __repr__(&self) -> String {
         format!("{:?}", self.0)
     }
 }
 
-fn hashmap_to_pydict<'py>(py: Python<'py>, hashmap: &HashMap<String, String>) -> &'py PyDict {
+fn metadata_hashmap_to_pydict<'py>(py: Python<'py>, hashmap: &HashMap<String, Vec<String>>) -> Result<&'py PyDict, PyErr> {
     let pydict = PyDict::new(py);
     for (key, value) in hashmap {
-        pydict.set_item(key, value).unwrap();
+        pydict.set_item(key, value)
+            .map_err(|e| PyErr::new::<PyTypeError, _>(format!("{:?}", e)))?;
     }
-    pydict
+    Ok(pydict)
 }
