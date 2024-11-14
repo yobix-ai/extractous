@@ -154,10 +154,10 @@ jobs:
 #          java-version: '23'
 #          distribution: 'liberica'
 #          set-java-home: 'true'
-      - name: Install graalvm
-        run: |
-          set -e
-          bash .github/workflows/install-graalvm-sdkman-macos.sh 24.1.1.r23-nik
+#      - name: Install graalvm
+#        run: |
+#          set -e
+#          bash .github/workflows/install-graalvm-sdkman-macos.sh 24.1.1.r23-nik
 
       - name: Build wheels
         uses: PyO3/maturin-action@v1
