@@ -1,27 +1,81 @@
 {
-    "Data SampleFormat": "UnsignedIntegral",
-    "tiff:ImageWidth": "1377",
-    "IHDR": "width=1377, height=648, bitDepth=8, colorType=RGB, compressionMethod=deflate, filterMethod=adaptive, interlaceMethod=none",
-    "Content-Length": "79808",
-    "height": "648",
-    "tiff:ImageLength": "648",
-    "Compression NumProgressiveScans": "1",
-    "Content-Type-Parser-Override": "image/ocr-png",
-    "Data BitsPerSample": "8 8 8",
-    "Chroma ColorSpaceType": "RGB",
-    "X-TIKA:Parsed-By": "org.apache.tika.parser.DefaultParser",
-    "imagereader:NumImages": "1",
-    "resourceName": "table-multi-row-column-cells.png",
-    "Dimension PixelAspectRatio": "1.0",
-    "width": "1377",
-    "X-TIKA:Parsed-By-Full-Set": "org.apache.tika.parser.DefaultParser",
-    "Compression CompressionTypeName": "deflate",
-    "Data PlanarConfiguration": "PixelInterleaved",
-    "tiff:BitsPerSample": "8 8 8",
-    "Content-Type": "image/png",
-    "Chroma BlackIsZero": "true",
-    "Dimension ImageOrientation": "Normal",
-    "Compression Lossless": "true",
-    "Chroma NumChannels": "3",
-    "Transparency Alpha": "none"
+    "Content-Length": [
+        "79808"
+    ],
+    "Data BitsPerSample": [
+        "8 8 8"
+    ],
+    "IHDR": [
+        "width=1377, height=648, bitDepth=8, colorType=RGB, compressionMethod=deflate, filterMethod=adaptive, interlaceMethod=none"
+    ],
+    "tiff:ImageWidth": [
+        "1377"
+    ],
+    "imagereader:NumImages": [
+        "1"
+    ],
+    "resourceName": [
+        "table-multi-row-column-cells.png"
+    ],
+    "Content-Type-Parser-Override": [
+        "image/ocr-png"
+    ],
+    "height": [
+        "648"
+    ],
+    "Dimension PixelAspectRatio": [
+        "1.0"
+    ],
+    "Content-Type": [
+        "image/png"
+    ],
+    "Compression NumProgressiveScans": [
+        "1"
+    ],
+    "X-TIKA:Parsed-By-Full-Set": [
+        "org.apache.tika.parser.DefaultParser",
+        "org.apache.tika.parser.image.ImageParser",
+        "org.apache.tika.parser.ocr.TesseractOCRParser"
+    ],
+    "Data PlanarConfiguration": [
+        "PixelInterleaved"
+    ],
+    "X-TIKA:Parsed-By": [
+        "org.apache.tika.parser.DefaultParser",
+        "org.apache.tika.parser.image.ImageParser",
+        "org.apache.tika.parser.ocr.TesseractOCRParser"
+    ],
+    "Chroma BlackIsZero": [
+        "true"
+    ],
+    "tiff:BitsPerSample": [
+        "8 8 8"
+    ],
+    "Compression Lossless": [
+        "true"
+    ],
+    "width": [
+        "1377"
+    ],
+    "Dimension ImageOrientation": [
+        "Normal"
+    ],
+    "Chroma NumChannels": [
+        "3"
+    ],
+    "Data SampleFormat": [
+        "UnsignedIntegral"
+    ],
+    "Transparency Alpha": [
+        "none"
+    ],
+    "tiff:ImageLength": [
+        "648"
+    ],
+    "Compression CompressionTypeName": [
+        "deflate"
+    ],
+    "Chroma ColorSpaceType": [
+        "RGB"
+    ]
 }

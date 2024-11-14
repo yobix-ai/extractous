@@ -1,31 +1,95 @@
 {
-  "tiff:ImageLength": "779",
-  "X-TIKA:Parsed-By-Full-Set": "org.apache.tika.parser.DefaultParser",
-  "Compression CompressionTypeName": "deflate",
-  "Data PlanarConfiguration": "PixelInterleaved",
-  "Chroma ColorSpaceType": "RGB",
-  "Dimension PixelAspectRatio": "1.0",
-  "IHDR": "width=842, height=779, bitDepth=8, colorType=RGBAlpha, compressionMethod=deflate, filterMethod=adaptive, interlaceMethod=none",
-  "Content-Length": "209350",
-  "tiff:BitsPerSample": "8 8 8 8",
-  "resourceName": "ara-ocr.png",
-  "tiff:ImageWidth": "842",
-  "imagereader:NumImages": "1",
-  "Chroma BlackIsZero": "true",
-  "Compression Lossless": "true",
-  "Text TextEntry": "keyword=Software, value=gnome-screenshot, encoding=ISO-8859-1, compression=none",
-  "sBIT sBIT_RGBAlpha": "red=8, green=8, blue=8, alpha=8",
-  "X-TIKA:Parsed-By": "org.apache.tika.parser.DefaultParser",
-  "Content-Type": "image/png",
-  "Compression NumProgressiveScans": "1",
-  "Content-Type-Parser-Override": "image/ocr-png",
-  "Transparency Alpha": "nonpremultipled",
-  "Chroma NumChannels": "4",
-  "Data BitsPerSample": "8 8 8 8",
-  "Data SignificantBitsPerSample": "8 8 8 8",
-  "Dimension ImageOrientation": "Normal",
-  "tEXt tEXtEntry": "keyword=Software, value=gnome-screenshot",
-  "Data SampleFormat": "UnsignedIntegral",
-  "height": "779",
-  "width": "842"
+  "Dimension PixelAspectRatio": [
+    "1.0"
+  ],
+  "Data PlanarConfiguration": [
+    "PixelInterleaved"
+  ],
+  "height": [
+    "779"
+  ],
+  "Data BitsPerSample": [
+    "8 8 8 8"
+  ],
+  "resourceName": [
+    "ara-ocr.png"
+  ],
+  "tEXt tEXtEntry": [
+    "keyword=Software, value=gnome-screenshot",
+    "keyword=Creation Time, value=Mon 04 Nov 2024 10:16:25 AM CET"
+  ],
+  "Data SignificantBitsPerSample": [
+    "8 8 8 8"
+  ],
+  "Dimension ImageOrientation": [
+    "Normal"
+  ],
+  "IHDR": [
+    "width=842, height=779, bitDepth=8, colorType=RGBAlpha, compressionMethod=deflate, filterMethod=adaptive, interlaceMethod=none"
+  ],
+  "X-TIKA:Parsed-By-Full-Set": [
+    "org.apache.tika.parser.DefaultParser",
+    "org.apache.tika.parser.image.ImageParser",
+    "org.apache.tika.parser.ocr.TesseractOCRParser"
+  ],
+  "Compression Lossless": [
+    "true"
+  ],
+  "tiff:ImageWidth": [
+    "842"
+  ],
+  "tiff:ImageLength": [
+    "779"
+  ],
+  "sBIT sBIT_RGBAlpha": [
+    "red=8, green=8, blue=8, alpha=8"
+  ],
+  "Content-Type": [
+    "image/png"
+  ],
+  "imagereader:NumImages": [
+    "1"
+  ],
+  "Content-Length": [
+    "209350"
+  ],
+  "Text TextEntry": [
+    "keyword=Software, value=gnome-screenshot, encoding=ISO-8859-1, compression=none",
+    "keyword=Creation Time, value=Mon 04 Nov 2024 10:16:25 AM CET, encoding=ISO-8859-1, compression=none"
+  ],
+  "Chroma ColorSpaceType": [
+    "RGB"
+  ],
+  "tiff:BitsPerSample": [
+    "8 8 8 8"
+  ],
+  "Compression CompressionTypeName": [
+    "deflate"
+  ],
+  "Chroma NumChannels": [
+    "4"
+  ],
+  "Chroma BlackIsZero": [
+    "true"
+  ],
+  "width": [
+    "842"
+  ],
+  "Compression NumProgressiveScans": [
+    "1"
+  ],
+  "Data SampleFormat": [
+    "UnsignedIntegral"
+  ],
+  "Transparency Alpha": [
+    "nonpremultipled"
+  ],
+  "Content-Type-Parser-Override": [
+    "image/ocr-png"
+  ],
+  "X-TIKA:Parsed-By": [
+    "org.apache.tika.parser.DefaultParser",
+    "org.apache.tika.parser.image.ImageParser",
+    "org.apache.tika.parser.ocr.TesseractOCRParser"
+  ]
 }

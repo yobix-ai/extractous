@@ -1,47 +1,194 @@
 {
-    "dc:subject": "0000320193-22-000070; ; 10-Q",
-    "access_permission:modify_annotations": "true",
-    "pdf:docinfo:keywords": "0000320193-22-000070; ; 10-Q",
-    "pdf:docinfo:modified": "2022-07-29T10:03:28Z",
-    "Content-Type": "application/pdf",
-    "pdf:hasXFA": "false",
-    "pdf:docinfo:creator": "EDGAR Online, a division of Donnelley Financial Solutions",
-    "pdf:hasXMP": "false",
-    "pdf:docinfo:producer": "EDGRpdf Service w/ EO.Pdf 22.0.40.0",
-    "pdf:totalUnmappedUnicodeChars": "0",
-    "dc:creator": "EDGAR Online, a division of Donnelley Financial Solutions",
-    "pdf:unmappedUnicodeCharsPerPage": "0",
-    "pdf:docinfo:title": "0000320193-22-000070",
-    "X-TIKA:Parsed-By-Full-Set": "org.apache.tika.parser.DefaultParser",
-    "pdf:hasCollection": "false",
-    "access_permission:fill_in_form": "true",
-    "pdf:hasMarkedContent": "false",
-    "access_permission:assemble_document": "true",
-    "resourceName": "2022_Q3_AAPL.pdf",
-    "Content-Length": "266240",
-    "pdf:charsPerPage": "2588",
-    "pdf:num3DAnnotations": "0",
-    "pdf:encrypted": "true",
-    "pdf:producer": "EDGRpdf Service w/ EO.Pdf 22.0.40.0",
-    "dc:title": "0000320193-22-000070",
-    "dcterms:created": "2022-07-29T10:03:21Z",
-    "xmp:CreatorTool": "EDGAR Filing HTML Converter",
-    "pdf:annotationSubtypes": "Link",
-    "pdf:PDFVersion": "1.4",
-    "access_permission:can_print_degraded": "true",
-    "dcterms:modified": "2022-07-29T10:03:28Z",
-    "pdf:overallPercentageUnmappedUnicodeChars": "0.0",
-    "pdf:docinfo:subject": "Form 10-Q filed on 2022-07-29 for the period ending 2022-06-25",
-    "access_permission:extract_for_accessibility": "true",
-    "access_permission:can_print": "true",
-    "pdf:annotationTypes": "null",
-    "X-TIKA:Parsed-By": "org.apache.tika.parser.DefaultParser",
-    "pdf:docinfo:created": "2022-07-29T10:03:21Z",
-    "pdf:docinfo:creator_tool": "EDGAR Filing HTML Converter",
-    "pdf:containsNonEmbeddedFont": "false",
-    "access_permission:can_modify": "true",
-    "xmpTPg:NPages": "28",
-    "access_permission:extract_content": "true",
-    "dc:format": "application/pdf; version=1.4",
-    "pdf:containsDamagedFont": "false"
+    "pdf:docinfo:modified": [
+        "2022-07-29T10:03:28Z"
+    ],
+    "dc:title": [
+        "0000320193-22-000070"
+    ],
+    "xmp:CreatorTool": [
+        "EDGAR Filing HTML Converter"
+    ],
+    "dc:format": [
+        "application/pdf; version=1.4"
+    ],
+    "pdf:charsPerPage": [
+        "2588",
+        "465",
+        "547",
+        "1386",
+        "1169",
+        "1589",
+        "1392",
+        "1987",
+        "2581",
+        "2380",
+        "2974",
+        "3220",
+        "2881",
+        "2534",
+        "2509",
+        "1335",
+        "4495",
+        "3473",
+        "3862",
+        "2766",
+        "2932",
+        "4855",
+        "3842",
+        "1473",
+        "332",
+        "3220",
+        "3233",
+        "1653"
+    ],
+    "access_permission:modify_annotations": [
+        "true"
+    ],
+    "Content-Length": [
+        "266240"
+    ],
+    "X-TIKA:Parsed-By-Full-Set": [
+        "org.apache.tika.parser.DefaultParser",
+        "org.apache.tika.parser.pdf.PDFParser"
+    ],
+    "Content-Type": [
+        "application/pdf"
+    ],
+    "dcterms:created": [
+        "2022-07-29T10:03:21Z"
+    ],
+    "access_permission:fill_in_form": [
+        "true"
+    ],
+    "pdf:hasCollection": [
+        "false"
+    ],
+    "pdf:docinfo:creator_tool": [
+        "EDGAR Filing HTML Converter"
+    ],
+    "pdf:containsNonEmbeddedFont": [
+        "false"
+    ],
+    "pdf:hasXFA": [
+        "false"
+    ],
+    "access_permission:can_print_degraded": [
+        "true"
+    ],
+    "pdf:producer": [
+        "EDGRpdf Service w/ EO.Pdf 22.0.40.0"
+    ],
+    "pdf:docinfo:producer": [
+        "EDGRpdf Service w/ EO.Pdf 22.0.40.0"
+    ],
+    "pdf:docinfo:created": [
+        "2022-07-29T10:03:21Z"
+    ],
+    "pdf:num3DAnnotations": [
+        "0"
+    ],
+    "pdf:annotationTypes": [
+        "null"
+    ],
+    "pdf:unmappedUnicodeCharsPerPage": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+    ],
+    "dc:creator": [
+        "EDGAR Online, a division of Donnelley Financial Solutions"
+    ],
+    "pdf:encrypted": [
+        "true"
+    ],
+    "pdf:docinfo:title": [
+        "0000320193-22-000070"
+    ],
+    "pdf:docinfo:subject": [
+        "Form 10-Q filed on 2022-07-29 for the period ending 2022-06-25"
+    ],
+    "pdf:overallPercentageUnmappedUnicodeChars": [
+        "0.0"
+    ],
+    "access_permission:extract_for_accessibility": [
+        "true"
+    ],
+    "dc:subject": [
+        "0000320193-22-000070; ; 10-Q",
+        "Form 10-Q filed on 2022-07-29 for the period ending 2022-06-25"
+    ],
+    "pdf:hasXMP": [
+        "false"
+    ],
+    "pdf:docinfo:creator": [
+        "EDGAR Online, a division of Donnelley Financial Solutions"
+    ],
+    "access_permission:can_print": [
+        "true"
+    ],
+    "X-TIKA:Parsed-By": [
+        "org.apache.tika.parser.DefaultParser",
+        "org.apache.tika.parser.pdf.PDFParser"
+    ],
+    "pdf:annotationSubtypes": [
+        "Link"
+    ],
+    "dcterms:modified": [
+        "2022-07-29T10:03:28Z"
+    ],
+    "pdf:totalUnmappedUnicodeChars": [
+        "0"
+    ],
+    "access_permission:can_modify": [
+        "true"
+    ],
+    "pdf:PDFVersion": [
+        "1.4"
+    ],
+    "access_permission:assemble_document": [
+        "true"
+    ],
+    "pdf:hasMarkedContent": [
+        "false"
+    ],
+    "access_permission:extract_content": [
+        "true"
+    ],
+    "xmpTPg:NPages": [
+        "28"
+    ],
+    "pdf:containsDamagedFont": [
+        "false"
+    ],
+    "pdf:docinfo:keywords": [
+        "0000320193-22-000070; ; 10-Q"
+    ],
+    "resourceName": [
+        "2022_Q3_AAPL.pdf"
+    ]
 }

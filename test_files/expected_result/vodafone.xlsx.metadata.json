@@ -1,9 +1,27 @@
 {
-    "X-TIKA:Parsed-By-Full-Set": "org.apache.tika.parser.DefaultParser",
-    "extended-properties:DocSecurityString": "None",
-    "Content-Length": "12541",
-    "X-TIKA:Parsed-By": "org.apache.tika.parser.DefaultParser",
-    "protected": "false",
-    "resourceName": "vodafone.xlsx",
-    "Content-Type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    "protected": [
+        "false"
+    ],
+    "X-TIKA:Parsed-By-Full-Set": [
+        "org.apache.tika.parser.DefaultParser",
+        "org.apache.tika.parser.microsoft.ooxml.OOXMLParser",
+        "org.apache.tika.parser.image.ImageParser",
+        "org.apache.tika.parser.ocr.TesseractOCRParser"
+    ],
+    "Content-Length": [
+        "12541"
+    ],
+    "extended-properties:DocSecurityString": [
+        "None"
+    ],
+    "X-TIKA:Parsed-By": [
+        "org.apache.tika.parser.DefaultParser",
+        "org.apache.tika.parser.microsoft.ooxml.OOXMLParser"
+    ],
+    "Content-Type": [
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    ],
+    "resourceName": [
+        "vodafone.xlsx"
+    ]
 }

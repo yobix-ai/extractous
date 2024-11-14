@@ -45,3 +45,21 @@ def read_file_to_bytearray(file_path: str):
     with open(file_path, 'rb') as file:
         file_content = bytearray(file.read())
     return file_content
+
+
+def calculate_similarity_percent(expected, current):
+    matches = 0
+    total = 0
+
+    # Iterate over all keys in the 'expected' dictionary
+    for key, value1 in expected.items():
+        if key in current:
+            total += 1
+            if value1 == current[key]:
+                matches += 1
+
+    if total == 0:
+        return 0.0
+
+    # Return the similarity percentage
+    return matches / total

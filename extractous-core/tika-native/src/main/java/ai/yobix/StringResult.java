@@ -1,13 +1,13 @@
 package ai.yobix;
 
-import java.util.HashMap;
+import org.apache.tika.metadata.Metadata;
 
 public class StringResult {
 
     private final String content;
     private final byte status;
     private final String errorMessage;
-    private final HashMap<String, String> metadata;
+    private final Metadata metadata;
 
     public StringResult(String content) {
         this.content = content;
@@ -16,7 +16,7 @@ public class StringResult {
         this.metadata = null;
     }
 
-    public StringResult(String content, HashMap<String, String> metadata) {
+    public StringResult(String content, Metadata metadata) {
         this.content = content;
         this.status = 0;
         this.errorMessage = null;
@@ -43,10 +43,10 @@ public class StringResult {
     }
 
     /**
-     * Returns the metadata HashMap or null if there is an error
-     * @return HashMap metadata
+     * Returns the tika metadata or null if there is an error
+     * @return tika metadata
      */
-    public HashMap<String, String> getMetadata() {
+    public Metadata getMetadata() {
         return metadata;
     }
 
