@@ -262,7 +262,7 @@ pub fn install_graalvm_ce(install_dir: &PathBuf) -> PathBuf {
         (
             url,
             "tar.gz",
-            "bellsoft-liberica-vm-openjdk23-24.1.1/Contents/Home",
+            "bellsoft-liberica-vm-full-openjdk23-24.1.1/Contents/Home",
         )
     } else {
         let url = if cfg!(target_arch = "x86_64") {
