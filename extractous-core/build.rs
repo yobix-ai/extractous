@@ -217,7 +217,7 @@ pub fn check_graalvm(graalvm_home: &Path, panic: bool) -> bool {
     let exists = native_image.exists();
     if panic && !exists {
         panic!(
-            "Your GraalVM JDK installation is pointing to: {}. Please make sure your \
+            "Your GraalVM JDK installation is pointing to: {}. Please make sure \
                 it is a valid GraalVM JDK. {}",
             graalvm_home.display(),
             graalvm_install_help_msg()
@@ -252,18 +252,16 @@ pub fn install_graalvm_ce(install_dir: &PathBuf) -> PathBuf {
         };
         (url, "zip", "graalvm-community-openjdk-23.0.1+11.1")
     } else if cfg!(target_os = "macos") {
-        let url = if cfg!(target_arch = "x86_64") {
-            "https://github.com/bell-sw/LibericaNIK/releases/download/24.1.1+1-23.0.1+13/bellsoft-liberica-vm-full-openjdk23.0.1+13-24.1.1+1-macos-amd64.tar.gz"
+        let (url, dir) = if cfg!(target_arch = "x86_64") {
+            ("https://github.com/bell-sw/LibericaNIK/releases/download/24.1.1+1-23.0.1+13/bellsoft-liberica-vm-full-openjdk23.0.1+13-24.1.1+1-macos-amd64.tar.gz",
+             "bellsoft-liberica-vm-full-openjdk23-24.1.1/Contents/Home")
         } else if cfg!(target_arch = "aarch64") {
-            "https://github.com/bell-sw/LibericaNIK/releases/download/24.1.1+1-23.0.1+13/bellsoft-liberica-vm-openjdk23.0.1+13-24.1.1+1-macos-aarch64.tar.gz"
+            ("https://github.com/bell-sw/LibericaNIK/releases/download/24.1.1+1-23.0.1+13/bellsoft-liberica-vm-openjdk23.0.1+13-24.1.1+1-macos-aarch64.tar.gz",
+             "bellsoft-liberica-vm-openjdk23-24.1.1/Contents/Home")
         } else {
             panic!("Unsupported macos architecture ");
         };
-        (
-            url,
-            "tar.gz",
-            "bellsoft-liberica-vm-full-openjdk23-24.1.1/Contents/Home",
-        )
+        (url, "tar.gz", dir)
     } else {
         let url = if cfg!(target_arch = "x86_64") {
             "https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-23.0.1/graalvm-community-jdk-23.0.1_linux-x64_bin.tar.gz"
