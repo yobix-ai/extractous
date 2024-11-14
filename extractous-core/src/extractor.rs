@@ -14,7 +14,7 @@ pub enum CharSet {
     US_ASCII,
     UTF_16BE,
 }
-/*
+
 /// StreamReader implements std::io::Read
 ///
 /// Can be used to perform buffered reading. For example:
@@ -32,8 +32,6 @@ pub enum CharSet {
 /// println!("{}", content);
 /// ```
 ///
-
- */
 pub struct StreamReader {
     pub(crate) inner: JReaderInputStream,
 }
@@ -43,7 +41,7 @@ impl std::io::Read for StreamReader {
         self.inner.read(buf)
     }
 }
-/*
+
 /// Extractor for extracting text from different file formats
 ///
 /// The Extractor uses the builder pattern to set configurations. This allows configuring and
@@ -56,8 +54,6 @@ impl std::io::Read for StreamReader {
 /// println!("{}", text.unwrap());
 /// ```
 ///
-
- */
 #[derive(Debug, Clone)]
 pub struct Extractor {
     extract_string_max_length: i32,
