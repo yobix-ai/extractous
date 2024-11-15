@@ -30,7 +30,7 @@ pub fn is_expected_metadata_contained(
     // Check if all keys in `expected` are present in `current` and have identical values
     expected.iter().all(|(key, expected_values)| {
         let actual_values_opt = current.get(key);
-        return match actual_values_opt {
+        match actual_values_opt {
             None => {
                 println!("\nexpected key = {key} not found !!");
                 false
@@ -46,6 +46,6 @@ pub fn is_expected_metadata_contained(
                     true
                 }
             }
-        };
+        }
     })
 }

@@ -89,3 +89,5 @@ mod tika {
     pub use wrappers::JReaderInputStream;
     pub use wrappers::Metadata;
 }
+
+pub mod test_utils;

@@ -1,11 +1,9 @@
-extern crate test_case;
-extern crate textdistance;
+use extractous::test_utils;
 use extractous::{Extractor, PdfOcrStrategy, PdfParserConfig, TesseractOcrConfig};
 use std::collections::HashMap;
 use std::fs;
 use test_case::test_case;
 use textdistance::nstr::cosine;
-mod utils;
 
 #[test_case("2022_Q3_AAPL.pdf", 0.9; "Test PDF file")]
 #[test_case("science-exploration-1p.pptx", 0.9; "Test PPTX file")]
@@ -70,7 +68,7 @@ fn test_extract_file_to_string_with_metadata(file_name: &str) {
     let expected_metadata: HashMap<String, Vec<String>> =
         serde_json::from_str(&expected_metadata_string).expect("JSON was not well-formatted");
 
-    assert!(utils::is_expected_metadata_contained(
+    assert!(test_utils::is_expected_metadata_contained(
         &expected_metadata,
         &extracted_metadata
     ));
