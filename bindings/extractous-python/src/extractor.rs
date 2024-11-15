@@ -154,7 +154,11 @@ impl Extractor {
 
     /// Extracts text from a file path. Returns a tuple with stream of the extracted text
     /// the stream is decoded using the extractor's `encoding` and tika metadata.
-    pub fn extract_file_with_metadata<'py>(&self, filename: &str, py: Python<'py>) -> PyResult<(StreamReader, PyObject)> {
+    pub fn extract_file_with_metadata<'py>(
+        &self,
+        filename: &str,
+        py: Python<'py>,
+    ) -> PyResult<(StreamReader, PyObject)> {
         let (reader, metadata) = self
             .0
             .extract_file_with_metadata(filename)
@@ -170,7 +174,6 @@ impl Extractor {
             },
             py_metadata.into(),
         ))
-
     }
 
     /// Extracts text from a file path. Returns a string that is of maximum length
@@ -186,7 +189,7 @@ impl Extractor {
     pub fn extract_file_to_string_with_metadata<'py>(
         &self,
         filename: &str,
-        py: Python<'py>
+        py: Python<'py>,
     ) -> PyResult<(String, PyObject)> {
         let (content, metadata) = self
             .0
@@ -219,7 +222,7 @@ impl Extractor {
     pub fn extract_bytes_with_metadata<'py>(
         &self,
         buffer: &Bound<'_, PyByteArray>,
-        py: Python<'py>
+        py: Python<'py>,
     ) -> PyResult<(StreamReader, PyObject)> {
         let slice = buffer.to_vec();
         let (reader, metadata) = self
@@ -257,7 +260,11 @@ impl Extractor {
 
     /// Extracts text from a url. Returns a tuple with string that is of maximum length
     /// of the extractor's `extract_string_max_length` and tika metdata.
-    pub fn extract_url_with_metadata<'py>(&self, url: &str, py: Python<'py>) -> PyResult<(StreamReader, PyObject)> {
+    pub fn extract_url_with_metadata<'py>(
+        &self,
+        url: &str,
+        py: Python<'py>,
+    ) -> PyResult<(StreamReader, PyObject)> {
         let (reader, metadata) = self
             .0
             .extract_url_with_metadata(&url)
