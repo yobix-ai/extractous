@@ -66,23 +66,18 @@ fn test_extract_bytes_to_stream_with_metadata(file_name: &str, expected_similari
     let extractor = Extractor::new();
 
     let bytes = fs::read(&format!("../test_files/documents/{}", file_name)).unwrap();
-    let (_expected_stream_readewr, extracted_metadata) =
-        extractor.extract_bytes_with_metadata(&bytes).unwrap();
-    let expected_metadata_string = fs::read_to_string(format!(
-        "../test_files/expected_result/{}.metadata.json",
-        file_name
-    ))
-    .unwrap();
-    let expected_metadata: HashMap<String, Vec<String>> =
-        serde_json::from_str(&expected_metadata_string).expect("JSON was not well-formatted");
-    let percent_similarity =
-        utils::calculate_similarity_percent(&expected_metadata, &extracted_metadata);
+    let (_expected_stream_readewr, extracted_metadata) = extractor.extract_bytes_with_metadata(&bytes).unwrap();
+    let expected_metadata_string =
+        fs::read_to_string(format!("../test_files/expected_result/{}.metadata.json", file_name)).unwrap();
+    let expected_metadata: HashMap<String, Vec<String>> = serde_json::from_str(&expected_metadata_string).expect("JSON was not well-formatted");
+    let percent_similarity = utils::calculate_similarity_percent(&expected_metadata, &extracted_metadata);
     assert!(
         percent_similarity > expected_similarity,
         "The metadata similarity is lower than expected. Current {}% | filename: {}",
         percent_similarity,
         file_name
     );
+
 }
 
 #[test]

@@ -1,5 +1,28 @@
 use std::collections::HashMap;
 
+pub fn calculate_similarity_percent(
+    expected: &HashMap<String, Vec<String>>,
+    current: &HashMap<String, Vec<String>>,
+) -> f64 {
+    let mut matches = 0;
+    let mut total = 0;
+
+    // Iterate over all keys in the 'expected' HashMap
+    for (key, value1) in expected {
+        if let Some(value2) = current.get(key) {
+            total += 1;
+            if value1 == value2 {
+                matches += 1;
+            }
+        }
+    }
+    if total == 0 {
+        return 0.0;
+    }
+    // Return the similarity percentage
+    (matches as f64) / (total as f64)
+}
+
 pub fn is_expected_metadata_contained(
     expected: &HashMap<String, Vec<String>>,
     current: &HashMap<String, Vec<String>>,
@@ -9,13 +32,13 @@ pub fn is_expected_metadata_contained(
         let actual_values_opt = current.get(key);
         return match actual_values_opt {
             None => {
-                println!("expected key = {key} not found !!");
+                println!("\nexpected key = {key} not found !!");
                 false
             }
             Some(actual_values) => {
                 if actual_values != expected_values {
                     println!(
-                        "values for key = {key} differ!! expected = {:?} and actual = {:?}",
+                        "\nvalues for key = {key} differ!! expected = {:?} and actual = {:?}",
                         expected_values, actual_values
                     );
                     false

@@ -40,19 +40,19 @@ fn test_extract_file_to_string(file_name: &str, target_dist: f64) {
     println!("{}: {}", file_name, dist);
 }
 
-#[test_case("2022_Q3_AAPL.pdf", 0.9; "Test PDF file")]
-#[test_case("science-exploration-1p.pptx", 0.9; "Test PPTX file")]
-#[test_case("simple.odt", 0.9; "Test ODT file")]
-#[test_case("table-multi-row-column-cells-actual.csv", 0.6; "Test CSV file")]
-#[test_case("vodafone.xlsx", 0.8; "Test XLSX file")]
-#[test_case("category-level.docx", 0.9; "Test DOCX file")]
-#[test_case("simple.doc", 0.9; "Test DOC file")]
-#[test_case("simple.pptx", 0.9; "Test another PPTX file")]
-#[test_case("table-multi-row-column-cells.png", 0.9; "Test PNG file")]
-#[test_case("winter-sports.epub", 0.8; "Test EPUB file")]
-#[test_case("bug_16.docx", 0.9; "Test bug16 DOCX file")]
-//#[test_case("eng-ocr.pdf", 0.8; "Test eng-ocr PDF file")]
-fn test_extract_file_to_string_with_metadata(file_name: &str, expected_similarity: f64) {
+#[test_case("2022_Q3_AAPL.pdf"; "Test PDF file")]
+#[test_case("science-exploration-1p.pptx"; "Test PPTX file")]
+#[test_case("simple.odt"; "Test ODT file")]
+#[test_case("table-multi-row-column-cells-actual.csv"; "Test CSV file")]
+#[test_case("vodafone.xlsx"; "Test XLSX file")]
+#[test_case("category-level.docx"; "Test DOCX file")]
+#[test_case("simple.doc"; "Test DOC file")]
+#[test_case("simple.pptx"; "Test another PPTX file")]
+#[test_case("table-multi-row-column-cells.png"; "Test PNG file")]
+#[test_case("winter-sports.epub"; "Test EPUB file")]
+#[test_case("bug_16.docx"; "Test bug16 DOCX file")]
+//#[test_case("eng-ocr.pdf"; "Test eng-ocr PDF file")]
+fn test_extract_file_to_string_with_metadata(file_name: &str) {
     /*
     Note: Expected_similarity exists because the extracted metadata may vary across different platforms, but most of it should still match
      */
