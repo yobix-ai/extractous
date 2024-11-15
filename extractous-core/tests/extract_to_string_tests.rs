@@ -65,13 +65,8 @@ fn test_extract_file_to_string_with_metadata(file_name: &str, expected_similarit
     let expected_metadata_string =
         fs::read_to_string(format!("../test_files/expected_result/{}.metadata.json", file_name)).unwrap();
     let expected_metadata: HashMap<String, Vec<String>> = serde_json::from_str(&expected_metadata_string).expect("JSON was not well-formatted");
-    let percent_similarity = utils::calculate_similarity_percent(&expected_metadata, &extracted_metadata);
-    assert!(
-        percent_similarity > expected_similarity,
-        "The metadata similarity is lower than expected. Current {}% | filename: {}",
-        percent_similarity,
-        file_name
-    );
+
+    assert!(utils::is_expected_metadata_contained(&expected_metadata, &extracted_metadata));
 }
 
 #[test]
