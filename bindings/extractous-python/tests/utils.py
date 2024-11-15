@@ -47,7 +47,7 @@ def read_file_to_bytearray(file_path: str):
     return file_content
 
 
-def is_expected_metadata_contained(expected: dict[str, list[str]], current: dict[str, list[str]]) -> bool:
+def is_expected_metadata_contained(expected: dict, current: dict) -> bool:
     """
     Check if all keys in `expected` are present in `current` and have identical values.
     """
