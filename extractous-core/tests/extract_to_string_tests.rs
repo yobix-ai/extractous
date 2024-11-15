@@ -1,7 +1,7 @@
 extern crate test_case;
 extern crate textdistance;
-use std::collections::HashMap;
 use extractous::{Extractor, PdfOcrStrategy, PdfParserConfig, TesseractOcrConfig};
+use std::collections::HashMap;
 use std::fs;
 use test_case::test_case;
 use textdistance::nstr::cosine;
@@ -62,11 +62,18 @@ fn test_extract_file_to_string_with_metadata(file_name: &str, expected_similarit
         .extract_file_to_string_with_metadata(&format!("../test_files/documents/{}", file_name))
         .unwrap();
     // read expected metadata
-    let expected_metadata_string =
-        fs::read_to_string(format!("../test_files/expected_result/{}.metadata.json", file_name)).unwrap();
-    let expected_metadata: HashMap<String, Vec<String>> = serde_json::from_str(&expected_metadata_string).expect("JSON was not well-formatted");
+    let expected_metadata_string = fs::read_to_string(format!(
+        "../test_files/expected_result/{}.metadata.json",
+        file_name
+    ))
+    .unwrap();
+    let expected_metadata: HashMap<String, Vec<String>> =
+        serde_json::from_str(&expected_metadata_string).expect("JSON was not well-formatted");
 
-    assert!(utils::is_expected_metadata_contained(&expected_metadata, &extracted_metadata));
+    assert!(utils::is_expected_metadata_contained(
+        &expected_metadata,
+        &extracted_metadata
+    ));
 }
 
 #[test]

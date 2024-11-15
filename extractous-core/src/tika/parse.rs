@@ -1,11 +1,11 @@
 use std::sync::OnceLock;
 
-use jni::objects::JValue;
-use jni::{AttachGuard, JavaVM};
 use crate::errors::ExtractResult;
 use crate::tika::jni_utils::*;
 use crate::tika::wrappers::*;
 use crate::{CharSet, OfficeParserConfig, PdfParserConfig, StreamReader, TesseractOcrConfig};
+use jni::objects::JValue;
+use jni::{AttachGuard, JavaVM};
 
 /// Returns a reference to the shared VM isolate
 /// Instead of creating a new VM for every tika call, we create a single VM that is shared
@@ -134,7 +134,8 @@ pub fn parse_file_to_string(
     office_conf: &OfficeParserConfig,
     ocr_conf: &TesseractOcrConfig,
 ) -> ExtractResult<(String, Metadata)> {
-    let result = parse_file_to_j_string_result(file_path, max_length, pdf_conf, office_conf, ocr_conf)?;
+    let result =
+        parse_file_to_j_string_result(file_path, max_length, pdf_conf, office_conf, ocr_conf)?;
     Ok((result.content, result.metadata))
 }
 

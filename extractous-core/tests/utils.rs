@@ -14,12 +14,15 @@ pub fn is_expected_metadata_contained(
             }
             Some(actual_values) => {
                 if actual_values != expected_values {
-                    println!("values for key = {key} differ!! expected = {:?} and actual = {:?}", expected_values, actual_values);
+                    println!(
+                        "values for key = {key} differ!! expected = {:?} and actual = {:?}",
+                        expected_values, actual_values
+                    );
                     false
                 } else {
                     true
                 }
             }
-        }
+        };
     })
 }

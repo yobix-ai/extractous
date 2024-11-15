@@ -1,7 +1,7 @@
 use crate::errors::ExtractResult;
 use crate::tika;
-use crate::tika::Metadata;
 use crate::tika::JReaderInputStream;
+use crate::tika::Metadata;
 use crate::{OfficeParserConfig, PdfParserConfig, TesseractOcrConfig};
 use strum_macros::{Display, EnumString};
 
@@ -122,12 +122,16 @@ impl Extractor {
             &self.pdf_config,
             &self.office_config,
             &self.ocr_config,
-        ).map(|(stream_reader, _metadata)| stream_reader)
+        )
+        .map(|(stream_reader, _metadata)| stream_reader)
     }
 
     /// Extracts text from a file path. Returns a tuple with stream of the extracted text and metadata.
     /// the stream is decoded using the extractor's `encoding`
-    pub fn extract_file_with_metadata(&self, file_path: &str) -> ExtractResult<(StreamReader, Metadata)> {
+    pub fn extract_file_with_metadata(
+        &self,
+        file_path: &str,
+    ) -> ExtractResult<(StreamReader, Metadata)> {
         tika::parse_file(
             file_path,
             &self.encoding,
@@ -146,12 +150,16 @@ impl Extractor {
             &self.pdf_config,
             &self.office_config,
             &self.ocr_config,
-        ).map(|(stream_reader, _metadata)| stream_reader)
+        )
+        .map(|(stream_reader, _metadata)| stream_reader)
     }
 
     /// Extracts text from a byte buffer. Returns a tuple with stream of the extracted text and metadata.
     /// the stream is decoded using the extractor's `encoding`
-    pub fn extract_bytes_with_metadata(&self, buffer: &[u8]) -> ExtractResult<(StreamReader, Metadata)> {
+    pub fn extract_bytes_with_metadata(
+        &self,
+        buffer: &[u8],
+    ) -> ExtractResult<(StreamReader, Metadata)> {
         tika::parse_bytes(
             buffer,
             &self.encoding,
@@ -170,7 +178,8 @@ impl Extractor {
             &self.pdf_config,
             &self.office_config,
             &self.ocr_config,
-        ).map(|(stream_reader, _metadata)| stream_reader)
+        )
+        .map(|(stream_reader, _metadata)| stream_reader)
     }
 
     /// Extracts text from an url. Returns a tuple with stream of the extracted text and metadata.
@@ -194,12 +203,16 @@ impl Extractor {
             &self.pdf_config,
             &self.office_config,
             &self.ocr_config,
-        ).map(|(content, _metadata)| content)
+        )
+        .map(|(content, _metadata)| content)
     }
 
     /// Extracts text from a file path. Returns a tuple with string that is of maximum length
     /// of the extractor's `extract_string_max_length` and metadata.
-    pub fn extract_file_to_string_with_metadata(&self, file_path: &str) -> ExtractResult<(String, Metadata)> {
+    pub fn extract_file_to_string_with_metadata(
+        &self,
+        file_path: &str,
+    ) -> ExtractResult<(String, Metadata)> {
         tika::parse_file_to_string(
             file_path,
             self.extract_string_max_length,
@@ -212,16 +225,15 @@ impl Extractor {
 
 #[cfg(test)]
 mod tests {
+    use super::StreamReader;
     use crate::Extractor;
     use std::fs::File;
     use std::io::BufReader;
     use std::io::{self, Read};
-    use super::StreamReader;
 
     const TEST_FILE: &str = "README.md";
 
     const TEST_URL: &str = "https://www.google.com/";
-
 
     fn expected_content() -> String {
         let mut file = File::open(TEST_FILE).unwrap();

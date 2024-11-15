@@ -1,5 +1,8 @@
 use crate::errors::{Error, ExtractResult};
-use crate::tika::jni_utils::{jni_call_method, jni_tika_metadata_to_rust_metadata, jni_jobject_to_string, jni_new_string_as_jvalue};
+use crate::tika::jni_utils::{
+    jni_call_method, jni_jobject_to_string, jni_new_string_as_jvalue,
+    jni_tika_metadata_to_rust_metadata,
+};
 use crate::tika::vm;
 use crate::{OfficeParserConfig, PdfParserConfig, TesseractOcrConfig, DEFAULT_BUF_SIZE};
 use bytemuck::cast_slice_mut;
@@ -133,7 +136,13 @@ impl<'local> JStringResult {
                 .call_method(&obj, "getContent", "()Ljava/lang/String;", &[])?
                 .l()?;
             let content = jni_jobject_to_string(env, call_result_obj)?;
-            let tika_metadata_obj: JObject = env.call_method(&obj, "getMetadata", "()Lorg/apache/tika/metadata/Metadata;", &[])?
+            let tika_metadata_obj: JObject = env
+                .call_method(
+                    &obj,
+                    "getMetadata",
+                    "()Lorg/apache/tika/metadata/Metadata;",
+                    &[],
+                )?
                 .l()?;
             let metadata = jni_tika_metadata_to_rust_metadata(env, tika_metadata_obj)?;
             Ok(Self { content, metadata })
@@ -174,7 +183,13 @@ impl<'local> JReaderResult<'local> {
             )?
             .l()?;
 
-            let tika_metadata_obj: JObject = env.call_method(&obj, "getMetadata", "()Lorg/apache/tika/metadata/Metadata;", &[])?
+            let tika_metadata_obj: JObject = env
+                .call_method(
+                    &obj,
+                    "getMetadata",
+                    "()Lorg/apache/tika/metadata/Metadata;",
+                    &[],
+                )?
                 .l()?;
             let metadata = jni_tika_metadata_to_rust_metadata(env, tika_metadata_obj)?;
 

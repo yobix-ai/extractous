@@ -1,11 +1,11 @@
 use std::os::raw::{c_char, c_void};
 
+use crate::errors::{Error, ExtractResult};
+use crate::tika::Metadata;
 use jni::errors::jni_error_code_to_result;
-use jni::objects::{JByteBuffer, JObject, JString, JValue, JValueOwned, JObjectArray};
+use jni::objects::{JByteBuffer, JObject, JObjectArray, JString, JValue, JValueOwned};
 use jni::{sys, JNIEnv, JavaVM};
 use std::collections::HashMap;
-use crate::tika::Metadata;
-use crate::errors::{Error, ExtractResult};
 
 /// Calls a static method and prints any thrown exceptions to stderr
 pub fn jni_new_direct_buffer<'local>(
@@ -118,19 +118,24 @@ pub fn jni_tika_metadata_to_rust_metadata<'local>(
     j_tika_metadata_object: JObject<'local>,
 ) -> ExtractResult<Metadata> {
     let j_keys_names = env
-        .call_method(&j_tika_metadata_object, "names", "()[Ljava/lang/String;", &[])?
+        .call_method(
+            &j_tika_metadata_object,
+            "names",
+            "()[Ljava/lang/String;",
+            &[],
+        )?
         .l()?;
     let keys_names = jni_jobject_array_to_vec(env, j_keys_names)?;
     let mut metadata = HashMap::new();
     for key_name in keys_names.iter() {
         let j_key_name = jni_new_string_as_jvalue(env, key_name)?;
         let j_obj_array_name_metadata = env
-            .call_method(&j_tika_metadata_object,
-                         "getValues",
-                         "(Ljava/lang/String;)[Ljava/lang/String;",
-                         &[
-                             (&j_key_name).into(),
-                         ])?
+            .call_method(
+                &j_tika_metadata_object,
+                "getValues",
+                "(Ljava/lang/String;)[Ljava/lang/String;",
+                &[(&j_key_name).into()],
+            )?
             .l()?;
         let key_metadata = jni_jobject_array_to_vec(env, j_obj_array_name_metadata)?;
         metadata.insert(key_name.to_string(), key_metadata);
