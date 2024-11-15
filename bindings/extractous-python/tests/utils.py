@@ -47,6 +47,21 @@ def read_file_to_bytearray(file_path: str):
     return file_content
 
 
+def is_expected_metadata_contained(expected: dict[str, list[str]], current: dict[str, list[str]]) -> bool:
+    """
+    Check if all keys in `expected` are present in `current` and have identical values.
+    """
+    for key, expected_values in expected.items():
+        actual_values = current.get(key)
+        if actual_values is None:
+            print(f"\nexpected key = {key} not found !!")
+            return False
+        elif actual_values != expected_values:
+            print(f"\nvalues for key = {key} differ!! expected = {expected_values} and actual = {actual_values}")
+            return False
+    return True
+
+
 def calculate_similarity_percent(expected, current):
     matches = 0
     total = 0
