@@ -80,10 +80,10 @@ public class TikaNativeMain {
             final Metadata metadata = new Metadata();
             final InputStream stream = TikaInputStream.get(path, metadata);
 
+            String parseToStringWithConfig = parseToStringWithConfig(
+                    stream, metadata, maxLength, pdfConfig, officeConfig, tesseractConfig);
             // No need to close the stream because parseToString does so
-            return new StringResult(parseToStringWithConfig(
-                    stream, metadata, maxLength, pdfConfig, officeConfig, tesseractConfig)
-            );
+            return new StringResult(parseToStringWithConfig, metadata);
         } catch (java.io.IOException e) {
             return new StringResult((byte) 1, "Could not open file: " + e.getMessage());
         } catch (TikaException e) {
@@ -239,7 +239,7 @@ public class TikaNativeMain {
                     .setCharset(Charset.forName(charsetName, StandardCharsets.UTF_8))
                     .get();
 
-            return new ReaderResult(readerInputStream);
+            return new ReaderResult(readerInputStream, metadata);
 
         } catch (java.io.IOException e) {
             return new ReaderResult((byte) 1, "IO error occurred: " + e.getMessage());

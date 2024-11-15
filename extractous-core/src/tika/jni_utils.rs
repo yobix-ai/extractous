@@ -1,10 +1,11 @@
 use std::os::raw::{c_char, c_void};
 
-use jni::errors::jni_error_code_to_result;
-use jni::objects::{JByteBuffer, JObject, JString, JValue, JValueOwned};
-use jni::{sys, JNIEnv, JavaVM};
-
 use crate::errors::{Error, ExtractResult};
+use crate::tika::Metadata;
+use jni::errors::jni_error_code_to_result;
+use jni::objects::{JByteBuffer, JObject, JObjectArray, JString, JValue, JValueOwned};
+use jni::{sys, JNIEnv, JavaVM};
+use std::collections::HashMap;
 
 /// Calls a static method and prints any thrown exceptions to stderr
 pub fn jni_new_direct_buffer<'local>(
@@ -90,6 +91,56 @@ pub fn jni_jobject_to_string<'local>(
     //let output_str = javastr_output.to_str().map_err(Error::Utf8Error)?;
 
     Ok(output_str.to_string())
+}
+
+/// Converts a Java String[] to a Rust Vec<String>
+pub fn jni_jobject_array_to_vec<'local>(
+    env: &mut JNIEnv<'local>,
+    array: JObject<'local>,
+) -> ExtractResult<Vec<String>> {
+    let j_array_string = JObjectArray::from(array);
+    let j_array_length = env.get_array_length(&j_array_string)?;
+
+    let mut vec = Vec::with_capacity(j_array_length as usize);
+
+    for i in 0..j_array_length {
+        let elem_obj = env.get_object_array_element(&j_array_string, i)?;
+        let elem_str = jni_jobject_to_string(env, elem_obj)?;
+        vec.push(elem_str);
+    }
+
+    Ok(vec)
+}
+
+/// Convert a Tika Metadata a Rust Metadata
+pub fn jni_tika_metadata_to_rust_metadata<'local>(
+    env: &mut JNIEnv<'local>,
+    j_tika_metadata_object: JObject<'local>,
+) -> ExtractResult<Metadata> {
+    let j_keys_names = env
+        .call_method(
+            &j_tika_metadata_object,
+            "names",
+            "()[Ljava/lang/String;",
+            &[],
+        )?
+        .l()?;
+    let keys_names = jni_jobject_array_to_vec(env, j_keys_names)?;
+    let mut metadata = HashMap::new();
+    for key_name in keys_names.iter() {
+        let j_key_name = jni_new_string_as_jvalue(env, key_name)?;
+        let j_obj_array_name_metadata = env
+            .call_method(
+                &j_tika_metadata_object,
+                "getValues",
+                "(Ljava/lang/String;)[Ljava/lang/String;",
+                &[(&j_key_name).into()],
+            )?
+            .l()?;
+        let key_metadata = jni_jobject_array_to_vec(env, j_obj_array_name_metadata)?;
+        metadata.insert(key_name.to_string(), key_metadata);
+    }
+    Ok(metadata)
 }
 
 /// Checks if there is an exception in the jni environment, describes it to

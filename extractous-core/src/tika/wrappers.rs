@@ -1,11 +1,18 @@
 use crate::errors::{Error, ExtractResult};
-use crate::tika::jni_utils::{jni_call_method, jni_jobject_to_string, jni_new_string_as_jvalue};
+use crate::tika::jni_utils::{
+    jni_call_method, jni_jobject_to_string, jni_new_string_as_jvalue,
+    jni_tika_metadata_to_rust_metadata,
+};
 use crate::tika::vm;
 use crate::{OfficeParserConfig, PdfParserConfig, TesseractOcrConfig, DEFAULT_BUF_SIZE};
 use bytemuck::cast_slice_mut;
 use jni::objects::{GlobalRef, JByteArray, JObject, JValue};
 use jni::sys::jsize;
 use jni::JNIEnv;
+use std::collections::HashMap;
+
+/// Alias Tika Metadata
+pub type Metadata = HashMap<String, Vec<String>>;
 
 /// Wrapper for [`JObject`]s that contain `org.apache.commons.io.input.ReaderInputStream`
 /// It saves a GlobalRef to the java object, which is cleared when the last GlobalRef is dropped
@@ -104,8 +111,9 @@ impl Drop for JReaderInputStream {
 
 /// Wrapper for the Java class  `ai.yobix.StringResult`
 /// Upon creation it parses the java StringResult object and saves the converted Rust string
-pub(crate) struct JStringResult {
-    pub(crate) content: String,
+pub struct JStringResult {
+    pub content: String,
+    pub metadata: Metadata,
 }
 
 impl<'local> JStringResult {
@@ -127,10 +135,17 @@ impl<'local> JStringResult {
             let call_result_obj = env
                 .call_method(&obj, "getContent", "()Ljava/lang/String;", &[])?
                 .l()?;
-
             let content = jni_jobject_to_string(env, call_result_obj)?;
-
-            Ok(Self { content })
+            let tika_metadata_obj: JObject = env
+                .call_method(
+                    &obj,
+                    "getMetadata",
+                    "()Lorg/apache/tika/metadata/Metadata;",
+                    &[],
+                )?
+                .l()?;
+            let metadata = jni_tika_metadata_to_rust_metadata(env, tika_metadata_obj)?;
+            Ok(Self { content, metadata })
         }
     }
 }
@@ -138,8 +153,9 @@ impl<'local> JStringResult {
 /// Wrapper for the Java class  `ai.yobix.ReaderResult`
 /// Upon creation it parses the java ReaderResult object and saves the java
 /// `org.apache.commons.io.input.ReaderInputStream` object, which later can be used for reading
-pub(crate) struct JReaderResult<'local> {
-    pub(crate) java_reader: JObject<'local>,
+pub struct JReaderResult<'local> {
+    pub java_reader: JObject<'local>,
+    pub metadata: Metadata,
 }
 
 impl<'local> JReaderResult<'local> {
@@ -167,8 +183,19 @@ impl<'local> JReaderResult<'local> {
             )?
             .l()?;
 
+            let tika_metadata_obj: JObject = env
+                .call_method(
+                    &obj,
+                    "getMetadata",
+                    "()Lorg/apache/tika/metadata/Metadata;",
+                    &[],
+                )?
+                .l()?;
+            let metadata = jni_tika_metadata_to_rust_metadata(env, tika_metadata_obj)?;
+
             Ok(Self {
                 java_reader: reader_obj,
+                metadata,
             })
         }
     }
