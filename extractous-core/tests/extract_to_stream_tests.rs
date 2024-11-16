@@ -1,9 +1,11 @@
-use extractous::test_utils;
 use extractous::{Extractor, PdfOcrStrategy, PdfParserConfig, TesseractOcrConfig};
 use std::fs;
 use std::io::Read;
 use test_case::test_case;
 use textdistance::nstr::cosine;
+
+// Declarers the shared test_utils code as module in this integration test
+mod test_utils;
 
 #[test_case("2022_Q3_AAPL.pdf", 0.9; "Test PDF file")]
 #[test_case("science-exploration-1p.pptx", 0.9; "Test PPTX file")]
