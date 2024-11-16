@@ -7,6 +7,6 @@ fn main() {
 
     // Extract the provided file content to a string
     let extractor = Extractor::new();
-    let content = extractor.extract_file_to_string(file_path).unwrap();
+    let (content, _metadata) = extractor.extract_file_to_string(file_path).unwrap();
     println!("{}", content);
 }

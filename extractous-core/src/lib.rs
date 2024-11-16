@@ -41,7 +41,7 @@
 //! let mut extractor = Extractor::new().set_extract_string_max_length(1000);
 //!
 //! // Extract text from a file
-//! let text = extractor.extract_file_to_string("README.md").unwrap();
+//! let (text, metadata) = extractor.extract_file_to_string("README.md").unwrap();
 //! println!("{}", text);
 //!
 //! ```
@@ -61,7 +61,7 @@
 //!  .set_pdf_config(PdfParserConfig::new().set_ocr_strategy(PdfOcrStrategy::OCR_ONLY));
 //!
 //! // extract file with extractor
-//! let content = extractor.extract_file_to_string(file_path).unwrap();
+//! let (content, metadata) = extractor.extract_file_to_string(file_path).unwrap();
 //! println!("{}", content);
 //!
 //! ```
@@ -87,7 +87,6 @@ mod tika {
     mod wrappers;
     pub use parse::*;
     pub use wrappers::JReaderInputStream;
-    pub use wrappers::Metadata;
 }
 
 pub mod test_utils;

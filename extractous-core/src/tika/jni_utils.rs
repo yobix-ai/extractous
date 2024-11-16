@@ -1,11 +1,11 @@
 use std::os::raw::{c_char, c_void};
 
 use crate::errors::{Error, ExtractResult};
-use crate::tika::Metadata;
 use jni::errors::jni_error_code_to_result;
 use jni::objects::{JByteBuffer, JObject, JObjectArray, JString, JValue, JValueOwned};
 use jni::{sys, JNIEnv, JavaVM};
 use std::collections::HashMap;
+use crate::Metadata;
 
 /// Calls a static method and prints any thrown exceptions to stderr
 pub fn jni_new_direct_buffer<'local>(

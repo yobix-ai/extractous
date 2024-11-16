@@ -9,7 +9,7 @@ fn main() {
 
     // Extract the provided file content to a string
     let extractor = Extractor::new();
-    let stream = extractor.extract_file(file_path).unwrap();
+    let (stream, _metadata) = extractor.extract_file(file_path).unwrap();
     // Extract url
     // let stream = extractor.extract_url("https://www.google.com/").unwrap();
     // Extract bytes

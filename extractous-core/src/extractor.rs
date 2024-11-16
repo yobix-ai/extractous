@@ -1,9 +1,13 @@
+use std::collections::HashMap;
 use crate::errors::ExtractResult;
 use crate::tika;
 use crate::tika::JReaderInputStream;
-use crate::tika::Metadata;
 use crate::{OfficeParserConfig, PdfParserConfig, TesseractOcrConfig};
 use strum_macros::{Display, EnumString};
+
+
+/// Metadata type alias
+pub type Metadata = HashMap<String, Vec<String>>;
 
 /// CharSet enum of all supported encodings
 #[derive(Debug, Clone, Default, Copy, PartialEq, Eq, Hash, Display, EnumString)]
@@ -24,7 +28,7 @@ pub enum CharSet {
 /// use std::io::prelude::*;
 ///
 /// let extractor = Extractor::new();
-/// let reader = extractor.extract_file("README.md").unwrap();
+/// let (reader, metadata) = extractor.extract_file("README.md").unwrap();
 ///
 /// let mut buf_reader = BufReader::new(reader);
 /// let mut content = String::new();
@@ -48,10 +52,11 @@ impl std::io::Read for StreamReader {
 /// extracting text in one line. For example
 /// ```rust
 /// use extractous::{CharSet, Extractor};
-/// let text = Extractor::new()
+/// let (text, metadata) = Extractor::new()
 ///             .set_extract_string_max_length(1000)
-///             .extract_file_to_string("README.md");
-/// println!("{}", text.unwrap());
+///             .extract_file_to_string("README.md")
+///             .unwrap();
+/// println!("{}", text);
 /// ```
 ///
 #[derive(Debug, Clone)]
@@ -113,22 +118,9 @@ impl Extractor {
         self
     }
 
-    /// Extracts text from a file path. Returns a stream of the extracted text
-    /// the stream is decoded using the extractor's `encoding`
-    pub fn extract_file(&self, file_path: &str) -> ExtractResult<StreamReader> {
-        tika::parse_file(
-            file_path,
-            &self.encoding,
-            &self.pdf_config,
-            &self.office_config,
-            &self.ocr_config,
-        )
-        .map(|(stream_reader, _metadata)| stream_reader)
-    }
-
     /// Extracts text from a file path. Returns a tuple with stream of the extracted text and metadata.
     /// the stream is decoded using the extractor's `encoding`
-    pub fn extract_file_with_metadata(
+    pub fn extract_file(
         &self,
         file_path: &str,
     ) -> ExtractResult<(StreamReader, Metadata)> {
@@ -141,22 +133,9 @@ impl Extractor {
         )
     }
 
-    /// Extracts text from a byte buffer. Returns a stream of the extracted text
-    /// the stream is decoded using the extractor's `encoding`
-    pub fn extract_bytes(&self, buffer: &[u8]) -> ExtractResult<StreamReader> {
-        tika::parse_bytes(
-            buffer,
-            &self.encoding,
-            &self.pdf_config,
-            &self.office_config,
-            &self.ocr_config,
-        )
-        .map(|(stream_reader, _metadata)| stream_reader)
-    }
-
     /// Extracts text from a byte buffer. Returns a tuple with stream of the extracted text and metadata.
     /// the stream is decoded using the extractor's `encoding`
-    pub fn extract_bytes_with_metadata(
+    pub fn extract_bytes(
         &self,
         buffer: &[u8],
     ) -> ExtractResult<(StreamReader, Metadata)> {
@@ -169,22 +148,9 @@ impl Extractor {
         )
     }
 
-    /// Extracts text from an url. Returns a stream of the extracted text
-    /// the stream is decoded using the extractor's `encoding`
-    pub fn extract_url(&self, url: &str) -> ExtractResult<StreamReader> {
-        tika::parse_url(
-            url,
-            &self.encoding,
-            &self.pdf_config,
-            &self.office_config,
-            &self.ocr_config,
-        )
-        .map(|(stream_reader, _metadata)| stream_reader)
-    }
-
     /// Extracts text from an url. Returns a tuple with stream of the extracted text and metadata.
     /// the stream is decoded using the extractor's `encoding`
-    pub fn extract_url_with_metadata(&self, url: &str) -> ExtractResult<(StreamReader, Metadata)> {
+    pub fn extract_url(&self, url: &str) -> ExtractResult<(StreamReader, Metadata)> {
         tika::parse_url(
             url,
             &self.encoding,
@@ -192,24 +158,11 @@ impl Extractor {
             &self.office_config,
             &self.ocr_config,
         )
-    }
-
-    /// Extracts text from a file path. Returns a string that is of maximum length
-    /// of the extractor's `extract_string_max_length`
-    pub fn extract_file_to_string(&self, file_path: &str) -> ExtractResult<String> {
-        tika::parse_file_to_string(
-            file_path,
-            self.extract_string_max_length,
-            &self.pdf_config,
-            &self.office_config,
-            &self.ocr_config,
-        )
-        .map(|(content, _metadata)| content)
     }
 
     /// Extracts text from a file path. Returns a tuple with string that is of maximum length
     /// of the extractor's `extract_string_max_length` and metadata.
-    pub fn extract_file_to_string_with_metadata(
+    pub fn extract_file_to_string(
         &self,
         file_path: &str,
     ) -> ExtractResult<(String, Metadata)> {
@@ -250,16 +203,8 @@ mod tests {
         // Parse the files using extractous
         let extractor = Extractor::new();
         let result = extractor.extract_file_to_string(TEST_FILE);
-        let content = result.unwrap();
+        let (content, metadata) = result.unwrap();
         assert_eq!(content.trim(), expected_content.trim());
-    }
-
-    #[test]
-    fn extract_file_to_string_with_metadata_test() {
-        // Parse the files using extractous
-        let extractor = Extractor::new();
-        let result = extractor.extract_file_to_string_with_metadata(TEST_FILE);
-        let (_content, metadata) = result.unwrap();
         assert!(
             metadata.len() > 0,
             "Metadata should contain at least one entry"
@@ -283,16 +228,10 @@ mod tests {
         // Parse the files using extractous
         let extractor = Extractor::new();
         let result = extractor.extract_file(TEST_FILE);
-        let content = read_content_from_stream(result.unwrap());
-        assert_eq!(content.trim(), expected_content.trim());
-    }
+        let (reader, metadata) = result.unwrap();
+        let content = read_content_from_stream(reader);
 
-    #[test]
-    fn extract_file_with_metadata_test() {
-        // Parse the files using extractous
-        let extractor = Extractor::new();
-        let result = extractor.extract_file_with_metadata(TEST_FILE);
-        let (_content, metadata) = result.unwrap();
+        assert_eq!(content.trim(), expected_content.trim());
         assert!(
             metadata.len() > 0,
             "Metadata should contain at least one entry"
@@ -315,17 +254,10 @@ mod tests {
         let file_bytes = read_file_as_bytes(TEST_FILE).unwrap();
         let extractor = Extractor::new();
         let result = extractor.extract_bytes(&file_bytes);
-        let content = read_content_from_stream(result.unwrap());
-        assert_eq!(content.trim(), expected_content.trim());
-    }
+        let (reader, metadata) = result.unwrap();
+        let content = read_content_from_stream(reader);
 
-    #[test]
-    fn extract_bytes_with_metadata_test() {
-        // Parse the bytes using extractous
-        let file_bytes = read_file_as_bytes(TEST_FILE).unwrap();
-        let extractor = Extractor::new();
-        let result = extractor.extract_bytes_with_metadata(&file_bytes);
-        let (_content, metadata) = result.unwrap();
+        assert_eq!(content.trim(), expected_content.trim());
         assert!(
             metadata.len() > 0,
             "Metadata should contain at least one entry"
@@ -337,16 +269,10 @@ mod tests {
         // Parse url by extractous
         let extractor = Extractor::new();
         let result = extractor.extract_url(&TEST_URL);
-        let content = read_content_from_stream(result.unwrap());
-        assert!(content.contains("Google"));
-    }
+        let (reader, metadata) = result.unwrap();
+        let content = read_content_from_stream(reader);
 
-    #[test]
-    fn extract_url_with_metadata_test() {
-        // Parse url by extractous
-        let extractor = Extractor::new();
-        let result = extractor.extract_url_with_metadata(&TEST_URL);
-        let (_content, metadata) = result.unwrap();
+        assert!(content.contains("Google"));
         assert!(
             metadata.len() > 0,
             "Metadata should contain at least one entry"

@@ -4,15 +4,11 @@ use crate::tika::jni_utils::{
     jni_tika_metadata_to_rust_metadata,
 };
 use crate::tika::vm;
-use crate::{OfficeParserConfig, PdfParserConfig, TesseractOcrConfig, DEFAULT_BUF_SIZE};
+use crate::{Metadata, OfficeParserConfig, PdfParserConfig, TesseractOcrConfig, DEFAULT_BUF_SIZE};
 use bytemuck::cast_slice_mut;
 use jni::objects::{GlobalRef, JByteArray, JObject, JValue};
 use jni::sys::jsize;
 use jni::JNIEnv;
-use std::collections::HashMap;
-
-/// Alias Tika Metadata
-pub type Metadata = HashMap<String, Vec<String>>;
 
 /// Wrapper for [`JObject`]s that contain `org.apache.commons.io.input.ReaderInputStream`
 /// It saves a GlobalRef to the java object, which is cleared when the last GlobalRef is dropped

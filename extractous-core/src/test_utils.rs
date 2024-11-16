@@ -1,5 +1,13 @@
 use std::collections::HashMap;
 
+#[cfg(test)]
+pub fn parse_metadata_file(file_path: &str) -> HashMap<String, Vec<String>> {
+    let expected_metadata_string = std::fs::read_to_string(file_path)
+        .unwrap();
+
+    serde_json::from_str(&expected_metadata_string).expect("JSON was not well-formatted")
+}
+
 pub fn calculate_similarity_percent(
     expected: &HashMap<String, Vec<String>>,
     current: &HashMap<String, Vec<String>>,
