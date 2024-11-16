@@ -174,6 +174,36 @@ impl Extractor {
             &self.ocr_config,
         )
     }
+
+    /// Extracts text from a byte buffer. Returns a tuple with string that is of maximum length
+    /// of the extractor's `extract_string_max_length` and metadata.
+    pub fn extract_bytes_to_string(
+        &self,
+        buffer: &[u8],
+    ) -> ExtractResult<(String, Metadata)> {
+        tika::parse_bytes_to_string(
+            buffer,
+            self.extract_string_max_length,
+            &self.pdf_config,
+            &self.office_config,
+            &self.ocr_config,
+        )
+    }
+
+    /// Extracts text from a URL. Returns a tuple with string that is of maximum length
+    /// of the extractor's `extract_string_max_length` and metadata.
+    pub fn extract_url_to_string(
+        &self,
+        url: &str,
+    ) -> ExtractResult<(String, Metadata)> {
+        tika::parse_url_to_string(
+            url,
+            self.extract_string_max_length,
+            &self.pdf_config,
+            &self.office_config,
+            &self.ocr_config,
+        )
+    }
 }
 
 #[cfg(test)]
