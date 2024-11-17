@@ -2,8 +2,7 @@ use std::collections::HashMap;
 
 #[allow(dead_code)]
 pub fn parse_metadata_file(file_path: &str) -> HashMap<String, Vec<String>> {
-    let expected_metadata_string = std::fs::read_to_string(file_path)
-        .unwrap();
+    let expected_metadata_string = std::fs::read_to_string(file_path).unwrap();
 
     serde_json::from_str(&expected_metadata_string).expect("JSON was not well-formatted")
 }

@@ -88,4 +88,3 @@ mod tika {
     pub use parse::*;
     pub use wrappers::JReaderInputStream;
 }
-

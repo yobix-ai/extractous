@@ -209,7 +209,6 @@ impl Extractor {
         ))
     }
 
-
     /// Extracts text from a file path. Returns a tuple with string that is of maximum length
     /// of the extractor's `extract_string_max_length` and the metadata as dict.
     pub fn extract_file_to_string<'py>(

@@ -3,7 +3,9 @@ use std::sync::OnceLock;
 use crate::errors::ExtractResult;
 use crate::tika::jni_utils::*;
 use crate::tika::wrappers::*;
-use crate::{CharSet, Metadata, OfficeParserConfig, PdfParserConfig, StreamReader, TesseractOcrConfig};
+use crate::{
+    CharSet, Metadata, OfficeParserConfig, PdfParserConfig, StreamReader, TesseractOcrConfig,
+};
 use jni::objects::JValue;
 use jni::{AttachGuard, JavaVM};
 
@@ -147,7 +149,6 @@ pub fn parse_url(
     )
 }
 
-
 /// Parses a file to a JStringResult using the Apache Tika library.
 pub fn parse_to_string(
     mut env: AttachGuard,
@@ -159,7 +160,6 @@ pub fn parse_to_string(
     method_name: &str,
     signature: &str,
 ) -> ExtractResult<(String, Metadata)> {
-
     let j_pdf_conf = JPDFParserConfig::new(&mut env, pdf_conf)?;
     let j_office_conf = JOfficeParserConfig::new(&mut env, office_conf)?;
     let j_ocr_conf = JTesseractOcrConfig::new(&mut env, ocr_conf)?;
@@ -221,7 +221,6 @@ pub fn parse_bytes_to_string(
     ocr_conf: &TesseractOcrConfig,
 ) -> ExtractResult<(String, Metadata)> {
     let mut env = get_vm_attach_current_thread()?;
-
 
     // Because we know the buffer is used for reading only, cast it to *mut u8 to satisfy the
     // jni_new_direct_buffer call, which requires a mutable pointer

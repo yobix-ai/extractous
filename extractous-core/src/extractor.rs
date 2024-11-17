@@ -1,10 +1,9 @@
-use std::collections::HashMap;
 use crate::errors::ExtractResult;
 use crate::tika;
 use crate::tika::JReaderInputStream;
 use crate::{OfficeParserConfig, PdfParserConfig, TesseractOcrConfig};
+use std::collections::HashMap;
 use strum_macros::{Display, EnumString};
-
 
 /// Metadata type alias
 pub type Metadata = HashMap<String, Vec<String>>;
@@ -120,10 +119,7 @@ impl Extractor {
 
     /// Extracts text from a file path. Returns a tuple with stream of the extracted text and metadata.
     /// the stream is decoded using the extractor's `encoding`
-    pub fn extract_file(
-        &self,
-        file_path: &str,
-    ) -> ExtractResult<(StreamReader, Metadata)> {
+    pub fn extract_file(&self, file_path: &str) -> ExtractResult<(StreamReader, Metadata)> {
         tika::parse_file(
             file_path,
             &self.encoding,
@@ -135,10 +131,7 @@ impl Extractor {
 
     /// Extracts text from a byte buffer. Returns a tuple with stream of the extracted text and metadata.
     /// the stream is decoded using the extractor's `encoding`
-    pub fn extract_bytes(
-        &self,
-        buffer: &[u8],
-    ) -> ExtractResult<(StreamReader, Metadata)> {
+    pub fn extract_bytes(&self, buffer: &[u8]) -> ExtractResult<(StreamReader, Metadata)> {
         tika::parse_bytes(
             buffer,
             &self.encoding,
@@ -162,10 +155,7 @@ impl Extractor {
 
     /// Extracts text from a file path. Returns a tuple with string that is of maximum length
     /// of the extractor's `extract_string_max_length` and metadata.
-    pub fn extract_file_to_string(
-        &self,
-        file_path: &str,
-    ) -> ExtractResult<(String, Metadata)> {
+    pub fn extract_file_to_string(&self, file_path: &str) -> ExtractResult<(String, Metadata)> {
         tika::parse_file_to_string(
             file_path,
             self.extract_string_max_length,
@@ -177,10 +167,7 @@ impl Extractor {
 
     /// Extracts text from a byte buffer. Returns a tuple with string that is of maximum length
     /// of the extractor's `extract_string_max_length` and metadata.
-    pub fn extract_bytes_to_string(
-        &self,
-        buffer: &[u8],
-    ) -> ExtractResult<(String, Metadata)> {
+    pub fn extract_bytes_to_string(&self, buffer: &[u8]) -> ExtractResult<(String, Metadata)> {
         tika::parse_bytes_to_string(
             buffer,
             self.extract_string_max_length,
@@ -192,10 +179,7 @@ impl Extractor {
 
     /// Extracts text from a URL. Returns a tuple with string that is of maximum length
     /// of the extractor's `extract_string_max_length` and metadata.
-    pub fn extract_url_to_string(
-        &self,
-        url: &str,
-    ) -> ExtractResult<(String, Metadata)> {
+    pub fn extract_url_to_string(&self, url: &str) -> ExtractResult<(String, Metadata)> {
         tika::parse_url_to_string(
             url,
             self.extract_string_max_length,
