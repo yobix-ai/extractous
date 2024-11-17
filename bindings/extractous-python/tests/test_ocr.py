@@ -1,7 +1,12 @@
+import sys
+
+import pytest
+
 from extractous import Extractor, PdfOcrStrategy, PdfParserConfig, TesseractOcrConfig
 from utils import cosine_similarity
 
 
+@pytest.mark.skipif(sys.platform.startswith("win"), reason="Test not supported on Windows")
 def test_ara_ocr_png():
     ocr_config = TesseractOcrConfig().set_language("ara")
     extractor = Extractor().set_ocr_config(ocr_config)
@@ -13,6 +18,7 @@ def test_ara_ocr_png():
     assert cosine_similarity(result, expected) > 0.9
 
 
+@pytest.mark.skipif(sys.platform.startswith("win"), reason="Test not supported on Windows")
 def test_extract_file_to_string_ocr_only_strategy_deu_ocr_pdf():
     test_file = "../../test_files/documents/deu-ocr.pdf"
     expected_result_file = "../../test_files/expected_result/deu-ocr.pdf.txt"
@@ -32,7 +38,7 @@ def test_extract_file_to_string_ocr_only_strategy_deu_ocr_pdf():
 
     assert cosine_similarity(result, expected) > 0.9
 
-
+@pytest.mark.skipif(sys.platform.startswith("win"), reason="Test not supported on Windows")
 def test_test_extract_file_to_string_no_ocr_strategy_deu_ocr_pdf():
     test_file = "../../test_files/documents/deu-ocr.pdf"
 
