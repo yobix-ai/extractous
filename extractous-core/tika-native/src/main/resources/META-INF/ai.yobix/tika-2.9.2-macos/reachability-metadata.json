@@ -2,19 +2,19 @@
     "bundles": [
         {
             "locales": [
-                "en-GB"
+                "en-US"
             ],
             "name": "org.apache.xerces.impl.msg.SAXMessages"
         },
         {
             "locales": [
-                "en-GB"
+                "en-US"
             ],
             "name": "org.apache.xmlbeans.impl.regex.message"
         },
         {
             "locales": [
-                "en-GB"
+                "en-US"
             ],
             "name": "sun.awt.resources.awt"
         },
@@ -46,6 +46,10 @@
                 {
                     "name": "isError",
                     "parameterTypes": []
+                },
+                {
+                    "name": "getMetadata",
+                    "parameterTypes": []
                 }
             ],
             "type": "ai.yobix.ReaderResult"
@@ -67,9 +71,28 @@
                 {
                     "name": "isError",
                     "parameterTypes": []
+                },
+                {
+                    "name": "getMetadata",
+                    "parameterTypes": []
                 }
             ],
             "type": "ai.yobix.StringResult"
+        },
+        {
+            "methods": [
+                {
+                    "name": "getValues",
+                    "parameterTypes": [
+                        "java.lang.String"
+                    ]
+                },
+                {
+                    "name": "names",
+                    "parameterTypes": []
+                }
+            ],
+            "type": "org.apache.tika.metadata.Metadata"
         },
         {
             "methods": [
@@ -90,6 +113,16 @@
                     ]
                 },
                 {
+                    "name": "parseBytesToString",
+                    "parameterTypes": [
+                        "java.nio.ByteBuffer",
+                        "int",
+                        "org.apache.tika.parser.pdf.PDFParserConfig",
+                        "org.apache.tika.parser.microsoft.OfficeParserConfig",
+                        "org.apache.tika.parser.ocr.TesseractOCRConfig"
+                    ]
+                },
+                {
                     "name": "parseFile",
                     "parameterTypes": [
                         "java.lang.String",
@@ -100,7 +133,7 @@
                     ]
                 },
                 {
-                    "name": "parseToString",
+                    "name": "parseFileToString",
                     "parameterTypes": [
                         "java.lang.String",
                         "int",
@@ -114,6 +147,16 @@
                     "parameterTypes": [
                         "java.lang.String",
                         "java.lang.String",
+                        "org.apache.tika.parser.pdf.PDFParserConfig",
+                        "org.apache.tika.parser.microsoft.OfficeParserConfig",
+                        "org.apache.tika.parser.ocr.TesseractOCRConfig"
+                    ]
+                },
+                {
+                    "name": "parseUrlToString",
+                    "parameterTypes": [
+                        "java.lang.String",
+                        "int",
                         "org.apache.tika.parser.pdf.PDFParserConfig",
                         "org.apache.tika.parser.microsoft.OfficeParserConfig",
                         "org.apache.tika.parser.ocr.TesseractOCRConfig"
