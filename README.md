@@ -74,8 +74,9 @@ extractor = Extractor()
 extractor.set_extract_string_max_length(1000)
 
 # Extract text from a file
-result = extractor.extract_file_to_string("README.md")
+result, metadata = extractor.extract_file_to_string("README.md")
 print(result)
+print(metadata)
 ```
 * Extracting a file(URL / bytearray) to a buffered stream:
 
@@ -84,13 +85,13 @@ from extractous import Extractor
 
 extractor = Extractor()
 # for file
-reader = extractor.extract_file("tests/quarkus.pdf")
+reader, metadata = extractor.extract_file("tests/quarkus.pdf")
 # for url
-# reader = extractor.extract_url("https://www.google.com")
+# reader, metadata = extractor.extract_url("https://www.google.com")
 # for bytearray
 # with open("tests/quarkus.pdf", "rb") as file:
 #     buffer = bytearray(file.read())
-# reader = extractor.extract_bytes(buffer)
+# reader, metadata = extractor.extract_bytes(buffer)
 
 result = ""
 buffer = reader.read(4096)
@@ -99,6 +100,7 @@ while len(buffer) > 0:
     buffer = reader.read(4096)
 
 print(result)
+print(metadata)
 ```
 
 * Extracting a file with OCR:
@@ -109,24 +111,8 @@ You need to have Tesseract installed with the language pack. For example on debi
 from extractous import Extractor, TesseractOcrConfig
 
 extractor = Extractor().set_ocr_config(TesseractOcrConfig().set_language("deu"))
-result = extractor.extract_file_to_string("../../test_files/documents/eng-ocr.pdf")
+result, metadata = extractor.extract_file_to_string("../../test_files/documents/eng-ocr.pdf")
 
-print(result)
-```
-
-* Extracting with metadata:
-
-You can extend the functionality with `_with_metadata` to return the file's metadata.
-
-```python
-from extractous import Extractor
-
-# Create a new extractor
-extractor = Extractor()
-extractor.set_extract_string_max_length(1000)
-
-# Extract text from a file
-result, metadata = extractor.extract_file_to_string_with_metadata("README.md")
 print(result)
 print(metadata)
 ```
@@ -141,22 +127,7 @@ fn main() {
     let mut extractor = Extractor::new().set_extract_string_max_length(1000);
 
     // Extract text from a file
-    let text = extractor.extract_file_to_string("README.md").unwrap();
-    println!("{}", text);
-}
-```
-
-* Extracting with metadata:
-
-```rust
-use extractous::Extractor;
-
-fn main() {
-    // Create a new extractor. Note it uses a consuming builder pattern
-    let mut extractor = Extractor::new().set_extract_string_max_length(1000);
-    
-    // Extract text from a file
-    let (text, metadata) = extractor.extract_file_to_string_with_metadata("README.md").unwrap();
+    let (text, metadata) = extractor.extract_file_to_string("README.md").unwrap();
     println!("{}", text);
     println!("{:?}", metadata);
 }
@@ -175,14 +146,14 @@ fn main() {
 
     // Extract the provided file content to a string
     let extractor = Extractor::new();
-    let stream = extractor.extract_file(file_path).unwrap();
+    let (stream, metadata) = extractor.extract_file(file_path).unwrap();
     // Extract url
-    // let stream = extractor.extract_url("https://www.google.com/").unwrap();
+    // let (stream, metadata) = extractor.extract_url("https://www.google.com/").unwrap();
     // Extract bytes
     // let mut file = File::open(file_path)?;
     // let mut buffer = Vec::new();
     // file.read_to_end(&mut buffer)?;
-    // let stream= extractor.extract_bytes(&file_bytes);
+    // let (stream, metadata) = extractor.extract_bytes(&file_bytes);
 
     // Because stream implements std::io::Read trait we can perform buffered reading
     // For example we can use it to create a BufReader
@@ -190,7 +161,8 @@ fn main() {
     let mut buffer = Vec::new();
     reader.read_to_end(&mut buffer).unwrap();
 
-    println!("{}", String::from_utf8(buffer).unwrap())
+    println!("{}", String::from_utf8(buffer).unwrap());
+    println!("{:?}", metadata);
 }
 ```
 
@@ -208,8 +180,9 @@ fn main() {
           .set_ocr_config(TesseractOcrConfig::new().set_language("deu"))
           .set_pdf_config(PdfParserConfig::new().set_ocr_strategy(PdfOcrStrategy::OCR_ONLY));
     // extract file with extractor
-  let content = extractor.extract_file_to_string(file_path).unwrap();
+  let (content, metadata) = extractor.extract_file_to_string(file_path).unwrap();
   println!("{}", content);
+  println!("{:?}", metadata);
 }
 ```
 

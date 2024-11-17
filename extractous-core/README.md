@@ -44,40 +44,42 @@ fn main() {
 
   // Extract the provided file content to a string
   let extractor = Extractor::new();
-  let content = extractor.extract_file_to_string(file_path).unwrap();
+  let (content, metadata) = extractor.extract_file_to_string(file_path).unwrap();
   println!("{}", content);
+  println!("{:?}", metadata);
 }
 ```
 
 * Extract a content of a file(URL/ bytes) to a `StreamReader` and perform buffered reading
 ```rust
-// use std::fs::File; use for bytes
 use std::io::{BufReader, Read};
+// use std::fs::File; use for bytes
 use extractous::Extractor;
 
 fn main() {
-    // Get the command-line arguments
-    let args: Vec<String> = std::env::args().collect();
-    let file_path = &args[1];
+  // Get the command-line arguments
+  let args: Vec<String> = std::env::args().collect();
+  let file_path = &args[1];
 
-    // Extract the provided file content to a string
-    let extractor = Extractor::new();
-    let stream = extractor.extract_file(file_path).unwrap();
-    // Extract url
-    // let stream = extractor.extract_url("https://www.google.com/").unwrap();
-    // Extract bytes
-    // let mut file = File::open(file_path)?;
-    // let mut buffer = Vec::new();
-    // file.read_to_end(&mut buffer)?;
-    // let stream= extractor.extract_bytes(&file_bytes);
+  // Extract the provided file content to a string
+  let extractor = Extractor::new();
+  let (stream, metadata) = extractor.extract_file(file_path).unwrap();
+  // Extract url
+  // let (stream, metadata) = extractor.extract_url("https://www.google.com/").unwrap();
+  // Extract bytes
+  // let mut file = File::open(file_path)?;
+  // let mut buffer = Vec::new();
+  // file.read_to_end(&mut buffer)?;
+  // let (stream, metadata) = extractor.extract_bytes(&file_bytes);
 
-    // Because stream implements std::io::Read trait we can perform buffered reading
-    // For example we can use it to create a BufReader
-    let mut reader = BufReader::new(stream);
-    let mut buffer = Vec::new();
-    reader.read_to_end(&mut buffer).unwrap();
+  // Because stream implements std::io::Read trait we can perform buffered reading
+  // For example we can use it to create a BufReader
+  let mut reader = BufReader::new(stream);
+  let mut buffer = Vec::new();
+  reader.read_to_end(&mut buffer).unwrap();
 
-    println!("{}", String::from_utf8(buffer).unwrap())
+  println!("{}", String::from_utf8(buffer).unwrap());
+  println!("{:?}", metadata);
 }
 ```
 
@@ -89,12 +91,13 @@ use extractous::Extractor;
 fn main() {
   let file_path = "../test_files/documents/deu-ocr.pdf";
 
-    let extractor = Extractor::new()
+  let extractor = Extractor::new()
           .set_ocr_config(TesseractOcrConfig::new().set_language("deu"))
           .set_pdf_config(PdfParserConfig::new().set_ocr_strategy(PdfOcrStrategy::OCR_ONLY));
-    // extract file with extractor
-  let content = extractor.extract_file_to_string(file_path).unwrap();
+  // extract file with extractor
+  let (content, metadata) = extractor.extract_file_to_string(file_path).unwrap();
   println!("{}", content);
+  println!("{:?}", metadata);
 }
 ```
 
