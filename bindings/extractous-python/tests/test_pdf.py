@@ -10,7 +10,7 @@ def test_extract_file_to_string():
     extractor = Extractor()
     result, metadata = extractor.extract_file_to_string("tests/quarkus.pdf")
 
-    #print(result)
+    print(f"test_pdf:test_extract_file_to_string result = {result}")
     assert result == expected_result()
 
 def test_extract_file():
@@ -19,7 +19,7 @@ def test_extract_file():
 
     result = read_to_string(reader)
 
-    #print(result)
+    print(f"test_pdf:test_extract_file result = {result}")
     assert result == expected_result()
 
 def test_extract_bytes():
@@ -31,5 +31,5 @@ def test_extract_bytes():
 
     result = read_to_string(reader)
 
-    #print(result)
+    print(f"test_pdf:test_extract_bytes result = {result}")
     assert result == expected_result()
