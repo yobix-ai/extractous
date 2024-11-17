@@ -40,6 +40,10 @@
                 {
                     "name": "isError",
                     "parameterTypes": []
+                },
+                {
+                    "name": "getMetadata",
+                    "parameterTypes": []
                 }
             ],
             "type": "ai.yobix.ReaderResult"
@@ -61,9 +65,28 @@
                 {
                     "name": "isError",
                     "parameterTypes": []
+                },
+                {
+                    "name": "getMetadata",
+                    "parameterTypes": []
                 }
             ],
             "type": "ai.yobix.StringResult"
+        },
+        {
+            "methods": [
+                {
+                    "name": "getValues",
+                    "parameterTypes": [
+                        "java.lang.String"
+                    ]
+                },
+                {
+                    "name": "names",
+                    "parameterTypes": []
+                }
+            ],
+            "type": "org.apache.tika.metadata.Metadata"
         },
         {
             "methods": [
@@ -84,6 +107,16 @@
                     ]
                 },
                 {
+                    "name": "parseBytesToString",
+                    "parameterTypes": [
+                        "java.nio.ByteBuffer",
+                        "int",
+                        "org.apache.tika.parser.pdf.PDFParserConfig",
+                        "org.apache.tika.parser.microsoft.OfficeParserConfig",
+                        "org.apache.tika.parser.ocr.TesseractOCRConfig"
+                    ]
+                },
+                {
                     "name": "parseFile",
                     "parameterTypes": [
                         "java.lang.String",
@@ -94,7 +127,7 @@
                     ]
                 },
                 {
-                    "name": "parseToString",
+                    "name": "parseFileToString",
                     "parameterTypes": [
                         "java.lang.String",
                         "int",
@@ -108,6 +141,16 @@
                     "parameterTypes": [
                         "java.lang.String",
                         "java.lang.String",
+                        "org.apache.tika.parser.pdf.PDFParserConfig",
+                        "org.apache.tika.parser.microsoft.OfficeParserConfig",
+                        "org.apache.tika.parser.ocr.TesseractOCRConfig"
+                    ]
+                },
+                {
+                    "name": "parseUrlToString",
+                    "parameterTypes": [
+                        "java.lang.String",
+                        "int",
                         "org.apache.tika.parser.pdf.PDFParserConfig",
                         "org.apache.tika.parser.microsoft.OfficeParserConfig",
                         "org.apache.tika.parser.ocr.TesseractOCRConfig"
@@ -234,11 +277,6 @@
             "type": "java.awt.AlphaComposite"
         },
         {
-            "fields": [
-                {
-                    "name": "value"
-                }
-            ],
             "methods": [
                 {
                     "name": "getRGB",
@@ -1464,6 +1502,15 @@
                 }
             ],
             "type": "com.drew.metadata.exif.ExifSubIFDDirectory"
+        },
+        {
+            "methods": [
+                {
+                    "name": "<init>",
+                    "parameterTypes": []
+                }
+            ],
+            "type": "com.fasterxml.jackson.databind.ext.Java7SupportImpl"
         },
         {
             "type": "com.github.jaiimageio.impl.common.PackageUtil"
