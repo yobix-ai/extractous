@@ -130,10 +130,8 @@ jobs:
           .venv\Scripts\activate.bat
           pip install extractous --find-links bindings/extractous-python/dist --no-index --force-reinstall
           pip install pytest scikit-learn
-          python --version
-          pip list
           cd bindings\extractous-python
-          pytest -v -s .
+          pytest -s .
 
   macos:
     runs-on: ${{ matrix.platform.runner }}
