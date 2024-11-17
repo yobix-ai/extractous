@@ -41,12 +41,12 @@ def test_extract_bytes_to_string(file_name, target_dist, metadata_dist):
     result, metadata = extractor.extract_bytes_to_string(file_bytes)
 
     # Check Expected
-    assert cosine_similarity(result, expected) > target_dist, \
+    assert cosine_similarity(result, expected) >= target_dist, \
         f"Cosine similarity is less than {target_dist} for file: {file_name}"
 
     # Check metadata
     percent_similarity = calculate_similarity_percent(metadata, expected_metadata)
-    assert percent_similarity > metadata_dist, \
+    assert percent_similarity >= metadata_dist, \
         f"The metadata similarity is lower than expected. Current {percent_similarity}% | filename: {file_name}"
 
 @pytest.mark.parametrize("file_name, target_dist, metadata_dist", TEST_CASES)
@@ -70,10 +70,10 @@ def test_extract_bytes_to_stream(file_name, target_dist, metadata_dist):
     result = read_to_string(reader)
 
     # Check Expected
-    assert cosine_similarity(result, expected) > target_dist, \
+    assert cosine_similarity(result, expected) >= target_dist, \
         f"Cosine similarity is less than {target_dist} for file: {file_name}"
 
     # Check metadata
     percent_similarity = calculate_similarity_percent(metadata, expected_metadata)
-    assert percent_similarity > metadata_dist, \
+    assert percent_similarity >= metadata_dist, \
         f"The metadata similarity is lower than expected. Current {percent_similarity}% | filename: {file_name}"
