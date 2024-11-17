@@ -1,15 +1,19 @@
 from extractous import Extractor
 from utils import read_to_string
 
-def test_extract_url():
+def test_extract_url_to_stream():
     extractor = Extractor()
 
-    reader = extractor.extract_url("https://www.google.com")
+    reader, metadata  = extractor.extract_url("https://www.google.com")
     result = read_to_string(reader)
 
     assert "Google" in result
+    assert len(metadata.keys()) > 0
 
-def test_extract_url_with_metadata():
+def test_extract_url_to_string():
     extractor = Extractor()
-    _reader, metadata = extractor.extract_url_with_metadata("https://www.google.com")
+
+    content, metadata  = extractor.extract_url_to_string("https://www.google.com")
+
+    assert "Google" in content
     assert len(metadata.keys()) > 0

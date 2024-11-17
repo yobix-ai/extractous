@@ -136,32 +136,16 @@ impl Extractor {
         Ok(Self(inner))
     }
 
-    /// Extracts text from a file path. Returns a stream of the extracted text
-    /// the stream is decoded using the extractor's `encoding`
-    pub fn extract_file(&self, filename: &str) -> PyResult<StreamReader> {
-        let reader = self
-            .0
-            .extract_file(filename)
-            .map_err(|e| PyErr::new::<PyTypeError, _>(format!("{:?}", e)))?;
-
-        // Create a new `StreamReader` with initial buffer capacity of ecore::DEFAULT_BUF_SIZE bytes
-        Ok(StreamReader {
-            reader,
-            buffer: Vec::with_capacity(ecore::DEFAULT_BUF_SIZE),
-            py_bytes: None,
-        })
-    }
-
     /// Extracts text from a file path. Returns a tuple with stream of the extracted text
     /// the stream is decoded using the extractor's `encoding` and tika metadata.
-    pub fn extract_file_with_metadata<'py>(
+    pub fn extract_file<'py>(
         &self,
         filename: &str,
         py: Python<'py>,
     ) -> PyResult<(StreamReader, PyObject)> {
         let (reader, metadata) = self
             .0
-            .extract_file_with_metadata(filename)
+            .extract_file(filename)
             .map_err(|e| PyErr::new::<PyTypeError, _>(format!("{:?}", e)))?;
 
         // Create a new `StreamReader` with initial buffer capacity of ecore::DEFAULT_BUF_SIZE bytes
@@ -176,50 +160,9 @@ impl Extractor {
         ))
     }
 
-    /// Extracts text from a file path. Returns a string that is of maximum length
-    /// of the extractor's `extract_string_max_length`
-    pub fn extract_file_to_string(&self, filename: &str) -> PyResult<String> {
-        self.0
-            .extract_file_to_string(filename)
-            .map_err(|e| PyErr::new::<PyTypeError, _>(format!("{:?}", e)))
-    }
-
-    /// Extracts text from a file path. Returns a tuple with string and dict that is of maximum length
-    /// of the extractor's `extract_string_max_length` and the metadata.
-    pub fn extract_file_to_string_with_metadata<'py>(
-        &self,
-        filename: &str,
-        py: Python<'py>,
-    ) -> PyResult<(String, PyObject)> {
-        let (content, metadata) = self
-            .0
-            .extract_file_to_string_with_metadata(filename)
-            .map_err(|e| PyErr::new::<PyTypeError, _>(format!("{:?}", e)))?;
-
-        let py_metadata = metadata_hashmap_to_pydict(py, &metadata)?;
-        Ok((content, py_metadata.into()))
-    }
-
-    /// Extracts text from a bytearray. Returns a stream of the extracted text
-    /// the stream is decoded using the extractor's `encoding`
-    pub fn extract_bytes(&self, buffer: &Bound<'_, PyByteArray>) -> PyResult<StreamReader> {
-        let slice = buffer.to_vec();
-        let reader = self
-            .0
-            .extract_bytes(&slice)
-            .map_err(|e| PyErr::new::<PyTypeError, _>(format!("{:?}", e)))?;
-
-        // Create a new `StreamReader` with initial buffer capacity of ecore::DEFAULT_BUF_SIZE bytes
-        Ok(StreamReader {
-            reader,
-            buffer: Vec::with_capacity(ecore::DEFAULT_BUF_SIZE),
-            py_bytes: None,
-        })
-    }
-
     /// Extracts text from a bytearray. Returns a tuple with stream of the extracted text
     /// the stream is decoded using the extractor's `encoding` and tika metadata.
-    pub fn extract_bytes_with_metadata<'py>(
+    pub fn extract_bytes<'py>(
         &self,
         buffer: &Bound<'_, PyByteArray>,
         py: Python<'py>,
@@ -227,7 +170,7 @@ impl Extractor {
         let slice = buffer.to_vec();
         let (reader, metadata) = self
             .0
-            .extract_bytes_with_metadata(&slice)
+            .extract_bytes(&slice)
             .map_err(|e| PyErr::new::<PyTypeError, _>(format!("{:?}", e)))?;
 
         // Create a new `StreamReader` with initial buffer capacity of ecore::DEFAULT_BUF_SIZE bytes
@@ -242,32 +185,16 @@ impl Extractor {
         ))
     }
 
-    /// Extracts text from a url. Returns a string that is of maximum length
-    /// of the extractor's `extract_string_max_length`
-    pub fn extract_url(&self, url: &str) -> PyResult<StreamReader> {
-        let reader = self
-            .0
-            .extract_url(&url)
-            .map_err(|e| PyErr::new::<PyTypeError, _>(format!("{:?}", e)))?;
-
-        // Create a new `StreamReader` with initial buffer capacity of ecore::DEFAULT_BUF_SIZE bytes
-        Ok(StreamReader {
-            reader,
-            buffer: Vec::with_capacity(ecore::DEFAULT_BUF_SIZE),
-            py_bytes: None,
-        })
-    }
-
     /// Extracts text from a url. Returns a tuple with string that is of maximum length
     /// of the extractor's `extract_string_max_length` and tika metdata.
-    pub fn extract_url_with_metadata<'py>(
+    pub fn extract_url<'py>(
         &self,
         url: &str,
         py: Python<'py>,
     ) -> PyResult<(StreamReader, PyObject)> {
         let (reader, metadata) = self
             .0
-            .extract_url_with_metadata(&url)
+            .extract_url(&url)
             .map_err(|e| PyErr::new::<PyTypeError, _>(format!("{:?}", e)))?;
 
         // Create a new `StreamReader` with initial buffer capacity of ecore::DEFAULT_BUF_SIZE bytes
@@ -280,6 +207,56 @@ impl Extractor {
             },
             py_metadata.into(),
         ))
+    }
+
+
+    /// Extracts text from a file path. Returns a tuple with string that is of maximum length
+    /// of the extractor's `extract_string_max_length` and the metadata as dict.
+    pub fn extract_file_to_string<'py>(
+        &self,
+        filename: &str,
+        py: Python<'py>,
+    ) -> PyResult<(String, PyObject)> {
+        let (content, metadata) = self
+            .0
+            .extract_file_to_string(filename)
+            .map_err(|e| PyErr::new::<PyTypeError, _>(format!("{:?}", e)))?;
+
+        let py_metadata = metadata_hashmap_to_pydict(py, &metadata)?;
+        Ok((content, py_metadata.into()))
+    }
+
+    /// Extracts text from a bytearray. string that is of maximum length
+    /// of the extractor's `extract_string_max_length` and the metadata as dict.
+    pub fn extract_bytes_to_string<'py>(
+        &self,
+        buffer: &Bound<'_, PyByteArray>,
+        py: Python<'py>,
+    ) -> PyResult<(String, PyObject)> {
+        let (content, metadata) = self
+            .0
+            .extract_bytes_to_string(&buffer.to_vec())
+            .map_err(|e| PyErr::new::<PyTypeError, _>(format!("{:?}", e)))?;
+
+        // Create a new `StreamReader` with initial buffer capacity of ecore::DEFAULT_BUF_SIZE bytes
+        let py_metadata = metadata_hashmap_to_pydict(py, &metadata)?;
+        Ok((content, py_metadata.into()))
+    }
+
+    /// Extracts text from a URL. Returns a tuple with string that is of maximum length
+    /// of the extractor's `extract_string_max_length` and the metadata as dict.
+    pub fn extract_url_to_string<'py>(
+        &self,
+        url: &str,
+        py: Python<'py>,
+    ) -> PyResult<(String, PyObject)> {
+        let (content, metadata) = self
+            .0
+            .extract_url_to_string(url)
+            .map_err(|e| PyErr::new::<PyTypeError, _>(format!("{:?}", e)))?;
+
+        let py_metadata = metadata_hashmap_to_pydict(py, &metadata)?;
+        Ok((content, py_metadata.into()))
     }
 
     fn __repr__(&self) -> String {

@@ -52,7 +52,8 @@ public class TikaNativeMain {
         final Metadata metadata = new Metadata();
 
         try (final InputStream stream = TikaInputStream.get(path, metadata)) {
-            return new StringResult(tika.detect(stream, metadata));
+            final String result = tika.detect(stream, metadata);
+            return new StringResult(result, metadata);
 
         } catch (java.io.IOException e) {
             return new StringResult((byte) 1, e.getMessage());
@@ -68,7 +69,7 @@ public class TikaNativeMain {
      * @param maxLength: maximum length of the returned string
      * @return StringResult
      */
-    public static StringResult parseToString(
+    public static StringResult parseFileToString(
             String filePath,
             int maxLength,
             PDFParserConfig pdfConfig,
@@ -80,16 +81,81 @@ public class TikaNativeMain {
             final Metadata metadata = new Metadata();
             final InputStream stream = TikaInputStream.get(path, metadata);
 
-            String parseToStringWithConfig = parseToStringWithConfig(
+            String result = parseToStringWithConfig(
                     stream, metadata, maxLength, pdfConfig, officeConfig, tesseractConfig);
             // No need to close the stream because parseToString does so
-            return new StringResult(parseToStringWithConfig, metadata);
+            return new StringResult(result, metadata);
+
         } catch (java.io.IOException e) {
             return new StringResult((byte) 1, "Could not open file: " + e.getMessage());
         } catch (TikaException e) {
             return new StringResult((byte) 2, "Parse error occurred : " + e.getMessage());
         }
     }
+
+    /**
+     * Parses the given Url and returns its content as String
+     *
+     * @param urlString the url to be parsed
+     * @return StringResult
+     */
+    public static StringResult parseUrlToString(
+            String urlString,
+            int maxLength,
+            PDFParserConfig pdfConfig,
+            OfficeParserConfig officeConfig,
+            TesseractOCRConfig tesseractConfig
+    ) {
+        try {
+            final URL url = new URI(urlString).toURL();
+            final Metadata metadata = new Metadata();
+            final TikaInputStream stream = TikaInputStream.get(url, metadata);
+
+            String result = parseToStringWithConfig(
+                    stream, metadata, maxLength, pdfConfig, officeConfig, tesseractConfig);
+            // No need to close the stream because parseToString does so
+            return new StringResult(result, metadata);
+
+        } catch (MalformedURLException e) {
+            return new StringResult((byte) 2, "Malformed URL error occurred " + e.getMessage());
+        } catch (URISyntaxException e) {
+            return new StringResult((byte) 2, "Malformed URI error occurred: " + e.getMessage());
+        } catch (java.io.IOException e) {
+            return new StringResult((byte) 1, "IO error occurred: " + e.getMessage());
+        } catch (TikaException e) {
+            return new StringResult((byte) 2, "Parse error occurred : " + e.getMessage());
+        }
+    }
+
+    /**
+     * Parses the given array of bytes and return its content as String.
+     *
+     * @param data an array of bytes
+     * @return StringResult
+     */
+    public static StringResult parseBytesToString(
+            ByteBuffer data,
+            int maxLength,
+            PDFParserConfig pdfConfig,
+            OfficeParserConfig officeConfig,
+            TesseractOCRConfig tesseractConfig
+    ) {
+        final Metadata metadata = new Metadata();
+        final ByteBufferInputStream inStream = new ByteBufferInputStream(data);
+        final TikaInputStream stream = TikaInputStream.get(inStream, new TemporaryResources(), metadata);
+
+        try {
+            String result = parseToStringWithConfig(
+                    stream, metadata, maxLength, pdfConfig, officeConfig, tesseractConfig);
+            // No need to close the stream because parseToString does so
+            return new StringResult(result, metadata);
+        } catch (java.io.IOException e) {
+            return new StringResult((byte) 1, "IO error occurred: " + e.getMessage());
+        } catch (TikaException e) {
+            return new StringResult((byte) 2, "Parse error occurred : " + e.getMessage());
+        }
+    }
+
 
     private static String parseToStringWithConfig(
             InputStream stream,

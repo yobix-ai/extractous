@@ -154,6 +154,16 @@
                 ]
             },
             {
+                "name": "parseBytesToString",
+                "parameterTypes": [
+                    "java.nio.ByteBuffer",
+                    "int",
+                    "org.apache.tika.parser.pdf.PDFParserConfig",
+                    "org.apache.tika.parser.microsoft.OfficeParserConfig",
+                    "org.apache.tika.parser.ocr.TesseractOCRConfig"
+                ]
+            },
+            {
                 "name": "parseFile",
                 "parameterTypes": [
                     "java.lang.String",
@@ -164,7 +174,7 @@
                 ]
             },
             {
-                "name": "parseToString",
+                "name": "parseFileToString",
                 "parameterTypes": [
                     "java.lang.String",
                     "int",
@@ -178,6 +188,16 @@
                 "parameterTypes": [
                     "java.lang.String",
                     "java.lang.String",
+                    "org.apache.tika.parser.pdf.PDFParserConfig",
+                    "org.apache.tika.parser.microsoft.OfficeParserConfig",
+                    "org.apache.tika.parser.ocr.TesseractOCRConfig"
+                ]
+            },
+            {
+                "name": "parseUrlToString",
+                "parameterTypes": [
+                    "java.lang.String",
+                    "int",
                     "org.apache.tika.parser.pdf.PDFParserConfig",
                     "org.apache.tika.parser.microsoft.OfficeParserConfig",
                     "org.apache.tika.parser.ocr.TesseractOCRConfig"
