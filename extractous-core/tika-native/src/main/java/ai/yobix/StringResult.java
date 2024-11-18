@@ -1,21 +1,33 @@
 package ai.yobix;
 
+import org.apache.tika.metadata.Metadata;
+
 public class StringResult {
 
     private final String content;
     private final byte status;
     private final String errorMessage;
+    private final Metadata metadata;
 
     public StringResult(String content) {
         this.content = content;
         this.status = 0;
         this.errorMessage = null;
+        this.metadata = null;
+    }
+
+    public StringResult(String content, Metadata metadata) {
+        this.content = content;
+        this.status = 0;
+        this.errorMessage = null;
+        this.metadata = metadata;
     }
 
     public StringResult(byte status, String errorMessage) {
         this.content = null;
         this.status = status;
         this.errorMessage = errorMessage;
+        this.metadata = null;
     }
 
     /**
@@ -28,6 +40,14 @@ public class StringResult {
 
     public boolean isError() {
         return status != 0;
+    }
+
+    /**
+     * Returns the tika metadata or null if there is an error
+     * @return tika metadata
+     */
+    public Metadata getMetadata() {
+        return metadata;
     }
 
     /**

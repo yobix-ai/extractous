@@ -1,6 +1,6 @@
 # Extractous Python Bindings
 
-This project provides Python bindings for the Extractous library, allowing you to use extractous functionality in 
+This project provides Python bindings for the Extractous library, allowing you to use extractous functionality in
 your Python applications.
 
 ## Installation
@@ -18,20 +18,30 @@ Extracting a file to string:
 ```python
 from extractous import Extractor
 
+# Create a new extractor
 extractor = Extractor()
 extractor.set_extract_string_max_length(1000)
-result = extractor.extract_file_to_string("README.md")
 
+# Extract text from a file
+result, metadata = extractor.extract_file_to_string("README.md")
 print(result)
+print(metadata)
 ```
 
-Extracting a file to a buffered stream:
+Extracting a file(URL / bytearray) to a buffered stream:
 
 ```python
 from extractous import Extractor
 
 extractor = Extractor()
-reader = extractor.extract_file("tests/quarkus.pdf")
+# for file
+reader, metadata = extractor.extract_file("tests/quarkus.pdf")
+# for url
+# reader, metadata = extractor.extract_url("https://www.google.com")
+# for bytearray
+# with open("tests/quarkus.pdf", "rb") as file:
+#     buffer = bytearray(file.read())
+# reader, metadata = extractor.extract_bytes(buffer)
 
 result = ""
 buffer = reader.read(4096)
@@ -40,6 +50,7 @@ while len(buffer) > 0:
     buffer = reader.read(4096)
 
 print(result)
+print(metadata)
 ```
 
 Extracting a file with OCR:
@@ -48,7 +59,8 @@ Extracting a file with OCR:
 from extractous import Extractor, TesseractOcrConfig
 
 extractor = Extractor().set_ocr_config(TesseractOcrConfig().set_language("deu"))
-result = extractor.extract_file_to_string("../../test_files/documents/eng-ocr.pdf")
+result, metadata = extractor.extract_file_to_string("../../test_files/documents/eng-ocr.pdf")
 
 print(result)
+print(metadata)
 ```

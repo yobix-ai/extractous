@@ -1,4 +1,5 @@
 from extractous import Extractor
+from utils import read_to_string
 
 
 def expected_result():
@@ -7,21 +8,28 @@ def expected_result():
 
 def test_extract_file_to_string():
     extractor = Extractor()
-    result = extractor.extract_file_to_string("tests/quarkus.pdf")
+    result, metadata = extractor.extract_file_to_string("tests/quarkus.pdf")
 
-    #print(result)
+    print(f"test_pdf:test_extract_file_to_string result = {result}")
     assert result == expected_result()
-
 
 def test_extract_file():
     extractor = Extractor()
-    reader = extractor.extract_file("tests/quarkus.pdf")
+    reader, metadata = extractor.extract_file("tests/quarkus.pdf")
 
-    result = ""
-    b = reader.read(4096)
-    while len(b) > 0:
-        result += b.decode("utf-8")
-        b = reader.read(4096)
+    result = read_to_string(reader)
 
-    #print(result)
+    print(f"test_pdf:test_extract_file result = {result}")
+    assert result == expected_result()
+
+def test_extract_bytes():
+    extractor = Extractor()
+
+    with open("tests/quarkus.pdf", "rb") as file:
+        buffer = bytearray(file.read())
+    reader, metadata = extractor.extract_bytes(buffer)
+
+    result = read_to_string(reader)
+
+    print(f"test_pdf:test_extract_bytes result = {result}")
     assert result == expected_result()

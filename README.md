@@ -19,7 +19,7 @@
 <div align="center">
 
 _Extractous offers a fast and efficient solution for extracting content and metadata from various documents types such as PDF, Word, HTML, and [many other formats](#supported-file-formats).
-Our goal is to deliver a fast and efficient comprehensive solution in Rust with bindings for many programming 
+Our goal is to deliver a fast and efficient comprehensive solution in Rust with bindings for many programming
 languages._
 
 </div>
@@ -27,7 +27,7 @@ languages._
 ---
 
 **Demo**: showing that [Extractous 🚀](https://github.com/yobix-ai/extractous) is **25x faster** than the popular
-[unstructured-io](https://github.com/Unstructured-IO/unstructured) library ($65m in funding and 8.5k GitHub stars). 
+[unstructured-io](https://github.com/Unstructured-IO/unstructured) library ($65m in funding and 8.5k GitHub stars).
 For complete benchmarking details please consult our [benchmarking repository](https://github.com/yobix-ai/extractous-benchmarks)
 
 ![unstructured_vs_extractous](https://github.com/yobix-ai/extractous-benchmarks/raw/main/docs/extractous_vs_unstructured.gif)
@@ -55,7 +55,7 @@ With Extractous, the need for external services or APIs is eliminated, making da
 * High-performance unstructured data extraction optimized for speed and low memory usage.
 * Clear and simple API for extracting text and metadata content.
 * Automatically identifies document types and extracts content accordingly
-* Supports [many file formats](#supported-file-formats) (most formats supported by Apache Tika). 
+* Supports [many file formats](#supported-file-formats) (most formats supported by Apache Tika).
 * Extracts text from images and scanned documents with OCR through [tesseract-ocr](https://github.com/tesseract-ocr/tesseract).
 * Core engine written in Rust with bindings for [Python](https://pypi.org/project/extractous/) and upcoming support for JavaScript/TypeScript.
 * Detailed documentation and examples to help you get started quickly and efficiently.
@@ -74,16 +74,24 @@ extractor = Extractor()
 extractor.set_extract_string_max_length(1000)
 
 # Extract text from a file
-result = extractor.extract_file_to_string("README.md")
+result, metadata = extractor.extract_file_to_string("README.md")
 print(result)
+print(metadata)
 ```
-* Extracting a file to a buffered stream:
+* Extracting a file(URL / bytearray) to a buffered stream:
 
 ```python
 from extractous import Extractor
 
 extractor = Extractor()
-reader = extractor.extract_file("tests/quarkus.pdf")
+# for file
+reader, metadata = extractor.extract_file("tests/quarkus.pdf")
+# for url
+# reader, metadata = extractor.extract_url("https://www.google.com")
+# for bytearray
+# with open("tests/quarkus.pdf", "rb") as file:
+#     buffer = bytearray(file.read())
+# reader, metadata = extractor.extract_bytes(buffer)
 
 result = ""
 buffer = reader.read(4096)
@@ -92,6 +100,7 @@ while len(buffer) > 0:
     buffer = reader.read(4096)
 
 print(result)
+print(metadata)
 ```
 
 * Extracting a file with OCR:
@@ -102,9 +111,10 @@ You need to have Tesseract installed with the language pack. For example on debi
 from extractous import Extractor, TesseractOcrConfig
 
 extractor = Extractor().set_ocr_config(TesseractOcrConfig().set_language("deu"))
-result = extractor.extract_file_to_string("../../test_files/documents/eng-ocr.pdf")
+result, metadata = extractor.extract_file_to_string("../../test_files/documents/eng-ocr.pdf")
 
 print(result)
+print(metadata)
 ```
 
 #### Rust
@@ -117,14 +127,16 @@ fn main() {
     let mut extractor = Extractor::new().set_extract_string_max_length(1000);
 
     // Extract text from a file
-    let text = extractor.extract_file_to_string("README.md").unwrap();
+    let (text, metadata) = extractor.extract_file_to_string("README.md").unwrap();
     println!("{}", text);
+    println!("{:?}", metadata);
 }
 ```
 
-* Extract a content of a file to a `StreamReader` and perform buffered reading
+* Extract a content of a file(URL/ bytes) to a `StreamReader` and perform buffered reading
 ```rust
-use std::io::Read;
+use std::io::{BufReader, Read};
+// use std::fs::File; use for bytes
 use extractous::Extractor;
 
 fn main() {
@@ -134,18 +146,27 @@ fn main() {
 
     // Extract the provided file content to a string
     let extractor = Extractor::new();
-    let stream = extractor.extract_file(file_path).unwrap();
+    let (stream, metadata) = extractor.extract_file(file_path).unwrap();
+    // Extract url
+    // let (stream, metadata) = extractor.extract_url("https://www.google.com/").unwrap();
+    // Extract bytes
+    // let mut file = File::open(file_path)?;
+    // let mut buffer = Vec::new();
+    // file.read_to_end(&mut buffer)?;
+    // let (stream, metadata) = extractor.extract_bytes(&file_bytes);
 
     // Because stream implements std::io::Read trait we can perform buffered reading
     // For example we can use it to create a BufReader
+    let mut reader = BufReader::new(stream);
     let mut buffer = Vec::new();
-    stream.read_to_end(&mut buffer).unwrap();
+    reader.read_to_end(&mut buffer).unwrap();
 
-    println!("{}", String::from_utf8(buffer).unwrap())
+    println!("{}", String::from_utf8(buffer).unwrap());
+    println!("{:?}", metadata);
 }
 ```
 
-* Extract content of PDF with OCR. 
+* Extract content of PDF with OCR.
 
 You need to have Tesseract installed with the language pack. For example on debian `sudo apt install tesseract-ocr tesseract-ocr-deu`
 
@@ -154,13 +175,14 @@ use extractous::Extractor;
 
 fn main() {
   let file_path = "../test_files/documents/deu-ocr.pdf";
-  
+
     let extractor = Extractor::new()
           .set_ocr_config(TesseractOcrConfig::new().set_language("deu"))
           .set_pdf_config(PdfParserConfig::new().set_ocr_strategy(PdfOcrStrategy::OCR_ONLY));
     // extract file with extractor
-  let content = extractor.extract_file_to_string(file_path).unwrap();
+  let (content, metadata) = extractor.extract_file_to_string(file_path).unwrap();
   println!("{}", content);
+  println!("{:?}", metadata);
 }
 ```
 

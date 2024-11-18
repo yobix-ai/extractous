@@ -1,0 +1,72 @@
+{
+    "Content-Type": [
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+    ],
+    "Content-Length": [
+        "34865"
+    ],
+    "dc:publisher": [
+        ""
+    ],
+    "X-TIKA:Parsed-By-Full-Set": [
+        "org.apache.tika.parser.DefaultParser",
+        "org.apache.tika.parser.microsoft.ooxml.OOXMLParser",
+        "org.apache.tika.parser.image.JpegParser",
+        "org.apache.tika.parser.ocr.TesseractOCRParser"
+    ],
+    "extended-properties:PresentationFormat": [
+        "Widescreen"
+    ],
+    "meta:word-count": [
+        "38"
+    ],
+    "xmpTPg:NPages": [
+        "2"
+    ],
+    "meta:last-author": [
+        "Steve Canny"
+    ],
+    "dc:creator": [
+        "Steve Canny"
+    ],
+    "cp:revision": [
+        "1"
+    ],
+    "extended-properties:Company": [
+        ""
+    ],
+    "meta:paragraph-count": [
+        "8"
+    ],
+    "extended-properties:TotalTime": [
+        "2"
+    ],
+    "dcterms:created": [
+        "2024-07-22T23:29:33Z"
+    ],
+    "dcterms:modified": [
+        "2024-07-22T23:31:59Z"
+    ],
+    "X-TIKA:Parsed-By": [
+        "org.apache.tika.parser.DefaultParser",
+        "org.apache.tika.parser.microsoft.ooxml.OOXMLParser"
+    ],
+    "extended-properties:AppVersion": [
+        "16.0016"
+    ],
+    "resourceName": [
+        "simple.pptx"
+    ],
+    "dc:title": [
+        "Title Slide"
+    ],
+    "extended-properties:DocSecurityString": [
+        "None"
+    ],
+    "extended-properties:Application": [
+        "Microsoft Macintosh PowerPoint"
+    ],
+    "meta:slide-count": [
+        "2"
+    ]
+}

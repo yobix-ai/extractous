@@ -1,4 +1,5 @@
 use extractous::Extractor;
+// use std::fs::File; use for bytes
 use std::io::{BufReader, Read};
 
 fn main() {
@@ -8,7 +9,15 @@ fn main() {
 
     // Extract the provided file content to a string
     let extractor = Extractor::new();
-    let stream = extractor.extract_file(file_path).unwrap();
+    let (stream, _metadata) = extractor.extract_file(file_path).unwrap();
+    // Extract url
+    // let stream = extractor.extract_url("https://www.google.com/").unwrap();
+    // Extract bytes
+    // let mut file = File::open(file_path)?;
+    // let mut buffer = Vec::new();
+    // file.read_to_end(&mut buffer)?;
+    // let stream= extractor.extract_bytes(&file_bytes).unwrap();
+
     // Because stream implements std::io::Read trait we can perform buffered reading
     // For example we can use it to create a BufReader
     let mut reader = BufReader::new(stream);

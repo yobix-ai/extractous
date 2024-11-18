@@ -38,7 +38,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      # On linux we dont use graalvm/setup-graalvm@v1.2.2 action to install graalvm because it will install it 
+      # On linux we don't use graalvm/setup-graalvm@v1.2.5 action to install graalvm because it will install it
       # on the runner machine and on linux the build will happen inside a manylinux docker. 
       # Instead, we use a script to install graalvm inside the docker container
       # the script is launched by setting the before-script-linux config option of the maturin action
@@ -51,9 +51,8 @@ jobs:
           sccache: 'false'
           target: ${{ matrix.platform.target }}
           container: quay.io/pypa/manylinux_2_28_${{ matrix.platform.target }}:latest
-          #before-script-linux: .github/workflows/install-openssl.sh
-          before-script-linux: .github/workflows/install-graalvm-sdkman.sh 22.0.1-graalce
-          docker-options: "-e JAVA_HOME=/root/.sdkman/candidates/java/22.0.1-graalce -e GRAALVM_HOME=/root/.sdkman/candidates/java/22.0.1-graalce"
+          before-script-linux: .github/workflows/install-graalvm-sdkman.sh 23.0.1-graalce
+          docker-options: "-e JAVA_HOME=/root/.sdkman/candidates/java/23.0.1-graalce -e GRAALVM_HOME=/root/.sdkman/candidates/java/23.0.1-graalce"
           #docker-options: "--mount type=bind,source=/opt/hostedtoolcache,target=/opt/hostedtoolcache -e JAVA_HOME -e GRAALVM_HOME"
 
       # On linux we don't need to patch the wheel as the RPATH is set by the rustc compiler
@@ -108,9 +107,9 @@ jobs:
         with:
           python-version: '3.8'
           architecture: ${{ matrix.platform.target }}
-      - uses: graalvm/setup-graalvm@v1.2.2
+      - uses: graalvm/setup-graalvm@v1.2.5
         with:
-          java-version: '22'
+          java-version: '23'
           distribution: 'graalvm-community'
           set-java-home: 'true'
       - name: Build wheels
@@ -127,14 +126,13 @@ jobs:
           path: bindings/extractous-python/dist
       - name: pytest
         if: ${{ !startsWith(matrix.platform.target, 'aarch64') }}
-        shell: cmd
         run: |
           python -m venv .venv
           .venv\Scripts\activate.bat
           pip install extractous --find-links bindings/extractous-python/dist --no-index --force-reinstall
           pip install pytest scikit-learn
           cd bindings\extractous-python
-          pytest -s
+          pytest -s .
 
   macos:
     runs-on: ${{ matrix.platform.runner }}
@@ -150,11 +148,17 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.8'
-      - uses: graalvm/setup-graalvm@v1.2.2
-        with:
-          java-version: '22'
-          distribution: 'liberica'
-          set-java-home: 'true'
+
+#      - uses: graalvm/setup-graalvm@v1.2.5
+#        with:
+#          java-version: '23'
+#          distribution: 'liberica'
+#          set-java-home: 'true'
+#      - name: Install graalvm
+#        run: |
+#          set -e
+#          bash .github/workflows/install-graalvm-sdkman-macos.sh 24.1.1.r23-nik
+
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:

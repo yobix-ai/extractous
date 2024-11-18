@@ -10,8 +10,8 @@ current_dir=$(pwd)
 # curl -s "https://get.sdkman.io" | sh -s -- -y
 # source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-# sdk install java 22.0.1-graalce
-# sdk use java 22.0.1-graalce
+# sdk install java 23.0.1-graalce
+# sdk use java 23.0.1-graalce
 # echo "JAVA_HOME: $JAVA_HOME"
 
 # # install rust
