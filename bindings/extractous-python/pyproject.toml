@@ -13,8 +13,7 @@ classifiers = [
 description = "Extractous Python Binding"
 license = { text = "Apache-2.0" }
 readme = "README.md"
-# PyO3 doesn't support python 3.13 yet.
-requires-python = ">=3.8,<3.13"
+requires-python = ">=3.8,<3.14"
 
 [project.optional-dependencies]
 # To generate python docs using pdoc we need to run:
