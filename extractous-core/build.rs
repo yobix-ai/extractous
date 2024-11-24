@@ -92,6 +92,20 @@ fn find_already_built_libs(out_dir: &Path) -> Option<PathBuf> {
     None
 }
 
+fn is_dir_updated(src: &Path, dest: &Path) -> bool {
+    let src_modified = fs::metadata(src)
+        .and_then(|meta| meta.modified())
+        .ok();
+    let dest_modified = fs::metadata(dest)
+        .and_then(|meta| meta.modified())
+        .ok();
+
+    match (src_modified, dest_modified) {
+        (Some(src_time), Some(dest_time)) => src_time > dest_time,
+        _ => true, // If either timestamp is unavailable, consider the source as updated
+    }
+}
+
 // Run the gradle build command to build tika-native
 fn gradle_build(
     tika_native_source_dir: &PathBuf,
@@ -108,6 +122,10 @@ fn gradle_build(
     println!("Using GraalVM JDK found at {}", graalvm_home.display());
     println!("Building tika_native libs this might take a while ... Please be patient!!");
 
+    if is_dir_updated(&tika_native_dir, &out_dir) {
+        println!("Lib tika_native files were updated");
+        fs_extra::dir::remove(&tika_native_dir).ok();
+    }
     // Because build script are not allowed to change files outside of OUT_DIR
     // we need to copy the tika-native source directory to OUT_DIR and call gradle build there
     if !tika_native_dir.is_dir() {
