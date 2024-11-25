@@ -482,6 +482,7 @@ dependencies = [
  "test-case",
  "textdistance",
  "thiserror",
+ "walkdir",
  "zip",
 ]
 

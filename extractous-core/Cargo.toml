@@ -43,6 +43,7 @@ reqwest = { version = "0.12.7", features = ["blocking", "json"] }
 zip = "2.2.0"
 flate2 = "1.0.33"
 tar = "0.4.41"
+walkdir = "2.5.0"
 
 [profile.release]
 opt-level = 3
