@@ -65,6 +65,7 @@ pub struct Extractor {
     pdf_config: PdfParserConfig,
     office_config: OfficeParserConfig,
     ocr_config: TesseractOcrConfig,
+    parse_string_as_xml: bool,
 }
 
 impl Default for Extractor {
@@ -75,6 +76,7 @@ impl Default for Extractor {
             pdf_config: PdfParserConfig::default(),
             office_config: OfficeParserConfig::default(),
             ocr_config: TesseractOcrConfig::default(),
+            parse_string_as_xml: false,
         }
     }
 }
@@ -114,6 +116,12 @@ impl Extractor {
     /// Set the configuration for the Tesseract OCR
     pub fn set_ocr_config(mut self, config: TesseractOcrConfig) -> Self {
         self.ocr_config = config;
+        self
+    }
+
+    /// Set the configuration for the parse as xml
+    pub fn set_parse_string_as_xml(mut self, parse_string_as_xml: bool) -> Self {
+        self.parse_string_as_xml = parse_string_as_xml;
         self
     }
 
@@ -162,6 +170,7 @@ impl Extractor {
             &self.pdf_config,
             &self.office_config,
             &self.ocr_config,
+            self.parse_string_as_xml,
         )
     }
 
@@ -174,6 +183,7 @@ impl Extractor {
             &self.pdf_config,
             &self.office_config,
             &self.ocr_config,
+            self.parse_string_as_xml,
         )
     }
 
@@ -186,8 +196,10 @@ impl Extractor {
             &self.pdf_config,
             &self.office_config,
             &self.ocr_config,
+            self.parse_string_as_xml,
         )
     }
+
 }
 
 #[cfg(test)]
@@ -197,6 +209,7 @@ mod tests {
     use std::fs::File;
     use std::io::BufReader;
     use std::io::{self, Read};
+    use std::str;
 
     const TEST_FILE: &str = "README.md";
 
@@ -287,6 +300,22 @@ mod tests {
         let content = read_content_from_stream(reader);
 
         assert!(content.contains("Google"));
+        assert!(
+            metadata.len() > 0,
+            "Metadata should contain at least one entry"
+        );
+    }
+
+    #[test]
+    fn extract_file_to_xml_test() {
+        // Parse the files using extractous
+        let extractor = Extractor::new().set_parse_string_as_xml(true);
+        let result = extractor.extract_file_to_string(TEST_FILE);
+        let (content, metadata) = result.unwrap();
+        assert!(
+            content.len() > 0,
+            "Metadata should contain at least one entry"
+        );
         assert!(
             metadata.len() > 0,
             "Metadata should contain at least one entry"

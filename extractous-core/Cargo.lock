@@ -465,7 +465,7 @@ dependencies = [
 
 [[package]]
 name = "extractous"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "bytemuck",
  "criterion",
@@ -473,6 +473,7 @@ dependencies = [
  "fs_extra",
  "jni",
  "libc",
+ "quick-xml",
  "reqwest",
  "serde",
  "serde_json",
@@ -1323,6 +1324,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f139b0662de085916d1fb67d2b4169d1addddda1919e696f3252b740b629986e"
 dependencies = [
  "unicode-ident",
+]
+
+[[package]]
+name = "quick-xml"
+version = "0.37.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f22f29bdff3987b4d8632ef95fd6424ec7e4e0a57e2f4fc63e489e75357f6a03"
+dependencies = [
+ "memchr",
 ]
 
 [[package]]
