@@ -157,6 +157,7 @@ pub fn parse_to_string(
     pdf_conf: &PdfParserConfig,
     office_conf: &OfficeParserConfig,
     ocr_conf: &TesseractOcrConfig,
+    as_xml: bool,
     method_name: &str,
     signature: &str,
 ) -> ExtractResult<(String, Metadata)> {
@@ -175,6 +176,7 @@ pub fn parse_to_string(
             (&j_pdf_conf.internal).into(),
             (&j_office_conf.internal).into(),
             (&j_ocr_conf.internal).into(),
+            JValue::Bool(if as_xml { 1 } else { 0 }),
         ],
     );
     let call_result_obj = call_result?.l()?;
@@ -191,6 +193,7 @@ pub fn parse_file_to_string(
     pdf_conf: &PdfParserConfig,
     office_conf: &OfficeParserConfig,
     ocr_conf: &TesseractOcrConfig,
+    as_xml: bool,
 ) -> ExtractResult<(String, Metadata)> {
     let mut env = get_vm_attach_current_thread()?;
 
@@ -202,12 +205,14 @@ pub fn parse_file_to_string(
         pdf_conf,
         office_conf,
         ocr_conf,
+        as_xml,
         "parseFileToString",
         "(Ljava/lang/String;\
         I\
         Lorg/apache/tika/parser/pdf/PDFParserConfig;\
         Lorg/apache/tika/parser/microsoft/OfficeParserConfig;\
         Lorg/apache/tika/parser/ocr/TesseractOCRConfig;\
+        Z\
         )Lai/yobix/StringResult;",
     )
 }
@@ -219,6 +224,7 @@ pub fn parse_bytes_to_string(
     pdf_conf: &PdfParserConfig,
     office_conf: &OfficeParserConfig,
     ocr_conf: &TesseractOcrConfig,
+    as_xml: bool,
 ) -> ExtractResult<(String, Metadata)> {
     let mut env = get_vm_attach_current_thread()?;
 
@@ -235,12 +241,14 @@ pub fn parse_bytes_to_string(
         pdf_conf,
         office_conf,
         ocr_conf,
+        as_xml,
         "parseBytesToString",
         "(Ljava/nio/ByteBuffer;\
         I\
         Lorg/apache/tika/parser/pdf/PDFParserConfig;\
         Lorg/apache/tika/parser/microsoft/OfficeParserConfig;\
         Lorg/apache/tika/parser/ocr/TesseractOCRConfig;\
+        Z\
         )Lai/yobix/StringResult;",
     )
 }
@@ -252,6 +260,7 @@ pub fn parse_url_to_string(
     pdf_conf: &PdfParserConfig,
     office_conf: &OfficeParserConfig,
     ocr_conf: &TesseractOcrConfig,
+    as_xml: bool,
 ) -> ExtractResult<(String, Metadata)> {
     let mut env = get_vm_attach_current_thread()?;
 
@@ -263,12 +272,14 @@ pub fn parse_url_to_string(
         pdf_conf,
         office_conf,
         ocr_conf,
+        as_xml,
         "parseUrlToString",
         "(Ljava/lang/String;\
         I\
         Lorg/apache/tika/parser/pdf/PDFParserConfig;\
         Lorg/apache/tika/parser/microsoft/OfficeParserConfig;\
         Lorg/apache/tika/parser/ocr/TesseractOCRConfig;\
+        Z\
         )Lai/yobix/StringResult;",
     )
 }

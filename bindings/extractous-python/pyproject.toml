@@ -4,7 +4,7 @@ build-backend = "maturin"
 
 [project]
 name = "extractous"
-version = '0.2.0'
+version = '0.2.1'
 classifiers = [
   "Programming Language :: Rust",
   "Programming Language :: Python :: Implementation :: CPython",
@@ -50,11 +50,11 @@ module-name = "extractous._extractous"
 python-source = "python"
 
 # Setting skip-auditwheel=true is very important to instruct maturin to not run its auditwheel flow
-# maturin auditwheel flow changes any top level shared lib names which causes problems with our graalvm libs 
+# maturin auditwheel flow changes any top level shared lib names which causes problems with our graalvm libs
 # By skipping the wheel, we just get a plain _extracts_rs* lib, and we have to:
 #   * bundle our graalvm libs using the below include [] directive
 #   * change the RPATH of _extracts_rs* lib to be able to properly find the bundled graalvm libs
-skip-auditwheel=true 
+skip-auditwheel=true
 
 # This tells cargo to set the RPATH for the private module built lib _extractous.abi3.so
 # Set the RPATH to $ORIGIN because the graalvm libs will be bundled in the same dir as the _extractous.abi3.so
@@ -62,7 +62,7 @@ rustc-args = ["-C", "link-arg=-Wl,-rpath,$ORIGIN"]
 
 # Maturin include command will start looking from the python/extractous folder
 # so to include the graalvm libs the rust build script must copy them to python/extractous folder
-include = [ 
+include = [
   {path = "**/*.so", format = ["wheel"]},
   {path = "**/*.dylib", format = ["wheel"]},
   {path = "**/*.dll", format = ["wheel"]}

@@ -136,6 +136,12 @@ impl Extractor {
         Ok(Self(inner))
     }
 
+    /// Set the configuration for the parse as xml
+    pub fn set_parse_string_as_xml(&self, parse_string_as_xml: bool) -> PyResult<Self> {
+        let inner = self.0.clone().set_parse_string_as_xml(parse_string_as_xml);
+        Ok(Self(inner))
+    }
+
     /// Extracts text from a file path. Returns a tuple with stream of the extracted text
     /// the stream is decoded using the extractor's `encoding` and tika metadata.
     pub fn extract_file<'py>(
