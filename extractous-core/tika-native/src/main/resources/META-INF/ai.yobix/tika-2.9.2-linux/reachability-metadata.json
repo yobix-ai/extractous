@@ -3035,6 +3035,9 @@
             "type": "org.openxmlformats.schemas.drawingml.x2006.main.impl.CTTextBodyImpl"
         },
         {
+            "type": "org.openxmlformats.schemas.drawingml.x2006.main.CTTextCharacterProperties[]"
+        },
+        {
             "methods": [
                 {
                     "name": "<init>",
@@ -5248,16 +5251,7 @@
             "glob": "log4j2.system.properties"
         },
         {
-            "glob": "org/apache/fontbox/cmap/Adobe-Korea1-0"
-        },
-        {
-            "glob": "org/apache/fontbox/cmap/Adobe-Korea1-2"
-        },
-        {
-            "glob": "org/apache/fontbox/cmap/Adobe-Korea1-UCS2"
-        },
-        {
-            "glob": "org/apache/fontbox/cmap/Identity-H"
+            "glob": "org/apache/fontbox/cmap/**"
         },
         {
             "glob": "org/apache/pdfbox/resources/afm/Courier-Bold.afm"
