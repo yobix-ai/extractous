@@ -71,7 +71,9 @@ from extractous import Extractor
 
 # Create a new extractor
 extractor = Extractor()
-extractor.set_extract_string_max_length(1000)
+extractor = extractor.set_extract_string_max_length(1000)
+# if you need an xml
+# extractor = extractor.set_xml_output(True)
 
 # Extract text from a file
 result, metadata = extractor.extract_file_to_string("README.md")
@@ -125,6 +127,8 @@ use extractous::Extractor;
 fn main() {
     // Create a new extractor. Note it uses a consuming builder pattern
     let mut extractor = Extractor::new().set_extract_string_max_length(1000);
+    // if you need an xml
+    // extractor = extractor.set_parse_string_as_xml(false);
 
     // Extract text from a file
     let (text, metadata) = extractor.extract_file_to_string("README.md").unwrap();

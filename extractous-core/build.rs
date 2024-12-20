@@ -3,6 +3,7 @@ use std::fs;
 use std::io;
 use std::path::{Path, PathBuf};
 use std::process::Command;
+use walkdir::WalkDir;
 
 fn main() {
     // Exit early when building docs or when running clippy
@@ -29,6 +30,17 @@ fn main() {
     //println!("cargo:warning=dist_dir: {}", dist_dir.display());
     //println!("cargo:warning=out_dir: {}", out_dir.display());
     //println!("cargo:warning=tika_native_dir: {:?}", tika_native_dir);
+    let tika_native_dir = out_dir.join("tika-native");
+    let mut need_build = false;
+    if is_dir_updated(&tika_native_source_dir, &tika_native_dir) {
+        println!("Lib tika_native files were updated");
+        fs_extra::dir::remove(&libs_out_dir).ok();
+        fs_extra::dir::remove(&tika_native_dir).ok();
+        need_build = true;
+        // Launch the gradle build
+    } else {
+        println!("Lib tika_native files were not updated");
+    }
 
     // Try to find already built libs
     match find_already_built_libs(&out_dir) {
@@ -39,15 +51,17 @@ fn main() {
                 copy_build_artifacts(&libs_dir, vec![&libs_out_dir], false);
             }
         }
-        None => {
-            // Launch the gradle build
-            gradle_build(
-                &tika_native_source_dir,
-                &out_dir,
-                &libs_out_dir,
-                &python_bind_dir,
-            );
-        }
+        None => { need_build = true; }
+    }
+
+    // Launch the gradle build
+    if need_build {
+        gradle_build(
+            &tika_native_source_dir,
+            &out_dir,
+            &libs_out_dir,
+            &python_bind_dir,
+        );
     }
 
     // Tell cargo to look for shared libraries in the specified directory
@@ -93,17 +107,35 @@ fn find_already_built_libs(out_dir: &Path) -> Option<PathBuf> {
 }
 
 fn is_dir_updated(src: &Path, dest: &Path) -> bool {
-    let src_modified = fs::metadata(src)
-        .and_then(|meta| meta.modified())
-        .ok();
-    let dest_modified = fs::metadata(dest)
-        .and_then(|meta| meta.modified())
-        .ok();
+    for entry in WalkDir::new(src).into_iter().filter_map(|e| e.ok()) {
+        if entry.file_type().is_file() {
+            let src_file = entry.path();
+            let relative_path = src_file.strip_prefix(src).unwrap();
+            let dest_file = dest.join(relative_path);
 
-    match (src_modified, dest_modified) {
-        (Some(src_time), Some(dest_time)) => src_time > dest_time,
-        _ => true, // If either timestamp is unavailable, consider the source as updated
+            if !dest_file.exists() {
+                // File does not exist in the destination directory
+                return true;
+            }
+
+            let src_modified = match fs::metadata(src_file).and_then(|meta| meta.modified()) {
+                Ok(time) => time,
+                Err(_) => continue, // Skip unreadable files
+            };
+
+            let dest_modified = match fs::metadata(&dest_file).and_then(|meta| meta.modified()) {
+                Ok(time) => time,
+                Err(_) => return true, // File in dest is inaccessible
+            };
+
+            if src_modified > dest_modified {
+                // Source file is newer than the destination file
+                return true;
+            }
+        }
     }
+    // All checks passed
+    false
 }
 
 // Run the gradle build command to build tika-native
@@ -122,7 +154,7 @@ fn gradle_build(
     println!("Using GraalVM JDK found at {}", graalvm_home.display());
     println!("Building tika_native libs this might take a while ... Please be patient!!");
 
-    if is_dir_updated(&tika_native_dir, &out_dir) {
+    if is_dir_updated(&tika_native_source_dir, &tika_native_dir) {
         println!("Lib tika_native files were updated");
         fs_extra::dir::remove(&tika_native_dir).ok();
     }
