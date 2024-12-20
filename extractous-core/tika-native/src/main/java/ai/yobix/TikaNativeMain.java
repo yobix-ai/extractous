@@ -11,17 +11,18 @@ import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.AutoDetectParser;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.Parser;
-import org.apache.tika.parser.ParsingReader;
 import org.apache.tika.parser.microsoft.OfficeParserConfig;
 import org.apache.tika.parser.ocr.TesseractOCRConfig;
 import org.apache.tika.parser.pdf.PDFParserConfig;
 import org.apache.tika.sax.BodyContentHandler;
+import org.apache.tika.sax.ToXMLContentHandler;
 import org.apache.tika.sax.WriteOutContentHandler;
 import org.graalvm.nativeimage.IsolateThread;
 import org.graalvm.nativeimage.c.function.CEntryPoint;
 import org.graalvm.nativeimage.c.type.CCharPointer;
 import org.graalvm.nativeimage.c.type.CConst;
 import org.graalvm.nativeimage.c.type.CTypeConversion;
+import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
@@ -74,7 +75,9 @@ public class TikaNativeMain {
             int maxLength,
             PDFParserConfig pdfConfig,
             OfficeParserConfig officeConfig,
-            TesseractOCRConfig tesseractConfig
+            TesseractOCRConfig tesseractConfig,
+            boolean asXML
+            // maybe replace with a single config class
     ) {
         try {
             final Path path = Paths.get(filePath);
@@ -82,10 +85,9 @@ public class TikaNativeMain {
             final InputStream stream = TikaInputStream.get(path, metadata);
 
             String result = parseToStringWithConfig(
-                    stream, metadata, maxLength, pdfConfig, officeConfig, tesseractConfig);
+                    stream, metadata, maxLength, pdfConfig, officeConfig, tesseractConfig, asXML);
             // No need to close the stream because parseToString does so
             return new StringResult(result, metadata);
-
         } catch (java.io.IOException e) {
             return new StringResult((byte) 1, "Could not open file: " + e.getMessage());
         } catch (TikaException e) {
@@ -104,7 +106,8 @@ public class TikaNativeMain {
             int maxLength,
             PDFParserConfig pdfConfig,
             OfficeParserConfig officeConfig,
-            TesseractOCRConfig tesseractConfig
+            TesseractOCRConfig tesseractConfig,
+            boolean asXML
     ) {
         try {
             final URL url = new URI(urlString).toURL();
@@ -112,7 +115,7 @@ public class TikaNativeMain {
             final TikaInputStream stream = TikaInputStream.get(url, metadata);
 
             String result = parseToStringWithConfig(
-                    stream, metadata, maxLength, pdfConfig, officeConfig, tesseractConfig);
+                    stream, metadata, maxLength, pdfConfig, officeConfig, tesseractConfig, asXML);
             // No need to close the stream because parseToString does so
             return new StringResult(result, metadata);
 
@@ -138,7 +141,8 @@ public class TikaNativeMain {
             int maxLength,
             PDFParserConfig pdfConfig,
             OfficeParserConfig officeConfig,
-            TesseractOCRConfig tesseractConfig
+            TesseractOCRConfig tesseractConfig,
+            boolean asXML
     ) {
         final Metadata metadata = new Metadata();
         final ByteBufferInputStream inStream = new ByteBufferInputStream(data);
@@ -146,7 +150,7 @@ public class TikaNativeMain {
 
         try {
             String result = parseToStringWithConfig(
-                    stream, metadata, maxLength, pdfConfig, officeConfig, tesseractConfig);
+                    stream, metadata, maxLength, pdfConfig, officeConfig, tesseractConfig, asXML);
             // No need to close the stream because parseToString does so
             return new StringResult(result, metadata);
         } catch (java.io.IOException e) {
@@ -156,16 +160,24 @@ public class TikaNativeMain {
         }
     }
 
-
     private static String parseToStringWithConfig(
             InputStream stream,
             Metadata metadata,
             int maxLength,
             PDFParserConfig pdfConfig,
             OfficeParserConfig officeConfig,
-            TesseractOCRConfig tesseractConfig
+            TesseractOCRConfig tesseractConfig,
+            boolean asXML
     ) throws IOException, TikaException {
-        final WriteOutContentHandler handler = new WriteOutContentHandler(maxLength);
+        ContentHandler handler;
+        ContentHandler handlerForParser;
+        if (asXML) {
+            handler = new WriteOutContentHandler(new ToXMLContentHandler(), maxLength);
+            handlerForParser = handler;
+        } else {
+            handler = new WriteOutContentHandler(maxLength);
+            handlerForParser = new BodyContentHandler(handler);
+        }
 
         try {
             final TikaConfig config = TikaConfig.getDefaultConfig();
@@ -177,8 +189,7 @@ public class TikaNativeMain {
             parsecontext.set(OfficeParserConfig.class, officeConfig);
             parsecontext.set(TesseractOCRConfig.class, tesseractConfig);
 
-            parser.parse(stream, new BodyContentHandler(handler), metadata, parsecontext);
-
+            parser.parse(stream, handlerForParser, metadata, parsecontext);
         } catch (SAXException e) {
             if (!WriteLimitReachedException.isWriteLimitReached(e)) {
                 // This should never happen with BodyContentHandler...
@@ -203,7 +214,8 @@ public class TikaNativeMain {
             String charsetName,
             PDFParserConfig pdfConfig,
             OfficeParserConfig officeConfig,
-            TesseractOCRConfig tesseractConfig
+            TesseractOCRConfig tesseractConfig,
+            boolean asXML
     ) {
         try {
 //            System.out.println("pdfConfig.isExtractInlineImages = " + pdfConfig.isExtractInlineImages());
@@ -218,7 +230,7 @@ public class TikaNativeMain {
             final Metadata metadata = new Metadata();
             final TikaInputStream stream = TikaInputStream.get(path, metadata);
 
-            return parse(stream, metadata, charsetName, pdfConfig, officeConfig, tesseractConfig);
+            return parse(stream, metadata, charsetName, pdfConfig, officeConfig, tesseractConfig, asXML);
 
         } catch (java.io.IOException e) {
             return new ReaderResult((byte) 1, "Could not open file: " + e.getMessage());
@@ -237,14 +249,15 @@ public class TikaNativeMain {
             String charsetName,
             PDFParserConfig pdfConfig,
             OfficeParserConfig officeConfig,
-            TesseractOCRConfig tesseractConfig
+            TesseractOCRConfig tesseractConfig,
+            boolean asXML
     ) {
         try {
             final URL url = new URI(urlString).toURL();
             final Metadata metadata = new Metadata();
             final TikaInputStream stream = TikaInputStream.get(url, metadata);
 
-            return parse(stream, metadata, charsetName, pdfConfig, officeConfig, tesseractConfig);
+            return parse(stream, metadata, charsetName, pdfConfig, officeConfig, tesseractConfig, asXML);
 
         } catch (MalformedURLException e) {
             return new ReaderResult((byte) 2, "Malformed URL error occurred " + e.getMessage());
@@ -267,7 +280,8 @@ public class TikaNativeMain {
             String charsetName,
             PDFParserConfig pdfConfig,
             OfficeParserConfig officeConfig,
-            TesseractOCRConfig tesseractConfig
+            TesseractOCRConfig tesseractConfig,
+            boolean asXML
     ) {
 
 
@@ -275,7 +289,7 @@ public class TikaNativeMain {
         final ByteBufferInputStream inStream = new ByteBufferInputStream(data);
         final TikaInputStream stream = TikaInputStream.get(inStream, new TemporaryResources(), metadata);
 
-        return parse(stream, metadata, charsetName, pdfConfig, officeConfig, tesseractConfig);
+        return parse(stream, metadata, charsetName, pdfConfig, officeConfig, tesseractConfig, asXML);
     }
 
     private static ReaderResult parse(
@@ -284,25 +298,28 @@ public class TikaNativeMain {
             String charsetName,
             PDFParserConfig pdfConfig,
             OfficeParserConfig officeConfig,
-            TesseractOCRConfig tesseractConfig
+            TesseractOCRConfig tesseractConfig,
+            boolean asXML
     ) {
         try {
 
             final TikaConfig config = TikaConfig.getDefaultConfig();
             final ParseContext parsecontext = new ParseContext();
             final Parser parser = new AutoDetectParser(config);
+            final Charset charset = Charset.forName(charsetName, StandardCharsets.UTF_8);
 
             parsecontext.set(Parser.class, parser);
             parsecontext.set(PDFParserConfig.class, pdfConfig);
             parsecontext.set(OfficeParserConfig.class, officeConfig);
             parsecontext.set(TesseractOCRConfig.class, tesseractConfig);
 
-            final Reader reader = new ParsingReader(parser, inputStream, metadata, parsecontext);
+            //final Reader reader = new org.apache.tika.parser.ParsingReader(parser, inputStream, metadata, parsecontext);
+            final Reader reader = new ParsingReader(parser, inputStream, metadata, parsecontext, asXML, charset.name());
 
             // Convert Reader which works with chars to ReaderInputStream which works with bytes
             ReaderInputStream readerInputStream = ReaderInputStream.builder()
                     .setReader(reader)
-                    .setCharset(Charset.forName(charsetName, StandardCharsets.UTF_8))
+                    .setCharset(charset)
                     .get();
 
             return new ReaderResult(readerInputStream, metadata);

@@ -36,6 +36,10 @@
                     "parameterTypes": []
                 },
                 {
+                    "name": "getMetadata",
+                    "parameterTypes": []
+                },
+                {
                     "name": "getReader",
                     "parameterTypes": []
                 },
@@ -45,10 +49,6 @@
                 },
                 {
                     "name": "isError",
-                    "parameterTypes": []
-                },
-                {
-                    "name": "getMetadata",
                     "parameterTypes": []
                 }
             ],
@@ -65,34 +65,19 @@
                     "parameterTypes": []
                 },
                 {
+                    "name": "getMetadata",
+                    "parameterTypes": []
+                },
+                {
                     "name": "getStatus",
                     "parameterTypes": []
                 },
                 {
                     "name": "isError",
                     "parameterTypes": []
-                },
-                {
-                    "name": "getMetadata",
-                    "parameterTypes": []
                 }
             ],
             "type": "ai.yobix.StringResult"
-        },
-        {
-            "methods": [
-                {
-                    "name": "getValues",
-                    "parameterTypes": [
-                        "java.lang.String"
-                    ]
-                },
-                {
-                    "name": "names",
-                    "parameterTypes": []
-                }
-            ],
-            "type": "org.apache.tika.metadata.Metadata"
         },
         {
             "methods": [
@@ -109,7 +94,8 @@
                         "java.lang.String",
                         "org.apache.tika.parser.pdf.PDFParserConfig",
                         "org.apache.tika.parser.microsoft.OfficeParserConfig",
-                        "org.apache.tika.parser.ocr.TesseractOCRConfig"
+                        "org.apache.tika.parser.ocr.TesseractOCRConfig",
+                        "boolean"
                     ]
                 },
                 {
@@ -119,7 +105,8 @@
                         "int",
                         "org.apache.tika.parser.pdf.PDFParserConfig",
                         "org.apache.tika.parser.microsoft.OfficeParserConfig",
-                        "org.apache.tika.parser.ocr.TesseractOCRConfig"
+                        "org.apache.tika.parser.ocr.TesseractOCRConfig",
+                        "boolean"
                     ]
                 },
                 {
@@ -129,7 +116,8 @@
                         "java.lang.String",
                         "org.apache.tika.parser.pdf.PDFParserConfig",
                         "org.apache.tika.parser.microsoft.OfficeParserConfig",
-                        "org.apache.tika.parser.ocr.TesseractOCRConfig"
+                        "org.apache.tika.parser.ocr.TesseractOCRConfig",
+                        "boolean"
                     ]
                 },
                 {
@@ -139,7 +127,8 @@
                         "int",
                         "org.apache.tika.parser.pdf.PDFParserConfig",
                         "org.apache.tika.parser.microsoft.OfficeParserConfig",
-                        "org.apache.tika.parser.ocr.TesseractOCRConfig"
+                        "org.apache.tika.parser.ocr.TesseractOCRConfig",
+                        "boolean"
                     ]
                 },
                 {
@@ -149,7 +138,8 @@
                         "java.lang.String",
                         "org.apache.tika.parser.pdf.PDFParserConfig",
                         "org.apache.tika.parser.microsoft.OfficeParserConfig",
-                        "org.apache.tika.parser.ocr.TesseractOCRConfig"
+                        "org.apache.tika.parser.ocr.TesseractOCRConfig",
+                        "boolean"
                     ]
                 },
                 {
@@ -159,7 +149,8 @@
                         "int",
                         "org.apache.tika.parser.pdf.PDFParserConfig",
                         "org.apache.tika.parser.microsoft.OfficeParserConfig",
-                        "org.apache.tika.parser.ocr.TesseractOCRConfig"
+                        "org.apache.tika.parser.ocr.TesseractOCRConfig",
+                        "boolean"
                     ]
                 }
             ],
@@ -740,6 +731,21 @@
                 }
             ],
             "type": "org.apache.commons.io.input.ReaderInputStream"
+        },
+        {
+            "methods": [
+                {
+                    "name": "getValues",
+                    "parameterTypes": [
+                        "java.lang.String"
+                    ]
+                },
+                {
+                    "name": "names",
+                    "parameterTypes": []
+                }
+            ],
+            "type": "org.apache.tika.metadata.Metadata"
         },
         {
             "methods": [

@@ -1,6 +1,6 @@
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity as cosine_sim
-
+from lxml import etree
 
 def cosine_similarity(text1, text2):
     """Calculate the cosine similarity between two texts."""
@@ -78,3 +78,20 @@ def calculate_similarity_percent(expected, current):
 
     # Return the similarity percentage
     return matches / total
+
+
+def extract_body_text(xml: str) -> str:
+    """
+    Extracts and returns plain text content from the <body> section of an XML
+    string.
+    """
+    try:
+        parser = etree.XMLParser(recover=True)
+        root = etree.fromstring(xml.encode(), parser=parser)
+        ns= {"ns": "http://www.w3.org/1999/xhtml"}
+        body = root.find(".//ns:body", namespaces=ns)
+        if body is None:
+            return ""
+        return "\n".join(body.itertext()).strip()
+    except ET.ParseError as e:
+        raise ValueError(f"Invalid XML input: {e}")

@@ -65,6 +65,7 @@ pub struct Extractor {
     pdf_config: PdfParserConfig,
     office_config: OfficeParserConfig,
     ocr_config: TesseractOcrConfig,
+    xml_output: bool,
 }
 
 impl Default for Extractor {
@@ -75,6 +76,7 @@ impl Default for Extractor {
             pdf_config: PdfParserConfig::default(),
             office_config: OfficeParserConfig::default(),
             ocr_config: TesseractOcrConfig::default(),
+            xml_output: false,
         }
     }
 }
@@ -117,6 +119,12 @@ impl Extractor {
         self
     }
 
+    /// Set the configuration for the parse as xml
+    pub fn set_xml_output(mut self, xml_output: bool) -> Self {
+        self.xml_output = xml_output;
+        self
+    }
+
     /// Extracts text from a file path. Returns a tuple with stream of the extracted text and metadata.
     /// the stream is decoded using the extractor's `encoding`
     pub fn extract_file(&self, file_path: &str) -> ExtractResult<(StreamReader, Metadata)> {
@@ -126,6 +134,7 @@ impl Extractor {
             &self.pdf_config,
             &self.office_config,
             &self.ocr_config,
+            self.xml_output,
         )
     }
 
@@ -138,6 +147,7 @@ impl Extractor {
             &self.pdf_config,
             &self.office_config,
             &self.ocr_config,
+            self.xml_output,
         )
     }
 
@@ -150,6 +160,7 @@ impl Extractor {
             &self.pdf_config,
             &self.office_config,
             &self.ocr_config,
+            self.xml_output,
         )
     }
 
@@ -162,6 +173,7 @@ impl Extractor {
             &self.pdf_config,
             &self.office_config,
             &self.ocr_config,
+            self.xml_output,
         )
     }
 
@@ -174,6 +186,7 @@ impl Extractor {
             &self.pdf_config,
             &self.office_config,
             &self.ocr_config,
+            self.xml_output,
         )
     }
 
@@ -186,8 +199,10 @@ impl Extractor {
             &self.pdf_config,
             &self.office_config,
             &self.ocr_config,
+            self.xml_output,
         )
     }
+
 }
 
 #[cfg(test)]
@@ -197,6 +212,7 @@ mod tests {
     use std::fs::File;
     use std::io::BufReader;
     use std::io::{self, Read};
+    use std::str;
 
     const TEST_FILE: &str = "README.md";
 
@@ -287,6 +303,22 @@ mod tests {
         let content = read_content_from_stream(reader);
 
         assert!(content.contains("Google"));
+        assert!(
+            metadata.len() > 0,
+            "Metadata should contain at least one entry"
+        );
+    }
+
+    #[test]
+    fn extract_file_to_xml_test() {
+        // Parse the files using extractous
+        let extractor = Extractor::new().set_xml_output(true);
+        let result = extractor.extract_file_to_string(TEST_FILE);
+        let (content, metadata) = result.unwrap();
+        assert!(
+            content.len() > 0,
+            "Metadata should contain at least one entry"
+        );
         assert!(
             metadata.len() > 0,
             "Metadata should contain at least one entry"

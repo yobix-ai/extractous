@@ -43,7 +43,10 @@ fn main() {
   let file_path = &args[1];
 
   // Extract the provided file content to a string
-  let extractor = Extractor::new();
+  let mut extractor = Extractor::new();
+  // if you need an xml
+  // extractor = extractor.set_xml_output(false);
+  // Extract text from a file
   let (content, metadata) = extractor.extract_file_to_string(file_path).unwrap();
   println!("{}", content);
   println!("{:?}", metadata);
@@ -128,7 +131,7 @@ installed on your system because some of the OCR tests will fail if no tesseract
 * `sudo apt install tesseract-ocr`
 * Install any language extensions you want. for example to install German and Arabic:
 * `sudo apt install tesseract-ocr-deu tesseract-ocr-ara`
-* On Mac 
+* On Mac
 * `brew install tesseract tesseract-lang`
 
 ### Building Extractous

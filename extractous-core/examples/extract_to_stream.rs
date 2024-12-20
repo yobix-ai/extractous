@@ -8,7 +8,7 @@ fn main() {
     let file_path = &args[1];
 
     // Extract the provided file content to a string
-    let extractor = Extractor::new();
+    let extractor = Extractor::new().set_xml_output(true);
     let (stream, _metadata) = extractor.extract_file(file_path).unwrap();
     // Extract url
     // let stream = extractor.extract_url("https://www.google.com/").unwrap();
