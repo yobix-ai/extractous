@@ -50,7 +50,7 @@ def test_extract_bytes_to_string(file_name, target_dist, metadata_dist):
         f"The metadata similarity is lower than expected. Current {percent_similarity}% | filename: {file_name}"
 
 @pytest.mark.parametrize("file_name, target_dist, metadata_dist", TEST_CASES)
-def test_extract_bytes_to_xml(file_name, target_dist, metadata_dist):
+def test_extract_bytes_to_string_as_xml(file_name, target_dist, metadata_dist):
     """Test the extraction from bytes of various file types."""
     original_filepath = f"../../test_files/documents/{file_name}"
     expected_result_filepath = f"../../test_files/expected_result/{file_name}.txt"
@@ -66,7 +66,7 @@ def test_extract_bytes_to_xml(file_name, target_dist, metadata_dist):
     file_bytes = read_file_to_bytearray(original_filepath)
 
     extractor = Extractor()
-    extractor = extractor.set_parse_string_as_xml(True)
+    extractor = extractor.set_xml_output(True)
     result_xml, metadata = extractor.extract_file_to_string(original_filepath)
     result_text = extract_body_text(result_xml)
 

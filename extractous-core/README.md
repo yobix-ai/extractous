@@ -45,7 +45,7 @@ fn main() {
   // Extract the provided file content to a string
   let mut extractor = Extractor::new();
   // if you need an xml
-  // extractor = extractor.set_parse_string_as_xml(false);
+  // extractor = extractor.set_xml_output(false);
   // Extract text from a file
   let (content, metadata) = extractor.extract_file_to_string(file_path).unwrap();
   println!("{}", content);
