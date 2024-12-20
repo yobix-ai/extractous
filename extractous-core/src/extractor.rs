@@ -65,7 +65,7 @@ pub struct Extractor {
     pdf_config: PdfParserConfig,
     office_config: OfficeParserConfig,
     ocr_config: TesseractOcrConfig,
-    parse_string_as_xml: bool,
+    xml_output: bool,
 }
 
 impl Default for Extractor {
@@ -76,7 +76,7 @@ impl Default for Extractor {
             pdf_config: PdfParserConfig::default(),
             office_config: OfficeParserConfig::default(),
             ocr_config: TesseractOcrConfig::default(),
-            parse_string_as_xml: false,
+            xml_output: false,
         }
     }
 }
@@ -120,8 +120,8 @@ impl Extractor {
     }
 
     /// Set the configuration for the parse as xml
-    pub fn set_parse_string_as_xml(mut self, parse_string_as_xml: bool) -> Self {
-        self.parse_string_as_xml = parse_string_as_xml;
+    pub fn set_xml_output(mut self, xml_output: bool) -> Self {
+        self.xml_output = xml_output;
         self
     }
 
@@ -134,6 +134,7 @@ impl Extractor {
             &self.pdf_config,
             &self.office_config,
             &self.ocr_config,
+            self.xml_output,
         )
     }
 
@@ -146,6 +147,7 @@ impl Extractor {
             &self.pdf_config,
             &self.office_config,
             &self.ocr_config,
+            self.xml_output,
         )
     }
 
@@ -158,6 +160,7 @@ impl Extractor {
             &self.pdf_config,
             &self.office_config,
             &self.ocr_config,
+            self.xml_output,
         )
     }
 
@@ -170,7 +173,7 @@ impl Extractor {
             &self.pdf_config,
             &self.office_config,
             &self.ocr_config,
-            self.parse_string_as_xml,
+            self.xml_output,
         )
     }
 
@@ -183,7 +186,7 @@ impl Extractor {
             &self.pdf_config,
             &self.office_config,
             &self.ocr_config,
-            self.parse_string_as_xml,
+            self.xml_output,
         )
     }
 
@@ -196,7 +199,7 @@ impl Extractor {
             &self.pdf_config,
             &self.office_config,
             &self.ocr_config,
-            self.parse_string_as_xml,
+            self.xml_output,
         )
     }
 
@@ -309,7 +312,7 @@ mod tests {
     #[test]
     fn extract_file_to_xml_test() {
         // Parse the files using extractous
-        let extractor = Extractor::new().set_parse_string_as_xml(true);
+        let extractor = Extractor::new().set_xml_output(true);
         let result = extractor.extract_file_to_string(TEST_FILE);
         let (content, metadata) = result.unwrap();
         assert!(

@@ -138,7 +138,7 @@ impl Extractor {
 
     /// Set the configuration for the parse as xml
     pub fn set_parse_string_as_xml(&self, parse_string_as_xml: bool) -> PyResult<Self> {
-        let inner = self.0.clone().set_parse_string_as_xml(parse_string_as_xml);
+        let inner = self.0.clone().set_xml_output(parse_string_as_xml);
         Ok(Self(inner))
     }
 

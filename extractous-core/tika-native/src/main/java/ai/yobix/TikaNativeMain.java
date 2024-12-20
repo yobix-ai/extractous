@@ -11,7 +11,6 @@ import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.AutoDetectParser;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.Parser;
-import org.apache.tika.parser.ParsingReader;
 import org.apache.tika.parser.microsoft.OfficeParserConfig;
 import org.apache.tika.parser.ocr.TesseractOCRConfig;
 import org.apache.tika.parser.pdf.PDFParserConfig;
@@ -215,7 +214,8 @@ public class TikaNativeMain {
             String charsetName,
             PDFParserConfig pdfConfig,
             OfficeParserConfig officeConfig,
-            TesseractOCRConfig tesseractConfig
+            TesseractOCRConfig tesseractConfig,
+            boolean asXML
     ) {
         try {
 //            System.out.println("pdfConfig.isExtractInlineImages = " + pdfConfig.isExtractInlineImages());
@@ -230,7 +230,7 @@ public class TikaNativeMain {
             final Metadata metadata = new Metadata();
             final TikaInputStream stream = TikaInputStream.get(path, metadata);
 
-            return parse(stream, metadata, charsetName, pdfConfig, officeConfig, tesseractConfig);
+            return parse(stream, metadata, charsetName, pdfConfig, officeConfig, tesseractConfig, asXML);
 
         } catch (java.io.IOException e) {
             return new ReaderResult((byte) 1, "Could not open file: " + e.getMessage());
@@ -249,14 +249,15 @@ public class TikaNativeMain {
             String charsetName,
             PDFParserConfig pdfConfig,
             OfficeParserConfig officeConfig,
-            TesseractOCRConfig tesseractConfig
+            TesseractOCRConfig tesseractConfig,
+            boolean asXML
     ) {
         try {
             final URL url = new URI(urlString).toURL();
             final Metadata metadata = new Metadata();
             final TikaInputStream stream = TikaInputStream.get(url, metadata);
 
-            return parse(stream, metadata, charsetName, pdfConfig, officeConfig, tesseractConfig);
+            return parse(stream, metadata, charsetName, pdfConfig, officeConfig, tesseractConfig, asXML);
 
         } catch (MalformedURLException e) {
             return new ReaderResult((byte) 2, "Malformed URL error occurred " + e.getMessage());
@@ -279,7 +280,8 @@ public class TikaNativeMain {
             String charsetName,
             PDFParserConfig pdfConfig,
             OfficeParserConfig officeConfig,
-            TesseractOCRConfig tesseractConfig
+            TesseractOCRConfig tesseractConfig,
+            boolean asXML
     ) {
 
 
@@ -287,7 +289,7 @@ public class TikaNativeMain {
         final ByteBufferInputStream inStream = new ByteBufferInputStream(data);
         final TikaInputStream stream = TikaInputStream.get(inStream, new TemporaryResources(), metadata);
 
-        return parse(stream, metadata, charsetName, pdfConfig, officeConfig, tesseractConfig);
+        return parse(stream, metadata, charsetName, pdfConfig, officeConfig, tesseractConfig, asXML);
     }
 
     private static ReaderResult parse(
@@ -296,25 +298,28 @@ public class TikaNativeMain {
             String charsetName,
             PDFParserConfig pdfConfig,
             OfficeParserConfig officeConfig,
-            TesseractOCRConfig tesseractConfig
+            TesseractOCRConfig tesseractConfig,
+            boolean asXML
     ) {
         try {
 
             final TikaConfig config = TikaConfig.getDefaultConfig();
             final ParseContext parsecontext = new ParseContext();
             final Parser parser = new AutoDetectParser(config);
+            final Charset charset = Charset.forName(charsetName, StandardCharsets.UTF_8);
 
             parsecontext.set(Parser.class, parser);
             parsecontext.set(PDFParserConfig.class, pdfConfig);
             parsecontext.set(OfficeParserConfig.class, officeConfig);
             parsecontext.set(TesseractOCRConfig.class, tesseractConfig);
 
-            final Reader reader = new ParsingReader(parser, inputStream, metadata, parsecontext);
+            //final Reader reader = new org.apache.tika.parser.ParsingReader(parser, inputStream, metadata, parsecontext);
+            final Reader reader = new ParsingReader(parser, inputStream, metadata, parsecontext, asXML, charset.name());
 
             // Convert Reader which works with chars to ReaderInputStream which works with bytes
             ReaderInputStream readerInputStream = ReaderInputStream.builder()
                     .setReader(reader)
-                    .setCharset(Charset.forName(charsetName, StandardCharsets.UTF_8))
+                    .setCharset(charset)
                     .get();
 
             return new ReaderResult(readerInputStream, metadata);

@@ -55,7 +55,7 @@ fn extract_p_tag_content(xml: &str) -> String {
 //#[test_case("eng-ocr.pdf", 0.9; "Test eng-ocr PDF file")]
 fn test_extract_file_to_xml(file_name: &str, target_dist: f64) {
     let extractor = Extractor::new().set_extract_string_max_length(1000000)
-        .set_parse_string_as_xml(true);
+        .set_xml_output(true);
     // extract file with extractor
     let (extracted_xml, extracted_metadata) = extractor
         .extract_file_to_string(&format!("../test_files/documents/{}", file_name))

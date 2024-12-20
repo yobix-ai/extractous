@@ -103,7 +103,8 @@
                         "java.lang.String",
                         "org.apache.tika.parser.pdf.PDFParserConfig",
                         "org.apache.tika.parser.microsoft.OfficeParserConfig",
-                        "org.apache.tika.parser.ocr.TesseractOCRConfig"
+                        "org.apache.tika.parser.ocr.TesseractOCRConfig",
+                        "boolean"
                     ]
                 },
                 {
@@ -124,7 +125,8 @@
                         "java.lang.String",
                         "org.apache.tika.parser.pdf.PDFParserConfig",
                         "org.apache.tika.parser.microsoft.OfficeParserConfig",
-                        "org.apache.tika.parser.ocr.TesseractOCRConfig"
+                        "org.apache.tika.parser.ocr.TesseractOCRConfig",
+                        "boolean"
                     ]
                 },
                 {
@@ -145,7 +147,8 @@
                         "java.lang.String",
                         "org.apache.tika.parser.pdf.PDFParserConfig",
                         "org.apache.tika.parser.microsoft.OfficeParserConfig",
-                        "org.apache.tika.parser.ocr.TesseractOCRConfig"
+                        "org.apache.tika.parser.ocr.TesseractOCRConfig",
+                        "boolean"
                     ]
                 },
                 {
