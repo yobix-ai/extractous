@@ -86,6 +86,9 @@ print(metadata)
 from extractous import Extractor
 
 extractor = Extractor()
+# if you need an xml
+# extractor = extractor.set_xml_output(True)
+
 # for file
 reader, metadata = extractor.extract_file("tests/quarkus.pdf")
 # for url
@@ -128,7 +131,7 @@ fn main() {
     // Create a new extractor. Note it uses a consuming builder pattern
     let mut extractor = Extractor::new().set_extract_string_max_length(1000);
     // if you need an xml
-    // extractor = extractor.set_parse_string_as_xml(false);
+    // extractor = extractor.set_xml_output(true);
 
     // Extract text from a file
     let (text, metadata) = extractor.extract_file_to_string("README.md").unwrap();
@@ -150,6 +153,9 @@ fn main() {
 
     // Extract the provided file content to a string
     let extractor = Extractor::new();
+    // if you need an xml
+    // extractor = extractor.set_xml_output(true);
+
     let (stream, metadata) = extractor.extract_file(file_path).unwrap();
     // Extract url
     // let (stream, metadata) = extractor.extract_url("https://www.google.com/").unwrap();
