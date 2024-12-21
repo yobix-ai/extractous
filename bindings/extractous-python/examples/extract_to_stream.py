@@ -8,8 +8,8 @@ from extractous import Extractor, PdfOcrStrategy, PdfParserConfig
 def extract_to_stream(file_path: str):
 
     # Extract the file
-    extractor = Extractor()
-    reader = extractor.extract_file(in_file)
+    extractor = Extractor().set_xml_output(True)
+    reader, metadata = extractor.extract_file(in_file)
 
     buffer = bytearray(4096 * 4096)
     while True:
