@@ -20,7 +20,7 @@
         },
         {
             "locales": [
-                "en-GB"
+                "en-US"
             ],
             "name": "sun.awt.resources.awtosx"
         }
@@ -159,31 +159,6 @@
         {
             "methods": [
                 {
-                    "name": "handleNativeNotification",
-                    "parameterTypes": [
-                        "int"
-                    ]
-                }
-            ],
-            "type": "com.apple.eawt._AppEventHandler"
-        },
-        {
-            "methods": [
-                {
-                    "name": "initMenuStates",
-                    "parameterTypes": [
-                        "boolean",
-                        "boolean",
-                        "boolean",
-                        "boolean"
-                    ]
-                }
-            ],
-            "type": "com.apple.eawt._AppMenuBarHandler"
-        },
-        {
-            "methods": [
-                {
                     "name": "acceptPixels",
                     "parameterTypes": [
                         "int",
@@ -299,11 +274,6 @@
             "type": "java.awt.AlphaComposite"
         },
         {
-            "fields": [
-                {
-                    "name": "value"
-                }
-            ],
             "methods": [
                 {
                     "name": "getRGB",
@@ -322,20 +292,6 @@
                 }
             ],
             "type": "java.awt.Dimension"
-        },
-        {
-            "methods": [
-                {
-                    "name": "<init>",
-                    "parameterTypes": [
-                        "int",
-                        "int",
-                        "int",
-                        "int"
-                    ]
-                }
-            ],
-            "type": "java.awt.DisplayMode"
         },
         {
             "methods": [
@@ -404,15 +360,6 @@
             "type": "java.awt.Toolkit"
         },
         {
-            "methods": [
-                {
-                    "name": "getButtonDownMasks",
-                    "parameterTypes": []
-                }
-            ],
-            "type": "java.awt.event.InputEvent"
-        },
-        {
             "fields": [
                 {
                     "name": "m00"
@@ -456,20 +403,6 @@
                 }
             ],
             "type": "java.awt.geom.Path2D$Float"
-        },
-        {
-            "methods": [
-                {
-                    "name": "<init>",
-                    "parameterTypes": [
-                        "double",
-                        "double",
-                        "double",
-                        "double"
-                    ]
-                }
-            ],
-            "type": "java.awt.geom.Rectangle2D$Double"
         },
         {
             "fields": [
@@ -899,19 +832,6 @@
                 }
             ],
             "type": "org.apache.tika.parser.pdf.PDFParserConfig"
-        },
-        {
-            "methods": [
-                {
-                    "name": "notifyToolkitThreadBusy",
-                    "parameterTypes": []
-                },
-                {
-                    "name": "notifyToolkitThreadFree",
-                    "parameterTypes": []
-                }
-            ],
-            "type": "sun.awt.AWTAutoShutdown"
         },
         {
             "fields": [
@@ -1587,19 +1507,13 @@
             "type": "[Lorg.openxmlformats.schemas.drawingml.x2006.main.CTNonVisualDrawingProps;"
         },
         {
+            "type": "[Lorg.openxmlformats.schemas.drawingml.x2006.main.CTTextCharacterProperties;"
+        },
+        {
             "type": "[Lorg.openxmlformats.schemas.drawingml.x2006.picture.CTPicture;"
         },
         {
             "type": "[Lorg.openxmlformats.schemas.presentationml.x2006.main.CTGroupShape;"
-        },
-        {
-            "methods": [
-                {
-                    "name": "<init>",
-                    "parameterTypes": []
-                }
-            ],
-            "type": "apple.security.AppleProvider"
         },
         {
             "methods": [
@@ -1618,6 +1532,15 @@
                 }
             ],
             "type": "com.drew.metadata.exif.ExifSubIFDDirectory"
+        },
+        {
+            "methods": [
+                {
+                    "name": "<init>",
+                    "parameterTypes": []
+                }
+            ],
+            "type": "com.fasterxml.jackson.databind.ext.Java7SupportImpl"
         },
         {
             "type": "com.github.jaiimageio.impl.common.PackageUtil"
@@ -1764,6 +1687,24 @@
             "type": "com.sun.crypto.provider.TlsMasterSecretGenerator"
         },
         {
+            "methods": [
+                {
+                    "name": "<init>",
+                    "parameterTypes": []
+                }
+            ],
+            "type": "com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl"
+        },
+        {
+            "methods": [
+                {
+                    "name": "<init>",
+                    "parameterTypes": []
+                }
+            ],
+            "type": "com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl"
+        },
+        {
             "type": "java.lang.Enum"
         },
         {
@@ -1838,6 +1779,14 @@
         {
             "fields": [
                 {
+                    "name": "pair"
+                }
+            ],
+            "type": "java.util.concurrent.atomic.AtomicMarkableReference"
+        },
+        {
+            "fields": [
+                {
                     "name": "base"
                 },
                 {
@@ -1885,6 +1834,9 @@
         },
         {
             "type": "jdk.internal.misc.Unsafe"
+        },
+        {
+            "type": "org.apache.commons.logging.LogFactory"
         },
         {
             "methods": [
@@ -1977,6 +1929,18 @@
             "type": "org.apache.jempbox.xmp.XMPSchemaRightsManagement"
         },
         {
+            "methods": [
+                {
+                    "name": "<init>",
+                    "parameterTypes": [
+                        "org.w3c.dom.Element",
+                        "java.lang.String"
+                    ]
+                }
+            ],
+            "type": "org.apache.jempbox.xmp.pdfa.XMPSchemaPDFAId"
+        },
+        {
             "type": "org.apache.logging.log4j.Logger"
         },
         {
@@ -2046,6 +2010,15 @@
                 }
             ],
             "type": "org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationWidget"
+        },
+        {
+            "methods": [
+                {
+                    "name": "<init>",
+                    "parameterTypes": []
+                }
+            ],
+            "type": "org.apache.tika.detect.MatroskaDetector"
         },
         {
             "methods": [
@@ -2173,6 +2146,26 @@
         {
             "allPublicFields": true,
             "type": "org.apache.tika.metadata.TikaCoreProperties"
+        },
+        {
+            "allDeclaredFields": true,
+            "type": "org.apache.tika.parser.CompositeParser"
+        },
+        {
+            "allDeclaredFields": true,
+            "methods": [
+                {
+                    "name": "<init>",
+                    "parameterTypes": [
+                        "org.apache.tika.mime.MediaTypeRegistry",
+                        "org.apache.tika.config.ServiceLoader",
+                        "java.util.Collection",
+                        "org.apache.tika.detect.EncodingDetector",
+                        "org.apache.tika.renderer.Renderer"
+                    ]
+                }
+            ],
+            "type": "org.apache.tika.parser.DefaultParser"
         },
         {
             "methods": [
@@ -2326,6 +2319,15 @@
                 }
             ],
             "type": "org.apache.tika.parser.html.HtmlParser"
+        },
+        {
+            "methods": [
+                {
+                    "name": "<init>",
+                    "parameterTypes": []
+                }
+            ],
+            "type": "org.apache.tika.parser.html.JSoupParser"
         },
         {
             "methods": [
@@ -2605,6 +2607,15 @@
                 }
             ],
             "type": "org.apache.tika.parser.microsoft.pst.OutlookPSTParser"
+        },
+        {
+            "methods": [
+                {
+                    "name": "<init>",
+                    "parameterTypes": []
+                }
+            ],
+            "type": "org.apache.tika.parser.microsoft.pst.PSTMailItemParser"
         },
         {
             "methods": [
@@ -3134,9 +3145,6 @@
                 }
             ],
             "type": "org.openxmlformats.schemas.drawingml.x2006.main.impl.CTTextBodyImpl"
-        },
-        {
-            "type": "org.openxmlformats.schemas.drawingml.x2006.main.CTTextCharacterProperties[]"
         },
         {
             "methods": [
@@ -4850,6 +4858,22 @@
             "type": "sun.java2d.marlin.DMarlinRenderingEngine"
         },
         {
+            "fields": [
+                {
+                    "name": "theUnsafe"
+                }
+            ],
+            "methods": [
+                {
+                    "name": "invokeCleaner",
+                    "parameterTypes": [
+                        "java.nio.ByteBuffer"
+                    ]
+                }
+            ],
+            "type": "sun.misc.Unsafe"
+        },
+        {
             "methods": [
                 {
                     "name": "<init>",
@@ -5331,6 +5355,9 @@
             "glob": "commons-logging.properties"
         },
         {
+            "glob": "custom-mimetypes.xml"
+        },
+        {
             "glob": "junit-platform.properties"
         },
         {
@@ -5353,6 +5380,9 @@
         },
         {
             "glob": "org/apache/fontbox/cmap/**"
+        },
+        {
+            "glob": "org/apache/fontbox/cmap/Identity-H"
         },
         {
             "glob": "org/apache/pdfbox/resources/afm/Courier-Bold.afm"
@@ -5928,13 +5958,16 @@
             "glob": "org/apache/tika/parser/html/StandardCharsets_unsupported_by_IANA.txt"
         },
         {
+            "glob": "org/apache/tika/parser/html/self-closeable-tags.txt"
+        },
+        {
             "glob": "org/apache/xerces/impl/msg/SAXMessages.properties"
         },
         {
             "glob": "org/apache/xerces/impl/msg/SAXMessages_en.properties"
         },
         {
-            "glob": "org/apache/xerces/impl/msg/SAXMessages_en_GB.properties"
+            "glob": "org/apache/xerces/impl/msg/SAXMessages_en_US.properties"
         },
         {
             "glob": "org/apache/xmlbeans/impl/regex/message.properties"
@@ -5943,7 +5976,7 @@
             "glob": "org/apache/xmlbeans/impl/regex/message_en.properties"
         },
         {
-            "glob": "org/apache/xmlbeans/impl/regex/message_en_GB.properties"
+            "glob": "org/apache/xmlbeans/impl/regex/message_en_US.properties"
         },
         {
             "glob": "org/apache/xmlbeans/metadata/system/sXMLCONFIG/index.xsb"
@@ -5994,7 +6027,7 @@
             "module": "java.desktop"
         },
         {
-            "glob": "sun/awt/resources/awt_en_GB.properties",
+            "glob": "sun/awt/resources/awt_en_US.properties",
             "module": "java.desktop"
         },
         {
@@ -6002,7 +6035,7 @@
             "module": "java.desktop"
         },
         {
-            "glob": "sun/awt/resources/awtosx_en_GB.properties",
+            "glob": "sun/awt/resources/awtosx_en_US.properties",
             "module": "java.desktop"
         },
         {

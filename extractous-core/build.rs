@@ -31,37 +31,23 @@ fn main() {
     //println!("cargo:warning=out_dir: {}", out_dir.display());
     //println!("cargo:warning=tika_native_dir: {:?}", tika_native_dir);
     let tika_native_dir = out_dir.join("tika-native");
-    let mut need_build = false;
-    if is_dir_updated(&tika_native_source_dir, &tika_native_dir) {
+    let native_compile_dir = tika_native_dir.join("build/native/nativeCompile");
+    if is_dir_updated(&tika_native_source_dir, &tika_native_dir)
+        || !tika_native_dir.join(BUILT_STAMP).is_file()
+    {
         println!("Lib tika_native files were updated");
         fs_extra::dir::remove(&libs_out_dir).ok();
         fs_extra::dir::remove(&tika_native_dir).ok();
-        need_build = true;
-        // Launch the gradle build
-    } else {
-        println!("Lib tika_native files were not updated");
-    }
-
-    // Try to find already built libs
-    match find_already_built_libs(&out_dir) {
-        Some(libs_dir) => {
-            // ignore if libs_dir/.. is the same as out_dir
-            if out_dir.join("libs") != libs_dir {
-                // If the libs are already built, copy them to the output directory
-                copy_build_artifacts(&libs_dir, vec![&libs_out_dir], false);
-            }
-        }
-        None => { need_build = true; }
-    }
-
-    // Launch the gradle build
-    if need_build {
         gradle_build(
             &tika_native_source_dir,
             &out_dir,
             &libs_out_dir,
             &python_bind_dir,
         );
+    } else {
+        // Copy from this OUT_DIR's last Gradle build.
+        println!("Lib tika_native files were not updated");
+        copy_build_artifacts(&native_compile_dir, vec![&libs_out_dir], true);
     }
 
     // Tell cargo to look for shared libraries in the specified directory
@@ -76,35 +62,9 @@ fn main() {
     println!("cargo:rustc-link-lib=dylib={}", lib_tika_name);
 }
 
-/// Searches for directories two levels up from `out_dir` and checks if any of them
-/// have two subdirectories: "libs" and "tika-native".
-fn find_already_built_libs(out_dir: &Path) -> Option<PathBuf> {
-    // Traverse two levels up going to the build dir (target/debug/build)
-    if let Some(parent_dir) = out_dir.parent().and_then(|p| p.parent()) {
-        // Iterate over the entries in (target/debug/build)
-        if let Ok(entries) = fs::read_dir(parent_dir) {
-            for entry in entries.flatten() {
-                let path = entry.path();
-                // Check if the current entry is a directory
-                if path.is_dir() {
-                    // Get the directory name as a string and check if it starts with "extractous-"
-                    if let Some(dir_name) = path.file_name().and_then(|name| name.to_str()) {
-                        if dir_name.starts_with("extractous-") {
-                            // Check if both "libs" and "tika-native" exist in this directory
-                            let libs_dir = path.join("out").join("libs");
-                            let tika_native_dir = path.join("out").join("tika-native");
-
-                            if libs_dir.is_dir() && tika_native_dir.is_dir() {
-                                return Some(libs_dir);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    None
-}
+/// Written into the OUT_DIR's `tika-native` dir once Gradle has built the libs
+/// and they are copied, so an interrupted or failed build runs Gradle again.
+const BUILT_STAMP: &str = "nativeCompile.done";
 
 fn is_dir_updated(src: &Path, dest: &Path) -> bool {
     for entry in WalkDir::new(src).into_iter().filter_map(|e| e.ok()) {
@@ -176,13 +136,17 @@ fn gradle_build(
     };
 
     // Launch the gradle build
-    Command::new(gradlew)
+    let status = Command::new(gradlew)
         .current_dir(&tika_native_dir)
         .arg("--no-daemon")
         .arg("nativeCompile")
         .env("JAVA_HOME", graalvm_home)
         .status()
-        .expect("Failed to build tika-native");
+        .expect("Failed to run Gradle for tika-native");
+    assert!(
+        status.success(),
+        "Gradle failed to build tika-native ({status})"
+    );
 
     // Decide where to copy the graalvm build artifacts
     let mut copy_to_dirs = vec![libs_out_dir];
@@ -196,6 +160,7 @@ fn gradle_build(
     // Copy the build artifacts to the specified directories
     let build_path = tika_native_dir.join("build/native/nativeCompile");
     copy_build_artifacts(&build_path, copy_to_dirs, true);
+    fs::write(tika_native_dir.join(BUILT_STAMP), "").expect("Failed to write the build stamp");
 
     println!("Successfully built libs 🚀");
 }

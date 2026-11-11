@@ -4,7 +4,7 @@ plugins {
 }
 
 
-def tikaVersion = "2.9.2"
+def tikaVersion = "3.3.3"
 def numThreads = Runtime.getRuntime().availableProcessors()
 def currentOs = org.gradle.internal.os.OperatingSystem.current()
 
@@ -44,7 +44,6 @@ dependencies {
     implementation "org.apache.tika:tika-parser-cad-module:$tikaVersion"
     implementation "org.apache.tika:tika-parser-crypto-module:$tikaVersion"
     implementation "org.apache.tika:tika-parser-font-module:$tikaVersion"
-    implementation "org.apache.tika:tika-parser-html-commons:$tikaVersion"
     implementation "org.apache.tika:tika-parser-image-module:$tikaVersion"
     implementation "org.apache.tika:tika-parser-mail-module:$tikaVersion"
     implementation "org.apache.tika:tika-parser-miscoffice-module:$tikaVersion"
@@ -81,7 +80,10 @@ graalvmNative {
                     "--enable-https", // Very important https working
                     "-O3",
                     "--parallelism=$numThreads",
-                    "-march=compatibility" // VERY IMPORTANT to use compatibility flag. If not the libs will use the cpu arch of the build machine and will notwork on other CPUs if distributed
+                    "-march=compatibility", // VERY IMPORTANT to use compatibility flag. If not the libs will use the cpu arch of the build machine and will notwork on other CPUs if distributed
+                    // Angus Activation's feature registers the mailcap handlers it finds, and the only ones on the
+                    // classpath are Bouncy Castle's for jakarta.mail, which is not: the build fails on them.
+                    "-Dangus.activation.native-image.enable=false"
             )
             jvmArgs.add('-Djava.awt.headless=true')
             requiredVersion = '23' // The minimal GraalVM version, can be `MAJOR`, `MAJOR.MINOR` or `MAJOR.MINOR.PATCH`
